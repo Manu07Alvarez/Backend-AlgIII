@@ -1,33 +1,69 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+const bcrypt  = require("bcryptjs");
 
-// datos de usuarios  en memoria (sin base de datos)
+// Registrar usuario (temporal, sin base de datos)
+async function registrarUsuarios(req, res) {
+    const { nombre, contraseña, correo } = req.body;
 
-let usuarios = [
-    {id: 1, nombre: "admin" , contraseña:"$2a$10$WqU7Ff2FwUl7B0nI2dJveuvP5KtV6lsXj01lF.Su3v2rYPxyTe8e6"}
-];
-
-// obtener lista de usuarios (temporal)
-
-const obtenerusuarios = (req, res) => {
-    res.json(usuarios);
-}
-
-const registrarusurios = (req, res) => {
-    const {nombre, contraseña } = req.body;
-    
-    if (!nombre || !contraseña) {
-        return res.status(400).json({ mensaje: "Faltan datos"});
+    if (!nombre || !contraseña || !correo) {
+        return res.status(400).json({ mensaje: "Nombre, Correo y contraseña son requeridos" });
     }
 
-    const nuevousuario = {
-        id: usuarios.length + 1,
-        nombre,
-        contraseña
-    };
+    // Verificar si el usuario ya existe
+    db.query ("SELECT * FROM usuarios WHERE nombre = ?", [nombre], (err, results) => {
+        if (err) return res.status(500).json({ mensaje: "Errar al "})
+    })
 
-    usuarios.push(nuevousuario);
-    res.status(201).json({mensaje : "Usuario registrado", usuario: nuevousuario});
+    // Cifrar la contraseña
+    try {
+        const hashedPassword = await bcrypt.hash(contraseña, 8);
+        const nuevoUsuario = { id: usuarios.length + 1, nombre, correo, contraseña: hashedPassword };
+        usuarios.push(nuevoUsuario);
+
+        res.json({ mensaje: "Usuario registrado exitosamente", usuario: nuevoUsuario });
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error al registrar usuario" });
+    }
+}
+
+// Login de usuario
+const loginUsuario = (req, res) => {
+    const { nombre, contraseña } = req.body;
+    const usuario = usuarios.find(u => u.nombre === nombre);
+
+    if (!usuario) {
+        return res.status(400).json({ mensaje: "Usuario no encontrado" });
+    }
+
+    console.log("Contraseña ingresada:", contraseña);
+    console.log("Contraseña en BD:", usuario.contraseña);
+
+    bcrypt.compare(contraseña, usuario.contraseña, (err, isMatch) => {
+        if (err) return res.status(500).json({ mensaje: "Error al verificar la contraseña" });
+        if (!isMatch) return res.status(400).json({ mensaje: "Contraseña incorrecta" });
+    });
 };
 
-module.exports = { obtenerusuarios, registrarusurios};
+
+// Obtener lista de usuarios
+const obtenerUsuarios = (req, res) => {
+    res.json(usuarios);
+};
+
+const recuperarUsuario = (req,res) => {
+    const{nombre, correo} = req.body;
+
+    const usuario = usuarios.find(u => u.nombre === nombre && u.correo === correo);
+
+    if (!usuario){
+        return res.status(404).json({mensaje: "usuario o correo incorrecto"});
+    }
+
+    res.json({mensaje: "se ha enviado un enlace de recuperacion en su correo electronico"});
+};
+
+module.exports = { 
+    obtenerUsuarios,
+    registrarUsuarios,
+    loginUsuario,
+    recuperarUsuario
+  };

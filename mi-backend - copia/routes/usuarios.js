@@ -1,12 +1,18 @@
-const express = require("express");
+const express = require ("express");
 const router = express.Router();
-const { registrarUsuarios, loginUsuario, obtenerUsuarios} = require("../controllers/usuariosControllers");
 
-//rutas
-router.post("/registrar", registrarUsuarios);
+const {RegistrarUsuarios, LoginUsuario, ObtenerUsuarios, ActualizarUsuario, EliminarUsuario} = require("../controllers/usuariosControllers");
 
-router.post("/login", loginUsuario);
+// rutas para registrar, iniciar, obtener, actualiazar y eliminar usuarios
 
-router.get("/usuarios", obtenerUsuarios);
+router.post("/Registrar", RegistrarUsuarios);
+
+router.post("/Login", LoginUsuario);
+
+router.get("/Obtener", ObtenerUsuarios);
+
+router.put("/Actualizar/:id", ActualizarUsuario);
+
+router.delete("/Eliminar/:id", EliminarUsuario);
 
 module.exports = router;

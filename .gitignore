@@ -14,7 +14,7 @@ coverage
 
 # Benchmarking
 benchmarks/graphs
-
+generated/prisma
 # Builds
 dist
 

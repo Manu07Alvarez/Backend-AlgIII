@@ -15,21 +15,21 @@ datasource db {
 }
 
 model Usuario {
-  id              Int      @id @default(autoincrement())
-  nombre_apellido String
-  email           String   @unique
-  contraseña     String
-  rol             Rol      @default(USUARIO)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id              Int       @id @default(autoincrement())
+  nombre_apellido String?
+  email           String    @unique
+  contraseña      String
+  rol             Rol?      @default(USUARIO)
+  createdAt       DateTime? @default(now())
+  updatedAt       DateTime? @updatedAt
 
   Post Post[]
 }
 
 model Post {
   id        Int      @id @default(autoincrement())
-  titulo     String
-  contenido   String
+  titulo    String
+  contenido String
   published Boolean  @default(false)
   autor     Usuario  @relation(fields: [autorId], references: [id])
   autorId   Int

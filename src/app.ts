@@ -1,10 +1,8 @@
-import express, {Request, Response } from "express";
-
+import express from "express";
+import userRoutes from './routes/UserRoutes';
 const app = express();
 
-app.get("/", (req: Request, res: Response) => {
-    res.send("Hello World");
-});
+app.use('/api/user', userRoutes);
 
 app.listen(3000, () => {
     console.log('Listening on port 3000');

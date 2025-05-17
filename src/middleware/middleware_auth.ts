@@ -4,7 +4,7 @@ const cookie = require ("cookie");
 
 //REVISION: fijate de usar la libreria ts-pattern para hacer validaciones de los datos que te llegan en el body
 // Ya que es mas limpio y podes definir los parametros. (Ya te la descargue a la libreria).
-export const veryfylogin = (req : Request, res: Response, next: NextFunction) => {
+export const veryfylogin = (req : Request, res: Response) => {
     // revisar si la peticion contiene un email y un password
     const [email, contrasena] = req.body;
     if (email || contrasena) {

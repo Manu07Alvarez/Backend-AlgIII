@@ -11,7 +11,8 @@ export class UserRepository {
   async findByEmail(email: string): Promise<Partial<Usuario> | null> {
     return await this.user.findUnique({
       select: { 
-        email: true, 
+        id: true,
+        nombre_apellido: true,
         contraseña: true,
       },
       where: { email }

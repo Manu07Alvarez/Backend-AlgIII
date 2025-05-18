@@ -1,19 +1,24 @@
 import { UserRepository as User } from '../repositories/UserRepository';
 import { Usuario } from '../../generated/prisma/client';
 import { SignJWT, generateSecret } from 'jose';
+import { compare } from 'bcrypt-ts';
 export class UserService { 
 
   constructor(
     private readonly userRepository: User
   ) {}
 
-  async login (data: Usuario): Promise<string> {
-    const user = await this.userRepository.findByEmail(data.email);
+  async login (email: string, contraseña : string): Promise<string> {
+    const user = await this.userRepository.findByEmail(email);
     if (!user) {
       throw new Error('User not found');
     }
+    const contraseñaMatch = await compare(contraseña, user.contraseña as string);
+    if (!contraseñaMatch) {
+      throw new Error('Invalid password');
+    }
     const secret = await generateSecret('HS256');
-    return await new SignJWT({ id: user.id })
+    return await new SignJWT({ id: user.id, nombre_apellido: user.nombre_apellido })
           .setProtectedHeader({ alg: 'HS256' })
           .setIssuedAt()
           .setExpirationTime('2h')
@@ -28,7 +33,7 @@ export class UserService {
     return user;
   }
 
-  async signUp(data: Usuario): Promise<boolean> {
+  async register(data: Usuario): Promise<boolean> {
     const user =  await this.userRepository.create(data);
     if (!user) {
       throw new Error('User not created');

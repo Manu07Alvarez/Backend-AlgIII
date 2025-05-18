@@ -3,13 +3,13 @@ import { veryfylogin } from '../middleware/middleware_auth'
 
 const router = Router()
 
-router.use((req: Request, res: Response, next: NextFunction) => {
+/**router.use((req: Request, res: Response, next: NextFunction) => {
   const respon = veryfylogin
   if (res.status(201) === respon){
     res.send(veryfylogin)
   }
   next()
-})
+}) **/
 
 router.route('/:id')
 .get((req: Request, res: Response) => {

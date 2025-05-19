@@ -1,13 +1,13 @@
-import { Prisma, PrismaClient, Usuario} from '../../generated/prisma/client';
-
+import { PrismaClient, Usuario } from '../../generated/prisma/client';
+import { validateRepo } from '../decorators/errors/errors';
 export class UserRepository {
 
   constructor(
     private readonly user: PrismaClient['usuario'],
   ) {}
 
-  
 
+  @validateRepo
   async findByEmail(email: string): Promise<Partial<Usuario> | null> {
     return await this.user.findUnique({
       select: { 
@@ -19,22 +19,18 @@ export class UserRepository {
     })
   }
 
+  @validateRepo
   async findById(id: number): Promise<Partial<Usuario> | null> {
     return await this.user.findUnique({
       omit: { contraseña: true },
       where: { id }
     })
   }
+
+  @validateRepo
   async create(data: Usuario): Promise<void> {
-    try {
-      await this.user.create({
-        data
-      })
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        console.error("ERROR 💥" + error.code + error.message);
-        throw new Error("ERROR 💥" + error.code + error.message);
-      }
-    }  
+    await this.user.create({
+      data
+    })
   }
 }

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+/**import { Request, Response, NextFunction } from "express";
 const jwt  = require ("jsonwebtoken");
 const cookie = require ("cookie");
 
@@ -21,3 +21,4 @@ export const veryfylogin = (req : Request, res: Response) => {
         
     }
 }
+**/

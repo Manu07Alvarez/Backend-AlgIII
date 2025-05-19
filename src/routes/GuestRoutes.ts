@@ -1,17 +1,16 @@
+
 import { Request, Router, Response } from 'express';
+import { createUserController } from '../utils/factories/UserFactory';
 
 const router = Router();
+const userController = createUserController();
 
-router.route('/guest')
-.get((req: Request, res: Response) => {
-  res.send('GET guest')
-})
-.post((req: Request, res: Response) => {
-  res.send('POST guest')
-})
-.put((req: Request, res: Response) => {
-  res.send('PUT guest')
-})
-.delete((req: Request, res: Response) => {
-  res.send('DELETE guest')
-})
+router.get('/', (req: Request, res: Response) => {
+  res.send('GET guest');
+});
+
+router.post('/register', (req: Request, res: Response) => {
+  userController.register(req, res);
+});
+
+export default router

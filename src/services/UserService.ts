@@ -1,11 +1,12 @@
-import { UserRepository as User } from '../repositories/UserRepository';
+import { UserRepository } from '../repositories/UserRepository';
 import { Usuario } from '../../generated/prisma/client';
 import { SignJWT, generateSecret } from 'jose';
 import { compare } from 'bcrypt-ts';
-export class UserService { 
+import { IUserService } from './UserService.Interface';
+export class UserService implements IUserService { 
 
   constructor(
-    private readonly userRepository: User
+    private readonly userRepository: UserRepository
   ) {}
 
   async login (email: string, contraseña : string): Promise<string> {

@@ -1,5 +1,4 @@
 import { Request ,Router, Response, NextFunction } from 'express';
-import { veryfylogin } from '../middleware/middleware_auth'
 
 const router = Router()
 

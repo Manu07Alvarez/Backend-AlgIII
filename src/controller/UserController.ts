@@ -1,17 +1,17 @@
 import { Usuario } from './../../generated/prisma/index.d';
-
 import { Request, Response } from 'express';
-import { UserService } from '../services/UserService';
+import { IUserService } from '../services/UserService.Interface';
 export class UserController {
   
   constructor(
-    public readonly userService: UserService,
+    public readonly userService: IUserService,
   ) {}
   
-  login(req: Request, res: Response) {
+  
+  async login(req: Request, res: Response) {
     try {
       const { email, contraseña } = req.body;
-      this.userService.login(email, contraseña);
+      await this.userService.login(email, contraseña);
       res.status(200).json({ message: 'Login successful' });
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -19,16 +19,15 @@ export class UserController {
       }
     }
   }
-
-  register = (req: Request, res: Response) => {
+ 
+  async register(req: Request, res: Response) {
     try {
       const user = {
         email: req.body.email,
         nombre_apellido: req.body.nombre_apellido,
         contraseña: req.body.contraseña,
       } as Usuario;
-
-      this.userService.register(user);
+      await this.userService.register(user);
       res.status(201).json({ message: 'User created successfully' });
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -36,14 +35,14 @@ export class UserController {
       }
     }
   }
-
-  getUser = (req: Request, res: Response) => {
+   
+  async getUser(req: Request, res: Response) {
     try {
-      this.userService.getUser(Number(req.params.id))
+     res.status(200).json(this.userService.getUser(Number(req.params.id)))
     }
     catch (err: unknown) {
       if (err instanceof Error) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err});
       }
     }
   }

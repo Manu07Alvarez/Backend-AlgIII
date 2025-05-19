@@ -22,9 +22,13 @@ export class UserController {
 
   register = (req: Request, res: Response) => {
     try {
-      const { nombre_apellido, email, contraseña } = req.body;
-      Usuario
-      this.userService.register({ nombre_apellido, email, contraseña });
+      const user = {
+        email: req.body.email,
+        nombre_apellido: req.body.nombre_apellido,
+        contraseña: req.body.contraseña,
+      } as Usuario;
+
+      this.userService.register(user);
       res.status(201).json({ message: 'User created successfully' });
     } catch (err: unknown) {
       if (err instanceof Error) {

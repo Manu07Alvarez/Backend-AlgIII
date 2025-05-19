@@ -34,11 +34,14 @@ export class UserService {
   }
 
   async register(data: Usuario): Promise<boolean> {
-    const user =  await this.userRepository.create(data);
-    if (!user) {
-      throw new Error('User not created');
+    try {
+      await this.userRepository.create(data);
     }
-    return true;
+    catch (error) {
+      if (error instanceof Error) {
+        throw new Error('User not created');
+      }
+    }
+    return true
   }
-
 }

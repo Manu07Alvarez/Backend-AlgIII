@@ -1,24 +1,34 @@
-/**import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 const jwt  = require ("jsonwebtoken");
-const cookie = require ("cookie");
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const contrasenaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
 
-//REVISION: fijate de usar la libreria ts-pattern para hacer validaciones de los datos que te llegan en el body
-// Ya que es mas limpio y podes definir los parametros. (Ya te la descargue a la libreria).
-export const veryfylogin = (req : Request, res: Response) => {
-    // revisar si la peticion contiene un email y un password
-    const [email, contrasena] = req.body;
-    if (email || contrasena) {
-        if (email) {
-           if (contrasena) { //REVISION: no necesitas hacer lo que se llama "nested if", ya que al usar return estas saliendo de la funcion
-               return res.status(201).json({mensaje: "El email y la contraseña son validos."});
-           } else {
-               return res.status(401).json({mensaje: "La contraseña es incorrecta."});
-           }
-        } else {
-            return res.status(401).json({mensaje: "El email es incorrecto."});
-        }
-    } else {
-        
-    }
-}
-**/
+
+export const authLogin = (req : Request, res: Response, next: NextFunction) => {
+            // la dos estructuras de datos son las siguientes:
+            const {email, contrasena} = req.body;
+            const tsCookie = req.cookies?.TS;
+
+            // verificar si existe el email y la contraseña en el body
+            if (email && contrasena) {
+                console.log("email y contraseñas encontradas")
+                if (!emailRegex.test(email)) {throw new Error("El email no es valido")};
+                if (!contrasenaRegex.test(contrasena)) {throw new Error("la contraseña no es valida")};
+                return next();   
+            }
+
+            // si no existe el email o la contraseña, se verifica si existe la cookie
+            if(tsCookie) {
+                console.log ("Cookie encontrada.")
+                // verificar si existe la token dentro de la Cookie y si existe la firma de la token
+                try{
+                    const decoded = jwt.verify(tsCookie, process.env.JWT_SECRET as string);
+                    console.log("token valido: ", decoded);
+                    return next()
+                } catch (err) {
+                    return res.status(401).json({mensaje: "Token invalido o expirado"});
+                }
+            }
+            // si no existe el email, la contraseña o la cookie, se retorna un error
+            return res.status(401).json({mensaje: "No se han proporcionado credenciales"});
+        };

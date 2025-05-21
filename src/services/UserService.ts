@@ -3,27 +3,27 @@ import { Usuario } from '../../generated/prisma/client';
 import { SignJWT, generateSecret } from 'jose';
 import { compare } from 'bcrypt-ts';
 import { IUserService } from './UserService.Interface';
+import { handlerError } from '../decorators/errors/errors';
+
 export class UserService implements IUserService { 
 
   constructor(
     private readonly userRepository: UserRepository
   ) {}
 
+  @handlerError
   async login (email: string, contraseña : string): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
-    if (!user) {
-      throw new Error('User not found');
-    }
-    const contraseñaMatch = await compare(contraseña, user.contraseña as string); //VIGILAR: posible deuda funcional que no devuelva un Error.
+    const contraseñaMatch = await compare(contraseña, user!.contraseña as string);
     if (!contraseñaMatch) {
       throw new Error('Invalid password');
     }
     const secret = await generateSecret('HS256');
-    return await new SignJWT({ id: user.id, nombre_apellido: user.nombre_apellido, rol: user.rol })
-          .setProtectedHeader({ alg: 'HS256' })
-          .setIssuedAt()
-          .setExpirationTime('4h')
-          .sign(secret);
+    return await new SignJWT({ id: user!.id, nombre_apellido: user!.nombre_apellido })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setIssuedAt()
+      .setExpirationTime('2h')
+      .sign(secret);
   }
 
   async getUser(id: number): Promise<Partial<Usuario | null>> {

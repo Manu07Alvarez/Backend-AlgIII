@@ -20,3 +20,18 @@ export function validateRepo<This, Args extends unknown[], Return>(
    };
 }
 
+export function handlerError<This, Args extends unknown[], Return>(
+  target: (this: This, ...args: Args) => Promise<Return>,
+  context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Promise<Return>>
+) {
+   return async function (this: This, ...args: Args): Promise<Return> {
+     try {
+       return await target.call(this, ...args);
+     } catch (error: unknown) {
+        if (error instanceof Error) {
+          throw new Error("ERROR 💥");
+        }
+        throw error;
+     }
+   };
+}

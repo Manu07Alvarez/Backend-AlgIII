@@ -1,6 +1,8 @@
 import express from "express";
 import userRoutes from './routes/UserRoutes';
 import guestRoutes from './routes/GuestRoutes';
+import { generateSwaggerSpec } from 'swagger-typescript-api'
+import swaggerUi from 'swagger-ui-express';
 const app = express();
 
 app.use(express.json());

@@ -1,4 +1,4 @@
-import { Request ,Router, Response, NextFunction } from 'express';
+import { Request , Router, Response } from 'express';
 
 const router = Router()
 
@@ -9,6 +9,10 @@ const router = Router()
   }
   next()
 }) **/
+
+router.get('/', (req: Request, res: Response) => {
+  res.send('GET users')
+})
 
 router.route('/:id')
 .get((req: Request, res: Response) => {

@@ -13,6 +13,9 @@ export class UserService implements IUserService {
   ) {}
 
   @handlerError
+  async bajaUsuario(id: number): Promise<void> {
+    await this.userRepository.update(id);
+  }
   async login (email: string, contraseña : string): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
     const contraseñaMatch = await compare(contraseña, user!.contraseña as string);

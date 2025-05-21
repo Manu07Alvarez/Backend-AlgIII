@@ -14,15 +14,15 @@ export class UserService implements IUserService {
     if (!user) {
       throw new Error('User not found');
     }
-    const contraseñaMatch = await compare(contraseña, user.contraseña as string);
+    const contraseñaMatch = await compare(contraseña, user.contraseña as string); //VIGILAR: posible deuda funcional que no devuelva un Error.
     if (!contraseñaMatch) {
       throw new Error('Invalid password');
     }
     const secret = await generateSecret('HS256');
-    return await new SignJWT({ id: user.id, nombre_apellido: user.nombre_apellido })
+    return await new SignJWT({ id: user.id, nombre_apellido: user.nombre_apellido, rol: user.rol })
           .setProtectedHeader({ alg: 'HS256' })
           .setIssuedAt()
-          .setExpirationTime('2h')
+          .setExpirationTime('4h')
           .sign(secret);
   }
 

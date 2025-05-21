@@ -14,6 +14,7 @@ export class UserRepository {
         id: true,
         nombre_apellido: true,
         contraseña: true,
+        rol: true
       },
       where: { email }
     })

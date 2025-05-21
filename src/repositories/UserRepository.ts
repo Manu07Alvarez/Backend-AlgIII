@@ -33,4 +33,12 @@ export class UserRepository {
       data
     })
   }
+
+  @validateRepo
+  async update(id: number, data: Usuario): Promise<Usuario> {
+    await this.user.update({
+      where: { id },
+      data
+    })
+  }
 }

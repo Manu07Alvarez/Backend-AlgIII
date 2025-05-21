@@ -8,8 +8,9 @@ export class UserService implements IUserService {
   constructor(
     private readonly userRepository: UserRepository
   ) {}
-  async bajaUsuario(id: number): Promise<void> {
-    await this.userRepository.update(id);
+  async bajaUsuario(id: number, data: Usuario): Promise<void> {
+    data.activo = false;
+    await this.userRepository.update(id, data);
   }
   async login (email: string, contraseña : string): Promise<string> {
     const user = await this.userRepository.findByEmail(email);

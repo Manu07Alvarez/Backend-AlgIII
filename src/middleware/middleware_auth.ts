@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { jwtVerify } from "jose";
+import { getPublicKey } from "../utils/auth/KeyGen";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const contrasenaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
-
+const publicKey =  await getPublicKey();
 
 export const authLogin = (req : Request, res: Response, next: NextFunction) => {
             // la dos estructuras de datos son las siguientes:
@@ -22,7 +23,7 @@ export const authLogin = (req : Request, res: Response, next: NextFunction) => {
                 console.log ("Cookie encontrada.")
                 // verificar si existe la token dentro de la Cookie y si existe la firma de la token
                 try{
-                    const decoded = jwtVerify(tsCookie, process.env.JWT_SECRET);
+                    const decoded = jwtVerify(tsCookie, publicKey);
                     console.log("token valido: ", decoded);
                     return next()
                 } catch (err: unknown) {

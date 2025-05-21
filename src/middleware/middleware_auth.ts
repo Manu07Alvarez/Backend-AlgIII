@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-const jwt  = require ("jsonwebtoken");
+import { jwtVerify } from "jose";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const contrasenaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
 
@@ -22,7 +22,7 @@ export const authLogin = (req : Request, res: Response, next: NextFunction) => {
                 console.log ("Cookie encontrada.")
                 // verificar si existe la token dentro de la Cookie y si existe la firma de la token
                 try{
-                    const decoded = jwt.verify(tsCookie, process.env.JWT_SECRET as string);
+                    const decoded = jwtVerify(tsCookie, process.env.JWT_SECRET);
                     console.log("token valido: ", decoded);
                     return next()
                 } catch (err: unknown) {

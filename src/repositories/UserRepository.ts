@@ -20,6 +20,13 @@ export class UserRepository {
   }
 
   @validateRepo
+  async bajaUsuario(id: number): Promise<void> {
+    await this.user.delete({
+      where: { id }
+    })
+  }	
+
+  @validateRepo
   async findById(id: number): Promise<Partial<Usuario> | null> {
     return await this.user.findUnique({
       omit: { contraseña: true },

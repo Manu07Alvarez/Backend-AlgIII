@@ -48,4 +48,16 @@ export class UserService implements IUserService {
     }
     return true
   }
+
+  async update(id: number, data: Usuario): Promise<Usuario> {
+    try {
+      const user = await this.userRepository.update(id, data);
+      return user;
+    }
+    catch (error) {
+      if (error instanceof Error) {
+        throw new Error('User not updated');
+      }
+    }
+  }
 }

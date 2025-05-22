@@ -1,8 +1,11 @@
 import { UserRepository } from '../repositories/UserRepository';
 import { Usuario } from '../../generated/prisma/client';
-import { SignJWT, generateKeyPair } from 'jose';
+import { SignJWT } from 'jose';
+import { handlerError } from '../decorators/errors/errors';
+import { getPublicKey } from '../utils/auth/KeyGen';
 import { compare } from 'bcrypt-ts';
 import { IUserService } from './UserService.Interface';
+const publicKey = await getPublicKey();
 export class UserService implements IUserService { 
 
   constructor(
@@ -20,12 +23,12 @@ export class UserService implements IUserService {
     if (!contraseñaMatch) {
       throw new Error('Invalid password');
     }
-    const secret = await generateSecret('HS256');
-    return await new SignJWT({ id: user.id, nombre_apellido: user.nombre_apellido, rol: user.rol })
+
+    return await new SignJWT({ id: user!.id, nombre_apellido: user!.nombre_apellido, rol: user!.rol })
           .setProtectedHeader({ alg: 'HS256' })
           .setIssuedAt()
           .setExpirationTime('4h')
-          .sign(secret);
+          .sign(publicKey);
   }
 
   async getUser(id: number): Promise<Partial<Usuario | null>> {

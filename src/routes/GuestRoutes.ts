@@ -1,6 +1,6 @@
 
 import { Request, Router, Response } from 'express';
-import { createUserController } from '../utils/factories/UserFactory';
+import { createUserController } from '../utils/factories/ClassFactory';
 
 const router = Router();
 const userController = createUserController();

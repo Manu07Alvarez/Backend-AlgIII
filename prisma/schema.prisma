@@ -19,6 +19,7 @@ model Usuario {
   nombre_apellido String?
   email           String    @unique
   contraseña      String
+  activo          Boolean   @default(true)
   rol             Rol?      @default(USUARIO)
   createdAt       DateTime? @default(now())
   updatedAt       DateTime? @updatedAt

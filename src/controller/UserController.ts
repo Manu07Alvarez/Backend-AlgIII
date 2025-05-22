@@ -1,6 +1,7 @@
 import { Usuario } from './../../generated/prisma/index.d';
 import { Request, Response } from 'express';
 import { IUserService } from '../services/UserService.Interface';
+import { isJsxChild } from 'typescript';
 export class UserController {
   
   constructor(
@@ -47,14 +48,15 @@ export class UserController {
       }
     }
   }
+
   async update(req: Request, res: Response) {
     try {
-      const user = {
+    	const user = {
         email: req.body.email,
         nombre_apellido: req.body.nombre_apellido, //Debe ser alias o user name
         contraseña: req.body.contraseña, //Se debe cifrar
         // Carrera, estado (cursando o no) 
-      } as Usuario;
+    	} as Usuario;
       await this.userService.update(Number(req.params.id), user);
       res.status(200).json({ message: 'User updated successfully' });
     } catch (err: unknown) {
@@ -63,4 +65,4 @@ export class UserController {
       }
     }
   }
-}  
+}

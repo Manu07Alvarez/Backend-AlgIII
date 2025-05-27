@@ -3,8 +3,8 @@ import { routes } from './routes/index';
 import { generateAndSaveKeyPair } from "./utils/auth/KeyGen";
 import swaggerOutput from "./docs/swagger-generated.json";
 import swaggerUi from 'swagger-ui-express';
+generateAndSaveKeyPair();
 const app = express();
-await generateAndSaveKeyPair();
 app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput))
 app.use('/', routes);

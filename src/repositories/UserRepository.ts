@@ -30,7 +30,7 @@ export class UserRepository {
   @validateRepo
   async findById(id: number): Promise<Partial<Usuario> | null> {
     return await this.user.findUnique({
-      omit: { contraseña: true },
+      omit:  { contraseña: true },
       where: { id }
     })
   }

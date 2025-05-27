@@ -1,5 +1,6 @@
 import { generateKeyPair, exportPKCS8, exportSPKI, exportJWK, importPKCS8, importSPKI } from 'jose';
 import fs from 'fs/promises';
+import fsSync from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -32,12 +33,20 @@ export async function generateAndSaveKeyPair() {
   
 
 export const getPrivateKey = async () => {
-	const pkcs8 = await fs.readFile(PRIVATE_KEY_PATH, 'utf8');
-	return await importPKCS8(pkcs8, 'RS256');
+	if (!fsSync.existsSync(PRIVATE_KEY_PATH)) {
+		console.warn('Private key not found');
+	} else {
+		const pkcs8 = await fs.readFile(PRIVATE_KEY_PATH, 'utf8');
+		return await importPKCS8(pkcs8, 'RS256');
+	}
 }
 	
 
 export const getPublicKey = async () => {
-  const spki = await fs.readFile(PUBLIC_KEY_PATH, 'utf8');
-  return await importSPKI(spki, 'RS256');
+	if (!fsSync.existsSync(PUBLIC_KEY_PATH)) {
+		console.warn('Public key not found');
+  } else {
+		const spki = await fs.readFile(PUBLIC_KEY_PATH, 'utf8');
+		return await importSPKI(spki, 'RS256');
+	}
 }

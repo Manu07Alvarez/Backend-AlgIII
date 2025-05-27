@@ -1,6 +1,11 @@
 import { generateKeyPair, exportPKCS8, exportSPKI, exportJWK, importPKCS8, importSPKI } from 'jose';
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const KEYS_DIR = path.resolve(__dirname, '../keys');
 const PRIVATE_KEY_PATH = path.join(KEYS_DIR, 'private.pem');
@@ -9,7 +14,7 @@ const JWKS_PATH = path.join(KEYS_DIR, 'jwks.json');
 
 export async function generateAndSaveKeyPair() {
 		await fs.mkdir(KEYS_DIR, { recursive: true });
-		const { publicKey, privateKey } = await generateKeyPair('RS256');
+		const { publicKey, privateKey } = await generateKeyPair('RS256', {extractable: true});
 
 		const pkcs8 = await exportPKCS8(privateKey);
 		const spki = await exportSPKI(publicKey);
@@ -23,7 +28,7 @@ export async function generateAndSaveKeyPair() {
 		await fs.writeFile(JWKS_PATH, JSON.stringify({ keys: [publicJwk] }, null, 2), 'utf8');
 		
 		console.log('🔐 Claves generadas y guardadas en /keys');
-  }
+}
   
 
 export const getPrivateKey = async () => {

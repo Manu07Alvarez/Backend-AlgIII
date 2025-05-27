@@ -1,7 +1,6 @@
 import { Usuario } from './../../generated/prisma/index.d';
 import { Request, Response } from 'express';
 import { IUserService } from '../services/UserService.Interface';
-import { isJsxChild } from 'typescript';
 export class UserController {
   
   constructor(

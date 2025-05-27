@@ -8,12 +8,13 @@ export function validateRepo<This, Args extends unknown[], Return>(
        return await target.call(this, ...args);
      } catch (error: unknown) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error("ERROR 💥 " + error.code + error.cause + error.message);
+          console.error("ERROR 💥 " + error.code + error.cause + error.message + (error.meta ? " " + JSON.stringify(error.meta) : "")
+        );
           throw new Error("ERROR 💥 " + error.code + error.message);
         }
         if (error instanceof Prisma.PrismaClientValidationError) {
-          console.error("ERROR 💥 " + error.name + " " + error.cause + " " + error.message);
-          throw new Error("ERROR 💥 " + error.name + " " + error.cause + " " + error.message, {cause: error.cause});
+          console.error("ERROR 💥 " + error.name + " " + error.message);
+          throw new Error("ERROR 💥 " + error.name + " " + error.message);
         }
         throw error;
      }
@@ -22,7 +23,6 @@ export function validateRepo<This, Args extends unknown[], Return>(
 
 export function handlerError<This, Args extends unknown[], Return>(
   target: (this: This, ...args: Args) => Promise<Return>,
-  context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Promise<Return>>
 ) {
    return async function (this: This, ...args: Args): Promise<Return> {
      try {

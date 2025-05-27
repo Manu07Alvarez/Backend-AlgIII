@@ -28,7 +28,6 @@ export class UserController {
         email: req.body.email,
         nombre_apellido: req.body.nombre_apellido,
         contraseña: req.body.contraseña,
-        // Carrera, estado (cursando o no) ademas fecha de creación
       } as Usuario;
       await this.userService.register(user);
       res.status(201).json({ message: 'User created successfully' });

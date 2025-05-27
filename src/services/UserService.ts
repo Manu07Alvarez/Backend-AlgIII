@@ -39,7 +39,7 @@ export class UserService implements IUserService {
     return user;
   }
 
-  async register(data: Usuario): Promise<boolean> {
+  async register(data: Usuario): Promise<void> {
     try {
       await this.userRepository.create(data);
     }
@@ -48,7 +48,7 @@ export class UserService implements IUserService {
         throw new Error('User not created');
       }
     }
-    return true
+
   }
 
   async update(id: number, data: Usuario): Promise<Usuario> {

@@ -42,7 +42,7 @@ export class UserRepository {
   }
 
   @validateRepo
-  async update(id: number, data: Usuario): Promise<Usuario> {
+  async update(id: number, data: Usuario): Promise<void> {
     await this.user.update({
       where: { id },
       data

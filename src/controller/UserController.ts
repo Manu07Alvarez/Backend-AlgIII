@@ -39,7 +39,9 @@ export class UserController {
    
   async getUser(req: Request, res: Response) {
     try {
-     res.status(200).json(this.userService.getUser(Number(req.params.id)))
+      await this.userService.getUser(Number(req.params.id));
+      res.status(200).json()
+      
     }
     catch (err: unknown) {
       if (err instanceof Error) {

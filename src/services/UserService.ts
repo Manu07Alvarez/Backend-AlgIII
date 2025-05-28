@@ -31,12 +31,14 @@ export class UserService implements IUserService {
           .sign(publicKey);
   }
 
-  async getUser(id: number): Promise<Partial<Usuario | null>> {
-    const user = await this.userRepository.findById(id);
-    if (!user) {
-      throw new Error('User not found');
+  async getUser(id: number): Promise<Partial<Usuario> | undefined> {
+    try {
+      return await this.userRepository.findById(id);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error('User not found');
+      }
     }
-    return user;
   }
 
   async register(data: Usuario): Promise<void> {

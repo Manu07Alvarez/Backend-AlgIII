@@ -1,17 +1,23 @@
 import { PrismaClient } from '@prisma/client';
+import { validateRepo } from '../decorators/errors/errors';
 
 const prisma = new PrismaClient();
+
+// TODO: consulta de temas con where de cerrado = false
 export class temasRepositories {
+    @validateRepo
     async getTema(){
-        try {
-            const tema = await prisma.temas.findMany({
-                orderBy: {
-                    id: "asc"
-                },
-            })
-            return tema;
-        }catch (err){
-            console.error("Error al obtener los temas: ", err);
+       return await prisma.temas.findMany({
+        select: {
+            id: true,
+            nombre: true,
+            descripcion: true,
+            fecha_creacion: true,
+            fecha_modificacion: true
+        },
+        where: {
+            cerrado: false
         }
+       });
     }
 }

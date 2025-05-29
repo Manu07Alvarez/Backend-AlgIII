@@ -12,10 +12,6 @@ const userController = createUserController();
   next()
 }) **/
 
-router.get('/', (req: Request, res: Response) => {
-  res.send('GET users')
-})
-
 router.route('/:id')
 .get((req: Request, res: Response) => {
   userController.getUser(req, res);

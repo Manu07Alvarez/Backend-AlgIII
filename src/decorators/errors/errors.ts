@@ -21,12 +21,7 @@ export function validateRepo<This, Args extends unknown[], Return>(
    };
 }
 
-function getLastLine(text: string): string {
-  const lines = text.trim().split('\n');
-  return lines[lines.length - 1].trim();
-}
-
-export function handlerError<This, Args extends unknown[], Return>(
+export function validateService<This, Args extends unknown[], Return>(
   target: (this: This, ...args: Args) => Promise<Return>,
 ) {
    return async function (this: This, ...args: Args): Promise<Return> {
@@ -34,9 +29,16 @@ export function handlerError<This, Args extends unknown[], Return>(
        return await target.call(this, ...args);
      } catch (error: unknown) {
         if (error instanceof Error) {
-          throw new Error("ERROR 💥");
+          throw new Error(error.message);
         }
         throw error;
      }
    };
 }
+
+
+ function getLastLine(text: string): string {
+  const lines = text.trim().split('\n');
+  return lines[lines.length - 1].trim();
+}
+

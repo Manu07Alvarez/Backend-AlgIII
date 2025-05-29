@@ -1,7 +1,7 @@
 import { UserRepository } from '../repositories/UserRepository';
 import { Usuario } from '../../generated/prisma/client';
 import { SignJWT } from 'jose';
-import { handlerError } from '../decorators/errors/errors';
+import { validateService } from '../decorators/errors/errors';
 import { getPublicKey } from '../utils/auth/KeyGen';
 import { compare } from 'bcrypt-ts';
 import { IUserService } from './UserService.Interface';
@@ -53,6 +53,15 @@ export class UserService implements IUserService {
     }
 
   }
+
+  /**
+   * Updates the user data for a given user ID.
+   * 
+   * @param id - The unique identifier of the user to be updated.
+   * @param data - The new data for the user, encapsulated in a Usuario object.
+   * @returns A promise that resolves to the updated Usuario object.
+   * @throws An error if the user could not be updated.
+   */
 
   async update(id: number, data: Usuario): Promise<Usuario> {
     try {

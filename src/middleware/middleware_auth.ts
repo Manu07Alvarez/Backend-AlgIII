@@ -23,7 +23,7 @@ export const authLogin = (req : Request, res: Response, next: NextFunction) => {
                 console.log ("Cookie encontrada.")
                 // verificar si existe la token dentro de la Cookie y si existe la firma de la token
                 try{
-                    const decoded = jwtVerify(tsCookie, publicKey);
+                    const decoded = jwtVerify(tsCookie, publicKey!);
                     console.log("token valido: ", decoded);
                     return next()
                 } catch (err: unknown) {

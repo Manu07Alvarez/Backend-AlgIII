@@ -19,25 +19,26 @@ export class UserService implements IUserService {
   @handlerError
   async login (email: string, contraseña : string): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
-    const contraseñaMatch = await compare(contraseña, user!.contraseña as string);
+    const contraseñaMatch = await compare(contraseña, user.contraseña as string);
     if (!contraseñaMatch) {
       throw new Error('Invalid password');
     }
 
-    return await new SignJWT({ id: user!.id, nombre_apellido: user!.nombre_apellido, rol: user!.rol })
+    return await new SignJWT({ id: user.id, nombre_apellido: user.nombre_apellido, rol: user.rol })
           .setProtectedHeader({ alg: 'HS256' })
           .setIssuedAt()
           .setExpirationTime('4h')
-          .sign(publicKey);
+          .sign(publicKey!);
   }
 
-  async getUser(id: number): Promise<Partial<Usuario> | undefined> {
+  async getUser(id: number): Promise<Partial<Usuario>> {
     try {
       return await this.userRepository.findById(id);
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error('User not found');
+        throw new Error('User not found: ' + error.message);
       }
+      throw error;
     }
   }
 
@@ -47,7 +48,7 @@ export class UserService implements IUserService {
     }
     catch (error) {
       if (error instanceof Error) {
-        throw new Error('User not created');
+        throw new Error("User not created");
       }
     }
 

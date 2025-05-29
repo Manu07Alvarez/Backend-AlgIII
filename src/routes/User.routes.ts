@@ -1,6 +1,8 @@
 import { Request , Router, Response } from 'express';
+import { createUserController } from '../utils/factories/ClassFactory';
 
 const router = Router()
+const userController = createUserController();
 
 /**router.use((req: Request, res: Response, next: NextFunction) => {
   const respon = veryfylogin
@@ -16,8 +18,6 @@ router.get('/', (req: Request, res: Response) => {
 
 router.route('/:id')
 .get((req: Request, res: Response) => {
-  const { id } = req.params
-  
-  res.send(`GET user with id: ${id}`)
+  userController.getUser(req, res);
 })
 export default router

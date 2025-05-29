@@ -1,8 +1,11 @@
 import { UserRepository } from '../repositories/UserRepository';
 import { Usuario } from '../../generated/prisma/client';
-import { SignJWT, generateSecret } from 'jose';
+import { SignJWT } from 'jose';
+import { handlerError } from '../decorators/errors/errors';
+import { getPublicKey } from '../utils/auth/KeyGen';
 import { compare } from 'bcrypt-ts';
 import { IUserService } from './UserService.Interface';
+const publicKey = await getPublicKey();
 export class UserService implements IUserService { 
 
   constructor(
@@ -12,32 +15,33 @@ export class UserService implements IUserService {
     data.activo = false;
     await this.userRepository.update(id, data);
   }
+
+  @handlerError
   async login (email: string, contraseña : string): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
-    if (!user) {
-      throw new Error('User not found');
-    }
-    const contraseñaMatch = await compare(contraseña, user.contraseña as string);
+    const contraseñaMatch = await compare(contraseña, user!.contraseña as string);
     if (!contraseñaMatch) {
       throw new Error('Invalid password');
     }
-    const secret = await generateSecret('HS256');
-    return await new SignJWT({ id: user.id, nombre_apellido: user.nombre_apellido })
+
+    return await new SignJWT({ id: user!.id, nombre_apellido: user!.nombre_apellido, rol: user!.rol })
           .setProtectedHeader({ alg: 'HS256' })
           .setIssuedAt()
-          .setExpirationTime('2h')
-          .sign(secret);
+          .setExpirationTime('4h')
+          .sign(publicKey);
   }
 
-  async getUser(id: number): Promise<Partial<Usuario | null>> {
-    const user = await this.userRepository.findById(id);
-    if (!user) {
-      throw new Error('User not found');
+  async getUser(id: number): Promise<Partial<Usuario> | undefined> {
+    try {
+      return await this.userRepository.findById(id);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error('User not found');
+      }
     }
-    return user;
   }
 
-  async register(data: Usuario): Promise<boolean> {
+  async register(data: Usuario): Promise<void> {
     try {
       await this.userRepository.create(data);
     }
@@ -46,7 +50,7 @@ export class UserService implements IUserService {
         throw new Error('User not created');
       }
     }
-    return true
+
   }
 
   async update(id: number, data: Usuario): Promise<Usuario> {
@@ -60,4 +64,5 @@ export class UserService implements IUserService {
       }
     }
   }
+  
 }

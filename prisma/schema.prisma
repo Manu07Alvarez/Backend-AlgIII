@@ -24,30 +24,49 @@ model Usuario {
   createdAt       DateTime? @default(now())
   updatedAt       DateTime? @updatedAt
 
+  Tema Tema[]
   Post Post[]
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  titulo    String
-  contenido String
-  published Boolean  @default(false)
-  autor     Usuario  @relation(fields: [autorId], references: [id])
-  autorId   Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  temaId    Int
-  tema      Tema     @relation(fields: [temaId], references: [id])
+model Carrera {
+  id          Int      @id @default(autoincrement())
+  nombre      String   @unique
+  descripcion String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+
+
+  Tema Tema[]
 }
 
 model Tema {
-  id        Int      @id @default(autoincrement())
-  nombre    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id          Int      @id @default(autoincrement())
+  titulo      String
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  id_creador  Int
+  creador     Usuario @relation(fields: [id_creador], references: [id])
+  contenido   String
+  id_carrera  Int
+  carrera     Carrera  @relation(fields: [id_carrera], references: [id])
+  fijado      Boolean  @default(false)
+  cerrado     Boolean  @default(false)
   Post Post[]
+}	
+
+model Post {
+  id         Int      @id @default(autoincrement())
+  titulo     String
+  contenido  String
+  published  Boolean  @default(false)
+  autor      Usuario  @relation(fields: [id_autor], references: [id])
+  id_autor    Int
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  id_tema    Int
+  tema       Tema     @relation(fields: [id_tema], references: [id])
 }
+
 
 enum Rol {
   ADMIN

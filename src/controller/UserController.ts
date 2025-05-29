@@ -1,7 +1,6 @@
 import { Usuario } from './../../generated/prisma/index.d';
 import { Request, Response } from 'express';
 import { IUserService } from '../services/UserService.Interface';
-import { isJsxChild } from 'typescript';
 export class UserController {
   
   constructor(
@@ -12,8 +11,9 @@ export class UserController {
   async login(req: Request, res: Response) {
     try {
       const { email, contraseña } = req.body;
-      await this.userService.login(email, contraseña);
-      res.status(200).json({ message: 'Login successful' });
+      const jwt = await this.userService.login(email, contraseña);
+      res.cookie('token', jwt)
+      res.status(200).json({ message: 'Login successful' })
     } catch (err: unknown) {
       if (err instanceof Error) {
         res.status(500).json({ message: err.message });
@@ -40,7 +40,9 @@ export class UserController {
    
   async getUser(req: Request, res: Response) {
     try {
-     res.status(200).json(this.userService.getUser(Number(req.params.id)))
+      await this.userService.getUser(Number(req.params.id));
+      res.status(200).json()
+      
     }
     catch (err: unknown) {
       if (err instanceof Error) {
@@ -48,15 +50,14 @@ export class UserController {
       }
     }
   }
-
   async update(req: Request, res: Response) {
     try {
-    	const user = {
+      const user = {
         email: req.body.email,
         nombre_apellido: req.body.nombre_apellido, //Debe ser alias o user name
         contraseña: req.body.contraseña, //Se debe cifrar
         // Carrera, estado (cursando o no) 
-    	} as Usuario;
+      } as Usuario;
       await this.userService.update(Number(req.params.id), user);
       res.status(200).json({ message: 'User updated successfully' });
     } catch (err: unknown) {
@@ -65,4 +66,4 @@ export class UserController {
       }
     }
   }
-}
+}  

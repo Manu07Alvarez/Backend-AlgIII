@@ -7,7 +7,7 @@ npm-shrinkwrap.json
 
 # env
 .env
-
+./keys/*
 # Coveralls
 .nyc_output
 coverage

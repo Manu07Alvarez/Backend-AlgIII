@@ -16,7 +16,7 @@ export class UserService implements IUserService {
     await this.userRepository.update(id, data);
   }
 
-  @handlerError
+  @validateService('Login Error: ')
   async login (email: string, contraseña : string): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
     const contraseñaMatch = await compare(contraseña, user.contraseña as string);
@@ -31,27 +31,14 @@ export class UserService implements IUserService {
           .sign(publicKey!);
   }
 
+  @validateService('User Not found: ')
   async getUser(id: number): Promise<Partial<Usuario>> {
-    try {
-      return await this.userRepository.findById(id);
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error('User not found: ' + error.message);
-      }
-      throw error;
-    }
+    return await this.userRepository.findById(id);
   }
 
+  @validateService('User not created: ')
   async register(data: Usuario): Promise<void> {
-    try {
-      await this.userRepository.create(data);
-    }
-    catch (error) {
-      if (error instanceof Error) {
-        throw new Error("User not created");
-      }
-    }
-
+    await this.userRepository.create(data);
   }
 
   /**
@@ -63,10 +50,9 @@ export class UserService implements IUserService {
    * @throws An error if the user could not be updated.
    */
 
-  async update(id: number, data: Usuario): Promise<Usuario> {
+  async update(id: number, data: Usuario): Promise<void> {
     try {
-      const user = await this.userRepository.update(id, data);
-      return user;
+      await this.userRepository.update(id, data);
     }
     catch (error) {
       if (error instanceof Error) {

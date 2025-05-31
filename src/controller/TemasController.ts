@@ -19,5 +19,11 @@ export class TemasController {
         }
     }
 
-    async 
+    async BajaTema(req: Request, res: Response, next: NextFunction){
+        try{
+            await this.temaService.BajaTema();
+        } catch (err) {
+            
+        }      
+    }
     }

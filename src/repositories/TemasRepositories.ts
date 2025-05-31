@@ -1,12 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import { validateRepo } from '../decorators/errors/errors';
+import { select } from 'ts-pattern/dist/patterns';
 
 const prisma = new PrismaClient();
 
 // TODO: consulta de temas con where de cerrado = false
 export class temasRepositories {
     @validateRepo
-    async getTema(){
+    async getTema(id: number | null = null){
        return await prisma.temas.findMany({
         select: {
             id: true,
@@ -14,10 +15,18 @@ export class temasRepositories {
             descripcion: true,
             fecha_creacion: true,
             fecha_modificacion: true
+
         },
-        where: {
-            cerrado: false
-        }
        });
+    }
+    @validateRepo
+    async BajaTema(){
+        return await prisma.temas.delete({
+            where:{
+                id: 1, 
+                cerrado: false
+            }
+        }
+        )
     }
 }

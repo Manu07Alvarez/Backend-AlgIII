@@ -8,9 +8,13 @@ export class TemaService {
     constructor() {
         this.temasRepositories = new temasRepositories();
     }
+    async getTema(id: number | null = null) {
+        
+    }
+
     @validateRepo
-    async getTema(){
-        return await this.temasRepositories.getTema();
+    async BajaTema() {
+        return await this.temasRepositories.BajaTema();
     }
 }
 

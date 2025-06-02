@@ -53,10 +53,10 @@ export class UserService implements IUserService {
 
   }
 
-  async update(id: number, data: Usuario): Promise<Usuario> {
+  async update(id: number, data: Usuario): Promise<void> {
     try {
       const user = await this.userRepository.update(id, data);
-      return user;
+
     }
     catch (error) {
       if (error instanceof Error) {

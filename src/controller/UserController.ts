@@ -39,13 +39,12 @@ export class UserController {
    
   async getUser(req: Request, res: Response) {
     try {
-      await this.userService.getUser(Number(req.params.id));
-      res.status(200).json()
-      
+      const user = await this.userService.getUser(Number(req.params.id));
+      res.status(200).json(user)
     }
-    catch (err: unknown) {
-      if (err instanceof Error) {
-        res.status(500).json({ message: err});
+    catch (error: unknown) {
+      if (error instanceof Error) {
+        res.status(500).json(error.message);
       }
     }
   }

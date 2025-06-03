@@ -17,24 +17,24 @@ export class CarreraRepository {
   }
 
   @validateRepo
-  public async findById(id: number): Promise<Partial<Carrera>> {
+  public async findById(searchId: number): Promise<Partial<Carrera>> {
     return this.carrera.findUniqueOrThrow({
       omit: { 
         createdAt: true, 
         updatedAt: true 
       },
-      where: { id }
+      where: { id: searchId }
     });
   }
 
   @validateRepo
-  public async findByName(nombre: string): Promise<Partial<Carrera>> {
+  public async findByName(searchNombre: string): Promise<Partial<Carrera>> {
     return this.carrera.findUniqueOrThrow({
     omit: { 
       createdAt: true, 
       updatedAt: true 
     },
-    where: { nombre }
+    where: { nombre: searchNombre }
     });
   }
 }

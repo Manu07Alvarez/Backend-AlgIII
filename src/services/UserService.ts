@@ -1,7 +1,7 @@
 import { UserRepository } from '../repositories/UserRepository';
 import { Usuario } from '../../generated/prisma/client';
 import { SignJWT } from 'jose';
-import { handlerError } from '../decorators/errors/errors';
+import { validateService } from '../decorators/errors/errors';
 import { getPublicKey } from '../utils/auth/KeyGen';
 import { compare } from 'bcrypt-ts';
 import { IUserService } from './UserService.Interface';
@@ -16,47 +16,43 @@ export class UserService implements IUserService {
     await this.userRepository.update(id, data);
   }
 
-  @handlerError
+  @validateService('Login Error: ')
   async login (email: string, contraseña : string): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
-    const contraseñaMatch = await compare(contraseña, user!.contraseña as string);
+    const contraseñaMatch = await compare(contraseña, user.contraseña as string);
     if (!contraseñaMatch) {
       throw new Error('Invalid password');
     }
 
-    return await new SignJWT({ id: user!.id, nombre_apellido: user!.nombre_apellido, rol: user!.rol })
+    return await new SignJWT({ id: user.id, nombre_apellido: user.nombre_apellido, rol: user.rol })
           .setProtectedHeader({ alg: 'HS256' })
           .setIssuedAt()
           .setExpirationTime('4h')
-          .sign(publicKey);
+          .sign(publicKey!);
   }
 
-  async getUser(id: number): Promise<Partial<Usuario> | undefined> {
-    try {
-      return await this.userRepository.findById(id);
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error('User not found');
-      }
-    }
+  @validateService('User Not found: ')
+  async getUser(id: number): Promise<Partial<Usuario>> {
+    return await this.userRepository.findById(id);
   }
 
+  @validateService('User not created: ')
   async register(data: Usuario): Promise<void> {
-    try {
-      await this.userRepository.create(data);
-    }
-    catch (error) {
-      if (error instanceof Error) {
-        throw new Error('User not created');
-      }
-    }
-
+    await this.userRepository.create(data);
   }
+
+  /**
+   * Updates the user data for a given user ID.
+   * 
+   * @param id - The unique identifier of the user to be updated.
+   * @param data - The new data for the user, encapsulated in a Usuario object.
+   * @returns A promise that resolves to the updated Usuario object.
+   * @throws An error if the user could not be updated.
+   */
 
   async update(id: number, data: Usuario): Promise<void> {
     try {
-      const user = await this.userRepository.update(id, data);
-
+      await this.userRepository.update(id, data);
     }
     catch (error) {
       if (error instanceof Error) {

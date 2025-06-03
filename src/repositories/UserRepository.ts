@@ -10,7 +10,7 @@ export class UserRepository {
 
 
   @validateRepo
-  async findByEmail(email: string): Promise<Partial<Usuario> | null> {
+  async findByEmail(email: string): Promise<Partial<Usuario>> {
     return await this.user.findUniqueOrThrow({
       select: { 
         id: true,
@@ -29,8 +29,8 @@ export class UserRepository {
       where: { id: searchId }
     })
   }	
-
-  //FIXME: Por alguna razon no tira error al buscar un id inexistente
+  
+  
   @validateRepo
   async findById(searchId: number): Promise<Partial<Usuario>> {
     return await this.user.findUniqueOrThrow({

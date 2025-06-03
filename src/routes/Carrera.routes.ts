@@ -12,8 +12,21 @@ const carreraController = createCarreraController();
   next()
 }) **/
 
+router.post('/create', (req: Request, res: Response) => {
+  carreraController.create(req, res);
+})
+
+router.get('/', (req: Request, res: Response) => {
+  carreraController.findAll(req, res);
+})
+
+router.route('/:name')
+.get((req: Request, res: Response) => {
+  carreraController.findByName(req, res);
+})
+
 router.route('/:id')
 .get((req: Request, res: Response) => {
-  carreraController.getU(req, res);
+  carreraController.findById(req, res);
 })
 export default router

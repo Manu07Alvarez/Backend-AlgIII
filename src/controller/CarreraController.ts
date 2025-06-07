@@ -6,6 +6,43 @@ export class CarreraController {
         private readonly CarreraService: ICarreraService
     ){}
 
+    public async update(req: Request, res: Response): Promise<void> {
+        try {
+            const id = Number(req.params.id);
+            const carrera = req.body;
+            await this.CarreraService.update(id, carrera);
+            res.status(200).json({ message: 'Carrera updated successfully' });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
+    public async deactivate(req: Request, res: Response): Promise<void> {
+        try {
+            const id = Number(req.params.id);
+            await this.CarreraService.deactivate(id);
+            res.status(200).json({ message: 'Carrera deactivated successfully' });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
+    public async activate(req: Request, res: Response): Promise<void> {
+        try {
+            const id = Number(req.params.id);
+            await this.CarreraService.activate(id);
+            res.status(200).json({ message: 'Carrera activated successfully' });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
     public async create(req: Request, res: Response): Promise<void> {
         try {
             const carrera = req.body;

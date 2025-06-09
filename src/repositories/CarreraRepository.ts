@@ -16,21 +16,12 @@ export class CarreraRepository {
 
 
   @validateRepo
-  public async deactivateCarrera(searchId: number): Promise<void> {
+  public async activateOrDeactivate(searchId: number): Promise<void> {
+    const user = await this.findById(searchId);
     await this.carrera.update({
       where: { id: searchId },
       data: {
-        activa: false,
-      }
-    })
-  }
-
-    @validateRepo
-  public async activateCarrera(searchId: number): Promise<void> {
-    await this.carrera.update({
-      where: { id: searchId },
-      data: {
-        activa: true,
+        activa: !user.activa,
       }
     })
   }

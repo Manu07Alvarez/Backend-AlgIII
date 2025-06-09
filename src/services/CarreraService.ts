@@ -8,14 +8,10 @@ export class CarreraService implements ICarreraService {
         private readonly carreraRepository: CarreraRepository,
     ) {}
 
-    @validateService('ERROR Carrera not deactivated: ')
-    public async deactivate(id: number): Promise<void> {
-        await this.carreraRepository.deactivateCarrera(id);
-    }
 
-    @validateService('ERROR Carrera not activated: ')
-    public async activate(id: number): Promise<void> {
-        await this.carreraRepository.activateCarrera(id);
+    @validateService('ERROR Carrera state not updated: ')
+    public async activateOrDeactivate(id: number): Promise<void> {
+        await this.carreraRepository.activateOrDeactivate(id);
     }
 
     @validateService('ERROR Carrera not updated: ')

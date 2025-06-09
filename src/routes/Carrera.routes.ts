@@ -29,4 +29,11 @@ router.route('/:id')
 .get((req: Request, res: Response) => {
   carreraController.findById(req, res);
 })
+.patch((req: Request, res: Response) => {
+  carreraController.activateOrDeactivate(req, res);
+})
+.put((req: Request, res: Response) => {
+  carreraController.update(req, res);
+})
+
 export default router

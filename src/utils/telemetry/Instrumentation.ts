@@ -1,28 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { SimpleLogRecordProcessor, ConsoleLogRecordExporter } from '@opentelemetry/sdk-logs';
-import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
 import { PinoInstrumentation } from '@opentelemetry/instrumentation-pino';
+import {
+  ATTR_SERVICE_NAME,
+  ATTR_SERVICE_VERSION,
+} from '@opentelemetry/semantic-conventions';
 import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+import { Resource } from '@opentelemetry/resources';
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.ALL);
 
-
-
-
-const logExporter = new OTLPLogExporter({
-  url: 'http://localhost:4318/v1/logs',
-  timeoutMillis: 15000,
-});
-
 const sdk = new NodeSDK({
-  serviceName: 'my-service',
+  serviceName: 'pino-instrumentation',
   instrumentations: [
     new PinoInstrumentation({
-        logHook: (span: any, record: any) => {
-            console.log("RECEIVE FROM HOOK")
-        }
+    logHook: (span, record, level) => {
+        console.log('🎯 PINO LOG INTERCEPTED:', {
+          level,
+          msg: record.msg,
+          spanId: span?.spanContext()?.spanId,
+          traceId: span?.spanContext()?.traceId
+        });
+      },
+            // Configuraciones adicionales
+      enabled: true,
+      // Opcional: filtrar por nivel de log
     }),
   ],
-  logRecordProcessors: [new SimpleLogRecordProcessor(new ConsoleLogRecordExporter())],
+  logRecordProcessors: [
+    new SimpleLogRecordProcessor(new ConsoleLogRecordExporter())
+  ],
 });
 console.log('📊 Instrumentation initialized');
 sdk.start();

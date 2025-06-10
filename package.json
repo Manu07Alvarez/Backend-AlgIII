@@ -68,6 +68,7 @@
     "prettier": "3.5.3",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1",
+    "ts-node": "^10.9.2",
     "tsx": "^4.19.4",
     "typescript-eslint": "^8.27.0"
   }

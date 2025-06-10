@@ -20,13 +20,9 @@ export class temasRepositories {
        });
     }
     @validateRepo
-    async BajaTema(){
-        return await prisma.temas.delete({
-            where:{
-                id: 1, 
-                cerrado: false
-            }
-        }
-        )
+    async BajaTema(id: number){
+        return await prisma.temas.deleteMany({
+            where: {id: id} // se pasa el id que se quiere eliminar
+        });
     }
 }

@@ -1,3 +1,4 @@
+import { error } from "console";
 import { validateRepo } from "../decorators/errors/errors";
 import { temasRepositories } from "../repositories/TemasRepositories";
 import { TemaService } from "../services/TemasService";
@@ -20,10 +21,15 @@ export class TemasController {
     }
 
     async BajaTema(req: Request, res: Response, next: NextFunction){
-        try{
-            await this.temaService.BajaTema();
-        } catch (err) {
-            
-        }      
+        const { id } = req.params; // Assuming id is passed as a route parameter
+        if (!id) {
+            res.status(400).json({ error: "no se proporcionó un id" });
+        } else {
+            try {
+                // Add logic for BajaTema here
+            } catch (error) {
+                next(error);
+            }
+        }
     }
     }

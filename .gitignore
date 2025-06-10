@@ -7,7 +7,7 @@ npm-shrinkwrap.json
 
 # env
 .env
-
+./keys/*
 # Coveralls
 .nyc_output
 coverage
@@ -20,4 +20,5 @@ dist
 
 # ignore additional files using core.excludesFile
 # https://git-scm.com/docs/gitignore
-test.http
+bun.lock
+src/utils/keys

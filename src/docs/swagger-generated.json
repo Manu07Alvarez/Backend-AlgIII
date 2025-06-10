@@ -1,0 +1,172 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "v1.0.0",
+    "title": "Swagger Demo Project",
+    "description": "Implementation of Swagger with TypeScript"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/api/user/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/guest/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Cookie response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/securitySchema"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/securitySchema"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginSchema"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/loginSchema"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/guest/register": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/registerSchema"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/registerSchema"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "securitySchema": {
+        "type": "object",
+        "properties": {
+          "cookieAuth": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "apiKey"
+              },
+              "in": {
+                "type": "string",
+                "example": "cookie"
+              },
+              "name": {
+                "type": "string",
+                "example": "token"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "securitySchema"
+        }
+      },
+      "registerSchema": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "fulanchoΩ@example.com"
+          },
+          "nombre": {
+            "type": "string",
+            "example": "fula"
+          },
+          "contraseña": {
+            "type": "string",
+            "example": "4123"
+          }
+        },
+        "required": [
+          "email",
+          "nombre",
+          "contraseña"
+        ],
+        "xml": {
+          "name": "registerSchema"
+        }
+      },
+      "loginSchema": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "fulanchoΩ@example.com"
+          },
+          "contraseña": {
+            "type": "string",
+            "example": "4123"
+          }
+        },
+        "required": [
+          "email",
+          "contraseña"
+        ],
+        "xml": {
+          "name": "loginSchema"
+        }
+      }
+    }
+  }
+}

@@ -10,6 +10,7 @@ import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 import { Resource } from '@opentelemetry/resources';
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.ALL);
 
+//FIXME: Configuraciones adicionales
 const sdk = new NodeSDK({
   serviceName: 'pino-instrumentation',
   instrumentations: [

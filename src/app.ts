@@ -1,4 +1,5 @@
-await import('./utils/telemetry/Instrumentation');
+import('./utils/telemetry/Instrumentation');
+
 import express from "express";
 import { routes } from './routes/index';
 import { generateAndSaveKeyPair } from "./utils/auth/KeyGen";

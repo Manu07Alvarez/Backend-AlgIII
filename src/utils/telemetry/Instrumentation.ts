@@ -5,7 +5,8 @@ import { NodeSDK, tracing } from '@opentelemetry/sdk-node';
 import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-node';
 import { SimpleLogRecordProcessor, ConsoleLogRecordExporter } from '@opentelemetry/sdk-logs';
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
-import { PinoInstrumentation } from '@opentelemetry/instrumentation-pino';
+
+ import { PinoInstrumentation } from '@opentelemetry/instrumentation-pino';
 import {
   ATTR_SERVICE_NAME,
   ATTR_SERVICE_VERSION,
@@ -21,7 +22,7 @@ const sdk = new NodeSDK({
     [ATTR_SERVICE_VERSION]: '1.0',
   }),
   traceExporter: new ConsoleSpanExporter(),
-  spanProcessors: [new tracing.SimpleSpanProcessor(new tracing.ConsoleSpanExporter())],
+  spanProcessors: [new tracing.SimpleSpanProcessor(new ConsoleSpanExporter())],
   logRecordProcessors: [
     new SimpleLogRecordProcessor(new ConsoleLogRecordExporter())
   ],

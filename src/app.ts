@@ -1,14 +1,16 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { createJiti } from 'jiti';
 
-import { trace } from '@opentelemetry/api';
-import express from "express";
-import { routes } from './routes/index';
-import { generateAndSaveKeyPair } from "./utils/auth/KeyGen";
-import swaggerOutput from "./docs/swagger-generated.json";
-import swaggerUi from 'swagger-ui-express';
-import pino from 'pino';
-import { logger } from "./utils/logging/Logger";
+const jiti = createJiti(import.meta.url);
+await jiti.import('./utils/telemetry/Instrumentation.ts');
+const { trace } = await import('@opentelemetry/api');
+const express = (await import('express')).default;
+const { routes } = await import('./routes/index');
+const { generateAndSaveKeyPair } = await import("./utils/auth/KeyGen");
+const swaggerOutput = (await import("./docs/swagger-generated.json")).default;
+const swaggerUi = (await import('swagger-ui-express')).default;
+const pino = (await import('pino')).default;
 const logs = pino();
 const tracer = trace.getTracer('app');
 generateAndSaveKeyPair();

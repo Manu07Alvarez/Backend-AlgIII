@@ -1,6 +1,12 @@
 import {  ICarreraService } from "../services/CarreraService.Interface";
 import { Request, Response } from "express";
+import { trace, Span } from '@opentelemetry/api';
+import pino from 'pino';
 
+const logs = pino();
+
+
+const tracer = trace.getTracer('controlleer');
 export class CarreraController {
     constructor(
         private readonly CarreraService: ICarreraService
@@ -44,17 +50,24 @@ export class CarreraController {
     }
 
     public async findAll(req: Request, res: Response): Promise<void> {
-        try {
-            const carreras = await this.CarreraService.findAll();
-            res.status(200).json(carreras);
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
+        return  tracer.startActiveSpan('findAll', async (span: Span) => {
+            try {
+                const carreras = await this.CarreraService.findAll();
+                res.status(200).json(carreras);
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    span.recordException(error); // captura la excepción en el span
+                    span.setStatus({ code: 2, message: (error).message }); // 2 = ERROR
+                    logs.error("ERROR 💥 ");
+                    span.end();
+                    res.status(500).json({ message: error.message });
+                }
             }
-        }
+        });
     }
 
     public async findById(req: Request, res: Response): Promise<void> {
+        
         try {
             const carrera = await this.CarreraService.findById(Number(req.params.id));
             res.status(200).json(carrera);

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { jwtVerify } from "jose";
-import { getPublicKey } from "../utils/auth/KeyGen";
+import { getPublicKey } from "../utils/auth/KeyGen.ts";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const contrasenaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
 const publicKey =  await getPublicKey();

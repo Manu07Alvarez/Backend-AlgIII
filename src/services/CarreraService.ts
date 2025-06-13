@@ -1,7 +1,7 @@
-import { Carrera } from "../../generated/prisma";
-import { validateService } from "../decorators/errors/errors";
-import { CarreraRepository } from "../repositories/CarreraRepository";
-import { ICarreraService } from "./CarreraService.Interface";
+import { Carrera } from "../../generated/prisma/client.js";
+import { validateService } from "../decorators/errors/errors.ts";
+import { CarreraRepository } from "../repositories/CarreraRepository.ts";
+import { ICarreraService } from "./CarreraService.Interface.ts";
 
 export class CarreraService implements ICarreraService {
     constructor(

@@ -1,6 +1,5 @@
 # npm
 node_modules
-package-lock.json
 npm-shrinkwrap.json
 *.log
 *.gz
@@ -20,5 +19,4 @@ dist
 
 # ignore additional files using core.excludesFile
 # https://git-scm.com/docs/gitignore
-bun.lock
 src/utils/keys

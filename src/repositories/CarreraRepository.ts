@@ -1,5 +1,7 @@
-import { PrismaClient, Carrera } from '../../generated/prisma/client';
-import { validateRepo } from '../decorators/errors/errors';
+
+import { Carrera } from '../../generated/prisma/client.js';
+import { PrismaClient } from '@prisma/client';
+import { validateRepo } from '../decorators/errors/errors.ts';
 
 export class CarreraRepository {
   constructor(
@@ -33,6 +35,7 @@ export class CarreraRepository {
 
   @validateRepo
   public async findAll(): Promise<Carrera[]> {
+    console.log("asd")
     return await this.carrera.findMany()
   }
 

@@ -1,11 +1,11 @@
-import { UserRepository } from "../../repositories/UserRepository";
-import { PrismaClient } from "../../../generated/prisma/client";
-import { UserService } from "../../services/UserService";
-import { UserController } from "../../controller/UserController.js";
-import { CarreraController } from "../../controller/CarreraController";
-import { CarreraService } from "../../services/CarreraService";
-import { CarreraRepository } from "../../repositories/CarreraRepository";
 
+import { UserRepository } from "../../repositories/UserRepository.ts";
+import { PrismaClient } from '../../../generated/prisma/client.js';
+import { UserService } from "../../services/UserService.ts";
+import { UserController } from "../../controller/UserController.ts";
+import { CarreraController } from "../../controller/CarreraController.ts";
+import { CarreraService } from "../../services/CarreraService.ts"
+const {CarreraRepository} = await import('../../repositories/CarreraRepository.ts');
 const Prisma = new PrismaClient;
 export function createUserController(): UserController {
   const repo = new UserRepository(Prisma.usuario);

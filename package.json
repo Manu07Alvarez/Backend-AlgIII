@@ -8,7 +8,6 @@
     "dist",
     "src",
     "prisma",
-    "nodemon.json",
     "package.json",
     "tsconfig.json"
   ],
@@ -21,7 +20,7 @@
     "build": "npx tsc",
     "swagger": "tsx src/docs/swagger.ts",
     "start": "node dist/app.js",
-    "dev": "tsx watch ./src/app.ts localhost 5000"
+    "dev": "bun run --watch ./src/app.ts"
   },
   "engines": {
     "npm": "10.9.2",
@@ -32,28 +31,33 @@
   "license": "ISC",
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/api-logs": "^0.202.0",
     "@opentelemetry/auto-instrumentations-node": "^0.60.0",
-    "@opentelemetry/exporter-logs-otlp-proto": "^0.202.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.202.0",
     "@opentelemetry/instrumentation": "^0.202.0",
     "@opentelemetry/instrumentation-express": "^0.51.0",
     "@opentelemetry/instrumentation-http": "^0.202.0",
-    "@opentelemetry/instrumentation-pino": "0.48.0",
+    "@opentelemetry/instrumentation-net": "^0.46.1",
+    "@opentelemetry/instrumentation-winston": "^0.47.0",
+    "@opentelemetry/resources": "^2.0.1",
     "@opentelemetry/sdk-logs": "^0.202.0",
     "@opentelemetry/sdk-metrics": "^2.0.1",
     "@opentelemetry/sdk-node": "^0.202.0",
     "@opentelemetry/sdk-trace-base": "^2.0.1",
     "@opentelemetry/sdk-trace-node": "^2.0.1",
     "@opentelemetry/semantic-conventions": "^1.34.0",
+    "@opentelemetry/winston-transport": "^0.13.0",
     "@prisma/client": "6.7.0",
     "@types/express": "5.0.1",
     "bcrypt-ts": "7.0.0",
     "dotenv": "16.4.7",
     "express": "4.21.2",
     "jose": "6.0.11",
-    "pino": "9.7.0",
-    "prisma": "6.7.0",
+    "prisma": "^6.9.0",
     "ts-pattern": "5.7.0",
-    "typescript": "5.8.2"
+    "tslib": "^2.8.1",
+    "typescript": "5.8.2",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@eslint/js": "9.22.0",
@@ -61,16 +65,19 @@
     "@types/swagger-ui-express": "4.1.8",
     "@typescript-eslint/eslint-plugin": "8.27.0",
     "@typescript-eslint/parser": "8.27.0",
+    "errsole": "^2.18.1",
+    "errsole-sqlite": "^3.0.3",
     "eslint": "9.22.0",
     "eslint-config-prettier": "10.1.1",
     "eslint-plugin-prettier": "5.2.3",
     "globals": "16.0.0",
+    "import-in-the-middle": "^1.14.0",
     "jiti": "^2.4.2",
     "prettier": "3.5.3",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1",
     "ts-node": "^10.9.2",
-    "tsx": "^4.19.4",
-    "typescript-eslint": "^8.27.0"
+    "typescript-eslint": "^8.27.0",
+    "winston-errsole": "^1.0.0"
   }
 }

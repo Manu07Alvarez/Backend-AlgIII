@@ -1,6 +1,6 @@
 
-import { PrismaClient, Usuario } from '../../generated/prisma/client';
-import { validateRepo } from '../decorators/errors/errors';
+import { PrismaClient, Usuario } from '../../generated/prisma/client.js';
+import { validateRepo } from '../decorators/errors/errors.ts';
 
 export class UserRepository {
 

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-const jwt  = require ("jsonwebtoken");
+import { jwtVerify } from "jose";
+import { getPublicKey } from "../utils/auth/KeyGen";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const contrasenaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
 

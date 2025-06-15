@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request , Router, Response } from 'express';
-import { createCarreraController } from '../utils/factories/ClassFactory';
+import { createCarreraController } from '../utils/factories/ClassFactory.ts';
 
 const router = Router()
 const carreraController = createCarreraController();
@@ -11,6 +12,9 @@ const carreraController = createCarreraController();
   }
   next()
 }) **/
+import { trace } from '@opentelemetry/api';
+
+const tracer = trace.getTracer('route-lib');
 
 router.post('/create', (req: Request, res: Response) => {
   carreraController.create(req, res);
@@ -28,5 +32,12 @@ router.route('/:name')
 router.route('/:id')
 .get((req: Request, res: Response) => {
   carreraController.findById(req, res);
+}) 
+.patch((req: Request, res: Response) => {
+  carreraController.activateOrDeactivate(req, res);
 })
+.put((req: Request, res: Response) => {
+  carreraController.update(req, res);
+})
+
 export default router

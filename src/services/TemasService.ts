@@ -1,53 +1,49 @@
-import { number, select } from "ts-pattern/dist/patterns";
-import { validateRepo } from "../decorators/errors/errors";
-import { temasRepositories } from "../repositories/TemasRepositories";
+import { validateRepo, validateService } from "../decorators/errors/errors.js";
+import { temasRepositories } from "../repositories/TemasRepositories.js";
 import { describe } from "node:test";
-import { PrismaClient } from "@prisma/client";
+import { Tema, PrismaClient } from "../prisma/client.js";
+import { promises } from "dns";
+import { get } from "https";
 
 
 export class TemaService {
-    private temasRepositories: any;
+    constructor(
+        private readonly TemasRepositories : temasRepositories,){}
 
-    /**
-     * obtiene todos un tema por id
-     * @param id - id del tema a buscar
-     */
-    constructor() {
-        this.temasRepositories = new temasRepositories();
-    }
-    async getTema(id: number | null = null) {
-        if(id){
-            const prisma = new PrismaClient();
-            return await prisma.temas.findUnique({
-                where: { id: id },
-                select: {
-                    id: true,
-                    nombre: true,
-                    createdAt: true,
-                    updateAt: true
-                },
-            });
-        }else {
-            throw new Error("no se proporcionó un id");
-        }
+    //obtiene todos los temas
+    @validateService('ERROR tema not found: ')
+    public async getTemaAll():Promise<Tema[]>{
+        return await this.TemasRepositories.getTemaAll();
     }
 
-    /**
-     * elimina un tema por id
-     * @param id : numbre - id del tema a eliminar
-     */
-    async BajaTema(id: number){
-        const prisma = new PrismaClient();
-        if (id){
-            return await prisma.temas.deleteMany({
-                where: {
-                    id:id
-                }
-            }
-            )
-        } else {
-            throw new Error("no se proporcionó un id");
-        }
+    //obtiene un tema por id
+    @validateService('ERROR tema not found')
+    public async getTemaId(searchId:number): Promise<Partial<Tema>>{
+        return await this.TemasRepositories.getTemaId(searchId);
     }
+
+    //obtiene un tema por su nombre
+    @validateService('ERROR tema not found')
+    public async getTemaName(searchNombre:string): Promise<Partial<Tema>> {
+        return await this.TemasRepositories.GetTemaName(searchNombre);
+    }
+
+    // dar de baja un tema
+    @validateService('ERROR tema not low ')
+    public async bajaTema(id:number): Promise<void>{
+        return this.TemasRepositories.BajaTema(id);
+    }
+
+    @validateService('ERROR tema not created')
+    public async crearTema(data:Tema):Promise<void>{
+        return await this.TemasRepositories.crearTema(data)
+    }
+
+    @validateService('ERROR tema not update')
+    public async updateTema(data:Tema):Promise<void>{
+        return await this.TemasRepositories.updateTema(data)
+    }
+
+    
 }
 

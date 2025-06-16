@@ -1,7 +1,7 @@
 import { TemaService } from "services/TemasService.ts";
 import { Request, Response, NextFunction } from "express";
 import {trace, Span} from '@opentelemetry/api';
-const tracer = trace.get.tracer('controller');
+const tracer = trace.getTracer('controller');
 
 export class temasController {
     constructor(
@@ -44,7 +44,7 @@ export class temasController {
     public async crearTema(req:Request, res: Response): Promise<void>{
         try {
             const tema = req.body;
-            await this.TemasService.crearTema(tema)
+            await this.TemasService.crearTema(tema);
             res.status(201).json({message: 'Tema created successfully'});
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -54,6 +54,27 @@ export class temasController {
     }
 
     public async bajaTema(req:Request, res: Response): Promise<void> {
-        try
+        try {
+            const id = Number(req.params.id);
+            await this.TemasService.bajaTema(id);
+            res.status(201).json({message: 'Tema low successfully'});
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({message: error.message});
+            }
+        }
+    }
+
+    public async updateTema(req:Request, res: Response): Promise<void> {
+        try {
+            const id = Number(req.params.id);
+            const tema = req.body;
+            await this.TemasService.updateTema({ id, ...tema });
+            res.status(201).json({message: 'Tema updated successfully'});
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({message: error.message});
+            }
+        }
     }
 }

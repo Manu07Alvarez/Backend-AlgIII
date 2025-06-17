@@ -1,7 +1,7 @@
 
 import { Carrera, PrismaClient } from '../../generated/prisma/client.js';
 
-import { validateRepo } from '../decorators/errors/errors.ts';
+import { validateRepo } from ;
 
 export class CarreraRepository {
   constructor(

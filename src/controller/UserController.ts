@@ -1,6 +1,6 @@
 import { Usuario } from './../../generated/prisma/client.js';
 import { Request, Response } from 'express';
-import { IUserService } from '../services/UserService.Interface.ts';
+import { IUserService } from '../services/IUser.ts';
 export class UserController {
   
   constructor(

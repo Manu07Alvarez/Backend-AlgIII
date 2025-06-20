@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {  ICarreraService } from "../services/CarreraService.Interface.ts";
+import {  ICarreraService } from "../services/IService.ts";
 import { Request, Response } from "express";
 import { trace, Span} from '@opentelemetry/api';
 const tracer = trace.getTracer('controlleer');

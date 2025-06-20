@@ -1,4 +1,4 @@
-import { Usuario } from "../../generated/prisma/client.js";
+import { Usuario } from "../prisma/client.ts";
 
 export interface IUserService {
   login(email: string, contraseña: string): Promise<string>;

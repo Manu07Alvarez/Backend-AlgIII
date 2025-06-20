@@ -1,17 +1,19 @@
 
 import { PrismaClient, Usuario } from '../../generated/prisma/client.js';
 import { validateRepo } from '../decorators/errors/errors.ts';
+import IRepository from './IRepository.ts';
+import Repository from './Repository.ts';
 
-export class UserRepository {
+export class UserRepository extends Repository<Usuario> implements IRepository<Usuario> {
 
   constructor(
     private readonly user: PrismaClient['usuario'],
-  ) {}
+  ) {super(user);}
 
 
   @validateRepo
   async findByEmail(email: string): Promise<Partial<Usuario>> {
-    return await this.user.findUniqueOrThrow({
+    return await this.entity.findUniqueOrThrow({
       select: { 
         id: true,
         nombre_apellido: true,
@@ -21,36 +23,13 @@ export class UserRepository {
       where: { email }
     })
   }
-
-
-  @validateRepo
-  async bajaUsuario(searchId: number): Promise<void> {
-    await this.user.delete({
-      where: { id: searchId }
-    })
-  }	
   
   
   @validateRepo
   async findById(searchId: number): Promise<Partial<Usuario>> {
-    return await this.user.findUniqueOrThrow({
+    return await this.entity.findUniqueOrThrow({
       omit:  { contraseña: true },
       where: { id: searchId}
     });
-  }
-
-  @validateRepo
-  async create(data: Usuario): Promise<void> {
-    await this.user.create({
-      data
-    })
-  }
-
-  @validateRepo
-  async update(id: number, data: Usuario): Promise<void> {
-    await this.user.update({
-      where: { id },
-      data
-    })
   }
 }

@@ -5,17 +5,17 @@ export default abstract class Repository<T> {
 
 	@validateRepo
 	public async update(id: number, data: T): Promise<void> {
-			await this.entity.update({
-					where: { id: id },
-					data
-			})
+		await this.entity.update({
+			where: { id: id },
+			data
+		})
 	}
 	
 	@validateRepo
 	public async delete(id: number): Promise<void> {
-			await this.entity.delete({
-			where: { id }
-			})
+		await this.entity.delete({
+		where: { id }
+		})
 	}
 		
 	@validateRepo
@@ -24,7 +24,7 @@ export default abstract class Repository<T> {
 		await this.entity.update({
 			where: { id: searchId },
 			data: {
-					activa: !(data as any).activa,
+				activa: !(data as any).activa,
 			}
 		})
 	}

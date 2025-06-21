@@ -13,6 +13,11 @@ export default abstract class Service<T> {
         await this.entity.activateOrDeactivate(id);
     }
 
+    @validateService('not deleted: ')
+    public async delete(id: number): Promise<void> {
+        await this.entity.delete(id);
+    }
+
     @validateService('not updated: ')
     public async update(id: number, data: T): Promise<void> {
         await this.entity.update(id, data);

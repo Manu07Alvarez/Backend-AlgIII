@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import {  ICarreraService } from "../services/interfaces/ICarreraService.ts";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';

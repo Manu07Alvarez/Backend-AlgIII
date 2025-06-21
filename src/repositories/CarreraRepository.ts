@@ -1,10 +1,10 @@
 
 import { Carrera, PrismaClient } from '../../generated/prisma/client.js';
-import  IRepository  from './interfaces/ICarreraRepository.ts';
+import  ICarreraRepository  from './interfaces/ICarreraRepository.ts';
 
 import Repository from './Repository.ts';
 
-export class CarreraRepository extends Repository<Carrera> implements IRepository<Carrera> {
+export class CarreraRepository extends Repository<Carrera> implements ICarreraRepository {
   constructor(
       private readonly carrera: PrismaClient['carrera'],
   ) {super(carrera);}

@@ -1,6 +1,6 @@
 
 import { Carrera, PrismaClient } from '../../generated/prisma/client.js';
-import  IRepository  from './IRepository.ts';
+import  IRepository  from './interfaces/ICarreraRepository.ts';
 
 import Repository from './Repository.ts';
 

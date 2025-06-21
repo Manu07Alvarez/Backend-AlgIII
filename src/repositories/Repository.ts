@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { validateRepo } from "decorators/errors/errors.ts"
+import { validateRepo } from "../decorators/errors/errors.ts";
 export default abstract class Repository<T> {
 	constructor(protected readonly entity: any) {}
 

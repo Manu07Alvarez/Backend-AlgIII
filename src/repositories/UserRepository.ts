@@ -1,7 +1,7 @@
 
 import { PrismaClient, Usuario } from '../../generated/prisma/client.js';
 import { validateRepo } from '../decorators/errors/errors.ts';
-import IRepository from './IRepository.ts';
+import IRepository from './interfaces/IUserRepository.ts';
 import Repository from './Repository.ts';
 
 export class UserRepository extends Repository<Usuario> implements IRepository<Usuario> {

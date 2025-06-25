@@ -29,6 +29,15 @@ export default class MensajesRepository extends Repository<Mensaje> implements I
   }
 
   @validateRepo
+  public async messagesResponded(messageId: number): Promise<Mensaje[]> {
+	return this.entity.findMany({
+		where: {
+			id_mensaje: messageId,
+		},
+	});
+}
+
+  @validateRepo
   public async findAllInUserId(userId: number): Promise<Mensaje[]> {
     return this.entity.findMany({
 		where: { 

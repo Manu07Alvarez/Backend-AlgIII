@@ -11,6 +11,11 @@ export class MensajesService extends Service<Mensaje> implements IMensajesServic
     ) {super(mensajeRepository, 'Carrera');}
 
     @validateService('not found: ')
+    public async messagesResponded(messageId: number): Promise<Mensaje[]> {
+        return this.entity.messagesResponded(messageId);
+    }
+
+    @validateService('not found: ')
     public async findAllInUserId(userId: number): Promise<Mensaje[]> {
         return this.entity.findByUserId(userId);
     }

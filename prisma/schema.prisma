@@ -79,6 +79,9 @@ model Mensaje {
   id         Int      @id @default(autoincrement())
   contenido  String
   id_autor   Int
+  contestado Mensaje? @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
+  id_mensaje Int?
+  respuestas Mensaje[] @relation("MensajeRespuesta")
   autor      Usuario  @relation(fields: [id_autor], references: [id])
   id_post    Int
   post       Post     @relation(fields: [id_post], references: [id])

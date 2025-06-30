@@ -1,6 +1,6 @@
 import { Usuario } from './../../generated/prisma/client.js';
 import { Request, Response } from 'express';
-import { IUserService } from '../services/UserService.Interface.ts';
+import { IUserService } from '../services/interfaces/IUserService.ts';
 export class UserController {
   
   constructor(
@@ -39,7 +39,7 @@ export class UserController {
    
   async getUser(req: Request, res: Response) {
     try {
-      const user = await this.userService.getUser(Number(req.params.id));
+      const user = await this.userService.findById(Number(req.params.id));
       res.status(200).json(user)
     }
     catch (error: unknown) {

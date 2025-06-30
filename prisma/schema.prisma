@@ -26,6 +26,7 @@ model Usuario {
   createdAt       DateTime? @default(now())
   updatedAt       DateTime? @updatedAt
 
+  mensajes Mensaje[]
   Tema Tema[]
   Post Post[]
 }
@@ -59,6 +60,8 @@ model Tema {
   fijado      Boolean  @default(false)
   cerrado     Boolean  @default(false)
   Post Post[]
+  @@index([id_carrera], name: "idx_tema_carrera")
+  @@index([id_creador], name: "idx_tema_creador")
 }	
 
 model Post {
@@ -72,8 +75,24 @@ model Post {
   updatedAt  DateTime? @updatedAt
   id_tema    Int
   tema       Tema     @relation(fields: [id_tema], references: [id])
+  Mensaje    Mensaje[]
+  @@index([id_tema], name: "idx_post_tema")
+  @@index([id_autor], name: "idx_post_autor")
 }
 
+model Mensaje {
+  id         Int      @id @default(autoincrement())
+  contenido  String
+  id_autor   Int
+  contestado Mensaje? @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
+  id_mensaje Int?
+  respuestas Mensaje[] @relation("MensajeRespuesta")
+  autor      Usuario  @relation(fields: [id_autor], references: [id])
+  id_post    Int
+  post       Post     @relation(fields: [id_post], references: [id])
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+}
 
 enum Rol {
   ADMIN

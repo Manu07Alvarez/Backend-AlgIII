@@ -1,3 +1,4 @@
+
 import * as Prisma from "../../../generated/prisma/client.js";
 import errLogger from "../../utils/logging/Logger.ts";
 export function validateRepo<This, Args extends unknown[], Return>(
@@ -26,7 +27,7 @@ export function validateRepo<This, Args extends unknown[], Return>(
 }
 
 export function validateService(headerMessage: string) {
-  return function actualDecor<This, Args extends unknown[], Return>(
+  return function actualDecor<This extends { name: string }, Args extends unknown[], Return>(
     target: (this: This, ...args: Args) => Promise<Return>,
   ) {
     return async function (this: This, ...args: Args): Promise<Return> {
@@ -35,7 +36,7 @@ export function validateService(headerMessage: string) {
       } catch (error: unknown) {
           if (error instanceof Error) {
             errLogger.error("ERROR 💥 " + error);
-            throw new Error(`${headerMessage} ${error.message}`);
+            throw new Error(`${this.name} ${headerMessage} ${error.message}`);
           }
           throw error;
       }

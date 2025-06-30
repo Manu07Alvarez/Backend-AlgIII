@@ -43,6 +43,11 @@ model Carrera {
 }
 
 model Tema {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
   id          Int      @id @default(autoincrement())
   titulo      String
   createdAt   DateTime? @default(now())

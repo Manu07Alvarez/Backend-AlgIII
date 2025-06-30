@@ -1,10 +1,6 @@
 import { validateRepo, validateService } from "../decorators/errors/errors.js";
 import { temasRepositories } from "../repositories/TemasRepositories.js";
-import { describe } from "node:test";
 import { Tema, PrismaClient } from "../prisma/client.js";
-import { promises } from "dns";
-import { get } from "https";
-
 
 export class TemaService {
     constructor(
@@ -31,12 +27,12 @@ export class TemaService {
     // dar de baja un tema
     @validateService('ERROR tema not low ')
     public async bajaTema(id:number): Promise<void>{
-        return this.TemasRepositories.BajaTema(id);
+        return await this.TemasRepositories.BajaTema(id);
     }
 
     @validateService('ERROR tema not created')
     public async crearTema(data:Tema):Promise<void>{
-        return await this.TemasRepositories.crearTema(data)
+        return await this.TemasRepositories.crearTema(data);
     }
 
     @validateService('ERROR tema not update')

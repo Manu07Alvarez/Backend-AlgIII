@@ -1,4 +1,4 @@
-import { PrismaClient, tema } from '../../generated/prisma/client.js';
+import { PrismaClient, Tema } from '../../generated/prisma/client.js';
 import { validateRepo } from '../decorators/errors/errors.js';
 
 // TODO: consulta de temas con where de cerrado = false
@@ -8,14 +8,14 @@ constructor (
 ){}
     // busca todo los temas que hay en la tabla
     @validateRepo
-    async getTemaAll():Promise<tema[]>{
+    async getTemaAll():Promise<Tema[]>{
         console.log("get tema")
         return await this.tema.findMany()
     }
 
     //busca los temas por id
     @validateRepo
-    async getTemaId(searchId:number):Promise<Partial<tema>>{
+    async getTemaId(searchId:number):Promise<Partial<Tema>>{
         return this.tema.findUniqueOrThrow({
             where: { id: searchId },
             omit: {
@@ -26,7 +26,7 @@ constructor (
     }
 
     @validateRepo
-    async GetTemaName(searchNombre:string): Promise<Partial<tema>> {
+    async GetTemaName(searchNombre:string): Promise<Partial<Tema>> {
            return this.tema.findFirstOrThrow({
             where: { nombre: searchNombre },
             select: {
@@ -44,12 +44,12 @@ constructor (
     }
 
     @validateRepo
-    async crearTema(data:tema): Promise<void> {
+    async crearTema(data:Tema): Promise<void> {
         await this.tema.create({data});
     }
 
     @validateRepo
-    async updateTema(data: tema): Promise<void> {
+    async updateTema(data: Tema): Promise<void> {
         await this.tema.update({
             where: { id: data.id },
             data

@@ -1,11 +1,11 @@
-import { TemaService } from "services/TemasService.ts";
+import { ItemasService } from "services/temaService.interface.ts";
 import { Request, Response, NextFunction } from "express";
 import {trace, Span} from '@opentelemetry/api';
 const tracer = trace.getTracer('controller');
 
 export class temasController {
     constructor(
-        private readonly TemasService: TemaService
+        private readonly TemasService: ItemasService
     ){}
 
     public async getTemaAll(req: Request, res: Response): Promise<void> {

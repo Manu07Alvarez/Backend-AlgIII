@@ -46,4 +46,11 @@ export class PostRepositories {
             data
         });
     }
+
+    @validateRepo
+    public async bajaPost(id:number):Promise<void>{
+        await this.Post.delete({
+            where: {id:id}
+        })
+    }
 }

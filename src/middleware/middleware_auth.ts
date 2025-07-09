@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { jwtVerify } from "jose";
-import { getPublicKey } from "../utils/auth/KeyGen.ts";
+import { getPublicKey } from "../utils/auth/KeyGen";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const contrasenaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
-const publicKey =  await getPublicKey();
+
 
 export const authLogin = (req : Request, res: Response, next: NextFunction) => {
             // la dos estructuras de datos son las siguientes:
@@ -23,7 +23,8 @@ export const authLogin = (req : Request, res: Response, next: NextFunction) => {
                 console.log ("Cookie encontrada.")
                 // verificar si existe la token dentro de la Cookie y si existe la firma de la token
                 try{
-                    const decoded = jwtVerify(tsCookie, publicKey!);
+                    const publicKey = process.env.PUBLIC_KEY || "defaultPublicKey"; // Replace "defaultPublicKey" with your actual public key
+                    const decoded = jwtVerify(tsCookie, publicKey);
                     console.log("token valido: ", decoded);
                     return next()
                 } catch (err: unknown) {
@@ -36,3 +37,7 @@ export const authLogin = (req : Request, res: Response, next: NextFunction) => {
             // si no existe el email, la contraseña o la cookie, se retorna un error
             return res.status(401).json({mensaje: "No se han proporcionado credenciales"});
         };
+function jwtVerify(tsCookie: any, arg1: any) {
+    throw new Error("Function not implemented.");
+}
+

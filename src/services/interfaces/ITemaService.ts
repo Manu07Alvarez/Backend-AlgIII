@@ -1,9 +1,9 @@
 import { Tema } from '../../prisma/client.ts';
 
-export interface ItemasService{
+export default interface ItemasService{
       findAll(): Promise<Tema[]>;
-      findById(id: number): Promise<Tema | null>;
-      findByName(name: string): Promise<Tema | null>;
+      findById(id: number): Promise<Partial<Tema>>;
+      findByName(name: string): Promise<Partial<Tema>>;
       create(data: Tema): Promise<void>;
       activateOrDeactivate(id: number): Promise<void>;
       delete(id: number): Promise<void>;

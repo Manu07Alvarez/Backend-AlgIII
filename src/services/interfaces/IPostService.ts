@@ -1,9 +1,9 @@
 import {Post} from '../../prisma/client.ts';
 
-export interface IpostService{
+export default interface IpostService{
     findAll(): Promise<Post[]>;
-    findById(id: number): Promise<Post | null>;
-    findByName(name: string): Promise<Post | null>;
+    findById(id: number): Promise<Partial<Post>>;
+    findByName(name: string): Promise<Partial<Post>>;
     create(data: Post): Promise<void>;
     activateOrDeactivate(id: number): Promise<void>;
     delete(id: number): Promise<void>;

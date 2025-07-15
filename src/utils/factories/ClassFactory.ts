@@ -4,12 +4,12 @@ import { UserService } from "../../services/UserService.ts";
 import { UserController } from "../../controller/UserController.ts";
 import { CarreraController } from "../../controller/CarreraController.ts";
 import { CarreraService } from "../../services/CarreraService.ts"
-import { temasController } from "../../controller/TemasController.ts";
-import { TemaService } from "../../services/TemasService.ts";
-import { temasRepositories } from "../../repositories/TemasRepositories.ts";
-import { PostController }from "../../controller/postController.ts";
-import { PostRepositories } from "../../repositories/postRepositories.ts";
-import { postService } from "../../services/postService.ts"; 
+import { TemasController } from "../../controller/TemasController.ts";
+import { TemasService } from "../../services/TemasService.ts";
+import { TemasRepository } from "../../repositories/TemasRepository.ts";
+import { PostController }from "../../controller/PostController.ts";
+import { PostRepository } from "../../repositories/PostRepository.ts";
+import { PostService } from "../../services/PostService.ts"; 
 const {CarreraRepository} = await import('../../repositories/CarreraRepository.ts');
 const Prisma = new PrismaClient;
 
@@ -25,14 +25,14 @@ export function createCarreraController(): CarreraController {
   return new CarreraController(service);
 }
 
-export function createTemaController(): temasController {
-  const repo = new temasRepositories(Prisma.tema);
-  const service = new TemaService(repo);
-  return new temasController(service);
+export function createTemaController(): TemasController {
+  const repo = new TemasRepository(Prisma.tema);
+  const service = new TemasService(repo);
+  return new TemasController(service);
 }
 
 export function createPostController(): PostController{
-  const repo = new PostRepositories(Prisma.post);
-  const service = new postService(repo);
+  const repo = new PostRepository(Prisma.post);
+  const service = new PostService(repo);
   return new PostController(service);
 }

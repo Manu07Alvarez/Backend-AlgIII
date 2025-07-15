@@ -1,13 +1,13 @@
-import { Post } from "../../generated/prisma/client.js";
+import { Post } from "../prisma/client.ts";
 import { validateService } from "decorators/errors/errors.ts";
-import { PostRepositories } from "../repositories/postRepositories.js";
-import { IpostService } from "./interfaces/postService.Interface.js";
+import IPostRepository from "../repositories/interfaces/IPostRepository.ts";
+import IPostService  from "./interfaces/IPostService.ts";
 import Service from "./Service.ts";
 
-export class postService extends Service<Post> implements IpostService {
+export class PostService extends Service<Post> implements IPostService {
     constructor (
-        private readonly postRepositories: PostRepositories,
+        private readonly postRepository: IPostRepository,
     ) {
-        super(postRepositories, 'post');
+        super(postRepository, 'post');
     }
 }

@@ -12,6 +12,8 @@ export class UserService extends Service<Usuario> implements IUserService {
   constructor(
     private readonly userRepository: UserRepository
   ) {super(userRepository, 'Usuario');}
+
+  @validateService('not deactivated: ')
   async bajaUsuario(id: number, data: Usuario): Promise<void> {
     data.activo = false;
     await this.userRepository.update(id, data);

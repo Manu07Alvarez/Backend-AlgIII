@@ -7,7 +7,7 @@ import { CarreraService } from "../../services/CarreraService.ts"
 import { temasController } from "../../controller/TemasController.ts";
 import { TemaService } from "../../services/TemasService.ts";
 import { temasRepositories } from "../../repositories/TemasRepositories.ts";
-import { PostController }from "../../controller/postController.ts";
+import { PostController }from "../../controller/PostController.ts";
 import { PostRepositories } from "../../repositories/postRepositories.ts";
 import { postService } from "../../services/postService.ts"; 
 const {CarreraRepository} = await import('../../repositories/CarreraRepository.ts');

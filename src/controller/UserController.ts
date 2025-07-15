@@ -36,6 +36,18 @@ export class UserController {
       }
     }
   }
+
+  async deactivate(req: Request, res: Response) {
+    try {
+      const id = Number(req.params.id);
+      await this.userService.bajaUsuario(id, req.body.activo);
+      res.status(200).json({ message: 'User deleted successfully' });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        res.status(500).json({ message: err.message });
+      }
+    }
+  }
    
   async getUser(req: Request, res: Response) {
     try {

@@ -1,43 +1,44 @@
 import { Request, Response, NextFunction } from "express";
-import { jwtVerify } from "jose";
-import { getPublicKey } from "../utils/auth/KeyGen";
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const contrasenaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
+import { jwtVerify, importSPKI } from "jose";
+import { validateEmail, validateContrasena } from "./validate_email_contrasena.ts";
 
+export const authLogin = async (req: Request, res: Response, next: NextFunction) => {
+    const { email, contrasena } = req.body;
+    const tsCookie = req.cookies["token"];
 
-export const authLogin = (req : Request, res: Response, next: NextFunction) => {
-            // la dos estructuras de datos son las siguientes:
-            const { contrasena } = req.body.contrasena;
-            const { email } = req.body.email;
-            const tsCookie = req.cookies["token"];
+    if (email && contrasena) {
+        console.log("Email y contraseña encontradas");
 
-            // verificar si existe el email y la contraseña en el body
-            if (email && contrasena) {
-                console.log("email y contraseñas encontradas")
-                if (!emailRegex.test(email)) {throw new Error("El email no es valido")};
-                if (!contrasenaRegex.test(contrasena)) {throw new Error("la contraseña no es valida")};
-                return next();   
-            }  //REVISION: Verificar casos en el que se encuentre el email o la contraseña pero no ambos
-        
-            if(tsCookie) {  // si no existe el email o la contraseña, se verifica si existe la cookie
-                console.log ("Cookie encontrada.")
-                // verificar si existe la token dentro de la Cookie y si existe la firma de la token
-                try{
-                    const publicKey = process.env.PUBLIC_KEY || "defaultPublicKey"; // Replace "defaultPublicKey" with your actual public key
-                    const decoded = jwtVerify(tsCookie, publicKey);
-                    console.log("token valido: ", decoded);
-                    return next()
-                } catch (err: unknown) {
-                    if (err instanceof Error) {
-                        return res.status(401).json({mensaje: "Token invalido o expirado"});
-                    }
-                    throw err;
-                }
+        if (!validateEmail(email)) {
+            return res.status(400).json({ mensaje: "El email no es válido" });
+        }
+
+        if (!validateContrasena(contrasena)) {
+            return res.status(400).json({ mensaje: "La contraseña no es válida" });
+        }
+
+        return next();
+    }
+
+    if (tsCookie) {
+        console.log("Cookie encontrada.");
+
+        try {
+            const publicKeyStr = process.env.PUBLIC_KEY;
+            if (!publicKeyStr) {
+                throw new Error("Clave pública no definida en variables de entorno");
             }
-            // si no existe el email, la contraseña o la cookie, se retorna un error
-            return res.status(401).json({mensaje: "No se han proporcionado credenciales"});
-        };
-function jwtVerify(tsCookie: any, arg1: any) {
-    throw new Error("Function not implemented.");
-}
 
+            const publicKey = await importSPKI(publicKeyStr, "RS256");
+            const { payload } = await jwtVerify(tsCookie, publicKey);
+            console.log("Token válido: ", payload);
+
+            return next();
+        } catch (err) {
+            console.error("Error al verificar token:", err);
+            return res.status(401).json({ mensaje: "Token inválido o expirado" });
+        }
+    }
+
+    return res.status(401).json({ mensaje: "No se han proporcionado credenciales" });
+};

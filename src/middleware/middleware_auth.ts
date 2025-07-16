@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { jwtVerify, importSPKI } from "jose";
-import { validateEmail, validateContrasena } from "./validate_email_contrasena.ts";
+import { validateEmail, validateContrasena } from "./validate_email_contrasena.js";
 
 export const authLogin = async (req: Request, res: Response, next: NextFunction) => {
     const { email, contrasena } = req.body;

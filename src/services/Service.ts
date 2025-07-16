@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { validateService } from "../decorators/errors/errors.ts";
+import { validateService } from "../decorators/errors/errors.js";
 
 export default abstract class Service<T> {
 

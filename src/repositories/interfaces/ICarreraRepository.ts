@@ -1,4 +1,4 @@
-import { Carrera } from '../../../generated/prisma/client.ts';
+import { Carrera } from '../../generated/prisma/client.js';
 export default interface ICarreraRepository {
   create(data: Carrera): Promise<void>;
   findById(id: number): Promise<Partial<Carrera>>;

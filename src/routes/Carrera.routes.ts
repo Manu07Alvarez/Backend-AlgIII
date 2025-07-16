@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request , Router, Response } from 'express';
-import { createCarreraController } from '../utils/factories/ClassFactory.ts';
+import { createCarreraController } from '../utils/factories/ClassFactory.js';
 
 const router = Router()
 const carreraController = createCarreraController();

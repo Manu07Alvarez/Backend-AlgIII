@@ -1,11 +1,11 @@
-import { UserRepository } from '../repositories/UserRepository.ts';
-import { Usuario } from '../../generated/prisma/client.js';
+import { UserRepository } from '../repositories/UserRepository.js';
+import { Usuario } from '../generated/prisma/client.js';
 import { SignJWT } from 'jose';
-import { validateService } from '../decorators/errors/errors.ts';
-import { getPublicKey } from '../utils/auth/KeyGen.ts';
+import { validateService } from '../decorators/errors/errors.js';
+import { getPublicKey } from '../utils/auth/KeyGen.js';
 import { compare } from 'bcrypt-ts';
-import { IUserService } from './interfaces/IUserService.ts';
-import Service from './Service.ts';
+import { IUserService } from './interfaces/IUserService.js';
+import Service from './Service.js';
 const publicKey = await getPublicKey();
 export class UserService extends Service<Usuario> implements IUserService { 
 

@@ -1,4 +1,4 @@
-import ITemasService from "services/interfaces/ITemaService.ts";
+import ITemasService from "services/interfaces/ITemaService.js";
 import { Request, Response, NextFunction } from "express";
 import {trace, Span} from '@opentelemetry/api';
 const tracer = trace.getTracer('controller');

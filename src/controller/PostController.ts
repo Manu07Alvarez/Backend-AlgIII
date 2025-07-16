@@ -1,4 +1,4 @@
-import IPostService from "../services/interfaces/IPostService.ts";
+import IPostService from "../services/interfaces/IPostService.js";
 import { Request, Response } from "express";
 import { trace, Span } from '@opentelemetry/api';
 const tracer = trace.getTracer('controlleer');

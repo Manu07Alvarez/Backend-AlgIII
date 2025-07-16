@@ -1,9 +1,9 @@
 
 
-import IMensajesService from "../services/interfaces/IMensajesService.ts";
+import IMensajesService from "../services/interfaces/IMensajesService.js";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
-import { Mensaje } from "../prisma/client.ts";
+import { Mensaje } from "../generated/prisma/client.js";
 const tracer = trace.getTracer('controlleer');
 
 export class MensajesController {

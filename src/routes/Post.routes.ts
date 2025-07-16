@@ -1,5 +1,5 @@
 import {Response, Request, Router} from "express";
-import { createPostController } from "utils/factories/ClassFactory.ts";
+import { createPostController } from "../utils/factories/ClassFactory.js";
 import { trace } from '@opentelemetry/api';
 
 const router = Router();

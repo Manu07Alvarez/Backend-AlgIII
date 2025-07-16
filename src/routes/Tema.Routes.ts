@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import {createTemaController} from '../utils/factories/ClassFactory.ts';
+import {createTemaController} from '../utils/factories/ClassFactory.js';
 import {trace} from '@opentelemetry/api'
 
 const router = Router()

@@ -1,7 +1,7 @@
-import Repository from "./Repository.ts";
-import { PrismaClient, Mensaje } from '../../generated/prisma/client.js';
-import { validateRepo } from "../decorators/errors/errors.ts";
-import IMensajesRepository from "./interfaces/IMensajesRepository.ts";
+import Repository from "./Repository.js";
+import { PrismaClient, Mensaje } from '../generated/prisma/client.js';
+import { validateRepo } from "../decorators/errors/errors.js";
+import IMensajesRepository from "./interfaces/IMensajesRepository.js";
 
 export default class MensajesRepository extends Repository<Mensaje> implements IMensajesRepository {
   constructor(

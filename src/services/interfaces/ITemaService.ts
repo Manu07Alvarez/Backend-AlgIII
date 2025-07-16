@@ -1,4 +1,4 @@
-import { Tema } from '../../prisma/client.ts';
+import { Tema } from '../../generated/prisma/client.js';
 
 export default interface ItemasService{
       findAll(): Promise<Tema[]>;

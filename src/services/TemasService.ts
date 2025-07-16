@@ -1,11 +1,11 @@
-import { temasRepositories } from "../repositories/TemasRepositories.js";
+import ITemaRepository from "../repositories/interfaces/ITemaRepository.ts";
 import { Tema, PrismaClient } from "../../generated/prisma/client.js";
-import { ItemasService } from "./interfaces/temaService.interface.js";
+import ITemasService from "./interfaces/ITemaService.ts";
 import service from "./Service.ts";
 
-export class TemasService extends service<Tema> implements ItemasService {
+export class TemasService extends service<Tema> implements ITemasService {
     constructor(
-        private readonly TemasRepositories : temasRepositories,
+        private readonly TemasRepositories : ITemaRepository,
     ) {
         super(TemasRepositories, 'Tema');
     }

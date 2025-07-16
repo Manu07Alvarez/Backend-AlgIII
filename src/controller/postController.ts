@@ -1,11 +1,11 @@
-import {IpostService} from "../services/interfaces/postService.Interface.ts";
+import IPostService from "../services/interfaces/IPostService.ts";
 import { Request, Response } from "express";
 import { trace, Span } from '@opentelemetry/api';
 const tracer = trace.getTracer('controlleer');
 
 export class PostController {
     constructor(
-        private readonly PostService: IpostService
+        private readonly PostService: IPostService
     ){}
 
    public async update(req: Request, res: Response): Promise<void> {

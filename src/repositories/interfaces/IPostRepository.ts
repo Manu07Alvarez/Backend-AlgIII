@@ -1,4 +1,4 @@
-import { Post } from "../../prisma/client.ts";
+import { Post } from "../../generated/prisma/client.js";
 export default interface IPostRepository {
     create(data: Post): Promise<void>;
     findById(id: number): Promise<Partial<Post>>;

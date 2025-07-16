@@ -1,7 +1,7 @@
-import { PrismaClient, Tema } from '../prisma/client.ts';
-import { validateRepo } from '../decorators/errors/errors.ts';
-import repository from './Repository.ts';
-import ITemasRepository from './interfaces/ITemaRepository.ts';
+import { PrismaClient, Tema } from '../generated/prisma/client.js';
+import { validateRepo } from '../decorators/errors/errors.js';
+import repository from './Repository.js';
+import ITemasRepository from './interfaces/ITemaRepository.js';
 
 // TODO: consulta de temas con where de cerrado = false
 export class TemasRepository extends repository<Tema> implements ITemasRepository {

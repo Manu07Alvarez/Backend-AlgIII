@@ -1,4 +1,4 @@
-import { Carrera } from "../../prisma/client.ts";
+import { Carrera } from "../../generated/prisma/client.js";
 
 export interface ICarreraService {
   create(data: Carrera): Promise<void>;

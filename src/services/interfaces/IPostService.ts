@@ -1,4 +1,4 @@
-import {Post} from '../../prisma/client.ts';
+import {Post} from '../../generated/prisma/client.js';
 
 export default interface IpostService{
     findAll(): Promise<Post[]>;

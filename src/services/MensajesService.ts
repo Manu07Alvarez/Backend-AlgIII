@@ -1,9 +1,9 @@
-import { Mensaje } from "../../generated/prisma/client.js";
+import { Mensaje } from "../generated/prisma/client.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { validateService } from "../decorators/errors/errors.ts";
-import IMensajesRepository from "../repositories/interfaces/IMensajesRepository.ts";
-import IMensajesService from "./interfaces/IMensajesService.ts";
-import Service from "./Service.ts";
+import { validateService } from "../decorators/errors/errors.js";
+import IMensajesRepository from "../repositories/interfaces/IMensajesRepository.js";
+import IMensajesService from "./interfaces/IMensajesService.js";
+import Service from "./Service.js";
 
 export class MensajesService extends Service<Mensaje> implements IMensajesService {
     constructor(

@@ -1,6 +1,6 @@
-import { Usuario } from './../../generated/prisma/client.js';
+import { Usuario } from './../generated/prisma/client.js';
 import { Request, Response } from 'express';
-import { IUserService } from '../services/interfaces/IUserService.ts';
+import { IUserService } from '../services/interfaces/IUserService.js';
 export class UserController {
   
   constructor(
@@ -30,6 +30,18 @@ export class UserController {
       } as Usuario;
       await this.userService.register(user);
       res.status(201).json({ message: 'User created successfully' });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        res.status(500).json({ message: err.message });
+      }
+    }
+  }
+
+  async deactivate(req: Request, res: Response) {
+    try {
+      const id = Number(req.params.id);
+      await this.userService.bajaUsuario(id, req.body.activo);
+      res.status(200).json({ message: 'User deleted successfully' });
     } catch (err: unknown) {
       if (err instanceof Error) {
         res.status(500).json({ message: err.message });

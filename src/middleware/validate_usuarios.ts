@@ -1,6 +1,5 @@
-import { UsuarioSchema } from "schemas/usuarios.schema.ts";
-import { validateSchema } from "utils/validate.ts";
-import { Prisma } from "../prisma/index.js";
+import { UsuarioSchema } from "schemas/usuarios.schema.js";
+import { validateSchema } from "utils/validate.js";
 import { Request , Response, NextFunction } from "express";
 
 export async function validateUsuarios(req: Request, res: Response, next: NextFunction) {

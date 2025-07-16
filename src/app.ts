@@ -1,11 +1,11 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import errlogger  from './utils/logging/Logger.ts';
+import errlogger  from './utils/logging/Logger.js';
 const { trace } = await import('@opentelemetry/api');
 const express = (await import('express')).default;
-const { routes } = await import('./routes/index.ts');
-const { generateAndSaveKeyPair } = await import("./utils/auth/KeyGen.ts");
+const { routes } = await import('./routes/index.js');
+const { generateAndSaveKeyPair } = await import("./utils/auth/KeyGen.js");
 import swaggerOutput from "./docs/swagger-generated.json" with { type: "json" };
 const swaggerUi = (await import('swagger-ui-express')).default;
 const tracer = trace.getTracer('app');

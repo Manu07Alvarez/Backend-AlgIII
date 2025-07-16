@@ -2,7 +2,7 @@
   "name": "backend-server",
   "version": "1.0.0",
   "description": "Servidor de express para TP de algoritmos III",
-  "main": "dist/app.js",
+  "main": "dist/initializer.js",
   "type": "module",
   "files": [
     "dist",
@@ -18,9 +18,10 @@
   "scripts": {
     "gen:dev": "dotenv -e .env -- npx prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc",
-    "swagger": "tsx src/docs/swagger.ts",
-    "start": "node dist/app.js",
+    "build": "babel src --extensions '.ts' --copy-files --out-dir dist",
+    "build:types": "npx tsc",
+    "swagger": "nodemon src/docs/swagger.ts",
+    "start": "node dist/initializer.js",
     "dev": "nodemon ./src/initializer.ts 5000"
   },
   "engines": {
@@ -64,7 +65,6 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.27.1",
     "@eslint/js": "9.22.0",
     "@types/aws-lambda": "^8.10.149",
     "@types/bunyan": "^1.8.11",

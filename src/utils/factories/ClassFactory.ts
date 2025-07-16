@@ -1,16 +1,16 @@
-import { UserRepository } from "../../repositories/UserRepository.ts";
-import { PrismaClient } from '../../../generated/prisma/client.js';
-import { UserService } from "../../services/UserService.ts";
-import { UserController } from "../../controller/UserController.ts";
-import { CarreraController } from "../../controller/CarreraController.ts";
-import { CarreraService } from "../../services/CarreraService.ts"
-import { TemasController } from "../../controller/TemasController.ts";
-import { TemasService } from "../../services/TemasService.ts";
-import { TemasRepository } from "../../repositories/TemasRepository.ts";
-import { PostController }from "../../controller/PostController.ts";
-import { PostRepository } from "../../repositories/PostRepository.ts";
-import { PostService } from "../../services/PostService.ts"; 
-const {CarreraRepository} = await import('../../repositories/CarreraRepository.ts');
+import { UserRepository } from "../../repositories/UserRepository.js";
+import { PrismaClient } from '../../generated/prisma/client.js';
+import { UserService } from "../../services/UserService.js";
+import { UserController } from "../../controller/UserController.js";
+import { CarreraController } from "../../controller/CarreraController.js";
+import { CarreraService } from "../../services/CarreraService.js"
+import { TemasController } from "../../controller/TemasController.js";
+import { TemasService } from "../../services/TemasService.js";
+import { TemasRepository } from "../../repositories/TemasRepository.js";
+import { PostController }from "../../controller/PostController.js";
+import { PostRepository } from "../../repositories/PostRepository.js";
+import { PostService } from "../../services/PostService.js"; 
+const {CarreraRepository} = await import('../../repositories/CarreraRepository.js');
 const Prisma = new PrismaClient;
 
 export function createUserController(): UserController {

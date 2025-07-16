@@ -1,5 +1,5 @@
 import {Type, Static} from '@sinclair/typebox';
-import { Rol } from '../prisma/index.js';
+import { Rol } from '../generated/prisma/index.js';
 
 export const UsuarioSchema = Type.Object({
   id: Type.String(),

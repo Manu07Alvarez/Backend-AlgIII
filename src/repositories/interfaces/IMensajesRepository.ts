@@ -1,4 +1,4 @@
-import { Mensaje } from '../../../generated/prisma/client.ts';
+import { Mensaje } from '../../generated/prisma/client.js';
 export default interface IMensajesRepository {
   create(data: Mensaje): Promise<void>;
   findById(id: number): Promise<Partial<Mensaje>>;

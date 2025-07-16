@@ -1,5 +1,5 @@
 
-import {  ICarreraService } from "../services/interfaces/ICarreraService.ts";
+import {  ICarreraService } from "../services/interfaces/ICarreraService.js";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
 const tracer = trace.getTracer('controlleer');

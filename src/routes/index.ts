@@ -1,7 +1,7 @@
 import express from 'express';
 
-import temaRoutes from './tema.Routes.ts';
-import postRoutes from './post.routes.ts';
+import temaRoutes from './Tema.Routes.ts';
+import postRoutes from './Post.routes.ts';
 import userRoutes from './User.routes.ts';
 import guestRoutes from './Guest.routes.ts';
 import CarreraRoutes from './Carrera.routes.ts';

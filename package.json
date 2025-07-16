@@ -61,7 +61,6 @@
     "prisma": "^6.9.0",
     "ts-pattern": "5.7.0",
     "tslib": "^2.8.1",
-    "typescript": "5.8.2",
     "winston": "^3.17.0"
   },
   "devDependencies": {
@@ -72,7 +71,7 @@
     "@types/http-proxy": "^1.17.16",
     "@types/memcached": "^2.2.10",
     "@types/mysql": "^2.15.27",
-    "@types/node": "22.15.18",
+    "@types/node": "^22.15.18",
     "@types/oracledb": "^6.6.0",
     "@types/pg": "^8.15.4",
     "@types/pg-pool": "^2.0.6",
@@ -96,6 +95,7 @@
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1",
     "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.27.0",
     "winston-errsole": "^1.0.0"
   }

@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/home/usermanu/programando/Backend-AlgIII/src/generated/prisma",
+      "value": "C:\\Users\\Usuario\\Desktop\\Backend-AlgIII\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -32,12 +32,12 @@ const config: runtime.GetPrismaClientConfig = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/usermanu/programando/Backend-AlgIII/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\Usuario\\Desktop\\Backend-AlgIII\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../../prisma",

@@ -18,8 +18,7 @@
   "scripts": {
     "gen:dev": "dotenv -e .env -- npx prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src --extensions '.ts' --copy-files --out-dir dist",
-    "build:types": "npx tsc",
+    "build": "npx tsc",
     "swagger": "nodemon src/docs/swagger.ts",
     "start": "node dist/initializer.js",
     "dev": "nodemon ./src/initializer.ts 5000"

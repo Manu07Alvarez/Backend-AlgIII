@@ -3,7 +3,8 @@
 import IMensajesService from "../services/interfaces/IMensajesService.js";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
-import { Mensaje } from "../generated/prisma/client.js";
+import { Mensaje } from "schemas/Mensajes.schemas.js";
+
 const tracer = trace.getTracer('controlleer');
 
 export class MensajesController {
@@ -14,7 +15,7 @@ export class MensajesController {
     public async update(req: Request, res: Response): Promise<void> {
         try {
             const id = Number(req.params.id);
-            const mensajes = req.body;
+            const mensajes: Mensaje = req.body;
             await this.MensajesService.update(id, mensajes);
             res.status(200).json({ message: 'Mensaje updated successfully' });
         } catch (error: unknown) {
@@ -38,12 +39,7 @@ export class MensajesController {
 
     public async create(req: Request, res: Response): Promise<void> {
         try {
-            const mensajes = {
-                id_autor: Number(req.body.id_autor),
-                id_post: Number(req.body.id_post),
-                contenido: req.body.contenido,
-                id_mensaje: req.body.id_mensaje || null, // Optional field for responding to another message
-            } as Mensaje
+            const mensajes: Mensaje = req.body;
             await this.MensajesService.create(mensajes);
             res.status(201).json({ message: 'Mensaje created successfully' });
         } catch (error: unknown) {

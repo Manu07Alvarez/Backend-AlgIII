@@ -1,6 +1,7 @@
 import IPostService from "../services/interfaces/IPostService.js";
 import { Request, Response } from "express";
 import { trace, Span } from '@opentelemetry/api';
+import { Post } from "schemas/Post.schemas.js";
 const tracer = trace.getTracer('controlleer');
 
 export class PostController {
@@ -11,7 +12,7 @@ export class PostController {
    public async update(req: Request, res: Response): Promise<void> {
             try {
                 const id = Number(req.params.id);
-                const post = req.body;
+                const post: Post = req.body;
                 await this.PostService.update(id, post);
                 res.status(200).json({ message: 'Post updated successfully' });
             } catch (error: unknown) {

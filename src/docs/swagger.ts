@@ -1,5 +1,11 @@
 
+import { UsuarioSchema } from '../schemas/Usuarios.schema.js';
+import { CarreraSchema } from '../schemas/Carreras.schemas.js';
 import swaggerAutogen from 'swagger-autogen';
+import { TemaSchema } from '../schemas/Tema.schema.js';
+import { PostSchema } from '../schemas/Post.schemas.js';
+import { MensajeSchema } from '../schemas/Mensajes.schemas.js';
+
 
 const doc = {
 	info: {
@@ -15,6 +21,11 @@ const doc = {
 	],
 	components: {
 		schemas: {
+				carrerasSchema: CarreraSchema,
+				usuarioSchema: UsuarioSchema,
+				temaSchema: TemaSchema,
+				postSchema: PostSchema,
+				mensajeSchema: MensajeSchema,
 				securitySchema: {
 					cookieAuth: { 
 						type: 'apiKey',

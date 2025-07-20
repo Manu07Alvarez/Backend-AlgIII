@@ -2,6 +2,7 @@
 import {  ICarreraService } from "../services/interfaces/ICarreraService.js";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
+import { Carrera } from "schemas/Carreras.schemas.js";
 const tracer = trace.getTracer('controlleer');
 
 export class CarreraController {
@@ -12,7 +13,7 @@ export class CarreraController {
     public async update(req: Request, res: Response): Promise<void> {
         try {
             const id = Number(req.params.id);
-            const carrera = req.body;
+            const carrera: Carrera = req.body;
             await this.CarreraService.update(id, carrera);
             res.status(200).json({ message: 'Carrera updated successfully' });
         } catch (error: unknown) {
@@ -20,6 +21,7 @@ export class CarreraController {
                 res.status(500).json({ message: error.message });
             }
         }
+        // #swagger.autoBody = true 
     }
 
     public async activateOrDeactivate(req: Request, res: Response): Promise<void> {

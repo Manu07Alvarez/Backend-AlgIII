@@ -10,6 +10,9 @@ import { TemasRepository } from "../../repositories/TemasRepository.js";
 import { PostController }from "../../controller/PostController.js";
 import { PostRepository } from "../../repositories/PostRepository.js";
 import { PostService } from "../../services/PostService.js"; 
+import { MensajesController } from "../../controller/MensajesController.js";
+import { MensajesService } from "../../services/MensajesService.js";
+import MensajesRepository from "../../repositories/MensajesRespository.js";
 const {CarreraRepository} = await import('../../repositories/CarreraRepository.js');
 const Prisma = new PrismaClient;
 
@@ -35,4 +38,10 @@ export function createPostController(): PostController{
   const repo = new PostRepository(Prisma.post);
   const service = new PostService(repo);
   return new PostController(service);
+}
+
+export function createMensajeController(): MensajesController{
+  const repo = new MensajesRepository(Prisma.mensaje);
+  const service = new MensajesService(repo);
+  return new MensajesController(service);
 }

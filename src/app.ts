@@ -17,6 +17,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput))
 // ✅ Usar la instancia del logger (esto será interceptado por OpenTelemetry)
 app.use('/', routes);
 
+
 errlogger.info('🚀 Server started');
 
 app.listen(5000, () => {

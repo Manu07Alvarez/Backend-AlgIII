@@ -12,7 +12,7 @@ const tracer = trace.getTracer('app');
 generateAndSaveKeyPair();
 const app = express();
 app.use(express.json());
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput))
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput))
 
 // ✅ Usar la instancia del logger (esto será interceptado por OpenTelemetry)
 app.use('/', routes);
@@ -20,5 +20,5 @@ app.use('/', routes);
 errlogger.info('🚀 Server started');
 
 app.listen(5000, () => {
-	console.log('Listening on port 5000');
+	console.log('Listening on port localhost:5000');
 });

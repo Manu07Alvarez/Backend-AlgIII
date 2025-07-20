@@ -8,3 +8,7 @@ GET Http://localhost:5000/api/user/1
 ###
 
 GET Http://localhost:5000/api/carrera/
+
+###
+
+GET Http://localhost:5000/api/carrera/

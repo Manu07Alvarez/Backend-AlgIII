@@ -1,4 +1,4 @@
-import { UsuarioSchema } from "schemas/usuarios.schema.js";
+import { UsuarioSchema } from "schemas/Usuarios.schema.js";
 import { validateSchema } from "utils/validate.js";
 import { Request , Response, NextFunction } from "express";
 

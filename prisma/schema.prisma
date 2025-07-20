@@ -44,8 +44,8 @@ model Carrera {
 model Tema {
   id        Int      @id @default(autoincrement())
   nombre    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
   titulo      String
   id_creador  Int
   creador     Usuario @relation(fields: [id_creador], references: [id])

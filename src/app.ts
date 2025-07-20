@@ -20,5 +20,5 @@ app.use('/', routes);
 errlogger.info('🚀 Server started');
 
 app.listen(5000, () => {
-	console.log('Listening on port localhost:5000');
+	console.log('Listening on port http://localhost:5000');
 });

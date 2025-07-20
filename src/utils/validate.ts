@@ -6,7 +6,7 @@ const ajv = new Ajv.default({allErrors: true, strict: false});
 addFormat.default(ajv);
 
 export const validateSchema = (schema: TSchema, data: unknown) => {
-    const validate = ajv.compile(schema);
+    const validate = ajv.getSchema(schema) || ajv.compile(schema);
     const valid = validate(data);
 
     return {

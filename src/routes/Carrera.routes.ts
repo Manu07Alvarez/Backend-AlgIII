@@ -23,7 +23,7 @@ router.post('/create', (req: Request, res: Response) => {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/components/schemas/carrerasSchema'
+              $ref: '#/components/schemas/carreraSchema'
             },
             example: {
               "nombre": "Ingeniería en Sistemas",
@@ -62,7 +62,7 @@ router.route('/:id')
         content: {
           'application/json': {
             schema: {
-              $ref: '#/components/schemas/carrerasSchema'
+              $ref: '#/components/schemas/carreraSchema'
             },
             example: {
               "nombre": "Ingeniería en Sistemas",

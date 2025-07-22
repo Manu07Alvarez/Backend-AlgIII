@@ -23,7 +23,7 @@ router.route('/:id')
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/Usuario'
+            $ref: '#/components/schemas/usuarioSchema'
           },
           example: {
             nombre_apellido: "Juan Pérez",

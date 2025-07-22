@@ -48,7 +48,7 @@ router.put('/update/:id', (req: Request, res: Response) => {
         content: {
             'application/json': {
             schema: {
-                $ref: '#/components/schemas/Tema'
+                $ref: '#/components/schemas/temaSchema'
             },
             example: {
                 nombre: "Reglamento",

@@ -12,7 +12,7 @@ router.post('/create', (req: Request, res: Response) => {
         content: {
             'application/json': {
             schema: {
-                $ref: '#/components/schemas/Mensaje'
+                $ref: '#/components/schemas/mensajeSchema'
             },
             example: {
                 contenido: "Estoy de acuerdo con este post",
@@ -42,7 +42,7 @@ router.put('/update/:id', (req: Request, res: Response) => {
             content: {
                 'application/json': {
                     schema: {
-                        $ref: '#/components/schemas/Mensaje'
+                        $ref: '#/components/schemas/mensajeSchema'
                     },
                     example: {
                         contenido: "Estoy de acuerdo con este post",

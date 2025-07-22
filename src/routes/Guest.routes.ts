@@ -23,9 +23,21 @@ router.post('/login', (req: Request, res: Response) => {
 
 router.post('/register', (req: Request, res: Response) => {
   /*  #swagger.requestBody = {
-        required: true,
-        schema: { $ref : '#/components/schemas/registerSchema' },
-      },
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/components/schemas/registerSchema'
+          },
+          example: {
+            nombre_apellido: "Juan Pérez",
+            email: "juan@example.com",
+            rol: "USUARIO",
+            activo: true
+          }
+        }
+      }
+    }
   */
   userController.register(req, res);
 });

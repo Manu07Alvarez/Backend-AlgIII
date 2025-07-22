@@ -18,6 +18,23 @@ router.route('/:id')
   userController.getUser(req, res);
 })
 .put((req: Request, res: Response) => {
+  /*  #swagger.requestBody = {
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/components/schemas/Usuario'
+          },
+          example: {
+            nombre_apellido: "Juan Pérez",
+            email: "juan@example.com",
+            rol: "USUARIO",
+            activo: true
+          }
+        }
+      }
+    }
+  */
   userController.update(req, res);
 })
 .patch((req: Request, res: Response) => {

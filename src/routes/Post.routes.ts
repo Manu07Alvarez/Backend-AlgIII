@@ -7,6 +7,24 @@ const postController = createPostController();
 const tracer = trace.getTracer('route-lib');
 
 router.post('/create', (req: Request, res: Response) => {
+    /*  #swagger.requestBody = {
+        required: true,
+        content: {
+            'application/json': {
+            schema: {
+                $ref: '#/components/schemas/postSchema'
+            },
+            example: {
+                titulo: "Primer post",
+                contenido: "Hola mundo en el foro",
+                published: true,
+                id_autor: 1,
+                id_tema: 2,
+            }
+            }
+        }
+        }
+    */
     postController.create(req, res);
 });
 
@@ -23,10 +41,26 @@ router.get('/findByName/:name', (req: Request, res: Response) => {
 });
 
 router.put('/update/:id', (req: Request, res: Response) => {
+        /*  #swagger.requestBody = {
+        required: true,
+        content: {
+            'application/json': {
+            schema: {
+                $ref: '#/components/schemas/postSchema'
+            },
+            example: {
+                titulo: "Primer post",
+                contenido: "Hola mundo en el foro",
+                published: true,
+            }
+            }
+        }
+        }
+    */
     postController.update(req, res);
 });
 
-router.put('/activateOrDeactivate/:id', (req: Request, res: Response) => {
+router.patch('/activateOrDeactivate/:id', (req: Request, res: Response) => {
     postController.activateOrDeactivate(req, res);
 });
 

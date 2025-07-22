@@ -23,11 +23,7 @@ export class UserController {
  
   async register(req: Request, res: Response) {
     try {
-      const user = {
-        email: req.body.email,
-        nombre_apellido: req.body.nombre_apellido,
-        contraseña: req.body.contraseña,
-      } as Usuario;
+      const user: Usuario = req.body;
       await this.userService.register(user);
       res.status(201).json({ message: 'User created successfully' });
     } catch (err: unknown) {
@@ -63,9 +59,9 @@ export class UserController {
   async update(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
-      const data = req.body; 
+      const user : Usuario = req.body; 
 
-      const updatedUser = await this.userService.update(id, data);
+      const updatedUser = await this.userService.update(id, user);
       res.status(200).json(updatedUser);
     } catch (err: unknown) {
       if (err instanceof Error) {

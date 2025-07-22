@@ -21,7 +21,7 @@ const doc = {
 	],
 	components: {
 		schemas: {
-				carrerasSchema: CarreraSchema,
+				carreraSchema: CarreraSchema,
 				usuarioSchema: UsuarioSchema,
 				temaSchema: TemaSchema,
 				postSchema: PostSchema,

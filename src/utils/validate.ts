@@ -1,33 +1,22 @@
 import Ajv from "ajv";
 import addFormat from "ajv-formats";
-import { TSchema } from "@sinclair/typebox";
 
 const ajv = new Ajv.default({allErrors: true, strict: false});
 addFormat.default(ajv);
-// ...existing code...
-export const validateSchema = async (schema: string, data: unknown) => {
-    const validate = ajv.getSchema(schema);
-    let valid = false;
-    let errors: any[] = [];
 
-    if (typeof validate === "function") {
-        const result = validate(data);
-        if (result instanceof Promise) {
-            try {
-                await result;
-                valid = true;
-            } catch (e) {
-                valid = false;
-            }
-        } else {
-            valid = result;
-        }
-        errors = validate.errors || [];
+
+
+export const validateSchema = <T>(schema: "string", data: unknown) => {
+
+    const validate = ajv.getSchema<T>(schema);
+    if (!validate) {
+        throw new Error(`Schema ${schema} not found`);
     }
-
-    return {
-        valid,
-        errors,
-    };
-}
-// ...existing code...
+    if (!validate(data)) {
+        validate.errors?.forEach((error) => {
+            console.error(`Validation error in schema ${schema}:`, error);
+        });
+        throw new Error(`Validation failed for schema ${schema}`);
+    }
+    return data;
+};

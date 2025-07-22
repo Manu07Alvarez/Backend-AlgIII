@@ -7,6 +7,7 @@ import { PostSchema } from '../schemas/Post.schemas.js';
 import { MensajeSchema } from '../schemas/Mensajes.schemas.js';
 import { env } from 'process';
 
+const host = process.env.HOST
 
 const doc = {
 	info: {
@@ -16,7 +17,7 @@ const doc = {
 	},
 	servers: [
 			{
-					url: env.HOST,
+					url: host,
 					description: ''
 			},
 	],

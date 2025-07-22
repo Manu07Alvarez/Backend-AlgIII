@@ -11,19 +11,15 @@ export default class MensajesRepository extends Repository<Mensaje> implements I
   }
 
   public findAllInPost(postId: number): Promise<Mensaje[]>{
+	console.log(postId);
 	return this.entity.findMany({
 		where: { 
 			id_post: postId,
 		},
 		orderBy: { createdAt: 'asc' },
 		include: {
-			autor: {
-				select: {
-				id: true,
-				nombre_apellido: true,
-				email: true,
-				},
-			},
+			autor: true,
+			respuestas: true,
 		},
 	});
   }

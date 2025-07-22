@@ -28,8 +28,8 @@ router.post('/create', (req: Request, res: Response) => {
     mensajesController.create(req, res);
 });
 
-router.get('/findAll', (req: Request, res: Response) => {
-    mensajesController.findAll(req, res);
+router.get('/findAllInPost/:id', (req: Request, res: Response) => {
+    mensajesController.findAllInPost(req, res);
 });
 
 router.get('/findById/:id', (req: Request, res: Response) => {

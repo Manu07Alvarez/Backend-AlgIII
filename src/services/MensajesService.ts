@@ -8,7 +8,7 @@ import Service from "./Service.js";
 export class MensajesService extends Service<Mensaje> implements IMensajesService {
     constructor(
         private readonly mensajeRepository: IMensajesRepository,
-    ) {super(mensajeRepository, 'Carrera');}
+    ) {super(mensajeRepository, 'Mensajes');}
 
     @validateService('not found: ')
     public async messagesResponded(messageId: number): Promise<Mensaje[]> {

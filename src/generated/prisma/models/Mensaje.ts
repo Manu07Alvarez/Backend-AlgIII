@@ -28,23 +28,23 @@ export type AggregateMensaje = {
 export type MensajeAvgAggregateOutputType = {
   id: number | null
   id_autor: number | null
-  id_mensaje: number | null
   id_post: number | null
+  id_mensaje: number | null
 }
 
 export type MensajeSumAggregateOutputType = {
   id: number | null
   id_autor: number | null
-  id_mensaje: number | null
   id_post: number | null
+  id_mensaje: number | null
 }
 
 export type MensajeMinAggregateOutputType = {
   id: number | null
   contenido: string | null
   id_autor: number | null
-  id_mensaje: number | null
   id_post: number | null
+  id_mensaje: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,8 +53,8 @@ export type MensajeMaxAggregateOutputType = {
   id: number | null
   contenido: string | null
   id_autor: number | null
-  id_mensaje: number | null
   id_post: number | null
+  id_mensaje: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -63,8 +63,8 @@ export type MensajeCountAggregateOutputType = {
   id: number
   contenido: number
   id_autor: number
-  id_mensaje: number
   id_post: number
+  id_mensaje: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,23 +74,23 @@ export type MensajeCountAggregateOutputType = {
 export type MensajeAvgAggregateInputType = {
   id?: true
   id_autor?: true
-  id_mensaje?: true
   id_post?: true
+  id_mensaje?: true
 }
 
 export type MensajeSumAggregateInputType = {
   id?: true
   id_autor?: true
-  id_mensaje?: true
   id_post?: true
+  id_mensaje?: true
 }
 
 export type MensajeMinAggregateInputType = {
   id?: true
   contenido?: true
   id_autor?: true
-  id_mensaje?: true
   id_post?: true
+  id_mensaje?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -99,8 +99,8 @@ export type MensajeMaxAggregateInputType = {
   id?: true
   contenido?: true
   id_autor?: true
-  id_mensaje?: true
   id_post?: true
+  id_mensaje?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -109,8 +109,8 @@ export type MensajeCountAggregateInputType = {
   id?: true
   contenido?: true
   id_autor?: true
-  id_mensaje?: true
   id_post?: true
+  id_mensaje?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -206,8 +206,8 @@ export type MensajeGroupByOutputType = {
   id: number
   contenido: string
   id_autor: number
-  id_mensaje: number | null
   id_post: number
+  id_mensaje: number | null
   createdAt: Date | null
   updatedAt: Date | null
   _count: MensajeCountAggregateOutputType | null
@@ -239,28 +239,28 @@ export type MensajeWhereInput = {
   id?: Prisma.IntFilter<"Mensaje"> | number
   contenido?: Prisma.StringFilter<"Mensaje"> | string
   id_autor?: Prisma.IntFilter<"Mensaje"> | number
-  id_mensaje?: Prisma.IntNullableFilter<"Mensaje"> | number | null
   id_post?: Prisma.IntFilter<"Mensaje"> | number
+  id_mensaje?: Prisma.IntNullableFilter<"Mensaje"> | number | null
   createdAt?: Prisma.DateTimeNullableFilter<"Mensaje"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Mensaje"> | Date | string | null
-  contestado?: Prisma.XOR<Prisma.MensajeNullableScalarRelationFilter, Prisma.MensajeWhereInput> | null
-  respuestas?: Prisma.MensajeListRelationFilter
   autor?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   post?: Prisma.XOR<Prisma.PostScalarRelationFilter, Prisma.PostWhereInput>
+  respuestas?: Prisma.MensajeListRelationFilter
+  contestado?: Prisma.XOR<Prisma.MensajeNullableScalarRelationFilter, Prisma.MensajeWhereInput> | null
 }
 
 export type MensajeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   contenido?: Prisma.SortOrder
   id_autor?: Prisma.SortOrder
-  id_mensaje?: Prisma.SortOrderInput | Prisma.SortOrder
   id_post?: Prisma.SortOrder
+  id_mensaje?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  contestado?: Prisma.MensajeOrderByWithRelationInput
-  respuestas?: Prisma.MensajeOrderByRelationAggregateInput
   autor?: Prisma.UsuarioOrderByWithRelationInput
   post?: Prisma.PostOrderByWithRelationInput
+  respuestas?: Prisma.MensajeOrderByRelationAggregateInput
+  contestado?: Prisma.MensajeOrderByWithRelationInput
   _relevance?: Prisma.MensajeOrderByRelevanceInput
 }
 
@@ -271,22 +271,22 @@ export type MensajeWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MensajeWhereInput | Prisma.MensajeWhereInput[]
   contenido?: Prisma.StringFilter<"Mensaje"> | string
   id_autor?: Prisma.IntFilter<"Mensaje"> | number
-  id_mensaje?: Prisma.IntNullableFilter<"Mensaje"> | number | null
   id_post?: Prisma.IntFilter<"Mensaje"> | number
+  id_mensaje?: Prisma.IntNullableFilter<"Mensaje"> | number | null
   createdAt?: Prisma.DateTimeNullableFilter<"Mensaje"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Mensaje"> | Date | string | null
-  contestado?: Prisma.XOR<Prisma.MensajeNullableScalarRelationFilter, Prisma.MensajeWhereInput> | null
-  respuestas?: Prisma.MensajeListRelationFilter
   autor?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   post?: Prisma.XOR<Prisma.PostScalarRelationFilter, Prisma.PostWhereInput>
+  respuestas?: Prisma.MensajeListRelationFilter
+  contestado?: Prisma.XOR<Prisma.MensajeNullableScalarRelationFilter, Prisma.MensajeWhereInput> | null
 }, "id">
 
 export type MensajeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   contenido?: Prisma.SortOrder
   id_autor?: Prisma.SortOrder
-  id_mensaje?: Prisma.SortOrderInput | Prisma.SortOrder
   id_post?: Prisma.SortOrder
+  id_mensaje?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.MensajeCountOrderByAggregateInput
@@ -303,8 +303,8 @@ export type MensajeScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Mensaje"> | number
   contenido?: Prisma.StringWithAggregatesFilter<"Mensaje"> | string
   id_autor?: Prisma.IntWithAggregatesFilter<"Mensaje"> | number
-  id_mensaje?: Prisma.IntNullableWithAggregatesFilter<"Mensaje"> | number | null
   id_post?: Prisma.IntWithAggregatesFilter<"Mensaje"> | number
+  id_mensaje?: Prisma.IntNullableWithAggregatesFilter<"Mensaje"> | number | null
   createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Mensaje"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Mensaje"> | Date | string | null
 }
@@ -313,18 +313,18 @@ export type MensajeCreateInput = {
   contenido: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
-  contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
-  respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
   autor: Prisma.UsuarioCreateNestedOneWithoutMensajesInput
   post: Prisma.PostCreateNestedOneWithoutMensajeInput
+  respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
+  contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
 }
 
 export type MensajeUncheckedCreateInput = {
   id?: number
   contenido: string
   id_autor: number
-  id_mensaje?: number | null
   id_post: number
+  id_mensaje?: number | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   respuestas?: Prisma.MensajeUncheckedCreateNestedManyWithoutContestadoInput
@@ -334,18 +334,18 @@ export type MensajeUpdateInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
-  respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
   autor?: Prisma.UsuarioUpdateOneRequiredWithoutMensajesNestedInput
   post?: Prisma.PostUpdateOneRequiredWithoutMensajeNestedInput
+  respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
+  contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
 }
 
 export type MensajeUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   id_autor?: Prisma.IntFieldUpdateOperationsInput | number
-  id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   id_post?: Prisma.IntFieldUpdateOperationsInput | number
+  id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   respuestas?: Prisma.MensajeUncheckedUpdateManyWithoutContestadoNestedInput
@@ -355,8 +355,8 @@ export type MensajeCreateManyInput = {
   id?: number
   contenido: string
   id_autor: number
-  id_mensaje?: number | null
   id_post: number
+  id_mensaje?: number | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
 }
@@ -371,8 +371,8 @@ export type MensajeUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   id_autor?: Prisma.IntFieldUpdateOperationsInput | number
-  id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   id_post?: Prisma.IntFieldUpdateOperationsInput | number
+  id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -402,8 +402,8 @@ export type MensajeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   contenido?: Prisma.SortOrder
   id_autor?: Prisma.SortOrder
-  id_mensaje?: Prisma.SortOrder
   id_post?: Prisma.SortOrder
+  id_mensaje?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -411,16 +411,16 @@ export type MensajeCountOrderByAggregateInput = {
 export type MensajeAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   id_autor?: Prisma.SortOrder
-  id_mensaje?: Prisma.SortOrder
   id_post?: Prisma.SortOrder
+  id_mensaje?: Prisma.SortOrder
 }
 
 export type MensajeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   contenido?: Prisma.SortOrder
   id_autor?: Prisma.SortOrder
-  id_mensaje?: Prisma.SortOrder
   id_post?: Prisma.SortOrder
+  id_mensaje?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -429,8 +429,8 @@ export type MensajeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   contenido?: Prisma.SortOrder
   id_autor?: Prisma.SortOrder
-  id_mensaje?: Prisma.SortOrder
   id_post?: Prisma.SortOrder
+  id_mensaje?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -438,8 +438,8 @@ export type MensajeMinOrderByAggregateInput = {
 export type MensajeSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   id_autor?: Prisma.SortOrder
-  id_mensaje?: Prisma.SortOrder
   id_post?: Prisma.SortOrder
+  id_mensaje?: Prisma.SortOrder
 }
 
 export type MensajeCreateNestedManyWithoutAutorInput = {
@@ -526,12 +526,6 @@ export type MensajeUncheckedUpdateManyWithoutPostNestedInput = {
   deleteMany?: Prisma.MensajeScalarWhereInput | Prisma.MensajeScalarWhereInput[]
 }
 
-export type MensajeCreateNestedOneWithoutRespuestasInput = {
-  create?: Prisma.XOR<Prisma.MensajeCreateWithoutRespuestasInput, Prisma.MensajeUncheckedCreateWithoutRespuestasInput>
-  connectOrCreate?: Prisma.MensajeCreateOrConnectWithoutRespuestasInput
-  connect?: Prisma.MensajeWhereUniqueInput
-}
-
 export type MensajeCreateNestedManyWithoutContestadoInput = {
   create?: Prisma.XOR<Prisma.MensajeCreateWithoutContestadoInput, Prisma.MensajeUncheckedCreateWithoutContestadoInput> | Prisma.MensajeCreateWithoutContestadoInput[] | Prisma.MensajeUncheckedCreateWithoutContestadoInput[]
   connectOrCreate?: Prisma.MensajeCreateOrConnectWithoutContestadoInput | Prisma.MensajeCreateOrConnectWithoutContestadoInput[]
@@ -539,21 +533,17 @@ export type MensajeCreateNestedManyWithoutContestadoInput = {
   connect?: Prisma.MensajeWhereUniqueInput | Prisma.MensajeWhereUniqueInput[]
 }
 
+export type MensajeCreateNestedOneWithoutRespuestasInput = {
+  create?: Prisma.XOR<Prisma.MensajeCreateWithoutRespuestasInput, Prisma.MensajeUncheckedCreateWithoutRespuestasInput>
+  connectOrCreate?: Prisma.MensajeCreateOrConnectWithoutRespuestasInput
+  connect?: Prisma.MensajeWhereUniqueInput
+}
+
 export type MensajeUncheckedCreateNestedManyWithoutContestadoInput = {
   create?: Prisma.XOR<Prisma.MensajeCreateWithoutContestadoInput, Prisma.MensajeUncheckedCreateWithoutContestadoInput> | Prisma.MensajeCreateWithoutContestadoInput[] | Prisma.MensajeUncheckedCreateWithoutContestadoInput[]
   connectOrCreate?: Prisma.MensajeCreateOrConnectWithoutContestadoInput | Prisma.MensajeCreateOrConnectWithoutContestadoInput[]
   createMany?: Prisma.MensajeCreateManyContestadoInputEnvelope
   connect?: Prisma.MensajeWhereUniqueInput | Prisma.MensajeWhereUniqueInput[]
-}
-
-export type MensajeUpdateOneWithoutRespuestasNestedInput = {
-  create?: Prisma.XOR<Prisma.MensajeCreateWithoutRespuestasInput, Prisma.MensajeUncheckedCreateWithoutRespuestasInput>
-  connectOrCreate?: Prisma.MensajeCreateOrConnectWithoutRespuestasInput
-  upsert?: Prisma.MensajeUpsertWithoutRespuestasInput
-  disconnect?: Prisma.MensajeWhereInput | boolean
-  delete?: Prisma.MensajeWhereInput | boolean
-  connect?: Prisma.MensajeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MensajeUpdateToOneWithWhereWithoutRespuestasInput, Prisma.MensajeUpdateWithoutRespuestasInput>, Prisma.MensajeUncheckedUpdateWithoutRespuestasInput>
 }
 
 export type MensajeUpdateManyWithoutContestadoNestedInput = {
@@ -568,6 +558,16 @@ export type MensajeUpdateManyWithoutContestadoNestedInput = {
   update?: Prisma.MensajeUpdateWithWhereUniqueWithoutContestadoInput | Prisma.MensajeUpdateWithWhereUniqueWithoutContestadoInput[]
   updateMany?: Prisma.MensajeUpdateManyWithWhereWithoutContestadoInput | Prisma.MensajeUpdateManyWithWhereWithoutContestadoInput[]
   deleteMany?: Prisma.MensajeScalarWhereInput | Prisma.MensajeScalarWhereInput[]
+}
+
+export type MensajeUpdateOneWithoutRespuestasNestedInput = {
+  create?: Prisma.XOR<Prisma.MensajeCreateWithoutRespuestasInput, Prisma.MensajeUncheckedCreateWithoutRespuestasInput>
+  connectOrCreate?: Prisma.MensajeCreateOrConnectWithoutRespuestasInput
+  upsert?: Prisma.MensajeUpsertWithoutRespuestasInput
+  disconnect?: Prisma.MensajeWhereInput | boolean
+  delete?: Prisma.MensajeWhereInput | boolean
+  connect?: Prisma.MensajeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MensajeUpdateToOneWithWhereWithoutRespuestasInput, Prisma.MensajeUpdateWithoutRespuestasInput>, Prisma.MensajeUncheckedUpdateWithoutRespuestasInput>
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -596,16 +596,16 @@ export type MensajeCreateWithoutAutorInput = {
   contenido: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
-  contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
-  respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
   post: Prisma.PostCreateNestedOneWithoutMensajeInput
+  respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
+  contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
 }
 
 export type MensajeUncheckedCreateWithoutAutorInput = {
   id?: number
   contenido: string
-  id_mensaje?: number | null
   id_post: number
+  id_mensaje?: number | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   respuestas?: Prisma.MensajeUncheckedCreateNestedManyWithoutContestadoInput
@@ -644,8 +644,8 @@ export type MensajeScalarWhereInput = {
   id?: Prisma.IntFilter<"Mensaje"> | number
   contenido?: Prisma.StringFilter<"Mensaje"> | string
   id_autor?: Prisma.IntFilter<"Mensaje"> | number
-  id_mensaje?: Prisma.IntNullableFilter<"Mensaje"> | number | null
   id_post?: Prisma.IntFilter<"Mensaje"> | number
+  id_mensaje?: Prisma.IntNullableFilter<"Mensaje"> | number | null
   createdAt?: Prisma.DateTimeNullableFilter<"Mensaje"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Mensaje"> | Date | string | null
 }
@@ -654,9 +654,9 @@ export type MensajeCreateWithoutPostInput = {
   contenido: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
-  contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
-  respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
   autor: Prisma.UsuarioCreateNestedOneWithoutMensajesInput
+  respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
+  contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
 }
 
 export type MensajeUncheckedCreateWithoutPostInput = {
@@ -695,37 +695,13 @@ export type MensajeUpdateManyWithWhereWithoutPostInput = {
   data: Prisma.XOR<Prisma.MensajeUpdateManyMutationInput, Prisma.MensajeUncheckedUpdateManyWithoutPostInput>
 }
 
-export type MensajeCreateWithoutRespuestasInput = {
-  contenido: string
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-  contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
-  autor: Prisma.UsuarioCreateNestedOneWithoutMensajesInput
-  post: Prisma.PostCreateNestedOneWithoutMensajeInput
-}
-
-export type MensajeUncheckedCreateWithoutRespuestasInput = {
-  id?: number
-  contenido: string
-  id_autor: number
-  id_mensaje?: number | null
-  id_post: number
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-}
-
-export type MensajeCreateOrConnectWithoutRespuestasInput = {
-  where: Prisma.MensajeWhereUniqueInput
-  create: Prisma.XOR<Prisma.MensajeCreateWithoutRespuestasInput, Prisma.MensajeUncheckedCreateWithoutRespuestasInput>
-}
-
 export type MensajeCreateWithoutContestadoInput = {
   contenido: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
-  respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
   autor: Prisma.UsuarioCreateNestedOneWithoutMensajesInput
   post: Prisma.PostCreateNestedOneWithoutMensajeInput
+  respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
 }
 
 export type MensajeUncheckedCreateWithoutContestadoInput = {
@@ -748,34 +724,28 @@ export type MensajeCreateManyContestadoInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type MensajeUpsertWithoutRespuestasInput = {
-  update: Prisma.XOR<Prisma.MensajeUpdateWithoutRespuestasInput, Prisma.MensajeUncheckedUpdateWithoutRespuestasInput>
+export type MensajeCreateWithoutRespuestasInput = {
+  contenido: string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  autor: Prisma.UsuarioCreateNestedOneWithoutMensajesInput
+  post: Prisma.PostCreateNestedOneWithoutMensajeInput
+  contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
+}
+
+export type MensajeUncheckedCreateWithoutRespuestasInput = {
+  id?: number
+  contenido: string
+  id_autor: number
+  id_post: number
+  id_mensaje?: number | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+}
+
+export type MensajeCreateOrConnectWithoutRespuestasInput = {
+  where: Prisma.MensajeWhereUniqueInput
   create: Prisma.XOR<Prisma.MensajeCreateWithoutRespuestasInput, Prisma.MensajeUncheckedCreateWithoutRespuestasInput>
-  where?: Prisma.MensajeWhereInput
-}
-
-export type MensajeUpdateToOneWithWhereWithoutRespuestasInput = {
-  where?: Prisma.MensajeWhereInput
-  data: Prisma.XOR<Prisma.MensajeUpdateWithoutRespuestasInput, Prisma.MensajeUncheckedUpdateWithoutRespuestasInput>
-}
-
-export type MensajeUpdateWithoutRespuestasInput = {
-  contenido?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
-  autor?: Prisma.UsuarioUpdateOneRequiredWithoutMensajesNestedInput
-  post?: Prisma.PostUpdateOneRequiredWithoutMensajeNestedInput
-}
-
-export type MensajeUncheckedUpdateWithoutRespuestasInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  contenido?: Prisma.StringFieldUpdateOperationsInput | string
-  id_autor?: Prisma.IntFieldUpdateOperationsInput | number
-  id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  id_post?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type MensajeUpsertWithWhereUniqueWithoutContestadoInput = {
@@ -794,11 +764,41 @@ export type MensajeUpdateManyWithWhereWithoutContestadoInput = {
   data: Prisma.XOR<Prisma.MensajeUpdateManyMutationInput, Prisma.MensajeUncheckedUpdateManyWithoutContestadoInput>
 }
 
+export type MensajeUpsertWithoutRespuestasInput = {
+  update: Prisma.XOR<Prisma.MensajeUpdateWithoutRespuestasInput, Prisma.MensajeUncheckedUpdateWithoutRespuestasInput>
+  create: Prisma.XOR<Prisma.MensajeCreateWithoutRespuestasInput, Prisma.MensajeUncheckedCreateWithoutRespuestasInput>
+  where?: Prisma.MensajeWhereInput
+}
+
+export type MensajeUpdateToOneWithWhereWithoutRespuestasInput = {
+  where?: Prisma.MensajeWhereInput
+  data: Prisma.XOR<Prisma.MensajeUpdateWithoutRespuestasInput, Prisma.MensajeUncheckedUpdateWithoutRespuestasInput>
+}
+
+export type MensajeUpdateWithoutRespuestasInput = {
+  contenido?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  autor?: Prisma.UsuarioUpdateOneRequiredWithoutMensajesNestedInput
+  post?: Prisma.PostUpdateOneRequiredWithoutMensajeNestedInput
+  contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
+}
+
+export type MensajeUncheckedUpdateWithoutRespuestasInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido?: Prisma.StringFieldUpdateOperationsInput | string
+  id_autor?: Prisma.IntFieldUpdateOperationsInput | number
+  id_post?: Prisma.IntFieldUpdateOperationsInput | number
+  id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
 export type MensajeCreateManyAutorInput = {
   id?: number
   contenido: string
-  id_mensaje?: number | null
   id_post: number
+  id_mensaje?: number | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
 }
@@ -807,16 +807,16 @@ export type MensajeUpdateWithoutAutorInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
-  respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
   post?: Prisma.PostUpdateOneRequiredWithoutMensajeNestedInput
+  respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
+  contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
 }
 
 export type MensajeUncheckedUpdateWithoutAutorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
-  id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   id_post?: Prisma.IntFieldUpdateOperationsInput | number
+  id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   respuestas?: Prisma.MensajeUncheckedUpdateManyWithoutContestadoNestedInput
@@ -825,8 +825,8 @@ export type MensajeUncheckedUpdateWithoutAutorInput = {
 export type MensajeUncheckedUpdateManyWithoutAutorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
-  id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   id_post?: Prisma.IntFieldUpdateOperationsInput | number
+  id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -844,9 +844,9 @@ export type MensajeUpdateWithoutPostInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
-  respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
   autor?: Prisma.UsuarioUpdateOneRequiredWithoutMensajesNestedInput
+  respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
+  contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
 }
 
 export type MensajeUncheckedUpdateWithoutPostInput = {
@@ -881,9 +881,9 @@ export type MensajeUpdateWithoutContestadoInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
   autor?: Prisma.UsuarioUpdateOneRequiredWithoutMensajesNestedInput
   post?: Prisma.PostUpdateOneRequiredWithoutMensajeNestedInput
+  respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
 }
 
 export type MensajeUncheckedUpdateWithoutContestadoInput = {
@@ -940,14 +940,14 @@ export type MensajeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   contenido?: boolean
   id_autor?: boolean
-  id_mensaje?: boolean
   id_post?: boolean
+  id_mensaje?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  contestado?: boolean | Prisma.Mensaje$contestadoArgs<ExtArgs>
-  respuestas?: boolean | Prisma.Mensaje$respuestasArgs<ExtArgs>
   autor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
+  respuestas?: boolean | Prisma.Mensaje$respuestasArgs<ExtArgs>
+  contestado?: boolean | Prisma.Mensaje$contestadoArgs<ExtArgs>
   _count?: boolean | Prisma.MensajeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mensaje"]>
 
@@ -957,35 +957,35 @@ export type MensajeSelectScalar = {
   id?: boolean
   contenido?: boolean
   id_autor?: boolean
-  id_mensaje?: boolean
   id_post?: boolean
+  id_mensaje?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MensajeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contenido" | "id_autor" | "id_mensaje" | "id_post" | "createdAt" | "updatedAt", ExtArgs["result"]["mensaje"]>
+export type MensajeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contenido" | "id_autor" | "id_post" | "id_mensaje" | "createdAt" | "updatedAt", ExtArgs["result"]["mensaje"]>
 export type MensajeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  contestado?: boolean | Prisma.Mensaje$contestadoArgs<ExtArgs>
-  respuestas?: boolean | Prisma.Mensaje$respuestasArgs<ExtArgs>
   autor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
+  respuestas?: boolean | Prisma.Mensaje$respuestasArgs<ExtArgs>
+  contestado?: boolean | Prisma.Mensaje$contestadoArgs<ExtArgs>
   _count?: boolean | Prisma.MensajeCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $MensajePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Mensaje"
   objects: {
-    contestado: Prisma.$MensajePayload<ExtArgs> | null
-    respuestas: Prisma.$MensajePayload<ExtArgs>[]
     autor: Prisma.$UsuarioPayload<ExtArgs>
     post: Prisma.$PostPayload<ExtArgs>
+    respuestas: Prisma.$MensajePayload<ExtArgs>[]
+    contestado: Prisma.$MensajePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     contenido: string
     id_autor: number
-    id_mensaje: number | null
     id_post: number
+    id_mensaje: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }, ExtArgs["result"]["mensaje"]>
@@ -1328,10 +1328,10 @@ readonly fields: MensajeFieldRefs;
  */
 export interface Prisma__MensajeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  contestado<T extends Prisma.Mensaje$contestadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Mensaje$contestadoArgs<ExtArgs>>): Prisma.Prisma__MensajeClient<runtime.Types.Result.GetResult<Prisma.$MensajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  respuestas<T extends Prisma.Mensaje$respuestasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Mensaje$respuestasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MensajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   autor<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   post<T extends Prisma.PostDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PostDefaultArgs<ExtArgs>>): Prisma.Prisma__PostClient<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  respuestas<T extends Prisma.Mensaje$respuestasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Mensaje$respuestasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MensajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contestado<T extends Prisma.Mensaje$contestadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Mensaje$contestadoArgs<ExtArgs>>): Prisma.Prisma__MensajeClient<runtime.Types.Result.GetResult<Prisma.$MensajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1364,8 +1364,8 @@ export interface MensajeFieldRefs {
   readonly id: Prisma.FieldRef<"Mensaje", 'Int'>
   readonly contenido: Prisma.FieldRef<"Mensaje", 'String'>
   readonly id_autor: Prisma.FieldRef<"Mensaje", 'Int'>
-  readonly id_mensaje: Prisma.FieldRef<"Mensaje", 'Int'>
   readonly id_post: Prisma.FieldRef<"Mensaje", 'Int'>
+  readonly id_mensaje: Prisma.FieldRef<"Mensaje", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Mensaje", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Mensaje", 'DateTime'>
 }
@@ -1711,25 +1711,6 @@ export type MensajeDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Mensaje.contestado
- */
-export type Mensaje$contestadoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Mensaje
-   */
-  select?: Prisma.MensajeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Mensaje
-   */
-  omit?: Prisma.MensajeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MensajeInclude<ExtArgs> | null
-  where?: Prisma.MensajeWhereInput
-}
-
-/**
  * Mensaje.respuestas
  */
 export type Mensaje$respuestasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1751,6 +1732,25 @@ export type Mensaje$respuestasArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.MensajeScalarFieldEnum | Prisma.MensajeScalarFieldEnum[]
+}
+
+/**
+ * Mensaje.contestado
+ */
+export type Mensaje$contestadoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Mensaje
+   */
+  select?: Prisma.MensajeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Mensaje
+   */
+  omit?: Prisma.MensajeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MensajeInclude<ExtArgs> | null
+  where?: Prisma.MensajeWhereInput
 }
 
 /**

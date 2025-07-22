@@ -847,8 +847,8 @@ export const MensajeScalarFieldEnum = {
   id: 'id',
   contenido: 'contenido',
   id_autor: 'id_autor',
-  id_mensaje: 'id_mensaje',
   id_post: 'id_post',
+  id_mensaje: 'id_mensaje',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

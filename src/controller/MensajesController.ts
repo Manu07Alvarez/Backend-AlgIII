@@ -49,17 +49,6 @@ export class MensajesController {
         }
     }
 
-    public async findAll(req: Request, res: Response): Promise<void> {
-        try {
-            const mensajes = await this.MensajesService.findAllInPost(Number(req.params.postId));
-            res.status(200).json(mensajes);
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            }
-        }
-    }
-
     public async findById(req: Request, res: Response): Promise<void> {
         
         try {
@@ -96,7 +85,7 @@ export class MensajesController {
     }
     public async findAllInPost(req: Request, res: Response): Promise<void> {
         try {
-            const postId = Number(req.params.postId);
+            const postId = Number(req.params.id);
             const mensajes = await this.MensajesService.findAllInPost(postId);
             res.status(200).json(mensajes);
         } catch (error: unknown) {

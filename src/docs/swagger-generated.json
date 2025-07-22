@@ -608,9 +608,19 @@
         }
       }
     },
-    "/api/mensajes/findAll": {
+    "/api/mensajes/findAllInPost/{id}": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""

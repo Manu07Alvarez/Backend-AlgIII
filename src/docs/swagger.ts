@@ -5,6 +5,7 @@ import swaggerAutogen from 'swagger-autogen';
 import { TemaSchema } from '../schemas/Tema.schema.js';
 import { PostSchema } from '../schemas/Post.schemas.js';
 import { MensajeSchema } from '../schemas/Mensajes.schemas.js';
+import { env } from 'process';
 
 
 const doc = {
@@ -15,7 +16,7 @@ const doc = {
 	},
 	servers: [
 			{
-					url: 'http://localhost:5000',
+					url: env.HOST,
 					description: ''
 			},
 	],

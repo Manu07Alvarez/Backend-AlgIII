@@ -19,6 +19,25 @@
           "default": {
             "description": ""
           }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/temaSchema"
+              },
+              "example": {
+                "nombre": "Reglamento",
+                "titulo": "Normas del foro",
+                "contenido": "Por favor leer antes de participar.",
+                "id_creador": 1,
+                "id_carrera": 2,
+                "fijado": false,
+                "cerrado": false
+              }
+            }
+          }
         }
       }
     },
@@ -88,6 +107,23 @@
         "responses": {
           "default": {
             "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/temaSchema"
+              },
+              "example": {
+                "nombre": "Reglamento",
+                "titulo": "Normas del foro",
+                "contenido": "Por favor leer antes de participar.",
+                "fijado": false,
+                "cerrado": false
+              }
+            }
           }
         }
       }
@@ -167,6 +203,22 @@
           "default": {
             "description": ""
           }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/usuarioSchema"
+              },
+              "example": {
+                "nombre_apellido": "Juan Pérez",
+                "email": "juan@example.com",
+                "rol": "USUARIO",
+                "activo": true
+              }
+            }
+          }
         }
       },
       "patch": {
@@ -194,6 +246,23 @@
         "responses": {
           "default": {
             "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postSchema"
+              },
+              "example": {
+                "titulo": "Primer post",
+                "contenido": "Hola mundo en el foro",
+                "published": true,
+                "id_autor": 1,
+                "id_tema": 2
+              }
+            }
           }
         }
       }
@@ -265,11 +334,26 @@
           "default": {
             "description": ""
           }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postSchema"
+              },
+              "example": {
+                "titulo": "Primer post",
+                "contenido": "Hola mundo en el foro",
+                "published": true
+              }
+            }
+          }
         }
       }
     },
     "/api/post/activateOrDeactivate/{id}": {
-      "put": {
+      "patch": {
         "description": "",
         "parameters": [
           {
@@ -359,11 +443,12 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/registerSchema"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/registerSchema"
+              },
+              "example": {
+                "nombre_apellido": "Juan Pérez",
+                "email": "juan@example.com",
+                "rol": "USUARIO",
+                "activo": true
               }
             }
           }
@@ -373,42 +458,24 @@
     "/api/carrera/create": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Datos del usuario a registrar.",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nombre_apellido": {
-                  "type": "string",
-                  "example": "Juan Pérez"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "juan@example.com"
-                },
-                "contraseña": {
-                  "type": "string",
-                  "example": "secure123"
-                },
-                "rol": {
-                  "type": "string",
-                  "example": "USUARIO"
-                },
-                "activo": {
-                  "type": "boolean",
-                  "example": true
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "default": {
             "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/carreraSchema"
+              },
+              "example": {
+                "nombre": "Ingeniería en Sistemas",
+                "descripcion": "Carrera orientada al desarrollo de software",
+                "activa": true
+              }
+            }
           }
         }
       }
@@ -485,7 +552,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/carrerasSchema"
+                "$ref": "#/components/schemas/carreraSchema"
               },
               "example": {
                 "nombre": "Ingeniería en Sistemas",
@@ -522,6 +589,22 @@
         "responses": {
           "default": {
             "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Mensaje"
+              },
+              "example": {
+                "contenido": "Estoy de acuerdo con este post",
+                "id_autor": 1,
+                "id_post": 2,
+                "id_mensaje": null
+              }
+            }
           }
         }
       }
@@ -573,11 +656,25 @@
           "default": {
             "description": ""
           }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Mensaje"
+              },
+              "example": {
+                "contenido": "Estoy de acuerdo con este post",
+                "id_mensaje": null
+              }
+            }
+          }
         }
       }
     },
     "/api/mensajes/activateOrDeactivate/{id}": {
-      "put": {
+      "patch": {
         "description": "",
         "parameters": [
           {
@@ -619,7 +716,7 @@
   },
   "components": {
     "schemas": {
-      "carrerasSchema": {
+      "carreraSchema": {
         "type": "object",
         "properties": {
           "type": {
@@ -674,7 +771,7 @@
           }
         },
         "xml": {
-          "name": "carrerasSchema"
+          "name": "carreraSchema"
         }
       },
       "usuarioSchema": {

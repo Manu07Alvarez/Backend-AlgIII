@@ -219,8 +219,8 @@ export type TemaGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type TemaGroupByOutputType = {
   id: number
   nombre: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt: Date | null
+  updatedAt: Date | null
   titulo: string
   id_creador: number
   contenido: string
@@ -255,8 +255,8 @@ export type TemaWhereInput = {
   NOT?: Prisma.TemaWhereInput | Prisma.TemaWhereInput[]
   id?: Prisma.IntFilter<"Tema"> | number
   nombre?: Prisma.StringFilter<"Tema"> | string
-  createdAt?: Prisma.DateTimeFilter<"Tema"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Tema"> | Date | string
+  createdAt?: Prisma.DateTimeNullableFilter<"Tema"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableFilter<"Tema"> | Date | string | null
   titulo?: Prisma.StringFilter<"Tema"> | string
   id_creador?: Prisma.IntFilter<"Tema"> | number
   contenido?: Prisma.StringFilter<"Tema"> | string
@@ -271,8 +271,8 @@ export type TemaWhereInput = {
 export type TemaOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   titulo?: Prisma.SortOrder
   id_creador?: Prisma.SortOrder
   contenido?: Prisma.SortOrder
@@ -291,8 +291,8 @@ export type TemaWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TemaWhereInput[]
   NOT?: Prisma.TemaWhereInput | Prisma.TemaWhereInput[]
   nombre?: Prisma.StringFilter<"Tema"> | string
-  createdAt?: Prisma.DateTimeFilter<"Tema"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Tema"> | Date | string
+  createdAt?: Prisma.DateTimeNullableFilter<"Tema"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableFilter<"Tema"> | Date | string | null
   titulo?: Prisma.StringFilter<"Tema"> | string
   id_creador?: Prisma.IntFilter<"Tema"> | number
   contenido?: Prisma.StringFilter<"Tema"> | string
@@ -307,8 +307,8 @@ export type TemaWhereUniqueInput = Prisma.AtLeast<{
 export type TemaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   titulo?: Prisma.SortOrder
   id_creador?: Prisma.SortOrder
   contenido?: Prisma.SortOrder
@@ -328,8 +328,8 @@ export type TemaScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TemaScalarWhereWithAggregatesInput | Prisma.TemaScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Tema"> | number
   nombre?: Prisma.StringWithAggregatesFilter<"Tema"> | string
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Tema"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Tema"> | Date | string
+  createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Tema"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Tema"> | Date | string | null
   titulo?: Prisma.StringWithAggregatesFilter<"Tema"> | string
   id_creador?: Prisma.IntWithAggregatesFilter<"Tema"> | number
   contenido?: Prisma.StringWithAggregatesFilter<"Tema"> | string
@@ -340,8 +340,8 @@ export type TemaScalarWhereWithAggregatesInput = {
 
 export type TemaCreateInput = {
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   contenido: string
   fijado?: boolean
@@ -354,8 +354,8 @@ export type TemaCreateInput = {
 export type TemaUncheckedCreateInput = {
   id?: number
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   id_creador: number
   contenido: string
@@ -367,8 +367,8 @@ export type TemaUncheckedCreateInput = {
 
 export type TemaUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   fijado?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -381,8 +381,8 @@ export type TemaUpdateInput = {
 export type TemaUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   id_creador?: Prisma.IntFieldUpdateOperationsInput | number
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
@@ -395,8 +395,8 @@ export type TemaUncheckedUpdateInput = {
 export type TemaCreateManyInput = {
   id?: number
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   id_creador: number
   contenido: string
@@ -407,8 +407,8 @@ export type TemaCreateManyInput = {
 
 export type TemaUpdateManyMutationInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   fijado?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -418,8 +418,8 @@ export type TemaUpdateManyMutationInput = {
 export type TemaUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   id_creador?: Prisma.IntFieldUpdateOperationsInput | number
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
@@ -584,10 +584,6 @@ export type TemaUncheckedUpdateManyWithoutCarreraNestedInput = {
   deleteMany?: Prisma.TemaScalarWhereInput | Prisma.TemaScalarWhereInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type TemaCreateNestedOneWithoutPostInput = {
   create?: Prisma.XOR<Prisma.TemaCreateWithoutPostInput, Prisma.TemaUncheckedCreateWithoutPostInput>
   connectOrCreate?: Prisma.TemaCreateOrConnectWithoutPostInput
@@ -604,8 +600,8 @@ export type TemaUpdateOneRequiredWithoutPostNestedInput = {
 
 export type TemaCreateWithoutCreadorInput = {
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   contenido: string
   fijado?: boolean
@@ -617,8 +613,8 @@ export type TemaCreateWithoutCreadorInput = {
 export type TemaUncheckedCreateWithoutCreadorInput = {
   id?: number
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   contenido: string
   id_carrera: number
@@ -659,8 +655,8 @@ export type TemaScalarWhereInput = {
   NOT?: Prisma.TemaScalarWhereInput | Prisma.TemaScalarWhereInput[]
   id?: Prisma.IntFilter<"Tema"> | number
   nombre?: Prisma.StringFilter<"Tema"> | string
-  createdAt?: Prisma.DateTimeFilter<"Tema"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Tema"> | Date | string
+  createdAt?: Prisma.DateTimeNullableFilter<"Tema"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableFilter<"Tema"> | Date | string | null
   titulo?: Prisma.StringFilter<"Tema"> | string
   id_creador?: Prisma.IntFilter<"Tema"> | number
   contenido?: Prisma.StringFilter<"Tema"> | string
@@ -671,8 +667,8 @@ export type TemaScalarWhereInput = {
 
 export type TemaCreateWithoutCarreraInput = {
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   contenido: string
   fijado?: boolean
@@ -684,8 +680,8 @@ export type TemaCreateWithoutCarreraInput = {
 export type TemaUncheckedCreateWithoutCarreraInput = {
   id?: number
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   id_creador: number
   contenido: string
@@ -722,8 +718,8 @@ export type TemaUpdateManyWithWhereWithoutCarreraInput = {
 
 export type TemaCreateWithoutPostInput = {
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   contenido: string
   fijado?: boolean
@@ -735,8 +731,8 @@ export type TemaCreateWithoutPostInput = {
 export type TemaUncheckedCreateWithoutPostInput = {
   id?: number
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   id_creador: number
   contenido: string
@@ -763,8 +759,8 @@ export type TemaUpdateToOneWithWhereWithoutPostInput = {
 
 export type TemaUpdateWithoutPostInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   fijado?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -776,8 +772,8 @@ export type TemaUpdateWithoutPostInput = {
 export type TemaUncheckedUpdateWithoutPostInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   id_creador?: Prisma.IntFieldUpdateOperationsInput | number
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
@@ -789,8 +785,8 @@ export type TemaUncheckedUpdateWithoutPostInput = {
 export type TemaCreateManyCreadorInput = {
   id?: number
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   contenido: string
   id_carrera: number
@@ -800,8 +796,8 @@ export type TemaCreateManyCreadorInput = {
 
 export type TemaUpdateWithoutCreadorInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   fijado?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -813,8 +809,8 @@ export type TemaUpdateWithoutCreadorInput = {
 export type TemaUncheckedUpdateWithoutCreadorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   id_carrera?: Prisma.IntFieldUpdateOperationsInput | number
@@ -826,8 +822,8 @@ export type TemaUncheckedUpdateWithoutCreadorInput = {
 export type TemaUncheckedUpdateManyWithoutCreadorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   id_carrera?: Prisma.IntFieldUpdateOperationsInput | number
@@ -838,8 +834,8 @@ export type TemaUncheckedUpdateManyWithoutCreadorInput = {
 export type TemaCreateManyCarreraInput = {
   id?: number
   nombre: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
   titulo: string
   id_creador: number
   contenido: string
@@ -849,8 +845,8 @@ export type TemaCreateManyCarreraInput = {
 
 export type TemaUpdateWithoutCarreraInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   fijado?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -862,8 +858,8 @@ export type TemaUpdateWithoutCarreraInput = {
 export type TemaUncheckedUpdateWithoutCarreraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   id_creador?: Prisma.IntFieldUpdateOperationsInput | number
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
@@ -875,8 +871,8 @@ export type TemaUncheckedUpdateWithoutCarreraInput = {
 export type TemaUncheckedUpdateManyWithoutCarreraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   id_creador?: Prisma.IntFieldUpdateOperationsInput | number
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
@@ -965,8 +961,8 @@ export type $TemaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     nombre: string
-    createdAt: Date
-    updatedAt: Date
+    createdAt: Date | null
+    updatedAt: Date | null
     titulo: string
     id_creador: number
     contenido: string

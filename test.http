@@ -12,3 +12,6 @@ GET Http://localhost:5000/api/carrera/
 ###
 
 GET Http://localhost:5000/api/carrera/
+
+###
+GET https://backend-algiii.onrender.com/api/carrera/

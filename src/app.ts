@@ -10,7 +10,9 @@ import swaggerOutput from "./docs/swagger-generated.json" with { type: "json" };
 const swaggerUi = (await import('swagger-ui-express')).default;
 const tracer = trace.getTracer('app');
 generateAndSaveKeyPair();
+import cors from 'cors';
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput))
 

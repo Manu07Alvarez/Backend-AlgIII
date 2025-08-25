@@ -6,4 +6,5 @@ export interface IUserService {
   findById(id: number): Promise<Partial<Usuario>>;
   update(id: number, data: Usuario): Promise<void>;
   bajaUsuario(id: number, data: Usuario): Promise<void>;
+  findAll(): Promise<Partial<Usuario[]>>;
 }

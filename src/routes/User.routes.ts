@@ -12,6 +12,9 @@ const userController = createUserController();
   next()
 }) **/
 
+router.get('/', (res: Response) => {
+  userController.findAll(res);
+});
 
 router.route('/:id')
 .get((req: Request, res: Response) => {

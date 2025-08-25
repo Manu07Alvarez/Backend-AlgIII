@@ -36,7 +36,7 @@ router.get('/findById/:id', (req: Request, res: Response) => {
     postController.findById(req, res);
 });
 
-router.get('/findByName/:name', (req: Request, res: Response) => {
+router.get('/findByTitle/:title', (req: Request, res: Response) => {
     postController.findByName(req, res);
 });
 

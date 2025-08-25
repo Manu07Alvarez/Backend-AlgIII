@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/home/usermanu/programando/Backend-AlgIII/src/generated/prisma",
+      "value": "C:\\Users\\Usuario\\Desktop\\Backend-AlgIII\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -32,12 +32,16 @@ const config: runtime.GetPrismaClientConfig = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/usermanu/programando/Backend-AlgIII/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\Usuario\\Desktop\\Backend-AlgIII\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../../prisma",
@@ -47,6 +51,7 @@ const config: runtime.GetPrismaClientConfig = {
     "db"
   ],
   "activeProvider": "mysql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -55,8 +60,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n  runtime  = \"nodejs\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Usuario {\n  id              Int       @id @default(autoincrement())\n  nombre_apellido String?\n  email           String    @unique\n  contraseña     String\n  activo          Boolean   @default(true)\n  rol             Rol?      @default(USUARIO)\n  createdAt       DateTime? @default(now())\n  updatedAt       DateTime? @updatedAt\n\n  mensajes Mensaje[]\n  Tema     Tema[]\n  Post     Post[]\n}\n\nmodel Carrera {\n  id          Int       @id @default(autoincrement())\n  nombre      String    @unique\n  descripcion String?\n  createdAt   DateTime? @default(now())\n  updatedAt   DateTime? @updatedAt\n  activa      Boolean?  @default(true)\n\n  Tema Tema[]\n}\n\nmodel Tema {\n  id         Int       @id @default(autoincrement())\n  nombre     String\n  createdAt  DateTime? @default(now())\n  updatedAt  DateTime? @updatedAt\n  titulo     String\n  id_creador Int\n  creador    Usuario   @relation(fields: [id_creador], references: [id])\n  contenido  String    @db.Text\n  id_carrera Int\n  carrera    Carrera   @relation(fields: [id_carrera], references: [id])\n  fijado     Boolean   @default(false)\n  cerrado    Boolean   @default(false)\n  Post       Post[]\n\n  @@index([id_carrera], name: \"idx_tema_carrera\")\n  @@index([id_creador], name: \"idx_tema_creador\")\n}\n\nmodel Post {\n  id        Int       @id @default(autoincrement())\n  titulo    String\n  contenido String    @db.Text\n  published Boolean   @default(false)\n  autor     Usuario   @relation(fields: [id_autor], references: [id])\n  id_autor  Int\n  createdAt DateTime? @default(now())\n  updatedAt DateTime? @updatedAt\n  id_tema   Int\n  tema      Tema      @relation(fields: [id_tema], references: [id])\n  Mensaje   Mensaje[]\n\n  @@index([id_tema], name: \"idx_post_tema\")\n  @@index([id_autor], name: \"idx_post_autor\")\n}\n\nmodel Mensaje {\n  id         Int       @id @default(autoincrement())\n  contenido  String    @db.Text\n  id_autor   Int\n  autor      Usuario   @relation(fields: [id_autor], references: [id])\n  id_post    Int\n  post       Post      @relation(fields: [id_post], references: [id])\n  respuestas Mensaje[] @relation(\"MensajeRespuesta\")\n  contestado Mensaje?  @relation(\"MensajeRespuesta\", fields: [id_mensaje], references: [id])\n  id_mensaje Int?\n  createdAt  DateTime? @default(now())\n  updatedAt  DateTime? @updatedAt\n}\n\nenum Rol {\n  ADMIN\n  MODERADOR\n  USUARIO\n}\n",
-  "inlineSchemaHash": "c10024dea27cb3795b3628c5ef85f535ed3bb8c6bb69b682aee71e65218b45cb",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client\"\n  binaryTargets = [\"native\", \"windows\"]\n  output        = \"../src/generated/prisma\"\n  runtime       = \"nodejs\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Usuario {\n  id              Int       @id @default(autoincrement())\n  nombre_apellido String?\n  email           String    @unique\n  contraseña     String\n  activo          Boolean   @default(true)\n  rol             Rol?      @default(USUARIO)\n  createdAt       DateTime? @default(now())\n  updatedAt       DateTime? @updatedAt\n\n  mensajes Mensaje[]\n  Tema     Tema[]\n  Post     Post[]\n}\n\nmodel Carrera {\n  id          Int       @id @default(autoincrement())\n  nombre      String    @unique\n  descripcion String?\n  createdAt   DateTime? @default(now())\n  updatedAt   DateTime? @updatedAt\n  activa      Boolean?  @default(true)\n\n  Tema Tema[]\n}\n\nmodel Tema {\n  id         Int       @id @default(autoincrement())\n  nombre     String\n  createdAt  DateTime? @default(now())\n  updatedAt  DateTime? @updatedAt\n  titulo     String\n  id_creador Int\n  creador    Usuario   @relation(fields: [id_creador], references: [id])\n  contenido  String    @db.Text\n  id_carrera Int\n  carrera    Carrera   @relation(fields: [id_carrera], references: [id])\n  fijado     Boolean   @default(false)\n  cerrado    Boolean   @default(false)\n  Post       Post[]\n\n  @@index([id_carrera], name: \"idx_tema_carrera\")\n  @@index([id_creador], name: \"idx_tema_creador\")\n}\n\nmodel Post {\n  id        Int       @id @default(autoincrement())\n  titulo    String\n  contenido String    @db.Text\n  published Boolean   @default(false)\n  autor     Usuario   @relation(fields: [id_autor], references: [id])\n  id_autor  Int\n  createdAt DateTime? @default(now())\n  updatedAt DateTime? @updatedAt\n  id_tema   Int\n  tema      Tema      @relation(fields: [id_tema], references: [id])\n  Mensaje   Mensaje[]\n\n  @@index([id_tema], name: \"idx_post_tema\")\n  @@index([id_autor], name: \"idx_post_autor\")\n}\n\nmodel Mensaje {\n  id         Int       @id @default(autoincrement())\n  contenido  String    @db.Text\n  id_autor   Int\n  autor      Usuario   @relation(fields: [id_autor], references: [id])\n  id_post    Int\n  post       Post      @relation(fields: [id_post], references: [id])\n  respuestas Mensaje[] @relation(\"MensajeRespuesta\")\n  contestado Mensaje?  @relation(\"MensajeRespuesta\", fields: [id_mensaje], references: [id])\n  id_mensaje Int?\n  createdAt  DateTime? @default(now())\n  updatedAt  DateTime? @updatedAt\n}\n\nenum Rol {\n  ADMIN\n  MODERADOR\n  USUARIO\n}\n",
+  "inlineSchemaHash": "8c7538c6debb5621baae9fa82a0d8e658b911b4ef07b18f52ef299bc050ff333",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},

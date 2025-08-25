@@ -7,7 +7,18 @@ export class UserController {
     public readonly userService: IUserService,
   ) {}
   
-  
+
+  async findAll(res: Response) {
+    try {
+      const users = await this.userService.findAll();
+      res.status(200).json(users);
+    } catch (err: unknown) {        
+      if (err instanceof Error) {
+        res.status(500).json({ message: err.message });
+      }
+    }
+  }
+
   async login(req: Request, res: Response) {
     try {
       const { email, contraseña } = req.body;

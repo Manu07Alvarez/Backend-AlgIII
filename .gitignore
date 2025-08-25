@@ -21,3 +21,4 @@ dist
 # https://git-scm.com/docs/gitignore
 src/utils/keys
 prisma/ca.pem
+/.history

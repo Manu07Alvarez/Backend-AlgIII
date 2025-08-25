@@ -1,6 +1,6 @@
 import Ajv from "ajv";
 import addFormat from "ajv-formats";
-
+//FIX: cambiar uso de creacion de instancia de ajv a un compilador.
 const ajv = new Ajv.default({allErrors: true, strict: false});
 addFormat.default(ajv);
 

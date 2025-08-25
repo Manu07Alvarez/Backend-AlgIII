@@ -11,10 +11,13 @@ const swaggerUi = (await import('swagger-ui-express')).default;
 const tracer = trace.getTracer('app');
 generateAndSaveKeyPair();
 import cors from 'cors';
+import { createProxyMiddleware } from "http-proxy-middleware";
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput))
+
+app.use("/errsole", createProxyMiddleware({ target: "http://localhost:8001", changeOrigin: true }));
 
 // ✅ Usar la instancia del logger (esto será interceptado por OpenTelemetry)
 app.use('/', routes);

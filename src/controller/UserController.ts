@@ -8,7 +8,7 @@ export class UserController {
   ) {}
   
 
-  async findAll(res: Response) {
+  async findAll(req: Request, res: Response) {
     try {
       const users = await this.userService.findAll();
       res.status(200).json(users);

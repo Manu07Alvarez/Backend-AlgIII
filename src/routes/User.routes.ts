@@ -12,8 +12,8 @@ const userController = createUserController();
   next()
 }) **/
 
-router.get('/', (res: Response) => {
-  userController.findAll(res);
+router.get('/', (req: Request, res: Response) => {
+  userController.findAll(req, res);
 });
 
 router.route('/:id')

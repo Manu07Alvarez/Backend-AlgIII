@@ -269,10 +269,10 @@ export type PostOrderByWithRelationInput = {
 
 export type PostWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  titulo?: string
   AND?: Prisma.PostWhereInput | Prisma.PostWhereInput[]
   OR?: Prisma.PostWhereInput[]
   NOT?: Prisma.PostWhereInput | Prisma.PostWhereInput[]
-  titulo?: Prisma.StringFilter<"Post"> | string
   contenido?: Prisma.StringFilter<"Post"> | string
   published?: Prisma.BoolFilter<"Post"> | boolean
   id_autor?: Prisma.IntFilter<"Post"> | number
@@ -282,7 +282,7 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   autor?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   tema?: Prisma.XOR<Prisma.TemaScalarRelationFilter, Prisma.TemaWhereInput>
   Mensaje?: Prisma.MensajeListRelationFilter
-}, "id">
+}, "id" | "titulo">
 
 export type PostOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

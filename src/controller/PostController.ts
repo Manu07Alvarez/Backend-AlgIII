@@ -69,9 +69,9 @@ export class PostController {
             }
         }
     
-        public async findByName(req: Request, res: Response): Promise<void> {
+        public async findByTitle(req: Request, res: Response): Promise<void> {
             try {
-                const post = await this.PostService.findByName(req.params.title);
+                const post = await this.PostService.findByTitle(req.params.title);
                 res.status(200).json(post);
             } catch (error: unknown) {
                 if (error instanceof Error) {

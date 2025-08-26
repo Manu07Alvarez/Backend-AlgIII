@@ -9,18 +9,13 @@ export class PostRepository extends Repository<Post> implements IPostRepository 
     ){super(Post)}
 
     @validateRepo
-    async findByTitle(title: string): Promise<Partial<Post>> {
-        return this.Post.findUniqueOrThrow({
-            omit: { 
-                createdAt: true, 
-                updatedAt: true 
-            },
+    async findByTitle(title: string): Promise<Partial<Post[]>> {
+        return this.Post.findMany({
             where: { 
                 titulo: {
                     contains: title, 
-                        
-                    }, 
-                },
+                }, 
+            },
         });
     }
 }

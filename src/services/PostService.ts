@@ -10,4 +10,9 @@ export class PostService extends Service<Post> implements IPostService {
     ) {
         super(postRepository, 'post');
     }
+
+    @validateService('not found: ')
+     async findByTitle(name: string): Promise<Partial<Post[]>> {
+         return this.postRepository.findByTitle(name);
+     }
 }

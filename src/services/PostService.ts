@@ -1,5 +1,5 @@
 import { Post } from "../generated/prisma/client.js";
-import { validateService } from "decorators/errors/errors.js";
+import { validateService } from "../decorators/errors/errors.js";
 import IPostRepository from "../repositories/interfaces/IPostRepository.js";
 import IPostService  from "./interfaces/IPostService.js";
 import Service from "./Service.js";

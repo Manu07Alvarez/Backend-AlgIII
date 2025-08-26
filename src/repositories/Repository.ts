@@ -66,11 +66,11 @@ export default abstract class Repository<T> {
 
 	public async findByName(searchNombre: string): Promise<Partial<T>> {
 		return this.entity.findUniqueOrThrow({
-		omit: { 
-			createdAt: true, 
-			updatedAt: true 
-		},
-		where: { nombre: searchNombre }
+			omit: { 
+				createdAt: true, 
+				updatedAt: true 
+			},
+			where: { nombre: searchNombre }
 		});
 	}
 

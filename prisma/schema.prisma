@@ -62,7 +62,7 @@ model Tema {
 
 model Post {
   id         Int      @id @default(autoincrement())
-  titulo     String
+  titulo     String   @unique
   contenido  String   @db.Text
   published  Boolean  @default(false)
   autor      Usuario  @relation(fields: [id_autor], references: [id])
@@ -72,6 +72,7 @@ model Post {
   id_tema    Int
   tema       Tema     @relation(fields: [id_tema], references: [id])
   Mensaje    Mensaje[]
+  @@index([titulo], name: "idx_post_titulo")
   @@index([id_tema], name: "idx_post_tema")
   @@index([id_autor], name: "idx_post_autor")
 }

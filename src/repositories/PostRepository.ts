@@ -7,4 +7,20 @@ export class PostRepository extends Repository<Post> implements IPostRepository 
     constructor (
         private readonly Post: PrismaClient['post'],
     ){super(Post)}
+
+    @validateRepo
+    async findByTitle(title: string): Promise<Partial<Post>> {
+        return this.Post.findUniqueOrThrow({
+            omit: { 
+                createdAt: true, 
+                updatedAt: true 
+            },
+            where: { 
+                titulo: {
+                    contains: title, 
+                        
+                    }, 
+                },
+        });
+    }
 }

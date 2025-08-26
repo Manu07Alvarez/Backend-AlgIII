@@ -167,6 +167,16 @@
         }
       }
     },
+    "/api/user/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/user/{id}": {
       "get": {
         "description": "",
@@ -296,12 +306,12 @@
         }
       }
     },
-    "/api/post/findByName/{name}": {
+    "/api/post/findByTitle/{title}": {
       "get": {
         "description": "",
         "parameters": [
           {
-            "name": "name",
+            "name": "title",
             "in": "path",
             "required": true,
             "schema": {

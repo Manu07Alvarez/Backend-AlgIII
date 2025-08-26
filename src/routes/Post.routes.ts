@@ -37,7 +37,7 @@ router.get('/findById/:id', (req: Request, res: Response) => {
 });
 
 router.get('/findByTitle/:title', (req: Request, res: Response) => {
-    postController.findByName(req, res);
+    postController.findByTitle(req, res);
 });
 
 router.put('/update/:id', (req: Request, res: Response) => {

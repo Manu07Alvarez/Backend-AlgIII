@@ -60,6 +60,10 @@ model Tema {
   @@index([id_creador], name: "idx_tema_creador")
 }	
 
+model Reportes {
+  id         
+}
+
 model Post {
   id         Int      @id @default(autoincrement())
   titulo     String   @unique

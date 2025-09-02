@@ -1,6 +1,7 @@
 import { Reporte } from "../../generated/prisma/client.js";
-export default interface IReporteRepository {
-    create(data: Reporte, id_type: number): Promise<void>;
+import { ReporteDTO } from "schemas/Reportes.schemas.js";
+export default interface IReportsRepository {
+    create(data: ReporteDTO): Promise<void>;
     findById(id: string): Promise<Partial<Reporte>>;
     findAll(): Promise<Reporte[]>;
     findAllMessages(): Promise<Reporte[]>;

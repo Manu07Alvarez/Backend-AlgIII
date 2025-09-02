@@ -6,4 +6,4 @@ export const ReporteSchema = Type.Object({
     id_type: Type.Number(),
 });
 
-export type Post = Static<typeof ReporteSchema>;
+export type ReporteDTO = Static<typeof ReporteSchema>;

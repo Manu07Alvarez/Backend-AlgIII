@@ -57,6 +57,31 @@ export type Carrera = Prisma.CarreraModel
  */
 export type Tema = Prisma.TemaModel
 /**
+ * Model Reporte
+ * 
+ */
+export type Reporte = Prisma.ReporteModel
+/**
+ * Model ReporteUsuario
+ * 
+ */
+export type ReporteUsuario = Prisma.ReporteUsuarioModel
+/**
+ * Model ReporteMensaje
+ * 
+ */
+export type ReporteMensaje = Prisma.ReporteMensajeModel
+/**
+ * Model ReportePost
+ * 
+ */
+export type ReportePost = Prisma.ReportePostModel
+/**
+ * Model ReporteTema
+ * 
+ */
+export type ReporteTema = Prisma.ReporteTemaModel
+/**
  * Model Post
  * 
  */

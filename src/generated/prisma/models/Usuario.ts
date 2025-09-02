@@ -239,6 +239,8 @@ export type UsuarioWhereInput = {
   rol?: Prisma.EnumRolNullableFilter<"Usuario"> | $Enums.Rol | null
   createdAt?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
+  Reportes?: Prisma.ReporteListRelationFilter
+  Reportes_usuario?: Prisma.ReporteUsuarioListRelationFilter
   mensajes?: Prisma.MensajeListRelationFilter
   Tema?: Prisma.TemaListRelationFilter
   Post?: Prisma.PostListRelationFilter
@@ -253,6 +255,8 @@ export type UsuarioOrderByWithRelationInput = {
   rol?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  Reportes?: Prisma.ReporteOrderByRelationAggregateInput
+  Reportes_usuario?: Prisma.ReporteUsuarioOrderByRelationAggregateInput
   mensajes?: Prisma.MensajeOrderByRelationAggregateInput
   Tema?: Prisma.TemaOrderByRelationAggregateInput
   Post?: Prisma.PostOrderByRelationAggregateInput
@@ -271,6 +275,8 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   rol?: Prisma.EnumRolNullableFilter<"Usuario"> | $Enums.Rol | null
   createdAt?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
+  Reportes?: Prisma.ReporteListRelationFilter
+  Reportes_usuario?: Prisma.ReporteUsuarioListRelationFilter
   mensajes?: Prisma.MensajeListRelationFilter
   Tema?: Prisma.TemaListRelationFilter
   Post?: Prisma.PostListRelationFilter
@@ -314,6 +320,8 @@ export type UsuarioCreateInput = {
   rol?: $Enums.Rol | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutReportadorInput
+  Reportes_usuario?: Prisma.ReporteUsuarioCreateNestedManyWithoutUsuarioInput
   mensajes?: Prisma.MensajeCreateNestedManyWithoutAutorInput
   Tema?: Prisma.TemaCreateNestedManyWithoutCreadorInput
   Post?: Prisma.PostCreateNestedManyWithoutAutorInput
@@ -328,6 +336,8 @@ export type UsuarioUncheckedCreateInput = {
   rol?: $Enums.Rol | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutReportadorInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   mensajes?: Prisma.MensajeUncheckedCreateNestedManyWithoutAutorInput
   Tema?: Prisma.TemaUncheckedCreateNestedManyWithoutCreadorInput
   Post?: Prisma.PostUncheckedCreateNestedManyWithoutAutorInput
@@ -341,6 +351,8 @@ export type UsuarioUpdateInput = {
   rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes?: Prisma.ReporteUpdateManyWithoutReportadorNestedInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUpdateManyWithoutUsuarioNestedInput
   mensajes?: Prisma.MensajeUpdateManyWithoutAutorNestedInput
   Tema?: Prisma.TemaUpdateManyWithoutCreadorNestedInput
   Post?: Prisma.PostUpdateManyWithoutAutorNestedInput
@@ -355,6 +367,8 @@ export type UsuarioUncheckedUpdateInput = {
   rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutReportadorNestedInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   mensajes?: Prisma.MensajeUncheckedUpdateManyWithoutAutorNestedInput
   Tema?: Prisma.TemaUncheckedUpdateManyWithoutCreadorNestedInput
   Post?: Prisma.PostUncheckedUpdateManyWithoutAutorNestedInput
@@ -486,6 +500,34 @@ export type UsuarioUpdateOneRequiredWithoutTemaNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutTemaInput, Prisma.UsuarioUpdateWithoutTemaInput>, Prisma.UsuarioUncheckedUpdateWithoutTemaInput>
 }
 
+export type UsuarioCreateNestedOneWithoutReportesInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutReportesInput, Prisma.UsuarioUncheckedCreateWithoutReportesInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutReportesInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutReportesNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutReportesInput, Prisma.UsuarioUncheckedCreateWithoutReportesInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutReportesInput
+  upsert?: Prisma.UsuarioUpsertWithoutReportesInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutReportesInput, Prisma.UsuarioUpdateWithoutReportesInput>, Prisma.UsuarioUncheckedUpdateWithoutReportesInput>
+}
+
+export type UsuarioCreateNestedOneWithoutReportes_usuarioInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutReportes_usuarioInput, Prisma.UsuarioUncheckedCreateWithoutReportes_usuarioInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutReportes_usuarioInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutReportes_usuarioNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutReportes_usuarioInput, Prisma.UsuarioUncheckedCreateWithoutReportes_usuarioInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutReportes_usuarioInput
+  upsert?: Prisma.UsuarioUpsertWithoutReportes_usuarioInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutReportes_usuarioInput, Prisma.UsuarioUpdateWithoutReportes_usuarioInput>, Prisma.UsuarioUncheckedUpdateWithoutReportes_usuarioInput>
+}
+
 export type UsuarioCreateNestedOneWithoutPostInput = {
   create?: Prisma.XOR<Prisma.UsuarioCreateWithoutPostInput, Prisma.UsuarioUncheckedCreateWithoutPostInput>
   connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutPostInput
@@ -522,6 +564,8 @@ export type UsuarioCreateWithoutTemaInput = {
   rol?: $Enums.Rol | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutReportadorInput
+  Reportes_usuario?: Prisma.ReporteUsuarioCreateNestedManyWithoutUsuarioInput
   mensajes?: Prisma.MensajeCreateNestedManyWithoutAutorInput
   Post?: Prisma.PostCreateNestedManyWithoutAutorInput
 }
@@ -535,6 +579,8 @@ export type UsuarioUncheckedCreateWithoutTemaInput = {
   rol?: $Enums.Rol | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutReportadorInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   mensajes?: Prisma.MensajeUncheckedCreateNestedManyWithoutAutorInput
   Post?: Prisma.PostUncheckedCreateNestedManyWithoutAutorInput
 }
@@ -563,6 +609,8 @@ export type UsuarioUpdateWithoutTemaInput = {
   rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes?: Prisma.ReporteUpdateManyWithoutReportadorNestedInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUpdateManyWithoutUsuarioNestedInput
   mensajes?: Prisma.MensajeUpdateManyWithoutAutorNestedInput
   Post?: Prisma.PostUpdateManyWithoutAutorNestedInput
 }
@@ -576,7 +624,157 @@ export type UsuarioUncheckedUpdateWithoutTemaInput = {
   rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutReportadorNestedInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   mensajes?: Prisma.MensajeUncheckedUpdateManyWithoutAutorNestedInput
+  Post?: Prisma.PostUncheckedUpdateManyWithoutAutorNestedInput
+}
+
+export type UsuarioCreateWithoutReportesInput = {
+  nombre_apellido?: string | null
+  email: string
+  contraseña: string
+  activo?: boolean
+  rol?: $Enums.Rol | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  Reportes_usuario?: Prisma.ReporteUsuarioCreateNestedManyWithoutUsuarioInput
+  mensajes?: Prisma.MensajeCreateNestedManyWithoutAutorInput
+  Tema?: Prisma.TemaCreateNestedManyWithoutCreadorInput
+  Post?: Prisma.PostCreateNestedManyWithoutAutorInput
+}
+
+export type UsuarioUncheckedCreateWithoutReportesInput = {
+  id?: number
+  nombre_apellido?: string | null
+  email: string
+  contraseña: string
+  activo?: boolean
+  rol?: $Enums.Rol | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  Reportes_usuario?: Prisma.ReporteUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
+  mensajes?: Prisma.MensajeUncheckedCreateNestedManyWithoutAutorInput
+  Tema?: Prisma.TemaUncheckedCreateNestedManyWithoutCreadorInput
+  Post?: Prisma.PostUncheckedCreateNestedManyWithoutAutorInput
+}
+
+export type UsuarioCreateOrConnectWithoutReportesInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutReportesInput, Prisma.UsuarioUncheckedCreateWithoutReportesInput>
+}
+
+export type UsuarioUpsertWithoutReportesInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutReportesInput, Prisma.UsuarioUncheckedUpdateWithoutReportesInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutReportesInput, Prisma.UsuarioUncheckedCreateWithoutReportesInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutReportesInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutReportesInput, Prisma.UsuarioUncheckedUpdateWithoutReportesInput>
+}
+
+export type UsuarioUpdateWithoutReportesInput = {
+  nombre_apellido?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contraseña?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes_usuario?: Prisma.ReporteUsuarioUpdateManyWithoutUsuarioNestedInput
+  mensajes?: Prisma.MensajeUpdateManyWithoutAutorNestedInput
+  Tema?: Prisma.TemaUpdateManyWithoutCreadorNestedInput
+  Post?: Prisma.PostUpdateManyWithoutAutorNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutReportesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre_apellido?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contraseña?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes_usuario?: Prisma.ReporteUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
+  mensajes?: Prisma.MensajeUncheckedUpdateManyWithoutAutorNestedInput
+  Tema?: Prisma.TemaUncheckedUpdateManyWithoutCreadorNestedInput
+  Post?: Prisma.PostUncheckedUpdateManyWithoutAutorNestedInput
+}
+
+export type UsuarioCreateWithoutReportes_usuarioInput = {
+  nombre_apellido?: string | null
+  email: string
+  contraseña: string
+  activo?: boolean
+  rol?: $Enums.Rol | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutReportadorInput
+  mensajes?: Prisma.MensajeCreateNestedManyWithoutAutorInput
+  Tema?: Prisma.TemaCreateNestedManyWithoutCreadorInput
+  Post?: Prisma.PostCreateNestedManyWithoutAutorInput
+}
+
+export type UsuarioUncheckedCreateWithoutReportes_usuarioInput = {
+  id?: number
+  nombre_apellido?: string | null
+  email: string
+  contraseña: string
+  activo?: boolean
+  rol?: $Enums.Rol | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutReportadorInput
+  mensajes?: Prisma.MensajeUncheckedCreateNestedManyWithoutAutorInput
+  Tema?: Prisma.TemaUncheckedCreateNestedManyWithoutCreadorInput
+  Post?: Prisma.PostUncheckedCreateNestedManyWithoutAutorInput
+}
+
+export type UsuarioCreateOrConnectWithoutReportes_usuarioInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutReportes_usuarioInput, Prisma.UsuarioUncheckedCreateWithoutReportes_usuarioInput>
+}
+
+export type UsuarioUpsertWithoutReportes_usuarioInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutReportes_usuarioInput, Prisma.UsuarioUncheckedUpdateWithoutReportes_usuarioInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutReportes_usuarioInput, Prisma.UsuarioUncheckedCreateWithoutReportes_usuarioInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutReportes_usuarioInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutReportes_usuarioInput, Prisma.UsuarioUncheckedUpdateWithoutReportes_usuarioInput>
+}
+
+export type UsuarioUpdateWithoutReportes_usuarioInput = {
+  nombre_apellido?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contraseña?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes?: Prisma.ReporteUpdateManyWithoutReportadorNestedInput
+  mensajes?: Prisma.MensajeUpdateManyWithoutAutorNestedInput
+  Tema?: Prisma.TemaUpdateManyWithoutCreadorNestedInput
+  Post?: Prisma.PostUpdateManyWithoutAutorNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutReportes_usuarioInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre_apellido?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contraseña?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutReportadorNestedInput
+  mensajes?: Prisma.MensajeUncheckedUpdateManyWithoutAutorNestedInput
+  Tema?: Prisma.TemaUncheckedUpdateManyWithoutCreadorNestedInput
   Post?: Prisma.PostUncheckedUpdateManyWithoutAutorNestedInput
 }
 
@@ -588,6 +786,8 @@ export type UsuarioCreateWithoutPostInput = {
   rol?: $Enums.Rol | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutReportadorInput
+  Reportes_usuario?: Prisma.ReporteUsuarioCreateNestedManyWithoutUsuarioInput
   mensajes?: Prisma.MensajeCreateNestedManyWithoutAutorInput
   Tema?: Prisma.TemaCreateNestedManyWithoutCreadorInput
 }
@@ -601,6 +801,8 @@ export type UsuarioUncheckedCreateWithoutPostInput = {
   rol?: $Enums.Rol | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutReportadorInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   mensajes?: Prisma.MensajeUncheckedCreateNestedManyWithoutAutorInput
   Tema?: Prisma.TemaUncheckedCreateNestedManyWithoutCreadorInput
 }
@@ -629,6 +831,8 @@ export type UsuarioUpdateWithoutPostInput = {
   rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes?: Prisma.ReporteUpdateManyWithoutReportadorNestedInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUpdateManyWithoutUsuarioNestedInput
   mensajes?: Prisma.MensajeUpdateManyWithoutAutorNestedInput
   Tema?: Prisma.TemaUpdateManyWithoutCreadorNestedInput
 }
@@ -642,6 +846,8 @@ export type UsuarioUncheckedUpdateWithoutPostInput = {
   rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutReportadorNestedInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   mensajes?: Prisma.MensajeUncheckedUpdateManyWithoutAutorNestedInput
   Tema?: Prisma.TemaUncheckedUpdateManyWithoutCreadorNestedInput
 }
@@ -654,6 +860,8 @@ export type UsuarioCreateWithoutMensajesInput = {
   rol?: $Enums.Rol | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutReportadorInput
+  Reportes_usuario?: Prisma.ReporteUsuarioCreateNestedManyWithoutUsuarioInput
   Tema?: Prisma.TemaCreateNestedManyWithoutCreadorInput
   Post?: Prisma.PostCreateNestedManyWithoutAutorInput
 }
@@ -667,6 +875,8 @@ export type UsuarioUncheckedCreateWithoutMensajesInput = {
   rol?: $Enums.Rol | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutReportadorInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   Tema?: Prisma.TemaUncheckedCreateNestedManyWithoutCreadorInput
   Post?: Prisma.PostUncheckedCreateNestedManyWithoutAutorInput
 }
@@ -695,6 +905,8 @@ export type UsuarioUpdateWithoutMensajesInput = {
   rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes?: Prisma.ReporteUpdateManyWithoutReportadorNestedInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUpdateManyWithoutUsuarioNestedInput
   Tema?: Prisma.TemaUpdateManyWithoutCreadorNestedInput
   Post?: Prisma.PostUpdateManyWithoutAutorNestedInput
 }
@@ -708,6 +920,8 @@ export type UsuarioUncheckedUpdateWithoutMensajesInput = {
   rol?: Prisma.NullableEnumRolFieldUpdateOperationsInput | $Enums.Rol | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutReportadorNestedInput
+  Reportes_usuario?: Prisma.ReporteUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   Tema?: Prisma.TemaUncheckedUpdateManyWithoutCreadorNestedInput
   Post?: Prisma.PostUncheckedUpdateManyWithoutAutorNestedInput
 }
@@ -718,12 +932,16 @@ export type UsuarioUncheckedUpdateWithoutMensajesInput = {
  */
 
 export type UsuarioCountOutputType = {
+  Reportes: number
+  Reportes_usuario: number
   mensajes: number
   Tema: number
   Post: number
 }
 
 export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Reportes?: boolean | UsuarioCountOutputTypeCountReportesArgs
+  Reportes_usuario?: boolean | UsuarioCountOutputTypeCountReportes_usuarioArgs
   mensajes?: boolean | UsuarioCountOutputTypeCountMensajesArgs
   Tema?: boolean | UsuarioCountOutputTypeCountTemaArgs
   Post?: boolean | UsuarioCountOutputTypeCountPostArgs
@@ -737,6 +955,20 @@ export type UsuarioCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
    * Select specific fields to fetch from the UsuarioCountOutputType
    */
   select?: Prisma.UsuarioCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountReportesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReporteWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountReportes_usuarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReporteUsuarioWhereInput
 }
 
 /**
@@ -770,6 +1002,8 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   rol?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  Reportes?: boolean | Prisma.Usuario$ReportesArgs<ExtArgs>
+  Reportes_usuario?: boolean | Prisma.Usuario$Reportes_usuarioArgs<ExtArgs>
   mensajes?: boolean | Prisma.Usuario$mensajesArgs<ExtArgs>
   Tema?: boolean | Prisma.Usuario$TemaArgs<ExtArgs>
   Post?: boolean | Prisma.Usuario$PostArgs<ExtArgs>
@@ -791,6 +1025,8 @@ export type UsuarioSelectScalar = {
 
 export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre_apellido" | "email" | "contraseña" | "activo" | "rol" | "createdAt" | "updatedAt", ExtArgs["result"]["usuario"]>
 export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Reportes?: boolean | Prisma.Usuario$ReportesArgs<ExtArgs>
+  Reportes_usuario?: boolean | Prisma.Usuario$Reportes_usuarioArgs<ExtArgs>
   mensajes?: boolean | Prisma.Usuario$mensajesArgs<ExtArgs>
   Tema?: boolean | Prisma.Usuario$TemaArgs<ExtArgs>
   Post?: boolean | Prisma.Usuario$PostArgs<ExtArgs>
@@ -800,6 +1036,8 @@ export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Usuario"
   objects: {
+    Reportes: Prisma.$ReportePayload<ExtArgs>[]
+    Reportes_usuario: Prisma.$ReporteUsuarioPayload<ExtArgs>[]
     mensajes: Prisma.$MensajePayload<ExtArgs>[]
     Tema: Prisma.$TemaPayload<ExtArgs>[]
     Post: Prisma.$PostPayload<ExtArgs>[]
@@ -1153,6 +1391,8 @@ readonly fields: UsuarioFieldRefs;
  */
 export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  Reportes<T extends Prisma.Usuario$ReportesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$ReportesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Reportes_usuario<T extends Prisma.Usuario$Reportes_usuarioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$Reportes_usuarioArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReporteUsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mensajes<T extends Prisma.Usuario$mensajesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$mensajesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MensajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Tema<T extends Prisma.Usuario$TemaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$TemaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TemaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Post<T extends Prisma.Usuario$PostArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$PostArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1533,6 +1773,54 @@ export type UsuarioDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Usuarios to delete.
    */
   limit?: number
+}
+
+/**
+ * Usuario.Reportes
+ */
+export type Usuario$ReportesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Reporte
+   */
+  select?: Prisma.ReporteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Reporte
+   */
+  omit?: Prisma.ReporteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReporteInclude<ExtArgs> | null
+  where?: Prisma.ReporteWhereInput
+  orderBy?: Prisma.ReporteOrderByWithRelationInput | Prisma.ReporteOrderByWithRelationInput[]
+  cursor?: Prisma.ReporteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReporteScalarFieldEnum | Prisma.ReporteScalarFieldEnum[]
+}
+
+/**
+ * Usuario.Reportes_usuario
+ */
+export type Usuario$Reportes_usuarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReporteUsuario
+   */
+  select?: Prisma.ReporteUsuarioSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReporteUsuario
+   */
+  omit?: Prisma.ReporteUsuarioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReporteUsuarioInclude<ExtArgs> | null
+  where?: Prisma.ReporteUsuarioWhereInput
+  orderBy?: Prisma.ReporteUsuarioOrderByWithRelationInput | Prisma.ReporteUsuarioOrderByWithRelationInput[]
+  cursor?: Prisma.ReporteUsuarioWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReporteUsuarioScalarFieldEnum | Prisma.ReporteUsuarioScalarFieldEnum[]
 }
 
 /**

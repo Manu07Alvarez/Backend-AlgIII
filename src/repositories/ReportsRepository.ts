@@ -1,5 +1,5 @@
 import { validateRepo } from '../decorators/errors/errors.js';
-import  type { PrismaClient } from '../generated/prisma/client.js';
+import  type { Reporte ,PrismaClient } from '../generated/prisma/client.js';
 import { ReporteDTO } from 'schemas/Reportes.schemas.js';
 import Repository from './Repository.js';
 import IReportsRepository from './interfaces/IReportsRepository.js';
@@ -8,14 +8,10 @@ export class ReportsRepository extends Repository<Reporte> implements IReportsRe
         private readonly Reporte: PrismaClient['reporte'],
     ){super(Reporte)}
 
+
+
     @validateRepo
-    async findByTitle(title: string): Promise<Partial<[]>> {
-        return data = this.Reporte.findMany({
-            where: { 
-                titulo: {
-                    contains: title, 
-                }, 
-            },
-        });
+    async create(data: ReporteDTO): Promise<void> {
+        await this.entity.create(data.descripcion);
     }
 }

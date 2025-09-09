@@ -27,7 +27,6 @@ model Usuario {
   updatedAt       DateTime? @updatedAt
 
   Reportes Reporte[]
-  Reportes_usuario ReporteUsuario[]
   mensajes Mensaje[]
   Tema Tema[]
   Post Post[]
@@ -58,7 +57,7 @@ model Tema {
   fijado      Boolean  @default(false)
   cerrado     Boolean  @default(false)
   Post Post[]
-  Reportes ReporteTema[]
+  Reportes Reporte[]
   @@index([id_carrera], name: "idx_tema_carrera")
   @@index([id_creador], name: "idx_tema_creador")
 }	
@@ -71,44 +70,16 @@ model Reporte {
   resuelto     Boolean?  @default(false)
   reportador   Usuario  @relation(fields: [id_reportador], references: [id])
   id_reportador Int
+  
+  mensaje_id Int?
+  mensaje    Mensaje? @relation(fields: [mensaje_id], references: [id])
 
+  post_id Int?
+  post    Post?    @relation(fields: [post_id], references: [id])
+
+  tema_id Int?
+  tema    Tema?    @relation(fields: [tema_id], references: [id])
   // Relaciones
-  usuarios  ReporteUsuario[]
-  mensajes ReporteMensaje[]
-  posts    ReportePost[]
-  temas    ReporteTema[]
-}
-
-model ReporteUsuario {
-  usuario_id Int @id
-  reporte_id String
-
-  usuario Usuario @relation(fields: [usuario_id], references: [id])
-  reporte Reporte @relation(fields: [reporte_id], references: [id])
-}
-
-model ReporteMensaje {
-  reporte_id String @id
-  mensaje_id Int
-
-  reporte Reporte @relation(fields: [reporte_id], references: [id])
-  mensaje Mensaje @relation(fields: [mensaje_id], references: [id])
-}
-
-model ReportePost {
-  reporte_id String @id
-  post_id Int
-
-  reporte Reporte @relation(fields: [reporte_id], references: [id])
-  post    Post    @relation(fields: [post_id], references: [id])
-}
-
-model ReporteTema {
-  reporte_id String @id
-  tema_id Int
-
-  reporte Reporte @relation(fields: [reporte_id], references: [id])
-  tema    Tema    @relation(fields: [tema_id], references: [id])
 }
 
 model Post {
@@ -123,7 +94,7 @@ model Post {
   id_tema    Int
   tema       Tema     @relation(fields: [id_tema], references: [id])
   Mensaje    Mensaje[]
-  Reportes   ReportePost[]
+  Reportes   Reporte[]
   @@index([titulo], name: "idx_post_titulo")
   @@index([id_tema], name: "idx_post_tema")
   @@index([id_autor], name: "idx_post_autor")
@@ -139,7 +110,7 @@ model Mensaje {
   respuestas Mensaje[] @relation("MensajeRespuesta")
   contestado Mensaje? @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
   id_mensaje Int?
-  Reportes   ReporteMensaje[]
+  Reportes   Reporte[]
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
 }

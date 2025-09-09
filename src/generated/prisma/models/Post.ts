@@ -250,7 +250,7 @@ export type PostWhereInput = {
   autor?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   tema?: Prisma.XOR<Prisma.TemaScalarRelationFilter, Prisma.TemaWhereInput>
   Mensaje?: Prisma.MensajeListRelationFilter
-  Reportes?: Prisma.ReportePostListRelationFilter
+  Reportes?: Prisma.ReporteListRelationFilter
 }
 
 export type PostOrderByWithRelationInput = {
@@ -265,7 +265,7 @@ export type PostOrderByWithRelationInput = {
   autor?: Prisma.UsuarioOrderByWithRelationInput
   tema?: Prisma.TemaOrderByWithRelationInput
   Mensaje?: Prisma.MensajeOrderByRelationAggregateInput
-  Reportes?: Prisma.ReportePostOrderByRelationAggregateInput
+  Reportes?: Prisma.ReporteOrderByRelationAggregateInput
   _relevance?: Prisma.PostOrderByRelevanceInput
 }
 
@@ -284,7 +284,7 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   autor?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   tema?: Prisma.XOR<Prisma.TemaScalarRelationFilter, Prisma.TemaWhereInput>
   Mensaje?: Prisma.MensajeListRelationFilter
-  Reportes?: Prisma.ReportePostListRelationFilter
+  Reportes?: Prisma.ReporteListRelationFilter
 }, "id" | "titulo">
 
 export type PostOrderByWithAggregationInput = {
@@ -326,7 +326,7 @@ export type PostCreateInput = {
   autor: Prisma.UsuarioCreateNestedOneWithoutPostInput
   tema: Prisma.TemaCreateNestedOneWithoutPostInput
   Mensaje?: Prisma.MensajeCreateNestedManyWithoutPostInput
-  Reportes?: Prisma.ReportePostCreateNestedManyWithoutPostInput
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateInput = {
@@ -339,7 +339,7 @@ export type PostUncheckedCreateInput = {
   updatedAt?: Date | string | null
   id_tema: number
   Mensaje?: Prisma.MensajeUncheckedCreateNestedManyWithoutPostInput
-  Reportes?: Prisma.ReportePostUncheckedCreateNestedManyWithoutPostInput
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostUpdateInput = {
@@ -351,7 +351,7 @@ export type PostUpdateInput = {
   autor?: Prisma.UsuarioUpdateOneRequiredWithoutPostNestedInput
   tema?: Prisma.TemaUpdateOneRequiredWithoutPostNestedInput
   Mensaje?: Prisma.MensajeUpdateManyWithoutPostNestedInput
-  Reportes?: Prisma.ReportePostUpdateManyWithoutPostNestedInput
+  Reportes?: Prisma.ReporteUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateInput = {
@@ -364,7 +364,7 @@ export type PostUncheckedUpdateInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id_tema?: Prisma.IntFieldUpdateOperationsInput | number
   Mensaje?: Prisma.MensajeUncheckedUpdateManyWithoutPostNestedInput
-  Reportes?: Prisma.ReportePostUncheckedUpdateManyWithoutPostNestedInput
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostCreateManyInput = {
@@ -407,9 +407,9 @@ export type PostOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type PostScalarRelationFilter = {
-  is?: Prisma.PostWhereInput
-  isNot?: Prisma.PostWhereInput
+export type PostNullableScalarRelationFilter = {
+  is?: Prisma.PostWhereInput | null
+  isNot?: Prisma.PostWhereInput | null
 }
 
 export type PostOrderByRelevanceInput = {
@@ -461,6 +461,11 @@ export type PostSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   id_autor?: Prisma.SortOrder
   id_tema?: Prisma.SortOrder
+}
+
+export type PostScalarRelationFilter = {
+  is?: Prisma.PostWhereInput
+  isNot?: Prisma.PostWhereInput
 }
 
 export type PostCreateNestedManyWithoutAutorInput = {
@@ -553,10 +558,12 @@ export type PostCreateNestedOneWithoutReportesInput = {
   connect?: Prisma.PostWhereUniqueInput
 }
 
-export type PostUpdateOneRequiredWithoutReportesNestedInput = {
+export type PostUpdateOneWithoutReportesNestedInput = {
   create?: Prisma.XOR<Prisma.PostCreateWithoutReportesInput, Prisma.PostUncheckedCreateWithoutReportesInput>
   connectOrCreate?: Prisma.PostCreateOrConnectWithoutReportesInput
   upsert?: Prisma.PostUpsertWithoutReportesInput
+  disconnect?: Prisma.PostWhereInput | boolean
+  delete?: Prisma.PostWhereInput | boolean
   connect?: Prisma.PostWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutReportesInput, Prisma.PostUpdateWithoutReportesInput>, Prisma.PostUncheckedUpdateWithoutReportesInput>
 }
@@ -583,7 +590,7 @@ export type PostCreateWithoutAutorInput = {
   updatedAt?: Date | string | null
   tema: Prisma.TemaCreateNestedOneWithoutPostInput
   Mensaje?: Prisma.MensajeCreateNestedManyWithoutPostInput
-  Reportes?: Prisma.ReportePostCreateNestedManyWithoutPostInput
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutAutorInput = {
@@ -595,7 +602,7 @@ export type PostUncheckedCreateWithoutAutorInput = {
   updatedAt?: Date | string | null
   id_tema: number
   Mensaje?: Prisma.MensajeUncheckedCreateNestedManyWithoutPostInput
-  Reportes?: Prisma.ReportePostUncheckedCreateNestedManyWithoutPostInput
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutAutorInput = {
@@ -646,7 +653,7 @@ export type PostCreateWithoutTemaInput = {
   updatedAt?: Date | string | null
   autor: Prisma.UsuarioCreateNestedOneWithoutPostInput
   Mensaje?: Prisma.MensajeCreateNestedManyWithoutPostInput
-  Reportes?: Prisma.ReportePostCreateNestedManyWithoutPostInput
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutTemaInput = {
@@ -658,7 +665,7 @@ export type PostUncheckedCreateWithoutTemaInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   Mensaje?: Prisma.MensajeUncheckedCreateNestedManyWithoutPostInput
-  Reportes?: Prisma.ReportePostUncheckedCreateNestedManyWithoutPostInput
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutTemaInput = {
@@ -757,7 +764,7 @@ export type PostCreateWithoutMensajeInput = {
   updatedAt?: Date | string | null
   autor: Prisma.UsuarioCreateNestedOneWithoutPostInput
   tema: Prisma.TemaCreateNestedOneWithoutPostInput
-  Reportes?: Prisma.ReportePostCreateNestedManyWithoutPostInput
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutMensajeInput = {
@@ -769,7 +776,7 @@ export type PostUncheckedCreateWithoutMensajeInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   id_tema: number
-  Reportes?: Prisma.ReportePostUncheckedCreateNestedManyWithoutPostInput
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutMensajeInput = {
@@ -796,7 +803,7 @@ export type PostUpdateWithoutMensajeInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autor?: Prisma.UsuarioUpdateOneRequiredWithoutPostNestedInput
   tema?: Prisma.TemaUpdateOneRequiredWithoutPostNestedInput
-  Reportes?: Prisma.ReportePostUpdateManyWithoutPostNestedInput
+  Reportes?: Prisma.ReporteUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutMensajeInput = {
@@ -808,7 +815,7 @@ export type PostUncheckedUpdateWithoutMensajeInput = {
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id_tema?: Prisma.IntFieldUpdateOperationsInput | number
-  Reportes?: Prisma.ReportePostUncheckedUpdateManyWithoutPostNestedInput
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostCreateManyAutorInput = {
@@ -829,7 +836,7 @@ export type PostUpdateWithoutAutorInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tema?: Prisma.TemaUpdateOneRequiredWithoutPostNestedInput
   Mensaje?: Prisma.MensajeUpdateManyWithoutPostNestedInput
-  Reportes?: Prisma.ReportePostUpdateManyWithoutPostNestedInput
+  Reportes?: Prisma.ReporteUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutAutorInput = {
@@ -841,7 +848,7 @@ export type PostUncheckedUpdateWithoutAutorInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id_tema?: Prisma.IntFieldUpdateOperationsInput | number
   Mensaje?: Prisma.MensajeUncheckedUpdateManyWithoutPostNestedInput
-  Reportes?: Prisma.ReportePostUncheckedUpdateManyWithoutPostNestedInput
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutAutorInput = {
@@ -872,7 +879,7 @@ export type PostUpdateWithoutTemaInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autor?: Prisma.UsuarioUpdateOneRequiredWithoutPostNestedInput
   Mensaje?: Prisma.MensajeUpdateManyWithoutPostNestedInput
-  Reportes?: Prisma.ReportePostUpdateManyWithoutPostNestedInput
+  Reportes?: Prisma.ReporteUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutTemaInput = {
@@ -884,7 +891,7 @@ export type PostUncheckedUpdateWithoutTemaInput = {
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Mensaje?: Prisma.MensajeUncheckedUpdateManyWithoutPostNestedInput
-  Reportes?: Prisma.ReportePostUncheckedUpdateManyWithoutPostNestedInput
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutTemaInput = {
@@ -933,7 +940,7 @@ export type PostCountOutputTypeCountMensajeArgs<ExtArgs extends runtime.Types.Ex
  * PostCountOutputType without action
  */
 export type PostCountOutputTypeCountReportesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ReportePostWhereInput
+  where?: Prisma.ReporteWhereInput
 }
 
 
@@ -981,7 +988,7 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     autor: Prisma.$UsuarioPayload<ExtArgs>
     tema: Prisma.$TemaPayload<ExtArgs>
     Mensaje: Prisma.$MensajePayload<ExtArgs>[]
-    Reportes: Prisma.$ReportePostPayload<ExtArgs>[]
+    Reportes: Prisma.$ReportePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1335,7 +1342,7 @@ export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Typ
   autor<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tema<T extends Prisma.TemaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TemaDefaultArgs<ExtArgs>>): Prisma.Prisma__TemaClient<runtime.Types.Result.GetResult<Prisma.$TemaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Mensaje<T extends Prisma.Post$MensajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$MensajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MensajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Reportes<T extends Prisma.Post$ReportesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$ReportesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportePostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Reportes<T extends Prisma.Post$ReportesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$ReportesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1744,23 +1751,23 @@ export type Post$MensajeArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
  */
 export type Post$ReportesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ReportePost
+   * Select specific fields to fetch from the Reporte
    */
-  select?: Prisma.ReportePostSelect<ExtArgs> | null
+  select?: Prisma.ReporteSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ReportePost
+   * Omit specific fields from the Reporte
    */
-  omit?: Prisma.ReportePostOmit<ExtArgs> | null
+  omit?: Prisma.ReporteOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ReportePostInclude<ExtArgs> | null
-  where?: Prisma.ReportePostWhereInput
-  orderBy?: Prisma.ReportePostOrderByWithRelationInput | Prisma.ReportePostOrderByWithRelationInput[]
-  cursor?: Prisma.ReportePostWhereUniqueInput
+  include?: Prisma.ReporteInclude<ExtArgs> | null
+  where?: Prisma.ReporteWhereInput
+  orderBy?: Prisma.ReporteOrderByWithRelationInput | Prisma.ReporteOrderByWithRelationInput[]
+  cursor?: Prisma.ReporteWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ReportePostScalarFieldEnum | Prisma.ReportePostScalarFieldEnum[]
+  distinct?: Prisma.ReporteScalarFieldEnum | Prisma.ReporteScalarFieldEnum[]
 }
 
 /**

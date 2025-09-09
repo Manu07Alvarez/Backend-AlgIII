@@ -398,10 +398,6 @@ export const ModelName = {
   Carrera: 'Carrera',
   Tema: 'Tema',
   Reporte: 'Reporte',
-  ReporteUsuario: 'ReporteUsuario',
-  ReporteMensaje: 'ReporteMensaje',
-  ReportePost: 'ReportePost',
-  ReporteTema: 'ReporteTema',
   Post: 'Post',
   Mensaje: 'Mensaje'
 } as const
@@ -419,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "usuario" | "carrera" | "tema" | "reporte" | "reporteUsuario" | "reporteMensaje" | "reportePost" | "reporteTema" | "post" | "mensaje"
+    modelProps: "usuario" | "carrera" | "tema" | "reporte" | "post" | "mensaje"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -687,270 +683,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    ReporteUsuario: {
-      payload: Prisma.$ReporteUsuarioPayload<ExtArgs>
-      fields: Prisma.ReporteUsuarioFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ReporteUsuarioFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteUsuarioPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ReporteUsuarioFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteUsuarioPayload>
-        }
-        findFirst: {
-          args: Prisma.ReporteUsuarioFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteUsuarioPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ReporteUsuarioFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteUsuarioPayload>
-        }
-        findMany: {
-          args: Prisma.ReporteUsuarioFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteUsuarioPayload>[]
-        }
-        create: {
-          args: Prisma.ReporteUsuarioCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteUsuarioPayload>
-        }
-        createMany: {
-          args: Prisma.ReporteUsuarioCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        delete: {
-          args: Prisma.ReporteUsuarioDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteUsuarioPayload>
-        }
-        update: {
-          args: Prisma.ReporteUsuarioUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteUsuarioPayload>
-        }
-        deleteMany: {
-          args: Prisma.ReporteUsuarioDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ReporteUsuarioUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        upsert: {
-          args: Prisma.ReporteUsuarioUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteUsuarioPayload>
-        }
-        aggregate: {
-          args: Prisma.ReporteUsuarioAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateReporteUsuario>
-        }
-        groupBy: {
-          args: Prisma.ReporteUsuarioGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReporteUsuarioGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ReporteUsuarioCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReporteUsuarioCountAggregateOutputType> | number
-        }
-      }
-    }
-    ReporteMensaje: {
-      payload: Prisma.$ReporteMensajePayload<ExtArgs>
-      fields: Prisma.ReporteMensajeFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ReporteMensajeFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteMensajePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ReporteMensajeFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteMensajePayload>
-        }
-        findFirst: {
-          args: Prisma.ReporteMensajeFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteMensajePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ReporteMensajeFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteMensajePayload>
-        }
-        findMany: {
-          args: Prisma.ReporteMensajeFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteMensajePayload>[]
-        }
-        create: {
-          args: Prisma.ReporteMensajeCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteMensajePayload>
-        }
-        createMany: {
-          args: Prisma.ReporteMensajeCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        delete: {
-          args: Prisma.ReporteMensajeDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteMensajePayload>
-        }
-        update: {
-          args: Prisma.ReporteMensajeUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteMensajePayload>
-        }
-        deleteMany: {
-          args: Prisma.ReporteMensajeDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ReporteMensajeUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        upsert: {
-          args: Prisma.ReporteMensajeUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteMensajePayload>
-        }
-        aggregate: {
-          args: Prisma.ReporteMensajeAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateReporteMensaje>
-        }
-        groupBy: {
-          args: Prisma.ReporteMensajeGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReporteMensajeGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ReporteMensajeCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReporteMensajeCountAggregateOutputType> | number
-        }
-      }
-    }
-    ReportePost: {
-      payload: Prisma.$ReportePostPayload<ExtArgs>
-      fields: Prisma.ReportePostFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ReportePostFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePostPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ReportePostFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePostPayload>
-        }
-        findFirst: {
-          args: Prisma.ReportePostFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePostPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ReportePostFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePostPayload>
-        }
-        findMany: {
-          args: Prisma.ReportePostFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePostPayload>[]
-        }
-        create: {
-          args: Prisma.ReportePostCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePostPayload>
-        }
-        createMany: {
-          args: Prisma.ReportePostCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        delete: {
-          args: Prisma.ReportePostDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePostPayload>
-        }
-        update: {
-          args: Prisma.ReportePostUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePostPayload>
-        }
-        deleteMany: {
-          args: Prisma.ReportePostDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ReportePostUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        upsert: {
-          args: Prisma.ReportePostUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePostPayload>
-        }
-        aggregate: {
-          args: Prisma.ReportePostAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateReportePost>
-        }
-        groupBy: {
-          args: Prisma.ReportePostGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReportePostGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ReportePostCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReportePostCountAggregateOutputType> | number
-        }
-      }
-    }
-    ReporteTema: {
-      payload: Prisma.$ReporteTemaPayload<ExtArgs>
-      fields: Prisma.ReporteTemaFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ReporteTemaFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteTemaPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ReporteTemaFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteTemaPayload>
-        }
-        findFirst: {
-          args: Prisma.ReporteTemaFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteTemaPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ReporteTemaFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteTemaPayload>
-        }
-        findMany: {
-          args: Prisma.ReporteTemaFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteTemaPayload>[]
-        }
-        create: {
-          args: Prisma.ReporteTemaCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteTemaPayload>
-        }
-        createMany: {
-          args: Prisma.ReporteTemaCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        delete: {
-          args: Prisma.ReporteTemaDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteTemaPayload>
-        }
-        update: {
-          args: Prisma.ReporteTemaUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteTemaPayload>
-        }
-        deleteMany: {
-          args: Prisma.ReporteTemaDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ReporteTemaUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        upsert: {
-          args: Prisma.ReporteTemaUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReporteTemaPayload>
-        }
-        aggregate: {
-          args: Prisma.ReporteTemaAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateReporteTema>
-        }
-        groupBy: {
-          args: Prisma.ReporteTemaGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReporteTemaGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ReporteTemaCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReporteTemaCountAggregateOutputType> | number
-        }
-      }
-    }
     Post: {
       payload: Prisma.$PostPayload<ExtArgs>
       fields: Prisma.PostFieldRefs
@@ -1170,42 +902,13 @@ export const ReporteScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   resuelto: 'resuelto',
-  id_reportador: 'id_reportador'
-} as const
-
-export type ReporteScalarFieldEnum = (typeof ReporteScalarFieldEnum)[keyof typeof ReporteScalarFieldEnum]
-
-
-export const ReporteUsuarioScalarFieldEnum = {
-  usuario_id: 'usuario_id',
-  reporte_id: 'reporte_id'
-} as const
-
-export type ReporteUsuarioScalarFieldEnum = (typeof ReporteUsuarioScalarFieldEnum)[keyof typeof ReporteUsuarioScalarFieldEnum]
-
-
-export const ReporteMensajeScalarFieldEnum = {
-  reporte_id: 'reporte_id',
-  mensaje_id: 'mensaje_id'
-} as const
-
-export type ReporteMensajeScalarFieldEnum = (typeof ReporteMensajeScalarFieldEnum)[keyof typeof ReporteMensajeScalarFieldEnum]
-
-
-export const ReportePostScalarFieldEnum = {
-  reporte_id: 'reporte_id',
-  post_id: 'post_id'
-} as const
-
-export type ReportePostScalarFieldEnum = (typeof ReportePostScalarFieldEnum)[keyof typeof ReportePostScalarFieldEnum]
-
-
-export const ReporteTemaScalarFieldEnum = {
-  reporte_id: 'reporte_id',
+  id_reportador: 'id_reportador',
+  mensaje_id: 'mensaje_id',
+  post_id: 'post_id',
   tema_id: 'tema_id'
 } as const
 
-export type ReporteTemaScalarFieldEnum = (typeof ReporteTemaScalarFieldEnum)[keyof typeof ReporteTemaScalarFieldEnum]
+export type ReporteScalarFieldEnum = (typeof ReporteScalarFieldEnum)[keyof typeof ReporteScalarFieldEnum]
 
 
 export const PostScalarFieldEnum = {
@@ -1283,34 +986,6 @@ export const ReporteOrderByRelevanceFieldEnum = {
 } as const
 
 export type ReporteOrderByRelevanceFieldEnum = (typeof ReporteOrderByRelevanceFieldEnum)[keyof typeof ReporteOrderByRelevanceFieldEnum]
-
-
-export const ReporteUsuarioOrderByRelevanceFieldEnum = {
-  reporte_id: 'reporte_id'
-} as const
-
-export type ReporteUsuarioOrderByRelevanceFieldEnum = (typeof ReporteUsuarioOrderByRelevanceFieldEnum)[keyof typeof ReporteUsuarioOrderByRelevanceFieldEnum]
-
-
-export const ReporteMensajeOrderByRelevanceFieldEnum = {
-  reporte_id: 'reporte_id'
-} as const
-
-export type ReporteMensajeOrderByRelevanceFieldEnum = (typeof ReporteMensajeOrderByRelevanceFieldEnum)[keyof typeof ReporteMensajeOrderByRelevanceFieldEnum]
-
-
-export const ReportePostOrderByRelevanceFieldEnum = {
-  reporte_id: 'reporte_id'
-} as const
-
-export type ReportePostOrderByRelevanceFieldEnum = (typeof ReportePostOrderByRelevanceFieldEnum)[keyof typeof ReportePostOrderByRelevanceFieldEnum]
-
-
-export const ReporteTemaOrderByRelevanceFieldEnum = {
-  reporte_id: 'reporte_id'
-} as const
-
-export type ReporteTemaOrderByRelevanceFieldEnum = (typeof ReporteTemaOrderByRelevanceFieldEnum)[keyof typeof ReporteTemaOrderByRelevanceFieldEnum]
 
 
 export const PostOrderByRelevanceFieldEnum = {
@@ -1454,10 +1129,6 @@ export type GlobalOmitConfig = {
   carrera?: Prisma.CarreraOmit
   tema?: Prisma.TemaOmit
   reporte?: Prisma.ReporteOmit
-  reporteUsuario?: Prisma.ReporteUsuarioOmit
-  reporteMensaje?: Prisma.ReporteMensajeOmit
-  reportePost?: Prisma.ReportePostOmit
-  reporteTema?: Prisma.ReporteTemaOmit
   post?: Prisma.PostOmit
   mensaje?: Prisma.MensajeOmit
 }

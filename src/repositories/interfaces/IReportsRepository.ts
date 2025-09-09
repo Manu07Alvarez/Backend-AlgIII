@@ -9,6 +9,7 @@ export default interface IReportsRepository {
     findAllTopics(): Promise<Reporte[]>;
     findAllUsers(): Promise<Reporte[]>;
     resolve(id: string): Promise<void>;
+    deresolve(id: string): Promise<void>;
     update(id: string, data: Reporte): Promise<void>;
     delete(id: string): Promise<void>;
 }

@@ -247,7 +247,7 @@ export type MensajeWhereInput = {
   post?: Prisma.XOR<Prisma.PostScalarRelationFilter, Prisma.PostWhereInput>
   respuestas?: Prisma.MensajeListRelationFilter
   contestado?: Prisma.XOR<Prisma.MensajeNullableScalarRelationFilter, Prisma.MensajeWhereInput> | null
-  Reportes?: Prisma.ReporteMensajeListRelationFilter
+  Reportes?: Prisma.ReporteListRelationFilter
 }
 
 export type MensajeOrderByWithRelationInput = {
@@ -262,7 +262,7 @@ export type MensajeOrderByWithRelationInput = {
   post?: Prisma.PostOrderByWithRelationInput
   respuestas?: Prisma.MensajeOrderByRelationAggregateInput
   contestado?: Prisma.MensajeOrderByWithRelationInput
-  Reportes?: Prisma.ReporteMensajeOrderByRelationAggregateInput
+  Reportes?: Prisma.ReporteOrderByRelationAggregateInput
   _relevance?: Prisma.MensajeOrderByRelevanceInput
 }
 
@@ -281,7 +281,7 @@ export type MensajeWhereUniqueInput = Prisma.AtLeast<{
   post?: Prisma.XOR<Prisma.PostScalarRelationFilter, Prisma.PostWhereInput>
   respuestas?: Prisma.MensajeListRelationFilter
   contestado?: Prisma.XOR<Prisma.MensajeNullableScalarRelationFilter, Prisma.MensajeWhereInput> | null
-  Reportes?: Prisma.ReporteMensajeListRelationFilter
+  Reportes?: Prisma.ReporteListRelationFilter
 }, "id">
 
 export type MensajeOrderByWithAggregationInput = {
@@ -320,7 +320,7 @@ export type MensajeCreateInput = {
   post: Prisma.PostCreateNestedOneWithoutMensajeInput
   respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
   contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
-  Reportes?: Prisma.ReporteMensajeCreateNestedManyWithoutMensajeInput
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutMensajeInput
 }
 
 export type MensajeUncheckedCreateInput = {
@@ -332,7 +332,7 @@ export type MensajeUncheckedCreateInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   respuestas?: Prisma.MensajeUncheckedCreateNestedManyWithoutContestadoInput
-  Reportes?: Prisma.ReporteMensajeUncheckedCreateNestedManyWithoutMensajeInput
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutMensajeInput
 }
 
 export type MensajeUpdateInput = {
@@ -343,7 +343,7 @@ export type MensajeUpdateInput = {
   post?: Prisma.PostUpdateOneRequiredWithoutMensajeNestedInput
   respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
   contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
-  Reportes?: Prisma.ReporteMensajeUpdateManyWithoutMensajeNestedInput
+  Reportes?: Prisma.ReporteUpdateManyWithoutMensajeNestedInput
 }
 
 export type MensajeUncheckedUpdateInput = {
@@ -355,7 +355,7 @@ export type MensajeUncheckedUpdateInput = {
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   respuestas?: Prisma.MensajeUncheckedUpdateManyWithoutContestadoNestedInput
-  Reportes?: Prisma.ReporteMensajeUncheckedUpdateManyWithoutMensajeNestedInput
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutMensajeNestedInput
 }
 
 export type MensajeCreateManyInput = {
@@ -392,11 +392,6 @@ export type MensajeListRelationFilter = {
 
 export type MensajeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type MensajeScalarRelationFilter = {
-  is?: Prisma.MensajeWhereInput
-  isNot?: Prisma.MensajeWhereInput
 }
 
 export type MensajeNullableScalarRelationFilter = {
@@ -502,10 +497,12 @@ export type MensajeCreateNestedOneWithoutReportesInput = {
   connect?: Prisma.MensajeWhereUniqueInput
 }
 
-export type MensajeUpdateOneRequiredWithoutReportesNestedInput = {
+export type MensajeUpdateOneWithoutReportesNestedInput = {
   create?: Prisma.XOR<Prisma.MensajeCreateWithoutReportesInput, Prisma.MensajeUncheckedCreateWithoutReportesInput>
   connectOrCreate?: Prisma.MensajeCreateOrConnectWithoutReportesInput
   upsert?: Prisma.MensajeUpsertWithoutReportesInput
+  disconnect?: Prisma.MensajeWhereInput | boolean
+  delete?: Prisma.MensajeWhereInput | boolean
   connect?: Prisma.MensajeWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.MensajeUpdateToOneWithWhereWithoutReportesInput, Prisma.MensajeUpdateWithoutReportesInput>, Prisma.MensajeUncheckedUpdateWithoutReportesInput>
 }
@@ -596,14 +593,6 @@ export type MensajeUpdateOneWithoutRespuestasNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MensajeUpdateToOneWithWhereWithoutRespuestasInput, Prisma.MensajeUpdateWithoutRespuestasInput>, Prisma.MensajeUncheckedUpdateWithoutRespuestasInput>
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type MensajeUncheckedUpdateManyWithoutContestadoNestedInput = {
   create?: Prisma.XOR<Prisma.MensajeCreateWithoutContestadoInput, Prisma.MensajeUncheckedCreateWithoutContestadoInput> | Prisma.MensajeCreateWithoutContestadoInput[] | Prisma.MensajeUncheckedCreateWithoutContestadoInput[]
   connectOrCreate?: Prisma.MensajeCreateOrConnectWithoutContestadoInput | Prisma.MensajeCreateOrConnectWithoutContestadoInput[]
@@ -625,7 +614,7 @@ export type MensajeCreateWithoutAutorInput = {
   post: Prisma.PostCreateNestedOneWithoutMensajeInput
   respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
   contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
-  Reportes?: Prisma.ReporteMensajeCreateNestedManyWithoutMensajeInput
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutMensajeInput
 }
 
 export type MensajeUncheckedCreateWithoutAutorInput = {
@@ -636,7 +625,7 @@ export type MensajeUncheckedCreateWithoutAutorInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   respuestas?: Prisma.MensajeUncheckedCreateNestedManyWithoutContestadoInput
-  Reportes?: Prisma.ReporteMensajeUncheckedCreateNestedManyWithoutMensajeInput
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutMensajeInput
 }
 
 export type MensajeCreateOrConnectWithoutAutorInput = {
@@ -743,7 +732,7 @@ export type MensajeCreateWithoutPostInput = {
   autor: Prisma.UsuarioCreateNestedOneWithoutMensajesInput
   respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
   contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
-  Reportes?: Prisma.ReporteMensajeCreateNestedManyWithoutMensajeInput
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutMensajeInput
 }
 
 export type MensajeUncheckedCreateWithoutPostInput = {
@@ -754,7 +743,7 @@ export type MensajeUncheckedCreateWithoutPostInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   respuestas?: Prisma.MensajeUncheckedCreateNestedManyWithoutContestadoInput
-  Reportes?: Prisma.ReporteMensajeUncheckedCreateNestedManyWithoutMensajeInput
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutMensajeInput
 }
 
 export type MensajeCreateOrConnectWithoutPostInput = {
@@ -790,7 +779,7 @@ export type MensajeCreateWithoutContestadoInput = {
   autor: Prisma.UsuarioCreateNestedOneWithoutMensajesInput
   post: Prisma.PostCreateNestedOneWithoutMensajeInput
   respuestas?: Prisma.MensajeCreateNestedManyWithoutContestadoInput
-  Reportes?: Prisma.ReporteMensajeCreateNestedManyWithoutMensajeInput
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutMensajeInput
 }
 
 export type MensajeUncheckedCreateWithoutContestadoInput = {
@@ -801,7 +790,7 @@ export type MensajeUncheckedCreateWithoutContestadoInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   respuestas?: Prisma.MensajeUncheckedCreateNestedManyWithoutContestadoInput
-  Reportes?: Prisma.ReporteMensajeUncheckedCreateNestedManyWithoutMensajeInput
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutMensajeInput
 }
 
 export type MensajeCreateOrConnectWithoutContestadoInput = {
@@ -821,7 +810,7 @@ export type MensajeCreateWithoutRespuestasInput = {
   autor: Prisma.UsuarioCreateNestedOneWithoutMensajesInput
   post: Prisma.PostCreateNestedOneWithoutMensajeInput
   contestado?: Prisma.MensajeCreateNestedOneWithoutRespuestasInput
-  Reportes?: Prisma.ReporteMensajeCreateNestedManyWithoutMensajeInput
+  Reportes?: Prisma.ReporteCreateNestedManyWithoutMensajeInput
 }
 
 export type MensajeUncheckedCreateWithoutRespuestasInput = {
@@ -832,7 +821,7 @@ export type MensajeUncheckedCreateWithoutRespuestasInput = {
   id_mensaje?: number | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
-  Reportes?: Prisma.ReporteMensajeUncheckedCreateNestedManyWithoutMensajeInput
+  Reportes?: Prisma.ReporteUncheckedCreateNestedManyWithoutMensajeInput
 }
 
 export type MensajeCreateOrConnectWithoutRespuestasInput = {
@@ -874,7 +863,7 @@ export type MensajeUpdateWithoutRespuestasInput = {
   autor?: Prisma.UsuarioUpdateOneRequiredWithoutMensajesNestedInput
   post?: Prisma.PostUpdateOneRequiredWithoutMensajeNestedInput
   contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
-  Reportes?: Prisma.ReporteMensajeUpdateManyWithoutMensajeNestedInput
+  Reportes?: Prisma.ReporteUpdateManyWithoutMensajeNestedInput
 }
 
 export type MensajeUncheckedUpdateWithoutRespuestasInput = {
@@ -885,7 +874,7 @@ export type MensajeUncheckedUpdateWithoutRespuestasInput = {
   id_mensaje?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Reportes?: Prisma.ReporteMensajeUncheckedUpdateManyWithoutMensajeNestedInput
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutMensajeNestedInput
 }
 
 export type MensajeCreateManyAutorInput = {
@@ -904,7 +893,7 @@ export type MensajeUpdateWithoutAutorInput = {
   post?: Prisma.PostUpdateOneRequiredWithoutMensajeNestedInput
   respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
   contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
-  Reportes?: Prisma.ReporteMensajeUpdateManyWithoutMensajeNestedInput
+  Reportes?: Prisma.ReporteUpdateManyWithoutMensajeNestedInput
 }
 
 export type MensajeUncheckedUpdateWithoutAutorInput = {
@@ -915,7 +904,7 @@ export type MensajeUncheckedUpdateWithoutAutorInput = {
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   respuestas?: Prisma.MensajeUncheckedUpdateManyWithoutContestadoNestedInput
-  Reportes?: Prisma.ReporteMensajeUncheckedUpdateManyWithoutMensajeNestedInput
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutMensajeNestedInput
 }
 
 export type MensajeUncheckedUpdateManyWithoutAutorInput = {
@@ -943,7 +932,7 @@ export type MensajeUpdateWithoutPostInput = {
   autor?: Prisma.UsuarioUpdateOneRequiredWithoutMensajesNestedInput
   respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
   contestado?: Prisma.MensajeUpdateOneWithoutRespuestasNestedInput
-  Reportes?: Prisma.ReporteMensajeUpdateManyWithoutMensajeNestedInput
+  Reportes?: Prisma.ReporteUpdateManyWithoutMensajeNestedInput
 }
 
 export type MensajeUncheckedUpdateWithoutPostInput = {
@@ -954,7 +943,7 @@ export type MensajeUncheckedUpdateWithoutPostInput = {
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   respuestas?: Prisma.MensajeUncheckedUpdateManyWithoutContestadoNestedInput
-  Reportes?: Prisma.ReporteMensajeUncheckedUpdateManyWithoutMensajeNestedInput
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutMensajeNestedInput
 }
 
 export type MensajeUncheckedUpdateManyWithoutPostInput = {
@@ -982,7 +971,7 @@ export type MensajeUpdateWithoutContestadoInput = {
   autor?: Prisma.UsuarioUpdateOneRequiredWithoutMensajesNestedInput
   post?: Prisma.PostUpdateOneRequiredWithoutMensajeNestedInput
   respuestas?: Prisma.MensajeUpdateManyWithoutContestadoNestedInput
-  Reportes?: Prisma.ReporteMensajeUpdateManyWithoutMensajeNestedInput
+  Reportes?: Prisma.ReporteUpdateManyWithoutMensajeNestedInput
 }
 
 export type MensajeUncheckedUpdateWithoutContestadoInput = {
@@ -993,7 +982,7 @@ export type MensajeUncheckedUpdateWithoutContestadoInput = {
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   respuestas?: Prisma.MensajeUncheckedUpdateManyWithoutContestadoNestedInput
-  Reportes?: Prisma.ReporteMensajeUncheckedUpdateManyWithoutMensajeNestedInput
+  Reportes?: Prisma.ReporteUncheckedUpdateManyWithoutMensajeNestedInput
 }
 
 export type MensajeUncheckedUpdateManyWithoutContestadoInput = {
@@ -1041,7 +1030,7 @@ export type MensajeCountOutputTypeCountRespuestasArgs<ExtArgs extends runtime.Ty
  * MensajeCountOutputType without action
  */
 export type MensajeCountOutputTypeCountReportesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ReporteMensajeWhereInput
+  where?: Prisma.ReporteWhereInput
 }
 
 
@@ -1090,7 +1079,7 @@ export type $MensajePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     post: Prisma.$PostPayload<ExtArgs>
     respuestas: Prisma.$MensajePayload<ExtArgs>[]
     contestado: Prisma.$MensajePayload<ExtArgs> | null
-    Reportes: Prisma.$ReporteMensajePayload<ExtArgs>[]
+    Reportes: Prisma.$ReportePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1444,7 +1433,7 @@ export interface Prisma__MensajeClient<T, Null = never, ExtArgs extends runtime.
   post<T extends Prisma.PostDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PostDefaultArgs<ExtArgs>>): Prisma.Prisma__PostClient<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   respuestas<T extends Prisma.Mensaje$respuestasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Mensaje$respuestasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MensajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contestado<T extends Prisma.Mensaje$contestadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Mensaje$contestadoArgs<ExtArgs>>): Prisma.Prisma__MensajeClient<runtime.Types.Result.GetResult<Prisma.$MensajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  Reportes<T extends Prisma.Mensaje$ReportesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Mensaje$ReportesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReporteMensajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Reportes<T extends Prisma.Mensaje$ReportesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Mensaje$ReportesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1871,23 +1860,23 @@ export type Mensaje$contestadoArgs<ExtArgs extends runtime.Types.Extensions.Inte
  */
 export type Mensaje$ReportesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ReporteMensaje
+   * Select specific fields to fetch from the Reporte
    */
-  select?: Prisma.ReporteMensajeSelect<ExtArgs> | null
+  select?: Prisma.ReporteSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ReporteMensaje
+   * Omit specific fields from the Reporte
    */
-  omit?: Prisma.ReporteMensajeOmit<ExtArgs> | null
+  omit?: Prisma.ReporteOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ReporteMensajeInclude<ExtArgs> | null
-  where?: Prisma.ReporteMensajeWhereInput
-  orderBy?: Prisma.ReporteMensajeOrderByWithRelationInput | Prisma.ReporteMensajeOrderByWithRelationInput[]
-  cursor?: Prisma.ReporteMensajeWhereUniqueInput
+  include?: Prisma.ReporteInclude<ExtArgs> | null
+  where?: Prisma.ReporteWhereInput
+  orderBy?: Prisma.ReporteOrderByWithRelationInput | Prisma.ReporteOrderByWithRelationInput[]
+  cursor?: Prisma.ReporteWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ReporteMensajeScalarFieldEnum | Prisma.ReporteMensajeScalarFieldEnum[]
+  distinct?: Prisma.ReporteScalarFieldEnum | Prisma.ReporteScalarFieldEnum[]
 }
 
 /**

@@ -66,4 +66,22 @@ export class ReportsRepository implements IReportsRepository {
             }
         })
     }
+
+    @validateRepo
+    async findAllPosts(): Promise<Reporte[]> {
+        return await this.Reporte.findMany({
+            include: {
+                post: true
+            }
+        })
+    }
+
+    @validateRepo
+    async findAllTopics(): Promise<Reporte[]> {
+        return await this.Reporte.findMany({
+            include: {
+                tema: true
+            }  
+        })
+    }
 }

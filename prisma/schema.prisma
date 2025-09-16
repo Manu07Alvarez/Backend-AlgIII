@@ -9,6 +9,7 @@ generator client {
   binaryTargets = ["native", "windows"]
   output        = "../src/generated/prisma"
   runtime       = "nodejs"
+  previewFeatures = ["typedSql"]
 }
 
 datasource db {
@@ -27,6 +28,7 @@ model Usuario {
   updatedAt       DateTime? @updatedAt
 
   Reportes Reporte[]
+  Reportado Reporte[] @relation("UsuarioReportado")
   mensajes Mensaje[]
   Tema Tema[]
   Post Post[]
@@ -70,7 +72,10 @@ model Reporte {
   resuelto     Boolean?  @default(false)
   reportador   Usuario  @relation(fields: [id_reportador], references: [id])
   id_reportador Int
-  
+
+  usuario_id Int?
+  usuario_reportado Usuario? @relation("UsuarioReportado",fields: [usuario_id], references: [id])
+
   mensaje_id Int?
   mensaje    Mensaje? @relation(fields: [mensaje_id], references: [id])
 

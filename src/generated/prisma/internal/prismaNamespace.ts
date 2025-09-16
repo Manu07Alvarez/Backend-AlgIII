@@ -836,6 +836,10 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         args: [query: string, ...values: any[]],
         result: any
       }
+      $queryRawTyped: {
+        args: runtime.UnknownTypedSql,
+        result: JsonObject
+      }
     }
   }
 }
@@ -903,6 +907,7 @@ export const ReporteScalarFieldEnum = {
   updatedAt: 'updatedAt',
   resuelto: 'resuelto',
   id_reportador: 'id_reportador',
+  usuario_id: 'usuario_id',
   mensaje_id: 'mensaje_id',
   post_id: 'post_id',
   tema_id: 'tema_id'

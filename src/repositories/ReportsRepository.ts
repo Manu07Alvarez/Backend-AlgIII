@@ -1,11 +1,13 @@
 import { validateRepo } from '../decorators/errors/errors.js';
 import  type { Reporte ,PrismaClient } from '../generated/prisma/client.js';
-import { ReporteDTO } from 'schemas/Reportes.schemas.js';
-import Repository from './Repository.js';
+import { MensajeReporteDTO, ReporteDTO } from 'schemas/Reportes.schemas.js';
 import IReportsRepository from './interfaces/IReportsRepository.js';
+import { Usuario } from 'schemas/Usuarios.schema.js';
+import { UsuarioReportado } from 'generated/prisma/sql.js';
 export class ReportsRepository implements IReportsRepository {
     constructor (
         private readonly Reporte: PrismaClient['reporte'],
+        private readonly Prisma: PrismaClient,
     ){}
 
     @validateRepo
@@ -18,6 +20,25 @@ export class ReportsRepository implements IReportsRepository {
                 [key]: data.id_type,
             }
         });                                                                                                             
+    }
+
+    @validateRepo
+    async update(id: string, data: Reporte): Promise<void> {
+        await this.Reporte.update({
+            where: {
+                id: id,
+            },
+            data: data
+        })
+    }
+
+    @validateRepo
+    async delete(id: string): Promise<void> {
+        await this.Reporte.delete({
+            where: {
+                id: id,
+            }
+        })
     }
 
     @validateRepo
@@ -83,5 +104,11 @@ export class ReportsRepository implements IReportsRepository {
                 tema: true
             }  
         })
+    }
+
+    @validateRepo
+    async findAllUsers(): Promise<MensajeReporteDTO[]> {
+        return await this.Prisma.$queryRawTyped(UsuarioReportado())
+        
     }
 }

@@ -3,7 +3,7 @@ import  type { Reporte ,PrismaClient } from '../generated/prisma/client.js';
 import { MensajeReporteDTO, ReporteDTO } from 'schemas/Reportes.schemas.js';
 import IReportsRepository from './interfaces/IReportsRepository.js';
 import { Usuario } from 'schemas/Usuarios.schema.js';
-import { UsuarioReportado } from 'generated/prisma/sql.js';
+import { UsuarioReportado, MensajesReportado } from 'generated/prisma/sql.js';
 export class ReportsRepository implements IReportsRepository {
     constructor (
         private readonly Reporte: PrismaClient['reporte'],
@@ -99,11 +99,7 @@ export class ReportsRepository implements IReportsRepository {
 
     @validateRepo
     async findAllTopics(): Promise<Reporte[]> {
-        return await this.Reporte.findMany({
-            include: {
-                tema: true
-            }  
-        })
+        return await this.Prisma.$queryRawTyped(MensajesReportado())
     }
 
     @validateRepo

@@ -1,8 +1,10 @@
 
 import { PrismaClient, Usuario } from '../generated/prisma/client.js';
+import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
 import { validateRepo } from '../decorators/errors/errors.js';
 import IRepository from './interfaces/IUserRepository.js';
 import Repository from './Repository.js';
+import { skip } from 'node:test';
 
 export class UserRepository extends Repository<Usuario> implements IRepository<Usuario> {
 
@@ -32,4 +34,22 @@ export class UserRepository extends Repository<Usuario> implements IRepository<U
       where: { id: searchId}
     });
   }
+
+  async getPagination({page, limit}: PaginationParams): Promise<PaginationResults<Usuario>> {
+    const offset = (page - 1) * limit;
+
+    const [data, total] = await Promise.all([
+      this.user.findMany({ skip: offset, take: limit }),
+      this.user.count()
+    ]);
+
+    return {
+      data,
+      total,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page
+    }
+  }
+
 }
+

@@ -2,6 +2,7 @@ import IPostService from "../services/interfaces/IPostService.js";
 import { Request, Response } from "express";
 import { trace, Span } from '@opentelemetry/api';
 import { Post } from "schemas/Post.schemas.js";
+import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
 const tracer = trace.getTracer('controlleer');
 
 export class PostController {
@@ -90,6 +91,10 @@ export class PostController {
                     res.status(500).json({ message: error.message });
                 }
             }
+        }
+
+        async getPagination(params: PaginationParams): Promise<PaginationResults<Post>> {
+        return this.PostService.getPagination(params);
         }
 }
 

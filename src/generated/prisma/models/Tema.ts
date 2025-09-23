@@ -289,10 +289,10 @@ export type TemaOrderByWithRelationInput = {
 
 export type TemaWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  nombre?: string
   AND?: Prisma.TemaWhereInput | Prisma.TemaWhereInput[]
   OR?: Prisma.TemaWhereInput[]
   NOT?: Prisma.TemaWhereInput | Prisma.TemaWhereInput[]
-  nombre?: Prisma.StringFilter<"Tema"> | string
   createdAt?: Prisma.DateTimeNullableFilter<"Tema"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Tema"> | Date | string | null
   titulo?: Prisma.StringFilter<"Tema"> | string
@@ -305,7 +305,7 @@ export type TemaWhereUniqueInput = Prisma.AtLeast<{
   carrera?: Prisma.XOR<Prisma.CarreraScalarRelationFilter, Prisma.CarreraWhereInput>
   Post?: Prisma.PostListRelationFilter
   Reportes?: Prisma.ReporteListRelationFilter
-}, "id">
+}, "id" | "nombre">
 
 export type TemaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

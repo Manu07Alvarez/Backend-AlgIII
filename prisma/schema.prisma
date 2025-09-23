@@ -46,8 +46,8 @@ model Carrera {
 }
 
 model Tema {
-  id        Int      @id @default(autoincrement())
-  nombre    String
+  id        Int       @id @default(autoincrement())
+  nombre    String    @unique
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   titulo      String
@@ -60,12 +60,13 @@ model Tema {
   cerrado     Boolean  @default(false)
   Post Post[]
   Reportes Reporte[]
+  @@index([nombre], name: "idx_tema_nombre")
   @@index([id_carrera], name: "idx_tema_carrera")
   @@index([id_creador], name: "idx_tema_creador")
 }	
 
 model Reporte {
-  id           String  @id @default(cuid(2))
+  id           String  @id @default(ulid())
   descripcion  String
   createdAt    DateTime? @default(now())
   updatedAt    DateTime? @updatedAt

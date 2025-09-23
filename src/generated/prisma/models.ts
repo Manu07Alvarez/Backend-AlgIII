@@ -10,6 +10,7 @@
 export type * from './models/Usuario.js'
 export type * from './models/Carrera.js'
 export type * from './models/Tema.js'
+export type * from './models/Reporte.js'
 export type * from './models/Post.js'
 export type * from './models/Mensaje.js'
 export type * from './commonInputTypes.js'

@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput))
 
-app.use("/errsole", createProxyMiddleware({ target: "http://localhost:8001", changeOrigin: true }));
+app.use("/errsole", createProxyMiddleware({ target: "http://localhost:8008", changeOrigin: true }));
 
 // ✅ Usar la instancia del logger (esto será interceptado por OpenTelemetry)
 app.use('/', routes);

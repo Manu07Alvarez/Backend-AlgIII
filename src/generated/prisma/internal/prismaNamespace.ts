@@ -397,6 +397,7 @@ export const ModelName = {
   Usuario: 'Usuario',
   Carrera: 'Carrera',
   Tema: 'Tema',
+  Reporte: 'Reporte',
   Post: 'Post',
   Mensaje: 'Mensaje'
 } as const
@@ -414,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "usuario" | "carrera" | "tema" | "post" | "mensaje"
+    modelProps: "usuario" | "carrera" | "tema" | "reporte" | "post" | "mensaje"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -616,6 +617,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Reporte: {
+      payload: Prisma.$ReportePayload<ExtArgs>
+      fields: Prisma.ReporteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReporteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReporteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePayload>
+        }
+        findFirst: {
+          args: Prisma.ReporteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReporteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePayload>
+        }
+        findMany: {
+          args: Prisma.ReporteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePayload>[]
+        }
+        create: {
+          args: Prisma.ReporteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePayload>
+        }
+        createMany: {
+          args: Prisma.ReporteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.ReporteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePayload>
+        }
+        update: {
+          args: Prisma.ReporteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePayload>
+        }
+        deleteMany: {
+          args: Prisma.ReporteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReporteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.ReporteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportePayload>
+        }
+        aggregate: {
+          args: Prisma.ReporteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReporte>
+        }
+        groupBy: {
+          args: Prisma.ReporteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReporteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReporteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReporteCountAggregateOutputType> | number
+        }
+      }
+    }
     Post: {
       payload: Prisma.$PostPayload<ExtArgs>
       fields: Prisma.PostFieldRefs
@@ -769,6 +836,10 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         args: [query: string, ...values: any[]],
         result: any
       }
+      $queryRawTyped: {
+        args: runtime.UnknownTypedSql,
+        result: JsonObject
+      }
     }
   }
 }
@@ -827,6 +898,22 @@ export const TemaScalarFieldEnum = {
 } as const
 
 export type TemaScalarFieldEnum = (typeof TemaScalarFieldEnum)[keyof typeof TemaScalarFieldEnum]
+
+
+export const ReporteScalarFieldEnum = {
+  id: 'id',
+  descripcion: 'descripcion',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  resuelto: 'resuelto',
+  id_reportador: 'id_reportador',
+  usuario_id: 'usuario_id',
+  mensaje_id: 'mensaje_id',
+  post_id: 'post_id',
+  tema_id: 'tema_id'
+} as const
+
+export type ReporteScalarFieldEnum = (typeof ReporteScalarFieldEnum)[keyof typeof ReporteScalarFieldEnum]
 
 
 export const PostScalarFieldEnum = {
@@ -896,6 +983,14 @@ export const TemaOrderByRelevanceFieldEnum = {
 } as const
 
 export type TemaOrderByRelevanceFieldEnum = (typeof TemaOrderByRelevanceFieldEnum)[keyof typeof TemaOrderByRelevanceFieldEnum]
+
+
+export const ReporteOrderByRelevanceFieldEnum = {
+  id: 'id',
+  descripcion: 'descripcion'
+} as const
+
+export type ReporteOrderByRelevanceFieldEnum = (typeof ReporteOrderByRelevanceFieldEnum)[keyof typeof ReporteOrderByRelevanceFieldEnum]
 
 
 export const PostOrderByRelevanceFieldEnum = {
@@ -1038,6 +1133,7 @@ export type GlobalOmitConfig = {
   usuario?: Prisma.UsuarioOmit
   carrera?: Prisma.CarreraOmit
   tema?: Prisma.TemaOmit
+  reporte?: Prisma.ReporteOmit
   post?: Prisma.PostOmit
   mensaje?: Prisma.MensajeOmit
 }

@@ -9,6 +9,7 @@ generator client {
   binaryTargets = ["native", "windows"]
   output        = "../src/generated/prisma"
   runtime       = "nodejs"
+  previewFeatures = ["typedSql"]
 }
 
 datasource db {
@@ -26,6 +27,8 @@ model Usuario {
   createdAt       DateTime? @default(now())
   updatedAt       DateTime? @updatedAt
 
+  Reportes Reporte[]
+  Reportado Reporte[] @relation("UsuarioReportado")
   mensajes Mensaje[]
   Tema Tema[]
   Post Post[]
@@ -43,8 +46,8 @@ model Carrera {
 }
 
 model Tema {
-  id        Int      @id @default(autoincrement())
-  nombre    String
+  id        Int       @id @default(autoincrement())
+  nombre    String    @unique
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   titulo      String
@@ -56,9 +59,34 @@ model Tema {
   fijado      Boolean  @default(false)
   cerrado     Boolean  @default(false)
   Post Post[]
+  Reportes Reporte[]
+  @@index([nombre], name: "idx_tema_nombre")
   @@index([id_carrera], name: "idx_tema_carrera")
   @@index([id_creador], name: "idx_tema_creador")
 }	
+
+model Reporte {
+  id           String  @id @default(ulid())
+  descripcion  String
+  createdAt    DateTime? @default(now())
+  updatedAt    DateTime? @updatedAt
+  resuelto     Boolean?  @default(false)
+  reportador   Usuario  @relation(fields: [id_reportador], references: [id])
+  id_reportador Int
+
+  usuario_id Int?
+  usuario_reportado Usuario? @relation("UsuarioReportado",fields: [usuario_id], references: [id])
+
+  mensaje_id Int?
+  mensaje    Mensaje? @relation(fields: [mensaje_id], references: [id])
+
+  post_id Int?
+  post    Post?    @relation(fields: [post_id], references: [id])
+
+  tema_id Int?
+  tema    Tema?    @relation(fields: [tema_id], references: [id])
+  // Relaciones
+}
 
 model Post {
   id         Int      @id @default(autoincrement())
@@ -72,6 +100,7 @@ model Post {
   id_tema    Int
   tema       Tema     @relation(fields: [id_tema], references: [id])
   Mensaje    Mensaje[]
+  Reportes   Reporte[]
   @@index([titulo], name: "idx_post_titulo")
   @@index([id_tema], name: "idx_post_tema")
   @@index([id_autor], name: "idx_post_autor")
@@ -87,6 +116,7 @@ model Mensaje {
   respuestas Mensaje[] @relation("MensajeRespuesta")
   contestado Mensaje? @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
   id_mensaje Int?
+  Reportes   Reporte[]
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
 }

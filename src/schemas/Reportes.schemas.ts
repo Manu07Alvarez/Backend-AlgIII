@@ -12,26 +12,28 @@ export const ReporteSchema = Type.Object({
 });
 
 
-export const PostReportes = Type.Object({
+export const PostsReportes = Type.Object({
     id : Type.Number(),
     titulo: Type.String(),
     contenido: Type.String(),
+    published: Type.Number(),
     id_autor: Type.Number(),
     id_tema: Type.Number(),
 });
 
-export const TemaReportes = Type.Object({
+export const TemasReportes = Type.Object({
     id : Type.Number(),
     nombre: Type.String(),
     titulo: Type.String(),
     id_creador: Type.Number(),
     contenido: Type.String(),
     id_carrera: Type.Number(),
-    fijado: Type.Boolean(),
-    cerrado: Type.Boolean(),
+    createdAt: Type.Date().Optional(),
+    updatedAt: Type.Date().Optional(),
+    cerrado: Type.Number(),
 })
 
-export const MessageReportes = Type.Object({
+export const MensajesReportes = Type.Object({
     id : Type.Number(),
     contenido: Type.String(),
     id_autor: Type.Number(),
@@ -39,7 +41,16 @@ export const MessageReportes = Type.Object({
     id_post: Type.Number(),
 })
 
-export type MessageReporteDTO = Static<typeof MessageReportes>;
-export type TemaReporteDTO = Static<typeof TemaReportes>;
-export type PostReporteDTO = Static<typeof PostReportes>;
-export type ReporteDTO = Static<typeof ReporteSchema>;
+export const UsuariosReportes = Type.Object({
+    id : Type.Number(),
+    nombre_apellido: Type.String().Optional(),
+    email: Type.String(),
+    rol: Type.String().Optional(),
+    activo: Type.Number(),
+})
+
+export type MensajesReportesDTO = Static<typeof MensajesReportes>;
+export type TemasReportesDTO = Static<typeof TemasReportes>;
+export type PostsReportesDTO = Static<typeof PostsReportes>;
+export type UsuariosReportesDTO = Static<typeof UsuariosReportes>;
+export type ReportesDTO = Static<typeof ReporteSchema>;

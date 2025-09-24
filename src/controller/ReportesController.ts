@@ -1,0 +1,104 @@
+
+import {  ICarreraService } from "../services/interfaces/ICarreraService.js";
+import { Request, Response } from "express";
+import { trace} from '@opentelemetry/api';
+import { Carrera } from "schemas/Carreras.schemas.js";
+import IReportsService from "services/interfaces/IReportsService.js";
+import { Reporte } from "generated/prisma/client.js";
+const tracer = trace.getTracer('controlleer');
+
+export class ReportesController {
+    constructor(
+        private readonly reportsService: IReportsService
+    ){}
+    
+    public async update (req: Request, res: Response): Promise<void> {
+        try {
+            const id = String(req.params.id);
+            const reporte: Reporte = req.body;
+            await this.reportsService.update(id, reporte);
+            res.status(200).json({ message: 'Reporte updated successfully' });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
+    public async create(req: Request, res: Response): Promise<void> {
+        try {
+            const reporte = req.body;
+            await this.reportsService.create(reporte);
+            res.status(201).json({ message: 'Reporte created successfully' });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
+    public async findAll(req: Request, res: Response): Promise<void> {
+        try {
+            const reportes = await this.reportsService.findAll();
+            res.status(200).json(reportes);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
+    public async findById(req: Request, res: Response): Promise<void> {
+        try {
+            const reporte = await this.reportsService.findById(String(req.params.id));
+            res.status(200).json(reporte);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
+    public async findAllMessages(req: Request, res: Response): Promise<void> {
+        try {
+            const messages = await this.reportsService.findAllMessages();
+            res.status(200).json(messages);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
+    public async findAllPosts(req: Request, res: Response): Promise<void> {
+        try {
+            const posts = await this.reportsService.findAllPosts();
+            res.status(200).json(posts);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
+    public async findAllTopics(req: Request, res: Response): Promise<void> {
+        try {
+            const topics = await this.reportsService.findAllTopics();
+            res.status(200).json(topics);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+    public async findAllUsers(req: Request, res: Response): Promise<void> {
+        try {
+            const users = await this.reportsService.findAllUsers();
+            res.status(200).json(users);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+}

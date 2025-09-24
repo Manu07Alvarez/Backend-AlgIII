@@ -6,7 +6,7 @@ import * as $runtime from "@prisma/client/runtime/library"
 
 /**
  */
-export const MensajesReportados = $runtime.makeTypedQueryFactory("SELECT m.id, m.contenido, m.id_autor\nFROM Mensaje m\nINNER JOIN Reporte r\nON r.mensaje_id = m.id") as () => $runtime.TypedSql<MensajesReportados.Parameters, MensajesReportados.Result>
+export const MensajesReportados = $runtime.makeTypedQueryFactory("SELECT m.id, m.contenido, m.id_autor, m.id_post, m.createdAt, m.updatedAt\nFROM Mensaje m\nINNER JOIN Reporte r\nON r.mensaje_id = m.id") as () => $runtime.TypedSql<MensajesReportados.Parameters, MensajesReportados.Result>
 
 export namespace MensajesReportados {
   export type Parameters = []
@@ -14,5 +14,8 @@ export namespace MensajesReportados {
     id: number
     contenido: string
     id_autor: number
+    id_post: number
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 }

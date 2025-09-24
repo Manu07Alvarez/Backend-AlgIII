@@ -1,5 +1,5 @@
-/* import { Request , Router, Response } from 'express';
-import { createReporteController } from '../utils/factories/ClassFactory.js';
+import { Request , Router, Response } from 'express';
+import { createReporteController} from '../utils/factories/ClassFactory.js';
 
 const router = Router()
 const reportController = createReporteController();
@@ -10,7 +10,7 @@ const reportController = createReporteController();
     res.send(veryfylogin)
   }
   next()
-}) *
+}) **/
 
 router.get('/', (req: Request, res: Response) => {
   userController.findAll(req, res);
@@ -37,11 +37,10 @@ router.route('/:id')
         }
       }
     }
-  
+  */
   userController.update(req, res);
 })
 .patch((req: Request, res: Response) => {
   userController.deactivate(req, res);
 })
-export default router 
-*/
+export default router

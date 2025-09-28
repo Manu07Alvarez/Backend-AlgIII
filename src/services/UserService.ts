@@ -6,6 +6,7 @@ import { getPublicKey } from '../utils/auth/KeyGen.js';
 import { compare } from 'bcrypt-ts';
 import { IUserService } from './interfaces/IUserService.js';
 import Service from './Service.js';
+import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
 const publicKey = await getPublicKey();
 export class UserService extends Service<Usuario> implements IUserService { 
 
@@ -40,4 +41,8 @@ export class UserService extends Service<Usuario> implements IUserService {
     await this.userRepository.create(data);
   }
   
+  async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
+    return this.userRepository.getPagination(params);
+    
+  }
 }

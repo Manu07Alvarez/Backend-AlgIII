@@ -4,7 +4,7 @@ import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
 import { validateRepo } from '../decorators/errors/errors.js';
 import IRepository from './interfaces/IUserRepository.js';
 import Repository from './Repository.js';
-import { skip } from 'node:test';
+//import { skip } from 'node:test'; TODO: Lo comente porque daba error en la compilacion
 
 export class UserRepository extends Repository<Usuario> implements IRepository<Usuario> {
 

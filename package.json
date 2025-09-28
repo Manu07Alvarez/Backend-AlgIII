@@ -60,7 +60,7 @@
     "cors": "^2.8.5",
     "dotenv": "16.4.7",
     "express": "4.21.2",
-    "jose": "6.0.11",
+    "jose": "^6.0.11",
     "prisma": "^6.9.0",
     "ts-pattern": "5.7.0",
     "tslib": "^2.8.1",
@@ -100,6 +100,7 @@
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.27.0",
     "winston-errsole": "^1.0.0"

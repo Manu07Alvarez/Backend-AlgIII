@@ -1,8 +1,8 @@
 import { validateRepo } from '../decorators/errors/errors.js';
 import  type { Reporte ,PrismaClient } from '../generated/prisma/client.js';
-import { MensajesReportesDTO, TemasReportesDTO, PostsReportesDTO, UsuariosReportesDTO, ReportesDTO} from 'schemas/Reportes.schemas.js';
+import { MensajesReportesDTO, TemasReportesDTO, PostsReportesDTO, UsuariosReportesDTO, PostReportesDTO, GetReportesDTO} from 'schemas/Reportes.schemas.js';
 import IReportsRepository from './interfaces/IReportsRepository.js';
-import { UsuariosReportados, MensajesReportados, PostsReportados, TemasReportados } from 'generated/prisma/sql.js';
+import { UsuariosReportados, MensajesReportados, PostsReportados, TemasReportados } from '../generated/prisma/sql.js';
 export class ReportsRepository implements IReportsRepository {
     constructor (
         private readonly Reporte: PrismaClient['reporte'],
@@ -10,8 +10,8 @@ export class ReportsRepository implements IReportsRepository {
     ){}
 
     @validateRepo
-    async create(data: ReportesDTO): Promise<void> {
-         const key = `${data.type}_id` as "tema_id" | "post_id" | "mensaje_id"
+    async create(data: PostReportesDTO): Promise<void> {
+        const key = `${data.type}_id` as "tema_id" | "post_id" | "mensaje_id"
         await this.Reporte.create({
             data: {
                 descripcion: data.descripcion,
@@ -50,8 +50,38 @@ export class ReportsRepository implements IReportsRepository {
     }
 
     @validateRepo
-    async findAll(): Promise<Reporte[]> {
-        return await this.Reporte.findMany()
+    async findAll(): Promise<GetReportesDTO[]> {
+        const data = await this.Reporte.findMany({
+            select: {
+                id: true,
+                descripcion: true,
+                resuelto: true,
+                id_reportador: true,
+                usuario_id: true,
+                mensaje_id: true,
+                post_id: true,
+                tema_id: true,
+            }
+        })
+        return data.map(r => {
+// filtramos los nulos y devolvemos solo el que tiene valor
+            const relaciones = Object.fromEntries(
+            Object.entries({
+                usuario_id: r.usuario_id,
+                mensaje_id: r.mensaje_id,
+                post_id: r.post_id,
+                tema_id: r.tema_id,
+            }).filter(([_, v]) => v !== null)
+            );
+
+            return {
+            id: r.id,
+            descripcion: r.descripcion,
+            resuelto: r.resuelto,
+            id_reportador: r.id_reportador,
+            ...relaciones
+            };
+        });
     }
 
     @validateRepo
@@ -79,12 +109,8 @@ export class ReportsRepository implements IReportsRepository {
     }
 
     @validateRepo
-    async findAllMessages(): Promise<Reporte[]> {
-        return await this.Reporte.findMany({
-            include: {
-                mensaje: true
-            }
-        })
+    async findAllMessages(): Promise<MensajesReportesDTO[]> {
+        return await this.Prisma.$queryRawTyped(MensajesReportados())
     }
 
     @validateRepo

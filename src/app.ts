@@ -3,6 +3,7 @@
 
 import errlogger  from './utils/logging/Logger.js';
 const { trace } = await import('@opentelemetry/api');
+console.log("📢 Hola! este es un mensaje de prueba");
 const express = (await import('express')).default;
 const { routes } = await import('./routes/index.js');
 const { generateAndSaveKeyPair } = await import("./utils/auth/KeyGen.js");
@@ -13,15 +14,17 @@ generateAndSaveKeyPair();
 import cors from 'cors';
 import { createProxyMiddleware } from "http-proxy-middleware";
 const app = express();
+
 app.use(cors());
+
 app.use(express.json());
+
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput))
 
 app.use("/errsole", createProxyMiddleware({ target: "http://localhost:8008", changeOrigin: true }));
 
 // ✅ Usar la instancia del logger (esto será interceptado por OpenTelemetry)
 app.use('/', routes);
-
 
 errlogger.info('🚀 Server started');
 

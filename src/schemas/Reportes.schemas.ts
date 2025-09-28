@@ -37,8 +37,9 @@ export const MensajesReportes = Type.Object({
     id : Type.Number(),
     contenido: Type.String(),
     id_autor: Type.Number(),
-    id_mensaje: Type.Number(),
     id_post: Type.Number(),
+    createdAt: Type.Date().Optional(),
+    updatedAt: Type.Date().Optional(),
 })
 
 export const UsuariosReportes = Type.Object({
@@ -49,8 +50,45 @@ export const UsuariosReportes = Type.Object({
     activo: Type.Number(),
 })
 
+const ReporteBase = {
+    descripcion: Type.String(),
+    id_reportador: Type.Number(),
+    createdAt: Type.Date().Optional(),
+    updatedAt: Type.Date().Optional(),
+    id_resuelto: Type.Number().Optional(),
+}
+
+const ReporteConUsuario = Type.Object({
+  ...ReporteBase,
+  usuario_id: Type.Number().Optional(),
+});
+
+
+const ReporteConMensaje = Type.Object({
+  ...ReporteBase,
+  mensaje_id: Type.Number().Optional(),
+});
+
+const ReporteConPost = Type.Object({
+  ...ReporteBase,
+  post_id: Type.Number().Optional(),
+});
+
+const ReporteConTema = Type.Object({
+  ...ReporteBase,
+  tema_id: Type.Number().Optional(),
+});
+
+export const GetReportesSchema = Type.Union([
+  ReporteConUsuario,
+  ReporteConMensaje,
+  ReporteConPost,
+  ReporteConTema,
+]);
+
 export type MensajesReportesDTO = Static<typeof MensajesReportes>;
 export type TemasReportesDTO = Static<typeof TemasReportes>;
 export type PostsReportesDTO = Static<typeof PostsReportes>;
 export type UsuariosReportesDTO = Static<typeof UsuariosReportes>;
-export type ReportesDTO = Static<typeof ReporteSchema>;
+export type PostReportesDTO = Static<typeof ReporteSchema>;
+export type GetReportesDTO = Static<typeof GetReportesSchema>;

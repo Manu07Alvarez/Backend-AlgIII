@@ -35,7 +35,7 @@ export class UserRepository extends Repository<Usuario> implements IRepository<U
     });
   }
 
-  async getPagination({page, limit}: PaginationParams): Promise<PaginationResults<Usuario>> {
+  public async getPagination({page, limit}: PaginationParams): Promise<PaginationResults<Usuario>> {
     const offset = (page - 1) * limit;
 
     const [data, total] = await Promise.all([

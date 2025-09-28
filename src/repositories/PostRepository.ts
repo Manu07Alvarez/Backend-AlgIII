@@ -20,7 +20,7 @@ export class PostRepository extends Repository<Post> implements IPostRepository 
         });
     }
 
-    async getPagination({page, limit}: PaginationParams): Promise<PaginationResults<Post>> {
+    public async getPagination({page, limit}: PaginationParams): Promise<PaginationResults<Post>> {
         const offset = (page - 1) * limit;
     
         const [data, total] = await Promise.all([

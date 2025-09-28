@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/home/usermanu/programando/Backend-AlgIII/src/generated/prisma",
+      "value": "C:\\Users\\Usuario\\projecto de algoritmo\\Backend-AlgIII\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -32,7 +32,7 @@ const config: runtime.GetPrismaClientConfig = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
       },
       {
@@ -43,7 +43,7 @@ const config: runtime.GetPrismaClientConfig = {
     "previewFeatures": [
       "typedSql"
     ],
-    "sourceFilePath": "/home/usermanu/programando/Backend-AlgIII/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\Usuario\\projecto de algoritmo\\Backend-AlgIII\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../../prisma",
@@ -53,7 +53,6 @@ const config: runtime.GetPrismaClientConfig = {
     "db"
   ],
   "activeProvider": "mysql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {

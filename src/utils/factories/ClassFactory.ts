@@ -12,8 +12,11 @@ import { PostRepository } from "../../repositories/PostRepository.js";
 import { PostService } from "../../services/PostService.js"; 
 import { MensajesController } from "../../controller/MensajesController.js";
 import { MensajesService } from "../../services/MensajesService.js";
+import { ReportsRepository } from "../../repositories/ReportsRepository.js";
+import { ReportsService } from "../../services/ReportsService.js";
 import MensajesRepository from "../../repositories/MensajesRespository.js";
-const {CarreraRepository} = await import('../../repositories/CarreraRepository.js');
+import { ReportesController } from "../../controller/ReportesController.js";
+import { CarreraRepository } from "../../repositories/CarreraRepository.js";
 const Prisma = new PrismaClient;
 
 export function createUserController(): UserController {
@@ -44,4 +47,10 @@ export function createMensajeController(): MensajesController{
   const repo = new MensajesRepository(Prisma.mensaje);
   const service = new MensajesService(repo);
   return new MensajesController(service);
+}
+
+export function createReporteController(): ReportesController{
+  const repo = new ReportsRepository(Prisma.reporte, Prisma);
+  const service = new ReportsService(repo);
+  return new ReportesController(service);
 }

@@ -49,6 +49,11 @@ export function createMensajeController(): MensajesController{
   return new MensajesController(service);
 }
 
+/**
+ * Creates a new instance of ReportesController with the given Prisma client.
+ *
+ * @returns {ReportesController} a new instance of ReportesController
+ */
 export function createReporteController(): ReportesController{
   const repo = new ReportsRepository(Prisma.reporte, Prisma);
   const service = new ReportsService(repo);

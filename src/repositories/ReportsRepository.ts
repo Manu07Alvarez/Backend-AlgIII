@@ -2,7 +2,11 @@ import { validateRepo } from '../decorators/errors/errors.js';
 import  type { Reporte ,PrismaClient } from '../generated/prisma/client.js';
 import { MensajesReportesDTO, TemasReportesDTO, PostsReportesDTO, UsuariosReportesDTO, PostReportesDTO, GetReportesDTO} from 'schemas/Reportes.schemas.js';
 import IReportsRepository from './interfaces/IReportsRepository.js';
-import { UsuariosReportados, MensajesReportados, PostsReportados, TemasReportados } from '../generated/prisma/sql.js';
+import { MensajesReportados} from '../generated/prisma/sql/MensajesReportados.js';
+import { TemasReportados} from '../generated/prisma/sql/TemasReportados.js';
+import { PostsReportados} from '../generated/prisma/sql/PostsReportados.js';
+import { UsuariosReportados} from '../generated/prisma/sql/UsuariosReportados.js';
+import { PrivateResultType } from 'generated/prisma/runtime/library.js';
 export class ReportsRepository implements IReportsRepository {
     constructor (
         private readonly Reporte: PrismaClient['reporte'],
@@ -11,7 +15,7 @@ export class ReportsRepository implements IReportsRepository {
 
     @validateRepo
     async create(data: PostReportesDTO): Promise<void> {
-        const key = `${data.type}_id` as "tema_id" | "post_id" | "mensaje_id"
+        const key = `${data.type}_id` as "tema_id" | "post_id" | "mensaje_id" | "usuario_id";
         await this.Reporte.create({
             data: {
                 descripcion: data.descripcion,
@@ -19,16 +23,6 @@ export class ReportsRepository implements IReportsRepository {
                 [key]: data.id_type,
             }
         });                                                                                                             
-    }
-
-    @validateRepo
-    async update(id: string, data: Reporte): Promise<void> {
-        await this.Reporte.update({
-            where: {
-                id: id,
-            },
-            data: data
-        })
     }
 
     @validateRepo
@@ -125,7 +119,7 @@ export class ReportsRepository implements IReportsRepository {
 
     @validateRepo
     async findAllUsers(): Promise<UsuariosReportesDTO[]> {
-        return await this.Prisma.$queryRawTyped(UsuariosReportados())
-        
+        return await this.Prisma.$queryRawTyped<UsuariosReportesDTO>(UsuariosReportados())
+       
     }
 }

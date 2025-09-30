@@ -5,7 +5,8 @@ import swaggerAutogen from 'swagger-autogen';
 import { TemaSchema } from '../schemas/Tema.schema.js';
 import { PostSchema } from '../schemas/Post.schemas.js';
 import { MensajeSchema } from '../schemas/Mensajes.schemas.js';
-import { env } from 'process';
+import { env, report } from 'process';
+import { ReporteSchema } from '../schemas/Reportes.schemas.js';
 
 const host = process.env.HOST
 
@@ -25,6 +26,7 @@ const doc = {
 		schemas: {
 				carreraSchema: CarreraSchema,
 				usuarioSchema: UsuarioSchema,
+				reportSchema: ReporteSchema,
 				temaSchema: TemaSchema,
 				postSchema: PostSchema,
 				mensajeSchema: MensajeSchema,

@@ -8,6 +8,7 @@ export const ReporteSchema = Type.Object({
         Type.Literal("tema"),
         Type.Literal("post"),
         Type.Literal("mensaje"),
+        Type.Literal("usuario"),
     ]),
 });
 
@@ -28,8 +29,8 @@ export const TemasReportes = Type.Object({
     id_creador: Type.Number(),
     contenido: Type.String(),
     id_carrera: Type.Number(),
-    createdAt: Type.Date().Optional(),
-    updatedAt: Type.Date().Optional(),
+    createdAt: Type.Union([Type.Date(), Type.Null()]),
+    updatedAt: Type.Union([Type.Date(), Type.Null()]),
     cerrado: Type.Number(),
 })
 
@@ -38,45 +39,45 @@ export const MensajesReportes = Type.Object({
     contenido: Type.String(),
     id_autor: Type.Number(),
     id_post: Type.Number(),
-    createdAt: Type.Date().Optional(),
-    updatedAt: Type.Date().Optional(),
+    createdAt: Type.Union([Type.Date(), Type.Null()]),
+    updatedAt: Type.Union([Type.Date(), Type.Null()]),
 })
 
 export const UsuariosReportes = Type.Object({
     id : Type.Number(),
-    nombre_apellido: Type.String().Optional(),
+    nombre_apellido: Type.Union([Type.String(), Type.Null()]),
     email: Type.String(),
-    rol: Type.String().Optional(),
+    rol: Type.Union([Type.String(), Type.Null()]),
     activo: Type.Number(),
 })
 
 const ReporteBase = {
     descripcion: Type.String(),
     id_reportador: Type.Number(),
-    createdAt: Type.Date().Optional(),
-    updatedAt: Type.Date().Optional(),
-    id_resuelto: Type.Number().Optional(),
+    createdAt: Type.Optional(Type.Date()),
+    updatedAt: Type.Optional(Type.Date()),
+    id_resuelto: Type.Optional(Type.Number()),
 }
 
 const ReporteConUsuario = Type.Object({
   ...ReporteBase,
-  usuario_id: Type.Number().Optional(),
+  usuario_id: Type.Optional(Type.Number()),
 });
 
 
 const ReporteConMensaje = Type.Object({
   ...ReporteBase,
-  mensaje_id: Type.Number().Optional(),
+  mensaje_id: Type.Optional(Type.Number()),
 });
 
 const ReporteConPost = Type.Object({
   ...ReporteBase,
-  post_id: Type.Number().Optional(),
+  post_id: Type.Optional(Type.Number()),
 });
 
 const ReporteConTema = Type.Object({
   ...ReporteBase,
-  tema_id: Type.Number().Optional(),
+  tema_id: Type.Optional(Type.Number()),
 });
 
 export const GetReportesSchema = Type.Union([

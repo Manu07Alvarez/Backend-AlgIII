@@ -10,6 +10,5 @@ export default interface IReportsRepository {
     findAllUsers(): Promise<UsuariosReportesDTO[]>;
     resolve(id: string): Promise<void>;
     deresolve(id: string): Promise<void>;
-    update(id: string, data: Reporte): Promise<void>;
     delete(id: string): Promise<void>;
 }

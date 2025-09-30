@@ -22,3 +22,4 @@ dist
 src/utils/keys
 prisma/ca.pem
 /.history
+src/generated

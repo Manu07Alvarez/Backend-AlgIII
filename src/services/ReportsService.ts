@@ -37,11 +37,6 @@ export class ReportsService implements IReportsService {
     }
 
     @validateService("not found")
-    async update(id: string, data: Reporte): Promise<void> {
-        await this.reportsRepository.update(id, data);
-    }
-
-    @validateService("not found")
     async delete(id: string): Promise<void> {
         await this.reportsRepository.delete(id);
     }

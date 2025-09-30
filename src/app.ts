@@ -3,7 +3,6 @@
 
 import errlogger  from './utils/logging/Logger.js';
 const { trace } = await import('@opentelemetry/api');
-console.log("📢 Hola! este es un mensaje de prueba");
 const express = (await import('express')).default;
 const { routes } = await import('./routes/index.js');
 const { generateAndSaveKeyPair } = await import("./utils/auth/KeyGen.js");

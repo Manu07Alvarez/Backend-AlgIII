@@ -3,8 +3,7 @@ import { Carrera, Reporte } from "../generated/prisma/client.js";
 import { validateService } from "../decorators/errors/errors.js";
 import IReportsRepository from "../repositories/interfaces/IReportsRepository.js";
 import IReportsService  from "./interfaces/IReportsService.js";
-import Service from "./Service.js";
-import { GetReportesDTO, MensajesReportesDTO, PostReportesDTO, PostsReportesDTO, TemasReportesDTO, UsuariosReportesDTO } from "schemas/Reportes.schemas.js";
+import { GetReportesDTO, MensajesReportesDTO, PostReportesDTO, PostsReportesDTO, TemasReportesDTO, UsuariosReportesDTO } from "../schemas/Reportes.schemas.js";
 
 export class ReportsService implements IReportsService {
     constructor(

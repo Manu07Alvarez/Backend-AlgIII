@@ -1,10 +1,9 @@
 import { Request , Router, Response } from 'express';
 import { createReporteController} from '../utils/factories/ClassFactory.js';
-
+import { trace } from '@opentelemetry/api';
 const router = Router()
 const reportController = createReporteController();
-
-
+const tracer = trace.getTracer('route-lib');
 router.get('/', (req: Request, res: Response) => {
   reportController.findAll(req, res);
 });
@@ -28,12 +27,11 @@ router.post('/create', (req: Request, res: Response) => {
       }
   */
   reportController.create(req, res);
-})
+});
 
-router.route('/:id')
-.get((req: Request, res: Response) => {
+router.get('/:id', (req: Request, res: Response) => {  
   reportController.findById(req, res);
-})
+});
 
 router.get('/users', (req: Request, res: Response) => {
   reportController.findAllUsers(req, res);

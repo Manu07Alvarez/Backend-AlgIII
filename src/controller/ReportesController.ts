@@ -1,9 +1,9 @@
 
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
-import IReportsService from "services/interfaces/IReportsService.js";
-import { Reporte } from "generated/prisma/client.js";
-import { PostReportesDTO } from "schemas/Reportes.schemas.js";
+import IReportsService from "../services/interfaces/IReportsService.js";
+import { Reporte } from "../generated/prisma/client.js";
+import { PostReportesDTO } from "../schemas/Reportes.schemas.js";
 const tracer = trace.getTracer('controlleer');
 
 export class ReportesController {
@@ -80,6 +80,7 @@ export class ReportesController {
     }
     public async findAllUsers(req: Request, res: Response): Promise<void> {
         try {
+            console.log('A1');
             const users = await this.reportsService.findAllUsers();
             res.status(200).json(users);
         } catch (error: unknown) {

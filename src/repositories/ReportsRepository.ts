@@ -1,28 +1,26 @@
-import { validateRepo } from '../decorators/errors/errors.js';
-import  type { Reporte ,PrismaClient } from '../generated/prisma/client.js';
-import { MensajesReportesDTO, TemasReportesDTO, PostsReportesDTO, UsuariosReportesDTO, PostReportesDTO, GetReportesDTO} from 'schemas/Reportes.schemas.js';
-import IReportsRepository from './interfaces/IReportsRepository.js';
-import { MensajesReportados} from '../generated/prisma/sql/MensajesReportados.js';
-import { TemasReportados} from '../generated/prisma/sql/TemasReportados.js';
-import { PostsReportados} from '../generated/prisma/sql/PostsReportados.js';
-import { UsuariosReportados} from '../generated/prisma/sql/UsuariosReportados.js';
-import { PrivateResultType } from 'generated/prisma/runtime/library.js';
+import { validateRepo } from '../decorators/errors/errors.js'
+import  type { Reporte ,PrismaClient } from '../generated/prisma/client.js'
+import { MensajesReportesDTO, TemasReportesDTO, PostsReportesDTO, UsuariosReportesDTO, PostReportesDTO, GetReportesDTO} from 'schemas/Reportes.schemas.js'
+import IReportsRepository from './interfaces/IReportsRepository.js'
+import { DB } from '../generated/prisma/types.js'
+import { Kysely } from 'kysely'
+
 export class ReportsRepository implements IReportsRepository {
     constructor (
         private readonly Reporte: PrismaClient['reporte'],
-        private readonly Prisma: PrismaClient,
+        private readonly db: Kysely<DB>,
     ){}
 
     @validateRepo
     async create(data: PostReportesDTO): Promise<void> {
-        const key = `${data.type}_id` as "tema_id" | "post_id" | "mensaje_id" | "usuario_id";
+        const key = `${data.type}_id` as "tema_id" | "post_id" | "mensaje_id" | "usuario_id"
         await this.Reporte.create({
             data: {
                 descripcion: data.descripcion,
                 id_reportador: data.id_reportador,
                 [key]: data.id_type,
             }
-        });                                                                                                             
+        })                                                                                                             
     }
 
     @validateRepo
@@ -66,7 +64,7 @@ export class ReportsRepository implements IReportsRepository {
                 post_id: r.post_id,
                 tema_id: r.tema_id,
             }).filter(([_, v]) => v !== null)
-            );
+            )
 
             return {
             id: r.id,
@@ -74,9 +72,9 @@ export class ReportsRepository implements IReportsRepository {
             resuelto: r.resuelto,
             id_reportador: r.id_reportador,
             ...relaciones
-            };
-        });
-    }
+            }
+        })
+    };
 
     @validateRepo
     async resolve(id: string): Promise<void> {
@@ -88,7 +86,7 @@ export class ReportsRepository implements IReportsRepository {
                 resuelto: true,
             }
         })
-    }
+    };
 
     @validateRepo
     async deresolve(id: string): Promise<void> {
@@ -104,22 +102,34 @@ export class ReportsRepository implements IReportsRepository {
 
     @validateRepo
     async findAllMessages(): Promise<MensajesReportesDTO[]> {
-        return await this.Prisma.$queryRawTyped(MensajesReportados())
-    }
+        return await this.db.selectFrom('Reporte')
+            
+            .innerJoin('Mensaje', 'Mensaje.id', 'Reporte.mensaje_id')
+            .$castTo<MensajesReportesDTO>()
+            .execute()
+    };
 
     @validateRepo
     async findAllPosts(): Promise<PostsReportesDTO[]> {
-        return await this.Prisma.$queryRawTyped(PostsReportados())
+        return await this.db.selectFrom('Reporte')
+            .innerJoin('Post', 'Post.id', 'Reporte.post_id')
+            .$castTo<PostsReportesDTO>()
+            .execute()
     }
 
     @validateRepo
     async findAllTopics(): Promise<TemasReportesDTO[]> {
-        return await this.Prisma.$queryRawTyped(TemasReportados())
-    }
+        return await this.db.selectFrom('Reporte')
+            .innerJoin('Tema', 'Tema.id', 'Reporte.tema_id')
+            .$castTo<TemasReportesDTO>()
+            .execute()
+    };
 
     @validateRepo
     async findAllUsers(): Promise<UsuariosReportesDTO[]> {
-        return await this.Prisma.$queryRawTyped<UsuariosReportesDTO>(UsuariosReportados())
-       
-    }
+        return await this.db.selectFrom('Reporte')
+            .innerJoin('Usuario', 'Usuario.id', 'Reporte.usuario_id')
+            .$castTo<UsuariosReportesDTO>()
+            .execute()
+    };
 }

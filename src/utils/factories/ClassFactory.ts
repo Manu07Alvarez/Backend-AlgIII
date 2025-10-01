@@ -17,7 +17,31 @@ import { ReportsService } from "../../services/ReportsService.js";
 import MensajesRepository from "../../repositories/MensajesRespository.js";
 import { ReportesController } from "../../controller/ReportesController.js";
 import { CarreraRepository } from "../../repositories/CarreraRepository.js";
-const Prisma = new PrismaClient;
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+import { DB } from "../../generated/prisma/types.js";
+import { Kysely, MysqlDialect } from "kysely";
+import { createPool } from "mysql2";
+const adapter = new PrismaMariaDb({
+  host: process.env.HOST,
+  port: Number(process.env.PORT),
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE
+});
+const Prisma = new PrismaClient({adapter});
+const dialect = new MysqlDialect({
+  pool: createPool({
+    database: process.env.DATABASE,
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    port: Number(process.env.PORT),
+  })
+})
+
+const db = new Kysely<DB>({
+  dialect
+})
 
 export function createUserController(): UserController {
   const repo = new UserRepository(Prisma.usuario);
@@ -55,7 +79,7 @@ export function createMensajeController(): MensajesController{
  * @returns {ReportesController} a new instance of ReportesController
  */
 export function createReporteController(): ReportesController{
-  const repo = new ReportsRepository(Prisma.reporte, Prisma);
+  const repo = new ReportsRepository(Prisma.reporte, db);
   const service = new ReportsService(repo);
   return new ReportesController(service);
 }

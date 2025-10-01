@@ -3,8 +3,8 @@ import { Reporte } from "db";
 import { validateService } from "../decorators/errors/errors.js";
 import IReportsRepository from "../repositories/interfaces/IReportsRepository.js";
 import IReportsService  from "./interfaces/IReportsService.js";
-import { GetReportesDTO, MensajesReportesDTO, PostReportesDTO, PostsReportesDTO, TemasReportesDTO, UsuariosReportesDTO } from "../schemas/Reportes.schemas.js";
-
+import { GetReportesDTO, PostReportesDTO } from "../schemas/Reportes.schemas.js";
+import { MensajesReportesDTO, PostsReportesDTO, TemasReportesDTO, UsuariosReportesDTO } from "../types/DTOs/ReportesDTO.js";
 export class ReportsService implements IReportsService {
     constructor(
         private readonly reportsRepository: IReportsRepository,

@@ -1,6 +1,7 @@
 import { validateRepo } from '../decorators/errors/errors.js'
 import { Reporte ,PrismaClient } from 'db'
-import { MensajesReportesDTO, TemasReportesDTO, PostsReportesDTO, UsuariosReportesDTO, PostReportesDTO, GetReportesDTO} from 'schemas/Reportes.schemas.js'
+import { PostReportesDTO, GetReportesDTO } from '../schemas/Reportes.schemas.js'
+import { PostsReportesDTO, TemasReportesDTO, UsuariosReportesDTO, MensajesReportesDTO } from '../types/DTOs/ReportesDTO.js'
 import IReportsRepository from './interfaces/IReportsRepository.js'
 import { DB } from '../generated/prisma/types.js'
 import { Kysely } from 'kysely'
@@ -105,17 +106,24 @@ export class ReportsRepository implements IReportsRepository {
         return await this.db.selectFrom('Reporte')
             .where('Reporte.mensaje_id', '!=', null)
             .innerJoin('Mensaje', 'Mensaje.id', 'Reporte.mensaje_id')
+            .select(['Mensaje.id', 'Mensaje.contenido', 'Mensaje.id_autor', 'Mensaje.id_post', 'Mensaje.createdAt', 'Mensaje.updatedAt'])
             .$castTo<MensajesReportesDTO>()
             .execute()
     };
 
     @validateRepo
     async findAllPosts(): Promise<PostsReportesDTO[]> {
-        await console.log('findAllPosts');
         return await this.db.selectFrom('Reporte')
             .where('Reporte.post_id', '!=', null)
             .innerJoin('Post', 'Post.id', 'Reporte.post_id')
-            .$castTo<PostsReportesDTO>()
+            .select([
+                'Post.id',
+                'Post.titulo',
+                'Post.contenido', 
+                'Post.id_autor', 
+                'Post.id_tema', 
+                'Post.published',
+            ])
             .execute()
     }
 
@@ -124,6 +132,7 @@ export class ReportsRepository implements IReportsRepository {
         return await this.db.selectFrom('Reporte')
             .where('Reporte.tema_id', '!=', null)
             .innerJoin('Tema', 'Tema.id', 'Reporte.tema_id')
+            .select(['Tema.id', 'Tema.titulo', 'Tema.id_creador', 'Tema.contenido','Tema.createdAt', 'Tema.updatedAt'])
             .$castTo<TemasReportesDTO>()
             .execute()
     };
@@ -133,6 +142,7 @@ export class ReportsRepository implements IReportsRepository {
         return await this.db.selectFrom('Reporte')
             .where('Reporte.usuario_id', '!=', null)
             .innerJoin('Usuario', 'Usuario.id', 'Reporte.usuario_id')
+            .select(['Usuario.id', 'Usuario.nombre_apellido', 'Usuario.email', 'Usuario.rol', 'Usuario.activo'])
             .$castTo<UsuariosReportesDTO>()
             .execute()
     };

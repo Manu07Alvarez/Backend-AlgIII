@@ -1,7 +1,14 @@
-import { Prisma, PrismaClient, Reporte, Rol } from '../../src/generated/prisma/client.js';
+import { Prisma, PrismaClient, Reporte, Rol } from 'db';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
 import { faker } from '@faker-js/faker';
 
-const prisma = new PrismaClient();
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  max: 5
+})
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({adapter});
 async function main() {
   faker.seed(1);
   const length = 50;

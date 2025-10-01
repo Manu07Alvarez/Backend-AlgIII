@@ -1,5 +1,6 @@
 import { Reporte } from "db";
-import { MensajesReportesDTO, PostsReportesDTO, PostReportesDTO, GetReportesDTO, TemasReportesDTO, UsuariosReportesDTO } from "schemas/Reportes.schemas.js";
+import { PostReportesDTO, GetReportesDTO } from "../../schemas/Reportes.schemas.js";
+import { TemasReportesDTO, MensajesReportesDTO, PostsReportesDTO, UsuariosReportesDTO } from "../../types/DTOs/ReportesDTO.js";
 export default interface IReportsService {
     create(data: PostReportesDTO): Promise<void>;
     findById(id: string): Promise<Partial<Reporte>>;

@@ -381,6 +381,7 @@
         }
       }
     },
+    
     "/api/post/delete/{id}": {
       "delete": {
         "description": "",

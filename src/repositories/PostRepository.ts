@@ -20,19 +20,38 @@ export class PostRepository extends Repository<Post> implements IPostRepository 
         });
     }
 
-    public async getPagination({page, limit}: PaginationParams): Promise<PaginationResults<Post>> {
+    public async getPagination(params: { page: number; limit: number; search?: string; sortBy?: string; sortOrder?: "asc" | "desc" }): Promise<{ data: Post[]; total: number; page: number; limit: number }> {
+        const { page, limit, search, sortBy, sortOrder } = params;
         const offset = (page - 1) * limit;
-    
+
+        const where = search
+            ? {
+                OR: [
+                    { titulo: { contains: search } },
+                    { contenido: { contains: search } }
+                ]
+            }
+            : {};
+
+        const orderBy = sortBy
+            ? { [sortBy]: sortOrder ?? "asc" }
+            : undefined;
+
         const [data, total] = await Promise.all([
-          this.Post.findMany({ skip: offset, take: limit }),
-          this.Post.count()
+            this.Post.findMany({
+                skip: offset,
+                take: limit,
+                where,
+                orderBy
+            }),
+            this.Post.count({ where })
         ]);
-    
+
         return {
-          data,
-          total,
-          totalPages: Math.ceil(total / limit),
-          currentPage: page
-        }
-      }
+            data,
+            total,
+            page,
+            limit
+        };
+    }
 }

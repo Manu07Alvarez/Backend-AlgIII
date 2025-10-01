@@ -1,5 +1,5 @@
 import { validateRepo } from '../decorators/errors/errors.js';
-import  type { Post, PrismaClient } from '../generated/prisma/client.js';
+import  type { Post, PrismaClient } from 'db';
 import Repository from './Repository.js';
 import IPostRepository from './interfaces/IPostRepository.js';
 

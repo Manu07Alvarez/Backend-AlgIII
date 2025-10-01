@@ -1,4 +1,4 @@
-import { Carrera, Reporte } from "../generated/prisma/client.js";
+import { Reporte } from "db";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { validateService } from "../decorators/errors/errors.js";
 import IReportsRepository from "../repositories/interfaces/IReportsRepository.js";

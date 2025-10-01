@@ -1,5 +1,5 @@
 import { validateRepo } from '../decorators/errors/errors.js'
-import  type { Reporte ,PrismaClient } from '../generated/prisma/client.js'
+import { Reporte ,PrismaClient } from 'db'
 import { MensajesReportesDTO, TemasReportesDTO, PostsReportesDTO, UsuariosReportesDTO, PostReportesDTO, GetReportesDTO} from 'schemas/Reportes.schemas.js'
 import IReportsRepository from './interfaces/IReportsRepository.js'
 import { DB } from '../generated/prisma/types.js'
@@ -7,8 +7,8 @@ import { Kysely } from 'kysely'
 
 export class ReportsRepository implements IReportsRepository {
     constructor (
-        private readonly Reporte: PrismaClient['reporte'],
         private readonly db: Kysely<DB>,
+        private readonly Reporte: PrismaClient['reporte'],
     ){}
 
     @validateRepo
@@ -103,7 +103,7 @@ export class ReportsRepository implements IReportsRepository {
     @validateRepo
     async findAllMessages(): Promise<MensajesReportesDTO[]> {
         return await this.db.selectFrom('Reporte')
-            
+            .where('Reporte.mensaje_id', '!=', null)
             .innerJoin('Mensaje', 'Mensaje.id', 'Reporte.mensaje_id')
             .$castTo<MensajesReportesDTO>()
             .execute()
@@ -111,7 +111,9 @@ export class ReportsRepository implements IReportsRepository {
 
     @validateRepo
     async findAllPosts(): Promise<PostsReportesDTO[]> {
+        await console.log('findAllPosts');
         return await this.db.selectFrom('Reporte')
+            .where('Reporte.post_id', '!=', null)
             .innerJoin('Post', 'Post.id', 'Reporte.post_id')
             .$castTo<PostsReportesDTO>()
             .execute()
@@ -120,6 +122,7 @@ export class ReportsRepository implements IReportsRepository {
     @validateRepo
     async findAllTopics(): Promise<TemasReportesDTO[]> {
         return await this.db.selectFrom('Reporte')
+            .where('Reporte.tema_id', '!=', null)
             .innerJoin('Tema', 'Tema.id', 'Reporte.tema_id')
             .$castTo<TemasReportesDTO>()
             .execute()
@@ -128,6 +131,7 @@ export class ReportsRepository implements IReportsRepository {
     @validateRepo
     async findAllUsers(): Promise<UsuariosReportesDTO[]> {
         return await this.db.selectFrom('Reporte')
+            .where('Reporte.usuario_id', '!=', null)
             .innerJoin('Usuario', 'Usuario.id', 'Reporte.usuario_id')
             .$castTo<UsuariosReportesDTO>()
             .execute()

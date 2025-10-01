@@ -1,5 +1,4 @@
 import { UserRepository } from "../../repositories/UserRepository.js";
-import { PrismaClient } from '../../generated/prisma/client.js';
 import { UserService } from "../../services/UserService.js";
 import { UserController } from "../../controller/UserController.js";
 import { CarreraController } from "../../controller/CarreraController.js";
@@ -20,28 +19,34 @@ import { CarreraRepository } from "../../repositories/CarreraRepository.js";
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { DB } from "../../generated/prisma/types.js";
 import { Kysely, MysqlDialect } from "kysely";
+import { PrismaClient } from 'db';
 import { createPool } from "mysql2";
 const adapter = new PrismaMariaDb({
-  host: process.env.HOST,
-  port: Number(process.env.PORT),
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE
+  host: process.env.DATABASE_HOST,
+  port: Number(process.env.DATABASE_PORT),
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_TO_USE,
+  connectionLimit: 5,
 });
 const Prisma = new PrismaClient({adapter});
 const dialect = new MysqlDialect({
   pool: createPool({
-    database: process.env.DATABASE,
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    port: Number(process.env.PORT),
+    database: process.env.DATABASE_TO_USE,
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    port: Number(process.env.DATABASE_PORT),
+    connectionLimit: 5,
+    waitForConnections: true
   })
 })
 
 const db = new Kysely<DB>({
   dialect
 })
+
+
 
 export function createUserController(): UserController {
   const repo = new UserRepository(Prisma.usuario);
@@ -79,7 +84,7 @@ export function createMensajeController(): MensajesController{
  * @returns {ReportesController} a new instance of ReportesController
  */
 export function createReporteController(): ReportesController{
-  const repo = new ReportsRepository(Prisma.reporte, db);
+  const repo = new ReportsRepository(db,Prisma.reporte);
   const service = new ReportsService(repo);
   return new ReportesController(service);
 }

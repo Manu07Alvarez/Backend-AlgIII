@@ -1,4 +1,4 @@
-import { Reporte } from "../../generated/prisma/client.js";
+import { Reporte } from "db";
 import { MensajesReportesDTO, PostsReportesDTO, PostReportesDTO, GetReportesDTO, TemasReportesDTO, UsuariosReportesDTO } from "schemas/Reportes.schemas.js";
 export default interface IReportsService {
     create(data: PostReportesDTO): Promise<void>;

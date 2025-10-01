@@ -1,4 +1,4 @@
-import { PrismaClient, Tema } from '../generated/prisma/client.js';
+import { PrismaClient, Tema } from 'db';
 import { validateRepo } from '../decorators/errors/errors.js';
 import repository from './Repository.js';
 import ITemasRepository from './interfaces/ITemaRepository.js';

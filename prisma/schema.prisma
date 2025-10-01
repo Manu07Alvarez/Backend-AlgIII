@@ -17,13 +17,10 @@ generator kysely {
   output        = "../src/generated/prisma"
 }
 
-
-
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
 }
-
 model Usuario {
   id              Int       @id @default(autoincrement())
   nombre_apellido String?

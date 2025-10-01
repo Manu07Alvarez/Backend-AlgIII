@@ -59,6 +59,7 @@
     "ajv-formats": "^3.0.1",
     "bcrypt-ts": "7.0.0",
     "cors": "^2.8.5",
+    "db": "file:src/generated/prisma",
     "dotenv": "16.4.7",
     "express": "5.1.0",
     "jose": "6.0.11",

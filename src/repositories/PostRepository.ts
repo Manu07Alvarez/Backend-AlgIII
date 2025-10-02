@@ -10,7 +10,7 @@ export class PostRepository extends Repository<Post> implements IPostRepository 
 
     @validateRepo
     async findByTitle(title: string): Promise<Partial<Post[]>> {
-        return this.Post.findMany({
+        return await this.Post.findMany({
             where: { 
                 titulo: {
                     contains: title, 

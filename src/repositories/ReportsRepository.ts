@@ -116,36 +116,34 @@ export class ReportsRepository implements IReportsRepository {
     async findAllPosts(): Promise<PostsReportesDTO[]> {
         return await this.db
             .selectFrom('Reporte')
-            .where('Reporte.post_id', 'is not', null)
             .innerJoin('Post', 'Post.id', 'Reporte.post_id')
             .select([
                 'Post.id',
                 'Post.titulo',
-                'Post.contenido', 
-                'Post.id_autor', 
-                'Post.id_tema', 
+                'Post.contenido',
                 'Post.published',
+                'Post.id_autor',
+                'Post.id_tema'
             ])
             .execute()
     }
 
-    @validateRepo
+
     async findAllTopics(): Promise<TemasReportesDTO[]> {
         return await this.db
-            .selectFrom('Reporte')
-            .where('Reporte.tema_id', 'is not', null)
-            .innerJoin('Tema', 'Tema.id', 'Reporte.tema_id')
+            .selectFrom("Reporte")
+            .innerJoin("Tema", "Tema.id", "Reporte.tema_id")
             .select([
-                'Tema.id',
-                'Tema.titulo',
-                'Tema.id_creador',
-                'Tema.contenido',
-                'Tema.createdAt',
-                'Tema.updatedAt',
-                'Tema.fijado',
-                'Tema.cerrado',
-                'Tema.id_carrera',
-                'Tema.nombre'
+                "Tema.id",
+                "Tema.titulo",
+                "Tema.id_creador",
+                "Tema.contenido",
+                "Tema.createdAt",
+                "Tema.updatedAt",
+                "Tema.fijado",
+                "Tema.cerrado",
+                "Tema.id_carrera",
+                "Tema.nombre"
             ])
             .execute()
     }
@@ -154,7 +152,6 @@ export class ReportsRepository implements IReportsRepository {
     async findAllUsers(): Promise<UsuariosReportesDTO[]> {
         return await this.db
             .selectFrom('Reporte')
-            .where('Reporte.usuario_id', 'is not', null)
             .innerJoin('Usuario', 'Usuario.id', 'Reporte.usuario_id')
             .select([
                 'Usuario.id',

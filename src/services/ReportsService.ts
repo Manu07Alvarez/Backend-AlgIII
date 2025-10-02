@@ -50,7 +50,7 @@ export class ReportsService implements IReportsService {
         return await this.reportsRepository.findAllPosts();
     }
 
-    @validateService("not found")
+
     async findAllTopics(): Promise<TemasReportesDTO[]> {
         return await this.reportsRepository.findAllTopics();
     }

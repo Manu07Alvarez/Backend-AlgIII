@@ -34,5 +34,5 @@ export type UsuariosReportesDTO = {
     nombre_apellido: string | null,
     email: string,
     rol: string | null,
-    activo: number,
+    activo: boolean,
 }

@@ -73,7 +73,7 @@ export function createMensajeController(): MensajesController{
  * @returns {ReportesController} a new instance of ReportesController
  */
 export function createReporteController(): ReportesController{
-  const repo = new ReportsRepository(db, Prisma.reporte);
+  const repo = new ReportsRepository(db, /* Prisma.reporte */);
   const service = new ReportsService(repo);
   return new ReportesController(service);
 };

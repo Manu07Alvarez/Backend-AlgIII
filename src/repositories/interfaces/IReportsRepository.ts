@@ -3,7 +3,7 @@ import { PostReportesDTO, GetReportesDTO } from "../../schemas/Reportes.schemas.
 import { TemasReportesDTO, MensajesReportesDTO, PostsReportesDTO, UsuariosReportesDTO } from "../../types/DTOs/ReportesDTO.js";
 export default interface IReportsRepository {
     create(data: PostReportesDTO): Promise<void>;
-    findById(id: string): Promise<Partial<Reporte>>;
+    findById(id: string): Promise<Reporte>;
     findAll(): Promise<GetReportesDTO[]>;
     findAllMessages(): Promise<MensajesReportesDTO[]>;
     findAllPosts(): Promise<PostsReportesDTO[]>;

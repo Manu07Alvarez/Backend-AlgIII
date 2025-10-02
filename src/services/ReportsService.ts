@@ -16,7 +16,7 @@ export class ReportsService implements IReportsService {
     }
 
     @validateService("not found")
-    async findById(id: string): Promise<Partial<Reporte>> {
+    async findById(id: string): Promise<Reporte> {
         return await this.reportsRepository.findById(id);
     }
 

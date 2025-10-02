@@ -1,4 +1,5 @@
 import {Post} from '../../generated/prisma/client.js';
+import {PaginationParams, PaginationResults} from 'types/pagination.types.js';
 
 export default interface IpostService{
     findAll(): Promise<Post[]>;
@@ -8,4 +9,5 @@ export default interface IpostService{
     activateOrDeactivate(id: number): Promise<void>;
     delete(id: number): Promise<void>;
     update(id: number, data: Partial<Post>): Promise<void>;
+    getPagination(params: PaginationParams): Promise<PaginationResults<Post>>;
 }

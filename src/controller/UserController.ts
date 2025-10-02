@@ -1,6 +1,7 @@
 import { Usuario } from './../generated/prisma/client.js';
 import { Request, Response } from 'express';
 import { IUserService } from '../services/interfaces/IUserService.js';
+import { PaginationParams,PaginationResults } from 'types/pagination.types.js';
 export class UserController {
   
   constructor(
@@ -82,4 +83,8 @@ export class UserController {
       }
     }
   }
-} 
+
+  async getPagination(params:PaginationParams): Promise<PaginationResults<Usuario>> {
+    return this.userService.getPagination(params);
+  }
+}

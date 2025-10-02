@@ -93,8 +93,22 @@ export class PostController {
             }
         }
 
-        async getPagination(params: PaginationParams): Promise<PaginationResults<Post>> {
-        return this.PostService.getPagination(params);
-        }
+       public async getPagination(req: Request, res: Response): Promise<void> {
+  try {
+    const { page, limit } = req.query;
+
+    const paginationParams: PaginationParams = {
+      page: Number(page),
+      limit: Number(limit),
+    };
+
+    const result = await this.PostService.getPagination(paginationParams);
+    res.status(200).json(result);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+}
 }
 

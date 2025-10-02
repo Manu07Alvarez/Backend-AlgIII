@@ -4,7 +4,7 @@ import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
 import { validateRepo } from '../decorators/errors/errors.js';
 import IRepository from './interfaces/IUserRepository.js';
 import Repository from './Repository.js';
-import { skip } from 'node:test';
+//import { skip } from 'node:test'; TODO: Lo comente porque daba error en la compilacion
 
 export class UserRepository extends Repository<Usuario> implements IRepository<Usuario> {
 
@@ -35,20 +35,50 @@ export class UserRepository extends Repository<Usuario> implements IRepository<U
     });
   }
 
-  async getPagination({page, limit}: PaginationParams): Promise<PaginationResults<Usuario>> {
+  public async getPagination({ page, limit, search, sortBy, sortOrder }: { page: number; limit: number; search?: string; sortBy?: string; sortOrder?: "asc" | "desc"; }): Promise<{ data: { email: string; nombre_apellido: string; contrasena: string; rol: "USUARIO" | "ADMIN" | "MODERADOR"; activo: boolean; }[]; total: number; page: number; limit: number; }> {
     const offset = (page - 1) * limit;
 
-    const [data, total] = await Promise.all([
-      this.user.findMany({ skip: offset, take: limit }),
-      this.user.count()
+    const where: any = {};
+    if (search) {
+      where.OR = [
+        { email: { contains: search, mode: 'insensitive' } },
+        { nombre_apellido: { contains: search, mode: 'insensitive' } }
+      ];
+    }
+
+    const orderBy = sortBy ? { [sortBy]: sortOrder || 'asc' } : undefined;
+
+    const [users, total] = await Promise.all([
+      this.user.findMany({
+        skip: offset,
+        take: limit,
+        where,
+        orderBy,
+        select: {
+          email: true,
+          nombre_apellido: true,
+          contraseña: true,
+          rol: true,
+          activo: true
+        }
+      }),
+      this.user.count({ where })
     ]);
+
+    const data = users.map(u => ({
+      email: u.email,
+      nombre_apellido: u.nombre_apellido ?? '',
+      contrasena: u.contraseña,
+      rol: u.rol as "USUARIO" | "ADMIN" | "MODERADOR",
+      activo: u.activo
+    }));
 
     return {
       data,
       total,
-      totalPages: Math.ceil(total / limit),
-      currentPage: page
-    }
+      page,
+      limit
+    };
   }
 
 }

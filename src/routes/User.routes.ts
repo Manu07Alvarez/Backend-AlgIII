@@ -43,4 +43,6 @@ router.route('/:id')
 .patch((req: Request, res: Response) => {
   userController.deactivate(req, res);
 })
+
+
 export default router

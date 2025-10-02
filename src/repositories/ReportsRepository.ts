@@ -128,22 +128,22 @@ export class ReportsRepository implements IReportsRepository {
             .execute()
     }
 
-
+    @validateRepo
     async findAllTopics(): Promise<TemasReportesDTO[]> {
         return await this.db
             .selectFrom("Reporte")
             .innerJoin("Tema", "Tema.id", "Reporte.tema_id")
             .select([
-                "Tema.id",
-                "Tema.titulo",
-                "Tema.id_creador",
-                "Tema.contenido",
-                "Tema.createdAt",
-                "Tema.updatedAt",
-                "Tema.fijado",
-                "Tema.cerrado",
-                "Tema.id_carrera",
-                "Tema.nombre"
+                'Tema.id',
+                'Tema.titulo',
+                'Tema.id_creador',
+                'Tema.contenido',
+                'Tema.createdAt',
+                'Tema.updatedAt',
+                'Tema.fijado',
+                'Tema.cerrado',
+                'Tema.id_carrera',
+                'Tema.nombre'
             ])
             .execute()
     }

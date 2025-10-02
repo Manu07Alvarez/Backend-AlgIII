@@ -25,7 +25,6 @@ export class ReportesController {
 
     public async findAll(req: Request, res: Response): Promise<void> {
         try {
-            
             res.status(200).json(await this.reportsService.findAll());
         } catch (error: unknown) {
             if (error instanceof Error) {

@@ -21,7 +21,6 @@ import { PrismaPg } from '@prisma/adapter-pg'
 import { DB } from "../../generated/prisma/types.js";
 import { Kysely, PostgresDialect } from "kysely";
 import { Pool } from 'pg';
-import { TestController } from "../../controller/TestConstroller.js";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -73,12 +72,10 @@ export function createMensajeController(): MensajesController{
  *
  * @returns {ReportesController} a new instance of ReportesController
  */
-export function createReporteController(): ReportesController{
+ export function createReporteController(): ReportesController{
   const repo = new ReportsRepository(db);
   const service = new ReportsService(repo);
   return new ReportesController(service);
+  
 };
 
-export function createTestController(): TestController{
-  return new TestController(db);
-};

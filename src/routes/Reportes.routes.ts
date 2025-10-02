@@ -29,10 +29,6 @@ router.post('/create', (req: Request, res: Response) => {
   reportController.create(req, res);
 });
 
-router.get('/:id', (req: Request, res: Response) => {  
-  reportController.findById(req, res);
-});
-
 router.get('/users', (req: Request, res: Response) => {
   reportController.findAllUsers(req, res);
 });
@@ -51,10 +47,14 @@ router.get('/messages', (req: Request, res: Response) => {
 
 router.put('/resolve/:id', (req: Request, res: Response) => {
   reportController.resolveReport(req, res);
-})
+});
 
 router.put('/deresolve/:id', (req: Request, res: Response) => {
   reportController.deresolveReport(req, res);
-})
+});
+
+router.get('/:id', (req: Request, res: Response) => {  
+  reportController.findById(req, res);
+});
 
 export default router

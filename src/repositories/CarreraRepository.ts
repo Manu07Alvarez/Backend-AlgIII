@@ -1,5 +1,5 @@
 
-import { Carrera, PrismaClient } from '../generated/prisma/client.js';
+import { Carrera, PrismaClient } from 'db';
 import  ICarreraRepository  from './interfaces/ICarreraRepository.js';
 import Repository from './Repository.js';
 import { validateRepo } from '../decorators/errors/errors.js';

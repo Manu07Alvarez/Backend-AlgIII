@@ -1,4 +1,4 @@
-import { Tema } from "../../generated/prisma/client.js";
+import { Tema } from "db";
 export default interface ITemaRepository {
       create(data: Tema): Promise<void>;
       findById(id: number): Promise<Partial<Tema>>;

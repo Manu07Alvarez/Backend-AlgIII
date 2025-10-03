@@ -13,7 +13,7 @@ export class CarreraController {
     public async update(req: Request, res: Response): Promise<void> {
         try {
             const id = Number(req.params.id);
-            const carrera: Carrera = req.body;
+            const carrera: Partial<Carrera> = req.body;
             await this.CarreraService.update(id, carrera);
             res.status(200).json({ message: 'Carrera updated successfully' });
         } catch (error: unknown) {
@@ -38,7 +38,7 @@ export class CarreraController {
 
     public async create(req: Request, res: Response): Promise<void> {
         try {
-            const carrera = req.body;
+            const carrera: Carrera = req.body;
             await this.CarreraService.create(carrera);
             res.status(201).json({ message: 'Carrera created successfully' });
         } catch (error: unknown) {

@@ -1,5 +1,5 @@
 import Repository from "./Repository.js";
-import { PrismaClient, Mensaje } from '../generated/prisma/client.js';
+import { PrismaClient, Mensaje } from 'db';
 import { validateRepo } from "../decorators/errors/errors.js";
 import IMensajesRepository from "./interfaces/IMensajesRepository.js";
 

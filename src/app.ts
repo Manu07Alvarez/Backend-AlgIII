@@ -12,6 +12,7 @@ const tracer = trace.getTracer('app');
 generateAndSaveKeyPair();
 import cors from 'cors';
 import { createProxyMiddleware } from "http-proxy-middleware";
+import { Prisma } from 'db';
 const app = express();
 
 app.use(cors());

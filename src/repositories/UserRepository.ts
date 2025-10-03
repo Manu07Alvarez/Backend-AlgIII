@@ -1,5 +1,5 @@
 
-import { PrismaClient, Usuario } from '../generated/prisma/client.js';
+import { PrismaClient, Usuario } from 'db';
 import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
 import { validateRepo } from '../decorators/errors/errors.js';
 import IRepository from './interfaces/IUserRepository.js';

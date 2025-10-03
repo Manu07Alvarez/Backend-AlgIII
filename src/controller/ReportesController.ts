@@ -1,33 +1,19 @@
 
-import {  ICarreraService } from "../services/interfaces/ICarreraService.js";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
-import { Carrera } from "schemas/Carreras.schemas.js";
-import IReportsService from "services/interfaces/IReportsService.js";
-import { Reporte } from "generated/prisma/client.js";
+import IReportsService from "../services/interfaces/IReportsService.js";
+import { PostReportesDTO } from "../schemas/Reportes.schemas.js";
 const tracer = trace.getTracer('controlleer');
 
 export class ReportesController {
     constructor(
         private readonly reportsService: IReportsService
     ){}
-    
-    public async update (req: Request, res: Response): Promise<void> {
-        try {
-            const id = String(req.params.id);
-            const reporte: Reporte = req.body;
-            await this.reportsService.update(id, reporte);
-            res.status(200).json({ message: 'Reporte updated successfully' });
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            }
-        }
-    }
+
 
     public async create(req: Request, res: Response): Promise<void> {
         try {
-            const reporte = req.body;
+            const reporte: PostReportesDTO = req.body;
             await this.reportsService.create(reporte);
             res.status(201).json({ message: 'Reporte created successfully' });
         } catch (error: unknown) {
@@ -39,8 +25,7 @@ export class ReportesController {
 
     public async findAll(req: Request, res: Response): Promise<void> {
         try {
-            const reportes = await this.reportsService.findAll();
-            res.status(200).json(reportes);
+            res.status(200).json(await this.reportsService.findAll());
         } catch (error: unknown) {
             if (error instanceof Error) {
                 res.status(500).json({ message: error.message });
@@ -93,8 +78,33 @@ export class ReportesController {
     }
     public async findAllUsers(req: Request, res: Response): Promise<void> {
         try {
+            console.log('A1');
             const users = await this.reportsService.findAllUsers();
             res.status(200).json(users);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
+    public async resolveReport(req: Request, res: Response): Promise<void> {
+        try {
+            const id = String(req.params.id);
+            await this.reportsService.resolve(id);
+            res.status(200).json({ message: 'Report resolved successfully' });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
+        }
+    }
+
+    public async deresolveReport(req: Request, res: Response): Promise<void> {
+        try {
+            const id = String(req.params.id);
+            await this.reportsService.deresolve(id);
+            res.status(200).json({ message: 'Report deresolved successfully' });
         } catch (error: unknown) {
             if (error instanceof Error) {
                 res.status(500).json({ message: error.message });

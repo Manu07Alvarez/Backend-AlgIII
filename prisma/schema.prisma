@@ -5,18 +5,22 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider      = "prisma-client"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "windows"]
   output        = "../src/generated/prisma"
+  engineType    = "client"
   runtime       = "nodejs"
-  previewFeatures = ["typedSql"]
+}
+
+generator kysely {
+  provider      = "prisma-kysely"
+  output        = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url = env("DATABASE_URL")
 }
-
 model Usuario {
   id              Int       @id @default(autoincrement())
   nombre_apellido String?
@@ -86,6 +90,7 @@ model Reporte {
   tema_id Int?
   tema    Tema?    @relation(fields: [tema_id], references: [id])
   // Relaciones
+
 }
 
 model Post {

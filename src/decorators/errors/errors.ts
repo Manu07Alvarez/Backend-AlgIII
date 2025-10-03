@@ -10,6 +10,7 @@ export function validateRepo<This, Args extends unknown[], Return>(
      } catch (error: unknown) {
         if (error instanceof Prisma.Prisma.PrismaClientKnownRequestError) {
           errLogger.error("ERROR 💥 " + error.code + "" + error.message  + (error.meta ? " " + JSON.stringify(error.meta) : ""));
+          console.log("A3");
           throw new Error(getLastLine(error.message));
         };
         if (error instanceof Prisma.Prisma.PrismaClientValidationError) {
@@ -21,6 +22,7 @@ export function validateRepo<This, Args extends unknown[], Return>(
           throw new Error(getLastLine(error.message));
         };
         errLogger.error("ERROR 💥 " + error);
+        console.log("A2");
         throw error
      }
    };

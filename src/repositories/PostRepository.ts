@@ -20,6 +20,7 @@ export class PostRepository extends Repository<Post> implements IPostRepository 
         });
     }
 
+    //FIXME: crea tipos para los parametros y llamalos DTO que son "Data Transfer Objects"
     public async getPagination(params: { page: number; limit: number; search?: string; sortBy?: string; sortOrder?: "asc" | "desc" }): Promise<{ data: Post[]; total: number; page: number; limit: number }> {
         const { page, limit, search, sortBy, sortOrder } = params;
         const offset = (page - 1) * limit;

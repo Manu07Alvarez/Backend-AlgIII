@@ -8,4 +8,5 @@ export default interface ItemasService{
       activateOrDeactivate(id: number): Promise<void>;
       delete(id: number): Promise<void>;
       update(id: number, data: Partial<Tema>): Promise<void>;
+      obtenerTemasAbiertos(): Promise<Tema[]>;
 }

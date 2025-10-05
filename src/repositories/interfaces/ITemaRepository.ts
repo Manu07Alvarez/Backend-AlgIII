@@ -7,4 +7,5 @@ export default interface ITemaRepository {
       delete(id: number): Promise<void>;
       findByName(name: string): Promise<Partial<Tema>>;
       activateOrDeactivate(id: number): Promise<void>;
+      obtenerTemasAbiertos(): Promise<Tema[]>;
 }

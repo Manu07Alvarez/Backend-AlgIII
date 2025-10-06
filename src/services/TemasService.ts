@@ -4,10 +4,15 @@ import ITemasService from "./interfaces/ITemaService.js";
 import service from "./Service.js";
 
 export class TemasService extends service<Tema> implements ITemasService {
-    constructor(
-        private readonly TemasRepositories : ITemaRepository,
-    ) {
-        super(TemasRepositories, 'Tema');
-    }
+  constructor(
+    private readonly TemasRepositories: ITemaRepository,
+  ) {
+    super(TemasRepositories, 'Tema');
+  }
+
+  async obtenerTemasAbiertos(): Promise<Tema[]> {
+    return this.TemasRepositories.obtenerTemasAbiertos();
+  }
 }
+
 

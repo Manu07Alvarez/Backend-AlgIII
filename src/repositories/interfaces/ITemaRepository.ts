@@ -1,4 +1,4 @@
-import { Tema } from "../../generated/prisma/client.js";
+import { Tema } from "db";
 export default interface ITemaRepository {
       create(data: Tema): Promise<void>;
       findById(id: number): Promise<Partial<Tema>>;
@@ -7,4 +7,5 @@ export default interface ITemaRepository {
       delete(id: number): Promise<void>;
       findByName(name: string): Promise<Partial<Tema>>;
       activateOrDeactivate(id: number): Promise<void>;
+      obtenerTemasAbiertos(): Promise<Tema[]>;
 }

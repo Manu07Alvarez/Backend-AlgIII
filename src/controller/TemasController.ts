@@ -92,4 +92,15 @@ export class TemasController {
                 }
             }
         }
+
+        public async obtenerTemasAbiertos(req: Request, res: Response, ): Promise<void> {
+            try{
+                const tema = await this.TemasService.obtenerTemasAbiertos();
+                res.status(200).json(tema);
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    res.status(500).json({ message: error.message });
+                }
+        }
+    }   
 }

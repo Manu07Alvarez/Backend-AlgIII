@@ -1,4 +1,6 @@
-import { Post } from "../../generated/prisma/client.js";
+import { Post } from "db";
+import { PaginationResults } from "types/pagination.types.js";
+
 export default interface IPostRepository {
     create(data: Post): Promise<void>;
     findByTitle(title: string): Promise<Partial<Post[]>>;
@@ -7,5 +9,12 @@ export default interface IPostRepository {
     activateOrDeactivate(id: number): Promise<void>;
     update(id: number, data: Post): Promise<void>;
     delete(id: number): Promise<void>;
-    getPagination(params: { page: number; limit: number; search?: string | undefined; sortBy?: string | undefined; sortOrder?: 'asc' | 'desc' | undefined; }): Promise<{ data: Post[]; total: number; page: number; limit: number; }>;
+   getPagination(params: {
+    page: number;
+    limit: number;
+    search?: string;
+    sortBy?: string;
+    sortOrder?: "asc" | "desc";
+}): Promise<PaginationResults<Post>>;
+
 }

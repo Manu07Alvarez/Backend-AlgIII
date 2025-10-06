@@ -84,7 +84,21 @@ export class UserController {
     }
   }
 
-  async getPagination(params:PaginationParams): Promise<PaginationResults<Usuario>> {
-    return this.userService.getPagination(params);
+   public async getPagination(req: Request, res: Response): Promise<void> {
+  try {
+    const { page, limit } = req.query;
+
+    const paginationParams: PaginationParams = {
+      page: Number(page),
+      limit: Number(limit),
+    };
+
+    const result = await this.userService.getPagination(paginationParams);
+    res.status(200).json(result);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    }
   }
+}
 }

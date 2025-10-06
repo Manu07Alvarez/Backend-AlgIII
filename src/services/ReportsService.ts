@@ -1,11 +1,10 @@
-import { Carrera, Reporte } from "../generated/prisma/client.js";
+import { Reporte } from "db";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { validateService } from "../decorators/errors/errors.js";
 import IReportsRepository from "../repositories/interfaces/IReportsRepository.js";
 import IReportsService  from "./interfaces/IReportsService.js";
-import Service from "./Service.js";
-import { GetReportesDTO, MensajesReportesDTO, PostReportesDTO, PostsReportesDTO, TemasReportesDTO, UsuariosReportesDTO } from "schemas/Reportes.schemas.js";
-
+import { GetReportesDTO, PostReportesDTO } from "../schemas/Reportes.schemas.js";
+import { MensajesReportesDTO, PostsReportesDTO, TemasReportesDTO, UsuariosReportesDTO } from "../types/DTOs/ReportesDTO.js";
 export class ReportsService implements IReportsService {
     constructor(
         private readonly reportsRepository: IReportsRepository,
@@ -17,7 +16,7 @@ export class ReportsService implements IReportsService {
     }
 
     @validateService("not found")
-    async findById(id: string): Promise<Partial<Reporte>> {
+    async findById(id: string): Promise<Reporte> {
         return await this.reportsRepository.findById(id);
     }
 
@@ -34,11 +33,6 @@ export class ReportsService implements IReportsService {
     @validateService("not found")
     async deresolve(id: string): Promise<void> {
         await this.reportsRepository.deresolve(id);
-    }
-
-    @validateService("not found")
-    async update(id: string, data: Reporte): Promise<void> {
-        await this.reportsRepository.update(id, data);
     }
 
     @validateService("not found")

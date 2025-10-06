@@ -68,4 +68,8 @@ router.delete('/delete/:id', (req: Request, res: Response) => {
     postController.delete(req, res);
 });
 
+router.get('/getPagination', (req: Request, res: Response) => {
+    postController.getPagination(req, res);
+});
+
 export default router;  

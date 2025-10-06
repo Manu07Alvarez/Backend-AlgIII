@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "windows"]
+  output        = "../src/generated/prisma"
+  engineType    = "client"
+  runtime       = "nodejs"
+}
+
+generator kysely {
+  provider      = "prisma-kysely"
+  output        = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+model Usuario {
+  id              Int       @id @default(autoincrement())
+  nombre_apellido String?
+  email           String    @unique
+  contraseña      String
+  activo          Boolean   @default(true)
+  rol             Rol?      @default(USUARIO)
+  createdAt       DateTime? @default(now())
+  updatedAt       DateTime? @updatedAt
+
+  Reportes Reporte[]
+  Reportado Reporte[] @relation("UsuarioReportado")
+  mensajes Mensaje[]
+  Tema Tema[]
+  Post Post[]
+}
+
+model Carrera {
+  id          Int      @id @default(autoincrement())
+  nombre      String   @unique
+  descripcion String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  activa      Boolean?  @default(true)
+
+  Tema Tema[]
+}
+
+model Tema {
+  id        Int       @id @default(autoincrement())
+  nombre    String    @unique
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  titulo      String
+  id_creador  Int
+  creador     Usuario @relation(fields: [id_creador], references: [id])
+  contenido   String  @db.Text
+  id_carrera  Int
+  carrera     Carrera  @relation(fields: [id_carrera], references: [id])
+  fijado      Boolean  @default(false)
+  cerrado     Boolean  @default(false)
+  Post Post[]
+  Reportes Reporte[]
+  @@index([nombre], name: "idx_tema_nombre")
+  @@index([id_carrera], name: "idx_tema_carrera")
+  @@index([id_creador], name: "idx_tema_creador")
+}	
+
+model Reporte {
+  id           String  @id @default(ulid())
+  descripcion  String
+  createdAt    DateTime? @default(now())
+  updatedAt    DateTime? @updatedAt
+  resuelto     Boolean?  @default(false)
+  reportador   Usuario  @relation(fields: [id_reportador], references: [id])
+  id_reportador Int
+
+  usuario_id Int?
+  usuario_reportado Usuario? @relation("UsuarioReportado",fields: [usuario_id], references: [id])
+
+  mensaje_id Int?
+  mensaje    Mensaje? @relation(fields: [mensaje_id], references: [id])
+
+  post_id Int?
+  post    Post?    @relation(fields: [post_id], references: [id])
+
+  tema_id Int?
+  tema    Tema?    @relation(fields: [tema_id], references: [id])
+  // Relaciones
+
+}
+
+model Post {
+  id         Int      @id @default(autoincrement())
+  titulo     String   @unique
+  contenido  String   @db.Text
+  published  Boolean  @default(false)
+  autor      Usuario  @relation(fields: [id_autor], references: [id])
+  id_autor    Int
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  id_tema    Int
+  tema       Tema     @relation(fields: [id_tema], references: [id])
+  Mensaje    Mensaje[]
+  Reportes   Reporte[]
+  @@index([titulo], name: "idx_post_titulo")
+  @@index([id_tema], name: "idx_post_tema")
+  @@index([id_autor], name: "idx_post_autor")
+}
+
+model Mensaje {
+  id         Int      @id @default(autoincrement())
+  contenido  String   @db.Text
+  id_autor   Int
+  autor      Usuario  @relation(fields: [id_autor], references: [id])
+  id_post    Int
+  post       Post     @relation(fields: [id_post], references: [id])
+  respuestas Mensaje[] @relation("MensajeRespuesta")
+  contestado Mensaje? @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
+  id_mensaje Int?
+  Reportes   Reporte[]
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+}
+
+enum Rol {
+  ADMIN
+  MODERADOR
+  USUARIO
+}

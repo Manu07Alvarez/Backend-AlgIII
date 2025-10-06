@@ -41,6 +41,7 @@ export class UserService extends Service<Usuario> implements IUserService {
     await this.userRepository.create(data);
   }
   
+  //FIXME: Tipos diferentes del return al promise
   async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
     return this.userRepository.getPagination(params);
     

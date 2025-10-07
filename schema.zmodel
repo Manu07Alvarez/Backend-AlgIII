@@ -22,9 +22,6 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
-type Auth {
-  id String @id
-}
 
 model Usuario {
   id              Int       @id @default(autoincrement())
@@ -115,6 +112,9 @@ model Post {
   @@index([titulo], name: "idx_post_titulo")
   @@index([id_tema], name: "idx_post_tema")
   @@index([id_autor], name: "idx_post_autor")
+  @@allow('all', auth().rol == 'ADMIN')
+  @@allow('read', published)
+  @@allow('create', autor == auth() )
 }
 
 model Mensaje {

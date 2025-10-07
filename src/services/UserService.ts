@@ -23,7 +23,7 @@ export class UserService extends Service<Usuario> implements IUserService {
   @validateService('not Logged: ')
   async login (email: string, contraseña : string): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
-    const contraseñaMatch = await compare(contraseña, user.contraseña as string);
+    const contraseñaMatch = await compare(contraseña, user.contrasenia as string);
     if (!contraseñaMatch) {
       throw new Error('Invalid password');
     }
@@ -42,8 +42,8 @@ export class UserService extends Service<Usuario> implements IUserService {
   }
   
   //FIXME: Tipos diferentes del return al promise
-  async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
+/*   async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
     return this.userRepository.getPagination(params);
     
-  }
+  } */
 }

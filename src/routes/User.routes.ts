@@ -44,9 +44,9 @@ router.route('/:id')
   userController.deactivate(req, res);
 })
 
-router.get('/getPagination', (req: Request, res: Response) => {
+/* router.get('/getPagination', (req: Request, res: Response) => {
   userController.getPagination(req, res);
 });
-
+ */
 
 export default router

@@ -84,7 +84,7 @@ export class UserController {
     }
   }
 
-   public async getPagination(req: Request, res: Response): Promise<void> {
+/*   public async getPagination(req: Request, res: Response): Promise<void> {
   try {
     const { page, limit } = req.query;
 
@@ -99,6 +99,5 @@ export class UserController {
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });
     }
-  }
-}
+  } */
 }

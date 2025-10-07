@@ -21,11 +21,16 @@ datasource db {
   provider = "postgresql"
   url = env("DATABASE_URL")
 }
+
+type Auth {
+  id String @id
+}
+
 model Usuario {
   id              Int       @id @default(autoincrement())
   nombre_apellido String?
   email           String    @unique
-  contraseña      String
+  contrasenia     String    @omit @password
   activo          Boolean   @default(true)
   rol             Rol?      @default(USUARIO)
   createdAt       DateTime? @default(now())
@@ -36,6 +41,7 @@ model Usuario {
   mensajes Mensaje[]
   Tema Tema[]
   Post Post[]
+  @@auth
 }
 
 model Carrera {

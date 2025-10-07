@@ -8,5 +8,5 @@ export interface IUserService {
   update(id: number, data: Usuario): Promise<void>;
   bajaUsuario(id: number, data: Usuario): Promise<void>;
   findAll(): Promise<Partial<Usuario[]>>;
-  getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>>;
+/*   getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>>; */
 }

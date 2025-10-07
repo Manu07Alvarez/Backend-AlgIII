@@ -1,17 +1,5 @@
 
 services:
-  db:
-    image: mysql:8.0
-    container_name: mysql_db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 4123
-      MYSQL_DATABASE: testdb
-    ports:
-      - "8078:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-
   adminer:
     image: adminer
     container_name: adminer_app
@@ -19,7 +7,6 @@ services:
     ports:
       - "8054:8080"
     depends_on:
-      - db
       - db-pg
   db-pg:
     image: postgres:18.0-alpine3.22
@@ -29,9 +16,8 @@ services:
       POSTGRES_PASSWORD: root
       POSTGRES_DB: testdb
     ports:
-      - 8079:5432
+      - 8078:5432
     volumes:
       - db_iseta_data:/var/lib/postgresql/data
 volumes:
-  db_data:
   db_iseta_data:

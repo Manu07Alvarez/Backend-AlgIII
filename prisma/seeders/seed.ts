@@ -22,7 +22,7 @@ async function main() {
         create: {
           nombre_apellido: faker.person.fullName(),
           email,
-          contraseña: faker.internet.password(),
+          contrasenia: faker.internet.password(),
           rol: [Rol.ADMIN, Rol.MODERADOR, Rol.USUARIO][Math.floor(Math.random() * 3)],
         }
       })

@@ -7,40 +7,10 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5000",
       "description": ""
     }
   ],
   "paths": {
- "/api/post/getPagination": {
-  "get": {
-    "tags": ["Posts"],
-    "summary": "Obtiene la paginación de posts",
-    "parameters": [
-      { "name": "page", "in": "query", "description": "Número de página", "required": false, "schema": { "type": "integer", "default": 1 } },
-      { "name": "limit", "in": "query", "description": "Cantidad de items por página", "required": false, "schema": { "type": "integer", "default": 10 } }
-    ],
-    "responses": {
-      "200": {
-        "description": "Paginación exitosa",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "data": { "type": "array", "items": { "type": "object" } },
-                "total": { "type": "integer" },
-                "totalPages": { "type": "integer" },
-                "currentPage": { "type": "integer" }  
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-},
-
     "/api/Tema/create": {
       "post": {
         "description": "",
@@ -411,7 +381,6 @@
         }
       }
     },
-    
     "/api/post/delete/{id}": {
       "delete": {
         "description": "",
@@ -425,6 +394,16 @@
             }
           }
         ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/post/getPagination": {
+      "get": {
+        "description": "",
         "responses": {
           "default": {
             "description": ""
@@ -799,26 +778,6 @@
         }
       }
     },
-    "/api/reporte/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/api/reporte/users": {
       "get": {
         "description": "",
@@ -899,9 +858,19 @@
         }
       }
     },
-    "/api/test/topics": {
+    "/api/reporte/{id}": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""

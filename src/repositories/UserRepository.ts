@@ -64,7 +64,7 @@ export class UserRepository extends Repository<Usuario> {
         select: {
           email: true,
           nombre_apellido: true,
-          contraseña: true,
+          contrasenia: true,
           rol: true,
           activo: true
         }
@@ -75,7 +75,7 @@ export class UserRepository extends Repository<Usuario> {
     const data = users.map(u => ({
       email: u.email,
       nombre_apellido: u.nombre_apellido ?? '',
-      contrasena: u.contraseña,
+      contrasena: u.contrasenia,
       rol: u.rol as "USUARIO" | "ADMIN" | "MODERADOR",
       activo: u.activo
     }));

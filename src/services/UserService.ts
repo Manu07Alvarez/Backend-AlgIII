@@ -20,9 +20,10 @@ export class UserService {
   @validateService('not Logged: ')
   async login(email: string, contraseña: string): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
-    const contraseñaMatch = await compare(contraseña, user.contraseña as string);
-
-    if (!contraseñaMatch) throw new Error('Invalid password');
+    const contraseñaMatch = await compare(contraseña, user.contrasenia as string);
+    if (!contraseñaMatch) {
+      throw new Error('Invalid password');
+    }
 
     return await new SignJWT({ id: user.id, nombre_apellido: user.nombre_apellido, rol: user.rol })
       .setProtectedHeader({ alg: 'HS256' })
@@ -35,9 +36,10 @@ export class UserService {
   async register(data: Usuario): Promise<void> {
     await this.userRepository.create(data);
   }
-
-  async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
-    // Se delega a UserRepository, que ya devuelve el tipo correcto
-    return this.userRepository.getPagination(params) as unknown as PaginationResults<Usuario>;
-  }
+  
+  //FIXME: Tipos diferentes del return al promise
+/*   async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
+    return this.userRepository.getPagination(params);
+    
+  } */
 }

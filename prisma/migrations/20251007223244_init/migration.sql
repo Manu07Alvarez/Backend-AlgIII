@@ -6,7 +6,7 @@ CREATE TABLE "Usuario" (
     "id" SERIAL NOT NULL,
     "nombre_apellido" TEXT,
     "email" TEXT NOT NULL,
-    "contraseña" TEXT NOT NULL,
+    "contrasenia" TEXT NOT NULL,
     "activo" BOOLEAN NOT NULL DEFAULT true,
     "rol" "Rol" DEFAULT 'USUARIO',
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,

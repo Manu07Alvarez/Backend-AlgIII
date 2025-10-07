@@ -39,6 +39,9 @@ model Usuario {
   Tema Tema[]
   Post Post[]
   @@auth
+  @@allow('all', auth().rol == 'ADMIN')
+  @@allow('read', auth().id == id || auth().rol == 'MODERADOR')
+  @@allow('update', auth().id == id)
 }
 
 model Carrera {
@@ -50,6 +53,8 @@ model Carrera {
   activa      Boolean?  @default(true)
 
   Tema Tema[]
+  @@allow('all', auth().rol == 'ADMIN')
+  @@allow('read', activa)
 }
 
 model Tema {
@@ -70,6 +75,11 @@ model Tema {
   @@index([nombre], name: "idx_tema_nombre")
   @@index([id_carrera], name: "idx_tema_carrera")
   @@index([id_creador], name: "idx_tema_creador")
+  @@allow('all', auth().rol == 'ADMIN')
+  @@allow('read', !cerrado)
+  @@allow('delete', creador == auth())
+  @@allow('create', creador == auth())
+  @@allow('update', creador == auth())
 }	
 
 model Reporte {
@@ -93,20 +103,22 @@ model Reporte {
   tema_id Int?
   tema    Tema?    @relation(fields: [tema_id], references: [id])
   // Relaciones
-
+  @@allow('all', auth().rol == 'ADMIN')
+  @@allow('read', ((auth().rol == 'MODERADOR') && !resuelto))
+  @@allow('create', auth() != null)
 }
 
 model Post {
-  id         Int      @id @default(autoincrement())
-  titulo     String   @unique
-  contenido  String   @db.Text
-  published  Boolean  @default(false)
-  autor      Usuario  @relation(fields: [id_autor], references: [id])
-  id_autor    Int
+  id         Int       @id @default(autoincrement())
+  titulo     String    @unique
+  contenido  String    @db.Text
+  published  Boolean   @default(false)
+  autor      Usuario   @relation(fields: [id_autor], references: [id])
+  id_autor   Int
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   id_tema    Int
-  tema       Tema     @relation(fields: [id_tema], references: [id])
+  tema       Tema      @relation(fields: [id_tema], references: [id])
   Mensaje    Mensaje[]
   Reportes   Reporte[]
   @@index([titulo], name: "idx_post_titulo")
@@ -114,7 +126,9 @@ model Post {
   @@index([id_autor], name: "idx_post_autor")
   @@allow('all', auth().rol == 'ADMIN')
   @@allow('read', published)
-  @@allow('create', autor == auth() )
+  @@allow('delete', autor == auth())
+  @@allow('create', autor == auth())
+  @@allow('update', autor == auth())
 }
 
 model Mensaje {
@@ -130,6 +144,11 @@ model Mensaje {
   Reportes   Reporte[]
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
+  @@allow('all', auth().rol == 'ADMIN')
+  @@allow('read', true)
+  @@allow('delete', autor == auth())
+  @@allow('create', autor == auth())
+  @@allow('update', autor == auth())
 }
 
 enum Rol {

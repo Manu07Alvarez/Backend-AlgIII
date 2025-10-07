@@ -1,17 +1,12 @@
-
 import { PrismaClient, Usuario } from 'db';
 import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
 import { validateRepo } from '../decorators/errors/errors.js';
-import IRepository from './interfaces/IUserRepository.js';
 import Repository from './Repository.js';
-//import { skip } from 'node:test'; TODO: Lo comente porque daba error en la compilacion
 
-export class UserRepository extends Repository<Usuario> implements IRepository<Usuario> {
-
-  constructor(
-    private readonly user: PrismaClient['usuario'],
-  ) {super(user);}
-
+export class UserRepository extends Repository<Usuario> {
+  constructor(private readonly user: PrismaClient['usuario']) {
+    super(user);
+  }
 
   @validateRepo
   async findByEmail(email: string): Promise<Partial<Usuario>> {
@@ -23,19 +18,31 @@ export class UserRepository extends Repository<Usuario> implements IRepository<U
         rol: true
       },
       where: { email }
-    })
+    });
   }
-  
   
   @validateRepo
   async findById(searchId: number): Promise<Partial<Usuario>> {
     return await this.entity.findUniqueOrThrow({
       omit:  { contraseña: true },
-      where: { id: searchId}
+      where: { id: searchId }
     });
   }
 
-  public async getPagination({ page, limit, search, sortBy, sortOrder }: { page: number; limit: number; search?: string; sortBy?: string; sortOrder?: "asc" | "desc"; }): Promise<{ data: { email: string; nombre_apellido: string; contrasena: string; rol: "USUARIO" | "ADMIN" | "MODERADOR"; activo: boolean; }[]; total: number; page: number; limit: number; }> {
+  public async getPagination({
+    page,
+    limit,
+    search,
+    sortBy,
+    sortOrder
+  }: PaginationParams): Promise<PaginationResults<{
+    email: string;
+    nombre_apellido: string;
+    contrasena: string;
+    rol: "USUARIO" | "ADMIN" | "MODERADOR";
+    activo: boolean;
+  }>> {
+
     const offset = (page - 1) * limit;
 
     const where: any = {};
@@ -73,13 +80,13 @@ export class UserRepository extends Repository<Usuario> implements IRepository<U
       activo: u.activo
     }));
 
+    const totalPages = Math.ceil(total / limit);
+
     return {
       data,
       total,
-      page,
-      limit
+      totalPages,
+      currentPage: page
     };
   }
-
 }
-

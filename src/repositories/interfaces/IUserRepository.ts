@@ -1,6 +1,6 @@
 import { Usuario } from "schemas/Usuarios.schema.js";
 
-export default interface IRepository<T> {
+export default interface Repository<T> {
   create(data: T): Promise<void>;
   findById(id: number): Promise<Partial<T>>;
   findAll(): Promise<T[]>;

@@ -27,6 +27,9 @@ router.post('/create', (req: Request, res: Response) => {
     */
     postController.create(req, res);
 });
+router.get('/getPagination', (req: Request, res: Response) => {
+    postController.getPagination(req, res);
+});
 
 router.get('/findAll', (req: Request, res: Response) => {
     postController.findAll(req, res);
@@ -68,8 +71,5 @@ router.delete('/delete/:id', (req: Request, res: Response) => {
     postController.delete(req, res);
 });
 
-router.get('/getPagination', (req: Request, res: Response) => {
-    postController.getPagination(req, res);
-});
 
 export default router;  

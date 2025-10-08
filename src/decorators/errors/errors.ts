@@ -1,5 +1,5 @@
 
-import * as Prisma from "../../generated/prisma/client.js";
+import * as Prisma from "db";
 import errLogger from "../../utils/logging/Logger.js";
 export function validateRepo<This, Args extends unknown[], Return>(
   target: (this: This, ...args: Args) => Promise<Return>, 

@@ -10,6 +10,7 @@ import reportRoutes from './Reportes.routes.js';
 
 
 export const routes = express.Router();
+routes.use
 routes.use('/api/Tema', temaRoutes);
 routes.use('/api/user', userRoutes);
 routes.use('/api/post', postRoutes);

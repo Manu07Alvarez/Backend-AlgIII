@@ -1,38 +1,25 @@
 import { Request, Response, NextFunction } from "express";
 import { jwtVerify, importSPKI } from "jose";
-import { validateEmail, validateContrasena } from "./validate_email_contrasena.js";
+import { getPublicKey } from "../utils/auth/KeyGen.js";
+import { validateSchema } from "../utils/validate.js";
+import { UserLogin } from "schemas/Usuarios.schema.js";
+import ValidateError from "Errors/ValidateError.js";
+import { AuthUserDTO } from "../types/DTOs/UsuariosDTO.js";
 
-export const authLogin = async (req: Request, res: Response, next: NextFunction) => {
-    const { email, contrasena } = req.body;
+export let auth_user: AuthUserDTO;
+
+export async function authLogin(req: Request, res: Response, next: NextFunction) {
+    const { email, contrasenia } = req.body;
     const tsCookie = req.cookies["token"];
-
-    if (email && contrasena) {
-        console.log("Email y contraseña encontradas");
-
-        if (!validateEmail(email)) {
-            return res.status(400).json({ mensaje: "El email no es válido" });
-        }
-
-        if (!validateContrasena(contrasena)) {
-            return res.status(400).json({ mensaje: "La contraseña no es válida" });
-        }
-
-        return next();
-    }
 
     if (tsCookie) {
         console.log("Cookie encontrada.");
 
         try {
-            const publicKeyStr = process.env.PUBLIC_KEY;
-            if (!publicKeyStr) {
-                throw new Error("Clave pública no definida en variables de entorno");
-            }
-
-            const publicKey = await importSPKI(publicKeyStr, "RS256");
-            const { payload } = await jwtVerify(tsCookie, publicKey);
+            const publicKey = await getPublicKey();
+            const {payload}  = await jwtVerify(tsCookie, publicKey!);
             console.log("Token válido: ", payload);
-
+            auth_user = payload as AuthUserDTO;
             return next();
         } catch (err) {
             console.error("Error al verificar token:", err);
@@ -40,5 +27,18 @@ export const authLogin = async (req: Request, res: Response, next: NextFunction)
         }
     }
 
-    return res.status(401).json({ mensaje: "No se han proporcionado credenciales" });
+    if (email && contrasenia) {
+        try{ 
+            console.log("Email y contraseña encontradas");
+            validateSchema<UserLogin>("login", req.body);
+            return next();
+        }catch(error){
+            if (error instanceof ValidateError) {
+                return res.status(400).json({ mensaje: error.message, details: error.details });
+            }
+            return res.status(500).json({ mensaje: "ocurrio un error inesperado" });
+        }
+    }
+
+    return res.status(401).json({ mensaje: "No se proporcionaron credenciales validas" });
 };

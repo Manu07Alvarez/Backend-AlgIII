@@ -1,6 +1,6 @@
 import { generateKeyPair, exportPKCS8, exportSPKI, exportJWK, importPKCS8, importSPKI } from 'jose';
-import fs from 'fs/promises';
-import fsSync from 'fs';
+import fs from 'node:fs/promises';
+import fsSync from 'node:fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -47,6 +47,6 @@ export const getPublicKey = async () => {
 		console.warn('Public key not found');
   } else {
 		const spki = await fs.readFile(PUBLIC_KEY_PATH, 'utf8');
-		return await importSPKI(spki, 'RS256');
+		return importSPKI(spki, 'RS256');
 	}
 }

@@ -28,8 +28,8 @@ export class UserService extends Service<Usuario> implements IUserService {
       throw new Error('Invalid password');
     }
 
-    return await new SignJWT({ id: user.id, nombre_apellido: user.nombre_apellido, rol: user.rol })
-          .setProtectedHeader({ alg: 'HS256' })
+    return await new SignJWT({ id: user.id, rol: user.rol })
+          .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
           .setIssuedAt()
           .setExpirationTime('4h')
           .sign(publicKey!);

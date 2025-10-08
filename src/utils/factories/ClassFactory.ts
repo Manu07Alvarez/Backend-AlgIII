@@ -18,7 +18,7 @@ import { ReportesController } from "../../controller/ReportesController.js";
 import { CarreraRepository } from "../../repositories/CarreraRepository.js";
 import { PrismaClient } from 'db';
 import { PrismaPg } from '@prisma/adapter-pg'
-import { DB } from "../../generated/prisma/types.js";
+import { DB } from "db/types.js";
 import { Kysely, PostgresDialect } from "kysely";
 import { Pool } from 'pg';
 

@@ -35,7 +35,7 @@ export class UserRepository extends Repository<Usuario> implements IRepository<U
     });
   }
 
-  public async getPagination({ page, limit, search, sortBy, sortOrder }: { page: number; limit: number; search?: string; sortBy?: string; sortOrder?: "asc" | "desc"; }): Promise<{ data: { email: string; nombre_apellido: string; contrasena: string; rol: "USUARIO" | "ADMIN" | "MODERADOR"; activo: boolean; }[]; total: number; page: number; limit: number; }> {
+  public async getPagination({ page, limit, search, sortBy, sortOrder }: { page: number; limit: number; search?: string; sortBy?: string; sortOrder?: "asc" | "desc"; }): Promise<Usuar[]; total: number; page: number; limit: number; }> {
     const offset = (page - 1) * limit;
 
     const where: any = {};
@@ -57,7 +57,6 @@ export class UserRepository extends Repository<Usuario> implements IRepository<U
         select: {
           email: true,
           nombre_apellido: true,
-          contrasenia: true,
           rol: true,
           activo: true
         }
@@ -68,7 +67,6 @@ export class UserRepository extends Repository<Usuario> implements IRepository<U
     const data = users.map(u => ({
       email: u.email,
       nombre_apellido: u.nombre_apellido ?? '',
-      contrasena: u.contrasenia,
       rol: u.rol as "USUARIO" | "ADMIN" | "MODERADOR",
       activo: u.activo
     }));

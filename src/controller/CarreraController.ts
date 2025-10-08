@@ -12,6 +12,7 @@ export class CarreraController {
 
     public async update(req: Request, res: Response): Promise<void> {
         try {
+            
             const id = Number(req.params.id);
             const carrera: Partial<Carrera> = req.body;
             await this.CarreraService.update(id, carrera);

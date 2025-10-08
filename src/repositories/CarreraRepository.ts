@@ -6,6 +6,7 @@ import { validateRepo } from '../decorators/errors/errors.js';
 export class CarreraRepository extends Repository<Carrera> implements ICarreraRepository {
   constructor(
       private readonly carrera: PrismaClient['carrera'],
+      
   ) {super(carrera);}
 
 

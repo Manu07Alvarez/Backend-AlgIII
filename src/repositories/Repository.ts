@@ -2,7 +2,6 @@
 import { validateRepo } from "../decorators/errors/errors.js";
 export default abstract class Repository<T> {
 	constructor(protected readonly entity: any) {}
-
 	@validateRepo
 	public async update(id: number, data: T): Promise<void> {
 		await this.entity.update({

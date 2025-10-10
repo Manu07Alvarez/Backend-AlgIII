@@ -3,11 +3,20 @@ import type { Post, PrismaClient } from 'db';
 import Repository from './Repository.js';
 import IPostRepository from './interfaces/IPostRepository.js';
 import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
+import { getAuth } from 'utils/context/AuthUserContext.js';
 
 export class PostRepository extends Repository<Post> implements IPostRepository {
     constructor(private readonly Post: PrismaClient['post']) {
-        super(Post);
+        super(this.db);
     }
+    
+    private get db () {
+		const { db } = getAuth();
+		if (!db) {  
+			throw new Error("DB no inicializada en el contexto");
+		}
+		return db.post;
+	}
 
     @validateRepo
     async findByTitle(title: string): Promise<Partial<Post[]>> {

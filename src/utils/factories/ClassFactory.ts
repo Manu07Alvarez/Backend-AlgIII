@@ -27,42 +27,42 @@ const pool = new Pool({
   max: 5
 })
 const adapter = new PrismaPg(pool);
-const Prisma = new PrismaClient({adapter});
+export const prismaApp = new PrismaClient({adapter});
 const dialect = new PostgresDialect({
   pool: pool
 });
 
-const db = new Kysely<DB>({
+export const dbK = new Kysely<DB>({
   dialect
 });
 
 
 
 export function createUserController(): UserController {
-  const repo = new UserRepository(Prisma.usuario);
+  const repo = new UserRepository(prismaApp.usuario);
   const service = new UserService(repo);
   return new UserController(service);
 };
 
 export function createCarreraController(): CarreraController {
-  const repo = new CarreraRepository(Prisma.carrera);
+  const repo = new CarreraRepository(prismaApp.carrera);
   const service = new CarreraService(repo);
   return new CarreraController(service);
 };
 
 export function createTemaController(): TemasController {
-  const repo = new TemasRepository(Prisma.tema);
+  const repo = new TemasRepository(prismaApp.tema);
   const service = new TemasService(repo);
   return new TemasController(service);
 };
 export function createPostController(): PostController{
-  const repo = new PostRepository(Prisma.post);
+  const repo = new PostRepository(prismaApp.post);
   const service = new PostService(repo);
   return new PostController(service);
 };
 
 export function createMensajeController(): MensajesController{
-  const repo = new MensajesRepository(Prisma.mensaje);
+  const repo = new MensajesRepository(prismaApp.mensaje);
   const service = new MensajesService(repo);
   return new MensajesController(service);
 };
@@ -73,7 +73,7 @@ export function createMensajeController(): MensajesController{
  * @returns {ReportesController} a new instance of ReportesController
  */
  export function createReporteController(): ReportesController{
-  const repo = new ReportsRepository(db);
+  const repo = new ReportsRepository(dbK);
   const service = new ReportsService(repo);
   return new ReportesController(service);
   

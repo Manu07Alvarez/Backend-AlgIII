@@ -4,41 +4,35 @@ import { getPublicKey } from "../utils/auth/KeyGen.js";
 import { validateSchema } from "../utils/validate.js";
 import { UserLogin } from "schemas/Usuarios.schema.js";
 import ValidateError from "Errors/ValidateError.js";
+import { auth, enhance } from '@zenstackhq/runtime';
 import { AuthUserDTO } from "../types/DTOs/UsuariosDTO.js";
+import { prismaApp } from "../utils/factories/ClassFactory.js"; 
+import { auth_context } from "../utils/context/AuthUserContext.js";
 
 export let auth_user: AuthUserDTO;
 
-export async function authLogin(req: Request, res: Response, next: NextFunction) {
-    const { email, contrasenia } = req.body;
+export async function authToken(req: Request, res: Response, next: NextFunction) {
     const tsCookie = req.cookies["token"];
-
-    if (tsCookie) {
-        console.log("Cookie encontrada.");
-
-        try {
-            const publicKey = await getPublicKey();
-            const {payload}  = await jwtVerify(tsCookie, publicKey!);
-            console.log("Token válido: ", payload);
-            auth_user = payload as AuthUserDTO;
-            return next();
-        } catch (err) {
-            console.error("Error al verificar token:", err);
-            return res.status(401).json({ mensaje: "Token inválido o expirado" });
-        }
+    if (!tsCookie) {
+        const auth_user = undefined;
+        const db = enhance(prismaApp);
+        auth_context.run({user: auth_user, db: db},  () => {
+            next()
+        });
     }
+    console.log("Cookie encontrada.");
 
-    if (email && contrasenia) {
-        try{ 
-            console.log("Email y contraseña encontradas");
-            validateSchema<UserLogin>("login", req.body);
-            return next();
-        }catch(error){
-            if (error instanceof ValidateError) {
-                return res.status(400).json({ mensaje: error.message, details: error.details });
-            }
-            return res.status(500).json({ mensaje: "ocurrio un error inesperado" });
-        }
+    try {
+        const publicKey = await getPublicKey();
+        const {payload}  = await jwtVerify(tsCookie, publicKey!);
+        console.log("Token válido: ", payload);
+        const auth_user = payload as AuthUserDTO;
+        const db = enhance(prismaApp, {user: auth_user});
+        auth_context.run({user: auth_user, db: db},  () => {
+            next()
+        });
+    } catch (err) {
+        console.error("Error al verificar token:", err);
+        res.status(401).json({ mensaje: "Token inválido o expirado" });
     }
-
-    return res.status(401).json({ mensaje: "No se proporcionaron credenciales validas" });
 };

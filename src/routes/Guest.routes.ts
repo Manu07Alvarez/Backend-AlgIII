@@ -1,11 +1,12 @@
 
 import { Request, Router, Response } from 'express';
 import { createUserController } from '../utils/factories/ClassFactory.js';
+import { authLogin } from 'middleware/LoginMiddleware.js';
 
 const router = Router();
 const userController = createUserController();
 
-
+router.use("/login", authLogin);
 router.post('/login', (req: Request, res: Response) => {
   userController.login(req, res);
   /*  #swagger.requestBody = {

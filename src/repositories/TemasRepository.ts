@@ -5,16 +5,14 @@ import ITemasRepository from './interfaces/ITemaRepository.js';
 import { query } from 'winston';
 
 // TODO: consulta de temas con where de cerrado = false
-export class TemasRepository extends repository<Tema> implements ITemasRepository {
-  constructor(
-    private readonly tema: PrismaClient['tema'],
-  ) {
-    super(tema);
+export class TemasRepository extends repository<Tema, "tema"> implements ITemasRepository {
+  constructor() {
+    super("tema");
   }
 
   @validateRepo
   async obtenerTemasAbiertos(): Promise<Tema[]> {
-    return this.tema.findMany({
+    return super["db"].findMany({
       where: {
         cerrado: false,
       },

@@ -6,20 +6,17 @@ import IRepository from './interfaces/IUserRepository.js';
 import Repository from './Repository.js';
 //import { skip } from 'node:test'; TODO: Lo comente porque daba error en la compilacion
 
-export class UserRepository extends Repository<Usuario> implements IRepository<Usuario> {
+export class UserRepository extends Repository<Usuario, "usuario"> implements IRepository<Usuario> {
 
-  constructor(
-    private readonly user: PrismaClient['usuario'],
-  ) {super(user);}
+  constructor() {super("usuario");}
 
 
   @validateRepo
   async findByEmail(email: string): Promise<Partial<Usuario>> {
-    return await this.entity.findUniqueOrThrow({
+    return await super["db"].findUniqueOrThrow({
       select: { 
         id: true,
         nombre_apellido: true,
-        contraseña: true,
         rol: true
       },
       where: { email }
@@ -29,8 +26,8 @@ export class UserRepository extends Repository<Usuario> implements IRepository<U
   
   @validateRepo
   async findById(searchId: number): Promise<Partial<Usuario>> {
-    return await this.entity.findUniqueOrThrow({
-      omit:  { contraseña: true },
+    return await super["db"].findUniqueOrThrow({
+      omit:  { contrasenia: true },
       where: { id: searchId}
     });
   }

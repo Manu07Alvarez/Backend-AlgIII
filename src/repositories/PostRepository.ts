@@ -5,22 +5,16 @@ import IPostRepository from './interfaces/IPostRepository.js';
 import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
 import { getAuth } from 'utils/context/AuthUserContext.js';
 
-export class PostRepository extends Repository<Post> implements IPostRepository {
-    constructor(private readonly Post: PrismaClient['post']) {
-        super(this.db);
+export class PostRepository extends Repository<Post, "post"> implements IPostRepository {
+
+    constructor() {
+        super("post");
     }
     
-    private get db () {
-		const { db } = getAuth();
-		if (!db) {  
-			throw new Error("DB no inicializada en el contexto");
-		}
-		return db.post;
-	}
 
     @validateRepo
     async findByTitle(title: string): Promise<Partial<Post[]>> {
-        return await this.Post.findMany({
+        return await super["db"].findMany({
             where: { titulo: { contains: title } },
         });
     }
@@ -38,8 +32,8 @@ export class PostRepository extends Repository<Post> implements IPostRepository 
         const orderBy = sortBy ? { [sortBy]: sortOrder ?? 'asc' } : undefined;
 
         const [data, total] = await Promise.all([
-            this.Post.findMany({ skip: offset, take: limit, where, orderBy }),
-            this.Post.count({ where })
+            super["db"].findMany({ skip: offset, take: limit, where, orderBy }),
+            super["db"].count({ where })
         ]);
 
         return {

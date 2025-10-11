@@ -40,8 +40,9 @@ model Usuario {
   Post Post[]
   @@auth
   @@allow('all', auth().rol == 'ADMIN')
-  @@allow('read', auth().id == id || auth().rol == 'MODERADOR')
+  @@allow('read', auth().id == id || auth().rol == 'MODERADOR' || auth() == null)
   @@allow('update', auth().id == id)
+  @@allow('create', auth() == null)
 }
 
 model Carrera {

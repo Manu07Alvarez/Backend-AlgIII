@@ -1,7 +1,7 @@
 
 import { Request, Router, Response } from 'express';
 import { createUserController } from '../utils/factories/ClassFactory.js';
-import { authLogin } from 'middleware/LoginMiddleware.js';
+import { authLogin } from '../middleware/LoginMiddleware.js';
 
 const router = Router();
 const userController = createUserController();

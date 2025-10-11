@@ -12,17 +12,9 @@ import { auth_context } from "../utils/context/AuthUserContext.js";
 export let auth_user: AuthUserDTO;
 
 export async function authToken(req: Request, res: Response, next: NextFunction) {
-    const tsCookie = req.cookies["token"];
-    if (!tsCookie) {
-        const auth_user = undefined;
-        const db = enhance(prismaApp);
-        auth_context.run({user: auth_user, db: db},  () => {
-            next()
-        });
-    }
-    console.log("Cookie encontrada.");
-
     try {
+        const tsCookie = req.cookies["token"];
+        console.log("Cookie encontrada.");
         const publicKey = await getPublicKey();
         const {payload}  = await jwtVerify(tsCookie, publicKey!);
         console.log("Token válido: ", payload);
@@ -33,6 +25,10 @@ export async function authToken(req: Request, res: Response, next: NextFunction)
         });
     } catch (err) {
         console.error("Error al verificar token:", err);
-        res.status(401).json({ mensaje: "Token inválido o expirado" });
+        const auth_user = undefined;
+        const db = enhance(prismaApp);
+        auth_context.run({user: auth_user, db: db},  () => {
+            next()
+        });
     }
 };

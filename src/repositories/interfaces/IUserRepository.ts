@@ -8,5 +8,5 @@ export default interface IRepository<T> {
   delete(id: number): Promise<void>;
   findByName(name: string): Promise<Partial<T>>;
   activateOrDeactivate(id: number): Promise<void>;
-  getPagination(params: { page: number; limit: number; search?: string | undefined; sortBy?: string | undefined; sortOrder?: 'asc' | 'desc' | undefined; }): Promise<{ data: Usuario[]; total: number; page: number; limit: number; }>;
+  /* getPagination(params: { page: number; limit: number; search?: string | undefined; sortBy?: string | undefined; sortOrder?: 'asc' | 'desc' | undefined; }): Promise<{ data: Usuario[]; total: number; page: number; limit: number; }>; */
 }

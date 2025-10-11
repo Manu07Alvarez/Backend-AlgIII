@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getAuth } from "utils/context/AuthUserContext.js";
+import { getAuth } from "../utils/context/AuthUserContext.js";
 import { validateRepo } from "../decorators/errors/errors.js";
 import { PrismaClient } from "@zenstackhq/runtime";
 import { ModelKeys } from "../types/EntitysTypes.js";

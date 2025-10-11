@@ -39,30 +39,30 @@ export const dbK = new Kysely<DB>({
 
 
 export function createUserController(): UserController {
-  const repo = new UserRepository(prismaApp.usuario);
+  const repo = new UserRepository();
   const service = new UserService(repo);
   return new UserController(service);
 };
 
 export function createCarreraController(): CarreraController {
-  const repo = new CarreraRepository(prismaApp.carrera);
+  const repo = new CarreraRepository();
   const service = new CarreraService(repo);
   return new CarreraController(service);
 };
 
 export function createTemaController(): TemasController {
-  const repo = new TemasRepository(prismaApp.tema);
+  const repo = new TemasRepository();
   const service = new TemasService(repo);
   return new TemasController(service);
 };
 export function createPostController(): PostController{
-  const repo = new PostRepository(prismaApp.post);
+  const repo = new PostRepository();
   const service = new PostService(repo);
   return new PostController(service);
 };
 
 export function createMensajeController(): MensajesController{
-  const repo = new MensajesRepository(prismaApp.mensaje);
+  const repo = new MensajesRepository();
   const service = new MensajesService(repo);
   return new MensajesController(service);
 };

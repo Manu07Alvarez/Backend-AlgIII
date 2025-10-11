@@ -7,7 +7,7 @@ import guestRoutes from './Guest.routes.js';
 import carreraRoutes from './Carrera.routes.js';
 import mensajesRoutes from './Mensajes.routes.js';
 import reportRoutes from './Reportes.routes.js';
-import { authToken } from 'middleware/middleware_auth.js';
+import { authToken } from '../middleware/middleware_auth.js';
 
 
 export const routes = express.Router();

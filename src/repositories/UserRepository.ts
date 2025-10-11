@@ -32,7 +32,7 @@ export class UserRepository extends Repository<Usuario, "usuario"> implements IR
     });
   }
 
-  public async getPagination({ page, limit, search, sortBy, sortOrder }: { page: number; limit: number; search?: string; sortBy?: string; sortOrder?: "asc" | "desc"; }): Promise<Usuar[]; total: number; page: number; limit: number; }> {
+  /* public async getPagination({ page, limit, search, sortBy, sortOrder }: { page: number; limit: number; search?: string; sortBy?: string; sortOrder?: "asc" | "desc"; }): Promise<Usuar[]; total: number; page: number; limit: number; }> {
     const offset = (page - 1) * limit;
 
     const where: any = {};
@@ -74,7 +74,7 @@ export class UserRepository extends Repository<Usuario, "usuario"> implements IR
       page,
       limit
     };
-  }
+  } */
 
 }
 

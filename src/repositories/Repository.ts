@@ -47,7 +47,9 @@ export default abstract class Repository<T, K extends ModelKeys> {
 	 * @param data The data to be inserted
 	 */
 	public async create(data: T): Promise<void> {
-		await (this.db as any).create({data});
+		const arrData: T[] = [data];
+		console.log(arrData);
+		await (this.db as any).createMany({data: arrData});
 	}
 
 	@validateRepo

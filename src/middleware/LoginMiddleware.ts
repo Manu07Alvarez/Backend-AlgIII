@@ -7,12 +7,15 @@ import { AuthUserDTO } from "../types/DTOs/UsuariosDTO.js";
 export let auth_user: AuthUserDTO;
 
 export async function authLogin(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const { email, contrasenia } = req.body;
+    const data = { 
+        email: req.body.email, 
+        contrasenia: req.body.contrasenia 
+    }; 
 
-    if (email && contrasenia) {
+    if (data.email && data.contrasenia) {
         try{ 
             console.log("Email y contraseña encontradas");
-            validateSchema<UserLogin>("login", req.body);
+            validateSchema<UserLogin>("login", data);
             console.log("Test");
             next();
         }catch(error){

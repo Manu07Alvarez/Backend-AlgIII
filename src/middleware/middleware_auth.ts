@@ -26,7 +26,7 @@ export async function authToken(req: Request, res: Response, next: NextFunction)
     } catch (err) {
         console.error("Error al verificar token:", err);
         const auth_user = undefined;
-        const db = enhance(prismaApp);
+        const db = enhance(prismaApp, {user: auth_user});
         auth_context.run({user: auth_user, db: db},  () => {
             next()
         });

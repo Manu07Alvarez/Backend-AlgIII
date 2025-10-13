@@ -36,7 +36,5 @@ export class UserRepository extends Repository<Usuario> {
       where: { id: searchId }
     });
   }
- 
 
-  
 }

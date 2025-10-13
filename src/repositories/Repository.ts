@@ -1,11 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { getAuth } from "../utils/context/AuthUserContext.js";
 import { validateRepo } from "../decorators/errors/errors.js";
-export default abstract class Repository<T> {
-	constructor(protected readonly entity: any) {}
+import { PrismaClient } from "@zenstackhq/runtime";
+import { ModelKeys } from "../types/EntitysTypes.js";
+
+export default abstract class Repository<T, K extends ModelKeys> {
+	constructor(private readonly modelName: K) {}
+
+	private get db () {
+		const { db } = getAuth();
+		if (!db) {  
+			throw new Error("DB no inicializada en el contexto");
+		}
+		return db[this.modelName];
+	}
 
 	@validateRepo
 	public async update(id: number, data: T): Promise<void> {
-		await this.entity.update({
+		await (this.db as any).update({
 			where: { id: id },
 			data
 		})
@@ -13,7 +25,7 @@ export default abstract class Repository<T> {
 	
 	@validateRepo
 	public async delete(id: number): Promise<void> {
-		await this.entity.delete({
+		await (this.db as any).delete({
 		where: { id }
 		})
 	}
@@ -21,7 +33,7 @@ export default abstract class Repository<T> {
 	@validateRepo
 	public async activateOrDeactivate(searchId: number): Promise<void> {
 		const data = await this.findById(searchId);
-		await this.entity.update({
+		await (this.db as any).update({
 			where: { id: searchId },
 			data: {
 				activa: !(data as any).activa,
@@ -35,17 +47,19 @@ export default abstract class Repository<T> {
 	 * @param data The data to be inserted
 	 */
 	public async create(data: T): Promise<void> {
-		await this.entity.create({data});
+		const arrData: T[] = [data];
+		console.log(arrData);
+		await (this.db as any).createMany({data: arrData});
 	}
 
 	@validateRepo
 	public async findAll(): Promise<T[]> {
-		return await this.entity.findMany()
+		return await (this.db as any).findMany()
 	}
 
 	@validateRepo
 	public async findById(searchId: number): Promise<Partial<T>> {
-		return this.entity.findUniqueOrThrow({
+		return (this.db as any).findUniqueOrThrow({
 			omit: { 
 				createdAt: true, 
 				updatedAt: true 
@@ -65,7 +79,7 @@ export default abstract class Repository<T> {
 	 */
 
 	public async findByName(searchNombre: string): Promise<Partial<T>> {
-		return this.entity.findUniqueOrThrow({
+		return (this.db as any).findUniqueOrThrow({
 			omit: { 
 				createdAt: true, 
 				updatedAt: true 

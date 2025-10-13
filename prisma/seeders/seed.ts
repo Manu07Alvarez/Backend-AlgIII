@@ -8,10 +8,10 @@ const pool = new Pool({
   max: 5
 })
 const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({adapter});
+const prisma = new PrismaClient({adapter, log: ['query', 'info', 'warn', 'error']});
 async function main() {
   faker.seed(1);
-  const length = 50;
+  const length = 10;
   // Crear usuarios por email (clave única)
   const users = await Promise.all(
     Array.from({ length: length }).map(() => {

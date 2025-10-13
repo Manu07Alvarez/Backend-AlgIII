@@ -1,4 +1,3 @@
-
 await import('./utils/telemetry/Instrumentation.js')
 import * as dotenv from 'dotenv'
 dotenv.config() // Load the environment variables

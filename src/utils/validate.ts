@@ -1,22 +1,24 @@
-import Ajv from "ajv";
-import addFormat from "ajv-formats";
-//FIX: cambiar uso de creacion de instancia de ajv a un compilador.
-const ajv = new Ajv.default({allErrors: true, strict: false});
-addFormat.default(ajv);
 
+import ValidateError from "../Errors/ValidateError.js";
+import { ajv } from "./Validation.js";
 
+export const validateSchema = <T>(schema: string, data: unknown) => {
 
-export const validateSchema = <T>(schema: "string", data: unknown) => {
-
-    const validate = ajv.getSchema<T>(schema);
-    if (!validate) {
-        throw new Error(`Schema ${schema} not found`);
+    try { 
+        const validate = ajv.getSchema<T>(schema);
+        if (!validate) {
+            throw new Error(`Schema ${schema} not found`);
+        }
+        if (!validate(data)) {
+            validate.errors?.forEach((error) => {
+                console.error(`Validation error in schema ${schema}:`, error);
+            });
+            throw new ValidateError("Invalid data", validate.errors || []);
+        }
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new ValidateError(error.message, []);
+        }
+        throw error;
     }
-    if (!validate(data)) {
-        validate.errors?.forEach((error) => {
-            console.error(`Validation error in schema ${schema}:`, error);
-        });
-        throw new Error(`Validation failed for schema ${schema}`);
-    }
-    return data;
 };

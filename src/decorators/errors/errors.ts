@@ -1,5 +1,5 @@
 
-import * as Prisma from "../../generated/prisma/client.js";
+import * as Prisma from "db";
 import errLogger from "../../utils/logging/Logger.js";
 export function validateRepo<This, Args extends unknown[], Return>(
   target: (this: This, ...args: Args) => Promise<Return>, 
@@ -18,7 +18,7 @@ export function validateRepo<This, Args extends unknown[], Return>(
           throw new Error(getLastLine(error.message));
         };
         if (error instanceof Error) { 
-          errLogger.error("ERROR 💥 " + error);
+          errLogger.error("ERROR 💥 " + error.name + " " + error.message + " " + error.stack);
           throw new Error(getLastLine(error.message));
         };
         errLogger.error("ERROR 💥 " + error);

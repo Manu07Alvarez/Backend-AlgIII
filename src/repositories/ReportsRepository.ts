@@ -3,7 +3,7 @@ import { PostReportesDTO, GetReportesDTO } from '../schemas/Reportes.schemas.js'
 import { PostsReportesDTO, TemasReportesDTO, UsuariosReportesDTO, MensajesReportesDTO } from '../types/DTOs/ReportesDTO.js'
 import IReportsRepository from './interfaces/IReportsRepository.js'
 import { Reporte } from 'db'
-import { DB } from '../generated/prisma/types.js'
+import { DB } from 'db/types.js'
 import { Kysely } from 'kysely'
 
 export class ReportsRepository implements IReportsRepository {

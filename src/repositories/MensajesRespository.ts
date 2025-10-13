@@ -3,16 +3,14 @@ import { PrismaClient, Mensaje } from 'db';
 import { validateRepo } from "../decorators/errors/errors.js";
 import IMensajesRepository from "./interfaces/IMensajesRepository.js";
 
-export default class MensajesRepository extends Repository<Mensaje> implements IMensajesRepository {
-  constructor(
-    private readonly mensajes: PrismaClient['mensaje'],
-  ) {
-    super(mensajes);
+export default class MensajesRepository extends Repository<Mensaje, "mensaje"> implements IMensajesRepository {
+  constructor() {
+    super("mensaje");
   }
 
   public findAllInPost(postId: number): Promise<Mensaje[]>{
 	console.log(postId);
-	return this.entity.findMany({
+	return super["db"].findMany({
 		where: { 
 			id_post: postId,
 		},
@@ -26,7 +24,7 @@ export default class MensajesRepository extends Repository<Mensaje> implements I
 
   @validateRepo
   public async messagesResponded(messageId: number): Promise<Mensaje[]> {
-	return this.entity.findMany({
+	return super["db"].findMany({
 		where: {
 			id_mensaje: messageId,
 		},
@@ -35,7 +33,7 @@ export default class MensajesRepository extends Repository<Mensaje> implements I
 
   @validateRepo
   public async findAllInUserId(userId: number): Promise<Mensaje[]> {
-    return this.entity.findMany({
+    return super["db"].findMany({
 		where: { 
 			id_autor: userId,
 			},

@@ -25,8 +25,8 @@ datasource db {
 
 model Usuario {
   id              Int       @id @default(autoincrement())
-  nombre_apellido String?
-  email           String    @unique
+  nombre_apellido String?   @allow("read", true, true)
+  email           String    @unique @allow("read", true, true)
   contrasenia     String    @omit @password
   activo          Boolean   @default(true)
   rol             Rol?      @default(USUARIO)
@@ -40,8 +40,9 @@ model Usuario {
   Post Post[]
   @@auth
   @@allow('all', auth().rol == 'ADMIN')
-  @@allow('read', auth().id == id || auth().rol == 'MODERADOR')
-  @@allow('update', auth().id == id)
+  @@allow('read', auth().rol == 'MODERADOR')
+  @@allow('create', auth() == null)
+  @@allow('all', auth() == this)
 }
 
 model Carrera {
@@ -63,7 +64,7 @@ model Tema {
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   titulo      String
-  id_creador  Int
+  id_creador  Int     @default(auth().id)
   creador     Usuario @relation(fields: [id_creador], references: [id])
   contenido   String  @db.Text
   id_carrera  Int
@@ -88,8 +89,8 @@ model Reporte {
   createdAt    DateTime? @default(now())
   updatedAt    DateTime? @updatedAt
   resuelto     Boolean?  @default(false)
-  reportador   Usuario  @relation(fields: [id_reportador], references: [id])
-  id_reportador Int
+  reportador   Usuario   @relation(fields: [id_reportador], references: [id])
+  id_reportador Int      @default(auth().id)
 
   usuario_id Int?
   usuario_reportado Usuario? @relation("UsuarioReportado",fields: [usuario_id], references: [id])
@@ -114,7 +115,7 @@ model Post {
   contenido  String    @db.Text
   published  Boolean   @default(false)
   autor      Usuario   @relation(fields: [id_autor], references: [id])
-  id_autor   Int
+  id_autor   Int       @default(auth().id)
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   id_tema    Int
@@ -134,7 +135,7 @@ model Post {
 model Mensaje {
   id         Int      @id @default(autoincrement())
   contenido  String   @db.Text
-  id_autor   Int
+  id_autor   Int      @default(auth().id)
   autor      Usuario  @relation(fields: [id_autor], references: [id])
   id_post    Int
   post       Post     @relation(fields: [id_post], references: [id])

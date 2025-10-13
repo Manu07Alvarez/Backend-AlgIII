@@ -1,5 +1,5 @@
 import { Post } from "db";
-import { PaginationResults } from "types/pagination.types.js";
+import { PaginationResults } from ".../../types/pagination.types.js";
 
 export default interface IPostRepository {
     create(data: Post): Promise<void>;

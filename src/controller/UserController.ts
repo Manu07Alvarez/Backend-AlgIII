@@ -78,7 +78,6 @@ export class UserController {
                 sortBy: sortBy as string | undefined,
                 sortOrder: sortOrder as 'asc' | 'desc' | undefined
             };
-
             const result: PaginationResults<Usuario> = await this.userService.getPagination(params);
             res.status(200).json(result);
         } catch (error: unknown) {

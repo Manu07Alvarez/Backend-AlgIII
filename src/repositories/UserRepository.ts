@@ -3,7 +3,7 @@ import { validateRepo } from '../decorators/errors/errors.js';
 import Repository from './Repository.js';
 import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
 
-export class UserRepository extends Repository<Usuario, "usuario">{
+export class UserRepository extends Repository<Usuario, "usuario"> {
 
   constructor() {super("usuario");}
 
@@ -29,8 +29,8 @@ export class UserRepository extends Repository<Usuario, "usuario">{
     });
   }
 
- public async getPagination(params: PaginationParams): Promise<PaginationResults<any>> {
-  const { page = 1, limit = 10, search, sortBy, sortOrder } = params;
+ public async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
+  const { page, limit, search, sortBy, sortOrder } =params;
   const offset = (page - 1) * limit;
 
   const where = search
@@ -43,13 +43,6 @@ export class UserRepository extends Repository<Usuario, "usuario">{
     : {};
 
   const orderBy = sortBy ? { [sortBy]: sortOrder ?? 'asc' } : undefined;
-
-  type UsuarioSelect = {
-    email: string;
-    nombre_apellido: string | null;
-    rol: Rol | null;
-    activo: boolean;
-  };
 
   const [users, total] = await Promise.all([
     super["db"].findMany({
@@ -67,15 +60,8 @@ export class UserRepository extends Repository<Usuario, "usuario">{
     super["db"].count({ where })
   ]);
 
-  const data = users.map((u: UsuarioSelect) => ({
-    email: u.email,
-    nombre_apellido: u.nombre_apellido ?? '',
-    rol: u.rol ?? 'USUARIO',
-    activo: u.activo
-  }));
-
   return {
-    data,
+    data: users,
     total,
     totalPages: Math.ceil(total / limit),
     currentPage: page

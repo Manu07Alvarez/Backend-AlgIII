@@ -1,12 +1,19 @@
 import { Usuario } from "schemas/Usuarios.schema.js";
+import { PaginationResults } from "../../types/pagination.types.js";
 
-export default interface Repository<T> {
-  create(data: T): Promise<void>;
-  findById(id: number): Promise<Partial<T>>;
-  findAll(): Promise<T[]>;
-  update(id: number, data: T): Promise<void>;
-  delete(id: number): Promise<void>;
-  findByName(name: string): Promise<Partial<T>>;
-  activateOrDeactivate(id: number): Promise<void>;
-  /* getPagination(params: { page: number; limit: number; search?: string | undefined; sortBy?: string | undefined; sortOrder?: 'asc' | 'desc' | undefined; }): Promise<{ data: Usuario[]; total: number; page: number; limit: number; }>; */
+export default interface IUserRepository {
+    create(data: Usuario): Promise<void>;
+    findByName(name: string): Promise<Partial<Usuario>>;
+    findById(id: number): Promise<Partial<Usuario>>;
+    findAll(): Promise<Usuario[]>;
+    activateOrDeactivate(id: number): Promise<void>;
+    update(id: number, data: Usuario): Promise<void>;
+    delete(id: number): Promise<void>;
+    getPagination(params: {
+        page: number;
+        limit: number;
+        search?: string;
+        sortBy?: string;
+        sortOrder?: "asc" | "desc";
+    }): Promise<PaginationResults<Usuario>>;
 }

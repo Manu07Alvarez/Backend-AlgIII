@@ -12,5 +12,5 @@ export  interface IUserService {
     login(email: string, contraseña: string): Promise<string>;
     register(data: Usuario): Promise<void>;
     bajaUsuario(id: number, data: Usuario): Promise<void>;
-    getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>>;
+    getPagination(params: PaginationParams): Promise<PaginationResults<Partial<Usuario>>>;
 }

@@ -29,7 +29,7 @@ export class UserRepository extends Repository<Usuario, "usuario"> {
     });
   }
 
- public async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
+ public async getPagination(params: PaginationParams): Promise<PaginationResults<Partial<Usuario>>> {
   const { page, limit, search, sortBy, sortOrder } =params;
   const offset = (page - 1) * limit;
 
@@ -43,12 +43,16 @@ export class UserRepository extends Repository<Usuario, "usuario"> {
     : {};
 
   const orderBy = sortBy ? { [sortBy]: sortOrder ?? 'asc' } : undefined;
+  let users: Partial<Usuario>[];
+  let total: number;
 
-  const [users, total] = await Promise.all([
-    super["db"].findMany({
+
+  if(super['user'] != null){
+    [users, total] =  ([
+    
+     await super["db"].findMany({
       skip: offset,
       take: limit,
-      where,
       orderBy,
       select: {
         email: true,
@@ -57,17 +61,31 @@ export class UserRepository extends Repository<Usuario, "usuario"> {
         activo: true
       }
     }),
-    super["db"].count({ where })
+   await super["db"].count({ where })
   ]);
-
-  return {
+    }  else {
+   [users, total] =  ([
+      await super["db"].findMany({
+        skip: offset,
+        take: limit,
+        orderBy,
+        select: {
+          email: true,
+          nombre_apellido: true,
+          rol: true,
+          activo: true
+        }
+    }),
+    await super["db"].count({ where })
+    ]);
+  }
+  console.log(users);
+   return {
     data: users,
     total,
     totalPages: Math.ceil(total / limit),
     currentPage: page
   };
 }
-
-
 }
 

@@ -41,7 +41,7 @@ export class UserService extends Service<Usuario> implements IUserService {
         await this.userRepository.create(data);
     }
 
-    async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
+    async getPagination(params: PaginationParams): Promise<PaginationResults<Partial<Usuario>>> {
         const result = await this.userRepository.getPagination(params);
 
         if (!result || !Array.isArray(result.data)) {

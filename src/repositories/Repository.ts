@@ -15,6 +15,11 @@ export default abstract class Repository<T, K extends ModelKeys> {
 		return db[this.modelName];
 	}
 
+	private get user(){
+		const { user } = getAuth();
+		return user;
+	}
+
 	@validateRepo
 	public async update(id: number, data: T): Promise<void> {
 		await (this.db as any).update({

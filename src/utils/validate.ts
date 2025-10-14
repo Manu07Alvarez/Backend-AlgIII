@@ -1,19 +1,23 @@
 
+import { Validator } from "typebox/compile";
 import ValidateError from "../Errors/ValidateError.js";
-import { ajv } from "./Validation.js";
+import { TObject } from "typebox"
 
-export const validateSchema = <T>(schema: string, data: unknown) => {
 
+export const validateSchema = (schema_compiled: Validator<{}, TObject>, data: unknown) => {
     try { 
-        const validate = ajv.getSchema<T>(schema);
-        if (!validate) {
-            throw new Error(`Schema ${schema} not found`);
-        }
-        if (!validate(data)) {
-            validate.errors?.forEach((error) => {
-                console.error(`Validation error in schema ${schema}:`, error);
+        if (!schema_compiled.Check(data)) {
+            schema_compiled.Errors(data).forEach((error) => {
+                console.error(`Validation error in fields ${schema_compiled.Errors(data).map((error) => error.instancePath)}:`, error.params);
             });
-            throw new ValidateError("Invalid data", validate.errors || []);
+            //FIXME: pass fields errors as object to error handler.
+            const errors = (schema_compiled.Errors(data).map((error) => error.params) as unknown) as { errors: [{ message: string}]};
+            for (const error of errors) {
+                error.errors.forEach((error) => {
+                    console.error(`Validation error in fields ${schema_compiled.Errors(data).map((error) => error.instancePath)}:`, error.message);
+                });
+            }
+            throw new ValidateError("Invalid data", errors.map((error) => error.errors[0]));
         }
     } catch (error) {
         if (error instanceof Error) {

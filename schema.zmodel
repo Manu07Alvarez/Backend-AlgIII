@@ -113,7 +113,7 @@ model Post {
   id         Int       @id @default(autoincrement())
   titulo     String    @unique
   contenido  String    @db.Text
-  published  Boolean   @default(false)
+  published  Boolean   @default(true)
   autor      Usuario   @relation(fields: [id_autor], references: [id])
   id_autor   Int       @default(auth().id)
   createdAt  DateTime? @default(now())

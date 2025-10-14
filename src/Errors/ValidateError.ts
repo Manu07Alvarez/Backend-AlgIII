@@ -1,7 +1,8 @@
-import { ErrorObject } from 'ajv';
+import { TObject } from "typebox";
+
 export default class ValidateError extends Error {
-    public details:  ErrorObject[];
-    constructor(message: string, details: ErrorObject[]) {
+    public details:  { message: string}[];
+    constructor(message: string, details: { message: string}[]) {
         super(message);
         this.name = "ValidationError";
         this.details = details;

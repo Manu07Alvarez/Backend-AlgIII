@@ -8,6 +8,7 @@ export const modelProperties = {
     mensaje: PrismaClient.prototype.mensaje,
     reporte: PrismaClient.prototype.reporte
 } as const;
+import {} from 'typebox/'
 
 export type ModelKeys = keyof typeof modelProperties;
 
@@ -50,6 +51,10 @@ export class TPasswordType extends Type.Base<string> {
         return typeof value === "string";
     }
 
+    TLocalizedValidationError = Type.Object({
+        message: Type.String(),
+    });
+
    public override Errors(value: unknown): object[] {
     if (typeof value !== 'string') {
       return [{ message: 'La contraseña debe ser un texto' }]
@@ -58,7 +63,7 @@ export class TPasswordType extends Type.Base<string> {
         if (!rule.pattern.test(value)) {
             return [
                 {
-                message: rule.message,
+                    message: rule.message,
                 },
             ]
         }

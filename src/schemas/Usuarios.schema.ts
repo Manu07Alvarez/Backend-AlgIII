@@ -11,7 +11,7 @@ export const UsuarioSchema = Type.Object({
 });
 
 export const UserLoginSchema = Type.Object({
-  email: Type.String({ format: 'email' }),
+  email: Type.String({ required: true, format: 'email' }),
   contrasenia: new TPasswordType(),
 })
 export type Usuario = Static<typeof UsuarioSchema>;

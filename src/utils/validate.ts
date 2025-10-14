@@ -1,27 +1,24 @@
 
 import { Validator } from "typebox/compile";
 import ValidateError from "../Errors/ValidateError.js";
-import { TObject } from "typebox"
+import { TObject, TSchema } from "typebox"
+import { CustomErrors } from "../Errors/TypeCustomError.js";
 
 
-export const validateSchema = (schema_compiled: Validator<{}, TObject>, data: unknown) => {
+export const validateSchema = (schema_compiled: Validator<{}, TObject>, schema: TSchema, data: unknown) => {
+    let errors_array: {path: string, message: string}[] = [];
     try { 
         if (!schema_compiled.Check(data)) {
-            schema_compiled.Errors(data).forEach((error) => {
-                console.error(`Validation error in fields ${schema_compiled.Errors(data).map((error) => error.instancePath)}:`, error.params);
-            });
+            
             //FIXME: pass fields errors as object to error handler.
-            const errors = (schema_compiled.Errors(data).map((error) => error.params) as unknown) as { errors: [{ message: string}]};
-            for (const error of errors) {
-                error.errors.forEach((error) => {
-                    console.error(`Validation error in fields ${schema_compiled.Errors(data).map((error) => error.instancePath)}:`, error.message);
-                });
-            }
-            throw new ValidateError("Invalid data", errors.map((error) => error.errors[0]));
+            const errors = CustomErrors(schema_compiled, schema, data);
+            errors.forEach(error => {
+                errors_array.push({path: `field ${error.instancePath.slice(1)}:`, message: error.message});
+            })
         }
     } catch (error) {
         if (error instanceof Error) {
-            throw new ValidateError(error.message, []);
+            throw new ValidateError(error.message, [{path: "", message: error.message}]);
         }
         throw error;
     }

@@ -23,7 +23,7 @@
     "build": "node --loader ts-node/esm ./src/docs/swagger.ts && npx tsc && cp ./src/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node ./dist/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node || copy ./src/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node ./dist/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node",
     "swagger": "nodemon src/docs/swagger.ts",
     "start": "node dist/initializer.js",
-    "dev": "nodemon ./src/initializer.ts 5000"
+    "dev": "nodemon --exec tsx ./src/initializer.ts"
   },
   "engines": {
     "npm": "10.9.2",

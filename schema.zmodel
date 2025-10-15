@@ -164,6 +164,7 @@ model Curriculum {
   experiencia             String?   @db.VarChar(1000)
   habilidades_duras       String?   @db.VarChar(300)
   habilidades_blandas     String?   @db.VarChar(300)
+  idiomas                 String?   @db.VarChar(300)
   presentacion            String?   @db.VarChar(1000)
   disponibilidad_horaria  String?   @db.VarChar(20) 
   perfil_in               String?   @db.VarChar(100)

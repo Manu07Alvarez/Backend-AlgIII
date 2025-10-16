@@ -106,7 +106,7 @@ model Reporte {
   tema_id Int?
   tema    Tema?    @relation(fields: [tema_id], references: [id])
 
-  
+  notificacion notificacion[]
   // Relaciones
   @@allow('all', auth().rol == 'ADMIN')
   @@allow('read', ((auth().rol == 'MODERADOR') && !resuelto))
@@ -170,6 +170,7 @@ model notificacion {
   post      Post?    @relation(fields: [id_post], references: [id])
   id_mensaje Int?
   Mensaje Mensaje? @relation(fields: [id_mensaje], references: [id])
+  Reporte Reporte[]
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   @@allow('all', auth().rol == 'ADMIN')

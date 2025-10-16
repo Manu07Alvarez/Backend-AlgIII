@@ -92,6 +92,7 @@ model Reporte {
     post Post? @relation(fields: [post_id], references: [id])
     tema_id Int?
     tema Tema? @relation(fields: [tema_id], references: [id])
+    notificacion notificacion[]
 }
 
 model Post {
@@ -142,6 +143,7 @@ model notificacion {
     post Post? @relation(fields: [id_post], references: [id])
     id_mensaje Int?
     Mensaje Mensaje? @relation(fields: [id_mensaje], references: [id])
+    Reporte Reporte[]
     createdAt DateTime? @default(now())
     updatedAt DateTime? @updatedAt()
 }

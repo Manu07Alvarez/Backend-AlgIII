@@ -1,6 +1,6 @@
-import {Type, Static, Conditional} from 'typebox';
+import {Type, Static} from 'typebox';
 
-export const NotificaionSchema = Type.Object({
+export const NotificacionSchema = Type.Object({
     contenido: Type.String(),
     id_usuario: Type.Number(),
     type: Type.Union([
@@ -10,7 +10,7 @@ export const NotificaionSchema = Type.Object({
         ]),
 });
 
-const NotificaionBase = {
+const NotificacionBase = {
     id: Type.Number(),
     contenido: Type.String(),
     leido: Type.Boolean(),
@@ -20,17 +20,17 @@ const NotificaionBase = {
 }
 
 const NotificacionConTema = Type.Object({
-    ...NotificaionBase,
+    ...NotificacionBase,
     tema_id: Type.Optional(Type.Number()),
 });
 
 const NotificacionConPost = Type.Object({
-    ...NotificaionBase,
+    ...NotificacionBase,
     post_id: Type.Optional(Type.Number()),
 });
 
 const NotificacionConMensaje = Type.Object({
-    ...NotificaionBase,
+    ...NotificacionBase,
     mensaje_id: Type.Optional(Type.Number()),
 });
 
@@ -40,5 +40,5 @@ export const GetNotificacionesSchema = Type.Union([
     NotificacionConMensaje,
 ]);
 
-export type PostNotificacionDTO = Static<typeof NotificaionSchema>;
+export type PostNotificacionDTO = Static<typeof NotificacionSchema>;
 export type GetNotificacionDTO = Static<typeof GetNotificacionesSchema>;

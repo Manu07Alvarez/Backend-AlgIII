@@ -1,4 +1,5 @@
-import {Type, Static} from '@sinclair/typebox';
+import { format } from 'path';
+import {Type, Static} from 'typebox';
 
 export const ReporteSchema = Type.Object({
     descripcion: Type.String(),
@@ -17,8 +18,8 @@ export const ReporteSchema = Type.Object({
 const ReporteBase = {
     descripcion: Type.String(),
     id_reportador: Type.Number(),
-    createdAt: Type.Optional(Type.Date()),
-    updatedAt: Type.Optional(Type.Date()),
+    createdAt: Type.Optional(Type.String({format: 'date-time' })),
+    updatedAt: Type.Optional(Type.String({format: 'date-time' })),
     id_resuelto: Type.Optional(Type.Number()),
 }
 

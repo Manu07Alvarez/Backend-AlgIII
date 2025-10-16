@@ -38,6 +38,7 @@ model Usuario {
   mensajes Mensaje[]
   Tema Tema[]
   Post Post[]
+  Notificacion Notificacion[]
   @@auth
   @@allow('all', auth().rol == 'ADMIN')
   @@allow('read', auth().rol == 'MODERADOR')
@@ -73,6 +74,7 @@ model Tema {
   cerrado     Boolean  @default(false)
   Post Post[]
   Reportes Reporte[]
+  Notificacion Notificacion[]
   @@index([nombre], name: "idx_tema_nombre")
   @@index([id_carrera], name: "idx_tema_carrera")
   @@index([id_creador], name: "idx_tema_creador")
@@ -104,6 +106,7 @@ model Reporte {
   tema_id Int?
   tema    Tema?    @relation(fields: [tema_id], references: [id])
   // Relaciones
+  Notificacion Notificacion[]
   @@allow('all', auth().rol == 'ADMIN')
   @@allow('read', ((auth().rol == 'MODERADOR') && !resuelto))
   @@allow('create', auth() != null)
@@ -122,6 +125,7 @@ model Post {
   tema       Tema      @relation(fields: [id_tema], references: [id])
   Mensaje    Mensaje[]
   Reportes   Reporte[]
+  Notificacion Notificacion[]
   @@index([titulo], name: "idx_post_titulo")
   @@index([id_tema], name: "idx_post_tema")
   @@index([id_autor], name: "idx_post_autor")
@@ -143,6 +147,7 @@ model Mensaje {
   contestado Mensaje? @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
   id_mensaje Int?
   Reportes   Reporte[]
+  Notificacion Notificacion[]
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   @@allow('all', auth().rol == 'ADMIN')
@@ -150,6 +155,52 @@ model Mensaje {
   @@allow('delete', autor == auth())
   @@allow('create', autor == auth())
   @@allow('update', autor == auth())
+}
+
+
+  enum TipoNotificacion {
+  GENERAL
+  NUEVO_MENSAJE
+  POST_REPORTADO
+  REPORTE_RESUELTO
+  TEMA_CERRADO
+  NUEVO_POST
+}
+model Notificacion {
+  id         Int      @id @default(autoincrement())
+  tipo  TipoNotificacion @default(GENERAL)
+  leido      Boolean   @default(false)
+
+  //relaciones
+
+  //post
+  post_id Int?
+  post    Post?    @relation(fields: [post_id], references: [id])
+
+  //usuario
+  id_usuario Int
+  usuario  Usuario  @relation(fields: [id_usuario], references: [id])
+
+  //mensaje
+  mensaje_id Int?
+  mensaje    Mensaje? @relation(fields: [mensaje_id], references: [id])
+
+  //tema
+  tema_id Int?
+  tema    Tema?    @relation(fields: [tema_id], references: [id])
+
+  //reportes
+  reporte_id String?
+  reporte    Reporte? @relation(fields: [reporte_id], references: [id])
+
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  @@allow('all', auth().rol == 'ADMIN')
+  @@allow('read', id_usuario == auth().id)
+  @@allow('delete', id_usuario == auth().id)
+  @@allow('create', id_usuario == auth().id)
+  @@allow('update', id_usuario == auth().id)
+
 }
 
 enum Rol {

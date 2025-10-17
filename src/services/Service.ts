@@ -34,7 +34,7 @@ export default abstract class Service<T> {
     }
 
     @validateService('not found: ')
-    public async findAll(): Promise<T[]> {
+    public async findAll(): Promise<Partial<T[]>> {
         return await this.entity.findAll();
     }
 

@@ -168,6 +168,164 @@
         }
       }
     },
+    "/api/user/getPagination": {
+      "get": {
+        "summary": "Obtiene usuarios paginados",
+        "description": "Devuelve una lista de usuarios con paginación, búsqueda, ordenamiento y filtrado opcional.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página",
+            "required": false,
+            "default": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Cantidad de usuarios por página",
+            "required": false,
+            "default": 10,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Texto para buscar usuarios por nombre, email u otros campos",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Campo por el cual se ordenarán los resultados (por ejemplo: name, email, createdAt)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "Dirección del ordenamiento: ascendente o descendente",
+            "required": false,
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista paginada de usuarios",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "total": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "page": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "limit": {
+                      "type": "number",
+                      "example": 10
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 2
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Ana López"
+                          },
+                          "email": {
+                            "type": "string",
+                            "example": "ana@example.com"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "total": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "page": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "limit": {
+                      "type": "number",
+                      "example": 10
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 2
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Ana López"
+                          },
+                          "email": {
+                            "type": "string",
+                            "example": "ana@example.com"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/user/": {
       "get": {
         "description": "",
@@ -277,41 +435,16 @@
         }
       }
     },
-      "/api/user/getPagination": {
-  "get": {
-    "summary": "Obtiene usuarios paginados",
-    "parameters": [
-      { "in": "query", "name": "page", "schema": { "type": "integer", "default": 1 } },
-      { "in": "query", "name": "limit", "schema": { "type": "integer", "default": 10 } },
-      { "in": "query", "name": "search", "schema": { "type": "string" } },
-      { "in": "query", "name": "sortBy", "schema": { "type": "string" } },
-      { "in": "query", "name": "sortOrder", "schema": { "type": "string", "enum": ["asc", "desc"] } }
-    ],
-    "responses": {
-      "200": {
-        "description": "Lista paginada de usuarios",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/usuarioSchema" }
-                },
-                "total": { "type": "integer" },
-                "totalPages": { "type": "integer" },
-                "currentPage": { "type": "integer" }
-              }
-            }
+    "/api/post/getPagination": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
-      },
-      "500": { "description": "Error del servidor" }
-    }
-  }
-}
-,
+      }
+    },
     "/api/post/findAll": {
       "get": {
         "description": "",
@@ -430,16 +563,6 @@
             }
           }
         ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/post/getPagination": {
-      "get": {
-        "description": "",
         "responses": {
           "default": {
             "description": ""
@@ -1458,19 +1581,19 @@
             "type": "string",
             "example": "fulanchoΩ@example.com"
           },
-          "nombre": {
+          "nombre_apellido": {
             "type": "string",
             "example": "fula"
           },
-          "contraseña": {
+          "contrasenia": {
             "type": "string",
             "example": "4123"
           }
         },
         "required": [
           "email",
-          "nombre",
-          "contraseña"
+          "nombre_apellido",
+          "contrasenia"
         ],
         "xml": {
           "name": "registerSchema"
@@ -1483,14 +1606,14 @@
             "type": "string",
             "example": "fulanchoΩ@example.com"
           },
-          "contraseña": {
+          "contrasenia": {
             "type": "string",
             "example": "4123"
           }
         },
         "required": [
           "email",
-          "contraseña"
+          "contrasenia"
         ],
         "xml": {
           "name": "loginSchema"

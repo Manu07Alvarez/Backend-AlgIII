@@ -58,7 +58,7 @@ export default abstract class Repository<T, K extends ModelKeys> {
 	}
 
 	@validateRepo
-	public async findAll(): Promise<T[]> {
+	public async findAll(): Promise<Partial<T[]>> {
 		return await (this.db as any).findMany()
 	}
 

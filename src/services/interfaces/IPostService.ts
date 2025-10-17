@@ -2,7 +2,7 @@ import {Post} from '../../generated/prisma/client.js';
 import {PaginationParams, PaginationResults} from 'types/pagination.types.js';
 
 export default interface IpostService{
-    findAll(): Promise<Post[]>;
+    findAll(): Promise<Partial<Post[]>>;
     findById(id: number): Promise<Partial<Post>>;
     findByTitle(name: string): Promise<Partial<Post[]>>;
     create(data: Partial<Post>): Promise<void>;

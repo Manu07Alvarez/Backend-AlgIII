@@ -8,7 +8,7 @@ export default class MensajesRepository extends Repository<Mensaje, "mensaje"> i
     super("mensaje");
   }
 
-  public findAllInPost(postId: number): Promise<Mensaje[]>{
+  public findAllInPost(postId: number): Promise<Partial<Mensaje[]>>{
 	console.log(postId);
 	return super["db"].findMany({
 		where: { 
@@ -23,7 +23,7 @@ export default class MensajesRepository extends Repository<Mensaje, "mensaje"> i
   }
 
   @validateRepo
-  public async messagesResponded(messageId: number): Promise<Mensaje[]> {
+  public async messagesResponded(messageId: number): Promise<Partial<Mensaje[]>> {
 	return super["db"].findMany({
 		where: {
 			id_mensaje: messageId,
@@ -32,7 +32,7 @@ export default class MensajesRepository extends Repository<Mensaje, "mensaje"> i
 }
 
   @validateRepo
-  public async findAllInUserId(userId: number): Promise<Mensaje[]> {
+  public async findAllInUserId(userId: number): Promise<Partial<Mensaje[]>> {
     return super["db"].findMany({
 		where: { 
 			id_autor: userId,

@@ -11,7 +11,7 @@ export class MensajesService extends Service<Mensaje> implements IMensajesServic
     ) {super(mensajeRepository, 'Mensajes');}
 
     @validateService('not found: ')
-    public async messagesResponded(messageId: number): Promise<Mensaje[]> {
+    public async messagesResponded(messageId: number): Promise<Partial<Mensaje[]>> {
         return this.entity.messagesResponded(messageId);
     }
 

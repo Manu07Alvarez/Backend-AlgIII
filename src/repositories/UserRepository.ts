@@ -29,63 +29,39 @@ export class UserRepository extends Repository<Usuario, "usuario"> {
     });
   }
 
- public async getPagination(params: PaginationParams): Promise<PaginationResults<Partial<Usuario>>> {
-  const { page, limit, search, sortBy, sortOrder } =params;
-  const offset = (page - 1) * limit;
-
-  const where = search
-    ? {
-        OR: [
-          { email: { contains: search, mode: 'insensitive' } },
-          { nombre_apellido: { contains: search, mode: 'insensitive' } }
-        ]
-      }
-    : {};
-
-  const orderBy = sortBy ? { [sortBy]: sortOrder ?? 'asc' } : undefined;
-  let users: Partial<Usuario>[];
-  let total: number;
-
-
-  if(super['user'] != null){
-    [users, total] =  ([
-    
-     await super["db"].findMany({
-      skip: offset,
-      take: limit,
-      orderBy,
-      select: {
-        email: true,
-        nombre_apellido: true,
-        rol: true,
-        activo: true
-      }
-    }),
-   await super["db"].count({ where })
-  ]);
-    }  else {
-   [users, total] =  ([
-      await super["db"].findMany({
-        skip: offset,
-        take: limit,
-        orderBy,
-        select: {
-          email: true,
-          nombre_apellido: true,
-          rol: true,
-          activo: true
-        }
-    }),
-    await super["db"].count({ where })
-    ]);
-  }
-  console.log(users);
-   return {
-    data: users,
-    total,
-    totalPages: Math.ceil(total / limit),
-    currentPage: page
-  };
-}
+	public async getPagination(params: PaginationParams): Promise<PaginationResults<Partial<Usuario>>> {
+		const { page, limit, search, sortBy, sortOrder } =params;
+		const offset = (page - 1) * limit;
+		const orderBy = sortBy ? { [sortBy]: sortOrder ?? 'asc' } : undefined;
+		let users: Partial<Usuario>[];
+		let total: number;
+		users = await super["db"].findMany({
+			skip: offset,
+			take: limit,
+			orderBy,
+			where:  search ? {
+				OR: [
+					{ email: { contains: search, mode: 'insensitive' } },
+					{ nombre_apellido: { contains: search, mode: 'insensitive' } }
+				]
+			}: {},
+		});
+		total =  await super["db"].count({ 
+			where: search ? {
+				OR: [
+					{ email: { contains: search, mode: 'insensitive' } },
+					{ nombre_apellido: { contains: search, mode: 'insensitive' } }
+				]
+			}: {},
+		})
+	
+		console.log(users);
+		return {
+			data: users,
+			total,
+			totalPages: Math.ceil(total / limit),
+			currentPage: page
+		};
+	}
 }
 

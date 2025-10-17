@@ -24,13 +24,13 @@ datasource db {
 
 
 model Usuario {
-  id              Int       @id @default(autoincrement())
+  id              Int       @id @default(autoincrement()) @allow('read',true,true)
   nombre_apellido String?   @allow("read", true, true)
   email           String    @unique @allow("read", true, true)
   contrasenia     String    @omit @password
   activo          Boolean   @default(true)
   rol             Rol?      @default(USUARIO)
-  createdAt       DateTime? @default(now())
+  createdAt       DateTime? @default(now()) @allow('read',true,true)
   updatedAt       DateTime? @updatedAt
 
   Reportes Reporte[]

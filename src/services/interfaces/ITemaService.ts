@@ -1,7 +1,7 @@
 import { Tema } from '../../generated/prisma/client.js';
 
 export default interface ItemasService{
-      findAll(): Promise<Tema[]>;
+      findAll(): Promise<Partial<Tema[]>>;
       findById(id: number): Promise<Partial<Tema>>;
       findByName(name: string): Promise<Partial<Tema>>;
       create(data: Partial<Tema>): Promise<void>;

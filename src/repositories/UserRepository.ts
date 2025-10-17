@@ -2,23 +2,33 @@ import { PrismaClient, Usuario, Rol } from 'db';
 import { validateRepo } from '../decorators/errors/errors.js';
 import Repository from './Repository.js';
 import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
+import { GetUserForRolDTO } from 'types/DTOs/UsuariosDTO.js';
+import { DB } from 'db/types.js'
+import { Kysely } from 'kysely'
+import IUserRepository from './interfaces/IUserRepository.js';
+export class UserRepository extends Repository<Usuario, "usuario"> implements IUserRepository {
 
-export class UserRepository extends Repository<Usuario, "usuario"> {
+  constructor(
+	private readonly dbK: Kysely<DB>,
+  ) {super("usuario");}
 
-  constructor() {super("usuario");}
 
+	@validateRepo
+	async findByEmail(email: string): Promise<Partial<Usuario>> {
+	return await super["db"].findUniqueOrThrow({
+			select: { 
+			id: true,
+			nombre_apellido: true,
+			rol: true
+			},
+			where: { email }
+		})
+	}
 
-  @validateRepo
-  async findByEmail(email: string): Promise<Partial<Usuario>> {
-    return await super["db"].findUniqueOrThrow({
-      select: { 
-        id: true,
-        nombre_apellido: true,
-        rol: true
-      },
-      where: { email }
-    })
-  }
+  	@validateRepo
+	public override async findAll(): Promise<Partial<Usuario[]>> {
+		return this.dbK.selectFrom('Usuario').selectAll().execute();
+	}
   
   
   @validateRepo
@@ -29,11 +39,11 @@ export class UserRepository extends Repository<Usuario, "usuario"> {
     });
   }
 
-	public async getPagination(params: PaginationParams): Promise<PaginationResults<Partial<Usuario>>> {
-		const { page, limit, search, sortBy, sortOrder } =params;
+	public async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
+		const { page, limit, search, sortBy, sortOrder } = params;
 		const offset = (page - 1) * limit;
 		const orderBy = sortBy ? { [sortBy]: sortOrder ?? 'asc' } : undefined;
-		let users: Partial<Usuario>[];
+		let users: Usuario[];
 		let total: number;
 		users = await super["db"].findMany({
 			skip: offset,

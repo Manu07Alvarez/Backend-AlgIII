@@ -1,10 +1,12 @@
-import { Usuario } from "schemas/Usuarios.schema.js";
+import { Usuario } from "db";
+import { POSTUsuario } from "schemas/Usuarios.schema.js";
 import { PaginationResults } from "../../types/pagination.types.js";
 
 export default interface IUserRepository {
-    create(data: Usuario): Promise<void>;
+    create<POSTUsuario>(data: POSTUsuario): Promise<void>;
     findByName(name: string): Promise<Partial<Usuario>>;
     findById(id: number): Promise<Partial<Usuario>>;
+    findByEmail(email: string): Promise<Partial<Usuario>>;
     findAll(): Promise<Partial<Usuario[]>>;
     activateOrDeactivate(id: number): Promise<void>;
     update(id: number, data: Usuario): Promise<void>;

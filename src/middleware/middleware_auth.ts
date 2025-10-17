@@ -19,14 +19,14 @@ export async function authToken(req: Request, res: Response, next: NextFunction)
         const {payload}  = await jwtVerify(tsCookie, publicKey!);
         console.log("Token válido: ", payload);
         const auth_user = payload as AuthUserDTO;
-        const db = enhance(prismaApp, {user: auth_user});
+        const db = enhance(prismaApp, {user: auth_user}, {logPrismaQuery: true});
         auth_context.run({user: auth_user, db: db},  () => {
             next()
         });
     } catch (err) {
         console.error("Error al verificar token:", err);
         const auth_user = undefined;
-        const db = enhance(prismaApp, {user: auth_user});
+        const db = enhance(prismaApp, {user: auth_user}, {logPrismaQuery: true});
         auth_context.run({user: auth_user, db: db},  () => {
             next()
         });

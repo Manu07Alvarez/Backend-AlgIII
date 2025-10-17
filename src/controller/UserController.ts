@@ -8,7 +8,7 @@ export class UserController {
 
     public async findAll(req: Request, res: Response): Promise<void> {
         try {
-            const users = await this.userService.findAll();
+            const users = await this.userService.findAllUsers();
             res.status(200).json(users);
         } catch (error: unknown) {
             if (error instanceof Error) res.status(500).json({ message: error.message });

@@ -1,4 +1,5 @@
 import { UserRepository } from "../../repositories/UserRepository.js";
+import IUserRepository from "../../repositories/interfaces/IUserRepository.js";
 import { UserService } from "../../services/UserService.js";
 import { UserController } from "../../controller/UserController.js";
 import { CarreraController } from "../../controller/CarreraController.js";
@@ -27,7 +28,7 @@ const pool = new Pool({
   max: 5
 })
 const adapter = new PrismaPg(pool);
-export const prismaApp = new PrismaClient({adapter});
+export const prismaApp = new PrismaClient({log: ['query', 'info', 'warn', 'error'],adapter});
 const dialect = new PostgresDialect({
   pool: pool
 });
@@ -39,7 +40,7 @@ export const dbK = new Kysely<DB>({
 
 
 export function createUserController(): UserController {
-  const repo = new UserRepository();
+  const repo = new UserRepository(dbK);
   const service = new UserService(repo);
   return new UserController(service);
 };

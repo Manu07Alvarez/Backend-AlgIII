@@ -27,14 +27,14 @@ router.get('/getPagination', (req: Request, res: Response) => {
 
     #swagger.parameters['search'] = { 
       in: 'query',
-      description: 'Texto para buscar usuarios por nombre, email u otros campos',
+      description: 'Texto para buscar usuarios por nombre y apellido, u email',
       required: false,
       type: 'string'
     }
 
     #swagger.parameters['sortBy'] = { 
       in: 'query',
-      description: 'Campo por el cual se ordenarán los resultados (por ejemplo: name, email, createdAt)',
+      description: 'Campo por el cual se ordenarán los resultados',
       required: false,
       type: 'string'
     }

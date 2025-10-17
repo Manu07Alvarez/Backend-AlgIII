@@ -3,6 +3,42 @@ import { createUserController } from '../utils/factories/ClassFactory.js';
 
 const router = Router()
 const userController = createUserController();
+/**
+ * @swagger
+ * /users/getPagination:
+ *   get:
+ *     summary: Obtiene usuarios paginados
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *     responses:
+ *       200:
+ *         description: Lista paginada de usuarios
+ */
+router.get('/getPagination', (req: Request, res: Response) => {
+    userController.getPagination(req, res);
+});
 
 /**router.use((req: Request, res: Response, next: NextFunction) => {
   const respon = veryfylogin
@@ -15,7 +51,6 @@ const userController = createUserController();
 router.get('/', (req: Request, res: Response) => {
   userController.findAll(req, res);
 });
-
 router.route('/:id')
 .get((req: Request, res: Response) => {
   userController.getUser(req, res);
@@ -44,9 +79,5 @@ router.route('/:id')
   userController.deactivate(req, res);
 })
 
-/* router.get('/getPagination', (req: Request, res: Response) => {
-  userController.getPagination(req, res);
-});
- */
 
 export default router

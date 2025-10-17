@@ -38,6 +38,7 @@ model Usuario {
   mensajes Mensaje[]
   Tema Tema[]
   Post Post[]
+  notificaciones notificacion[]
   @@auth
   @@allow('all', auth().rol == 'ADMIN')
   @@allow('read', auth().rol == 'MODERADOR')
@@ -73,6 +74,7 @@ model Tema {
   cerrado     Boolean  @default(false)
   Post Post[]
   Reportes Reporte[]
+  notificaciones notificacion[]
   @@index([nombre], name: "idx_tema_nombre")
   @@index([id_carrera], name: "idx_tema_carrera")
   @@index([id_creador], name: "idx_tema_creador")
@@ -103,6 +105,8 @@ model Reporte {
 
   tema_id Int?
   tema    Tema?    @relation(fields: [tema_id], references: [id])
+
+  notificacion notificacion[]
   // Relaciones
   @@allow('all', auth().rol == 'ADMIN')
   @@allow('read', ((auth().rol == 'MODERADOR') && !resuelto))
@@ -122,6 +126,7 @@ model Post {
   tema       Tema      @relation(fields: [id_tema], references: [id])
   Mensaje    Mensaje[]
   Reportes   Reporte[]
+  notificaciones notificacion[]
   @@index([titulo], name: "idx_post_titulo")
   @@index([id_tema], name: "idx_post_tema")
   @@index([id_autor], name: "idx_post_autor")
@@ -143,6 +148,7 @@ model Mensaje {
   contestado Mensaje? @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
   id_mensaje Int?
   Reportes   Reporte[]
+  notifnotificacion notificacion[]
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   @@allow('all', auth().rol == 'ADMIN')
@@ -150,6 +156,28 @@ model Mensaje {
   @@allow('delete', autor == auth())
   @@allow('create', autor == auth())
   @@allow('update', autor == auth())
+}
+
+model notificacion {
+  id         Int      @id @default(autoincrement())
+  contenido  String   @db.Text
+  leido      Boolean  @default(false)
+  id_usuario Int
+  usuario    Usuario  @relation(fields: [id_usuario], references: [id])
+  id_tema    Int?
+  tema      Tema?    @relation(fields: [id_tema], references: [id])
+  id_post    Int?
+  post      Post?    @relation(fields: [id_post], references: [id])
+  id_mensaje Int?
+  Mensaje Mensaje? @relation(fields: [id_mensaje], references: [id])
+  Reporte Reporte[]
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  @@allow('all', auth().rol == 'ADMIN')
+  @@allow('read', id_usuario == auth().id)
+  @@allow('delete', id_usuario == auth().id)
+  @@allow('create', auth() != null)
+  @@allow('update', id_usuario == auth().id)
 }
 
 enum Rol {

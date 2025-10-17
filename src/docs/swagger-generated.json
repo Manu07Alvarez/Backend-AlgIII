@@ -16,8 +16,8 @@
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -45,8 +45,8 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -65,8 +65,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -85,8 +85,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -105,8 +105,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -142,8 +142,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -162,8 +162,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -172,8 +172,8 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -192,8 +192,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -210,8 +210,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -244,8 +244,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -254,8 +254,8 @@
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -281,8 +281,8 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -301,8 +301,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -321,8 +321,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -341,8 +341,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -376,8 +376,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -396,8 +396,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -406,8 +406,8 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -430,15 +430,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -462,8 +453,8 @@
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -476,8 +467,7 @@
               "example": {
                 "nombre_apellido": "Juan Pérez",
                 "email": "juan@example.com",
-                "rol": "USUARIO",
-                "activo": true
+                "contrasenia": "123456@examPle"
               }
             }
           }
@@ -488,8 +478,8 @@
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -513,8 +503,8 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -533,8 +523,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -553,8 +543,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -571,8 +561,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "autoBody": true,
@@ -605,8 +595,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "autoBody": true
@@ -616,8 +606,8 @@
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -652,8 +642,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -672,8 +662,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -692,8 +682,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -726,8 +716,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -746,8 +736,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -756,8 +746,8 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -766,8 +756,8 @@
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -792,8 +782,8 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -802,8 +792,8 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -812,8 +802,8 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -822,8 +812,8 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -842,8 +832,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -862,8 +852,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -882,8 +872,8 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -897,6 +887,16 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "nombre",
+              "activa"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -922,26 +922,16 @@
               "activa": {
                 "type": "object",
                 "properties": {
-                  "default": {
-                    "type": "boolean",
-                    "example": true
-                  },
                   "type": {
                     "type": "string",
                     "example": "boolean"
+                  },
+                  "default": {
+                    "type": "boolean",
+                    "example": true
                   }
                 }
               }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "nombre",
-              "activa"
-            ],
-            "items": {
-              "type": "string"
             }
           }
         },
@@ -955,6 +945,19 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "nombre_apellido",
+              "email",
+              "contrasenia",
+              "rol",
+              "activo"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -971,46 +974,92 @@
               "email": {
                 "type": "object",
                 "properties": {
-                  "format": {
-                    "type": "string",
-                    "example": "email"
-                  },
                   "type": {
                     "type": "string",
                     "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "email"
                   }
                 }
               },
               "contrasenia": {
                 "type": "object",
                 "properties": {
-                  "minLength": {
-                    "type": "number",
-                    "example": 8
+                  "~guard": {
+                    "type": "object",
+                    "properties": {
+                      "check": {
+                        "type": "function"
+                      },
+                      "errors": {
+                        "type": "function"
+                      }
+                    }
                   },
-                  "type": {
-                    "type": "string",
-                    "example": "string"
+                  "passwordRules": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "pattern": {
+                          "type": "object",
+                          "properties": {}
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "La contraseña debe incluir al menos un símbolo especial (@$!%*?&)."
+                        }
+                      }
+                    }
+                  },
+                  "TLocalizedValidationError": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "example": "object"
+                      },
+                      "required": {
+                        "type": "array",
+                        "example": [
+                          "message"
+                        ],
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "properties": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
               "rol": {
                 "type": "object",
                 "properties": {
-                  "anyOf": {
+                  "enum": {
                     "type": "array",
+                    "example": [
+                      "ADMIN",
+                      "MODERADOR",
+                      "USUARIO"
+                    ],
                     "items": {
-                      "type": "object",
-                      "properties": {
-                        "const": {
-                          "type": "string",
-                          "example": "USUARIO"
-                        },
-                        "type": {
-                          "type": "string",
-                          "example": "string"
-                        }
-                      }
+                      "type": "string"
                     }
                   }
                 }
@@ -1018,29 +1067,16 @@
               "activo": {
                 "type": "object",
                 "properties": {
-                  "default": {
-                    "type": "boolean",
-                    "example": true
-                  },
                   "type": {
                     "type": "string",
                     "example": "boolean"
+                  },
+                  "default": {
+                    "type": "boolean",
+                    "example": true
                   }
                 }
               }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "nombre_apellido",
-              "email",
-              "contrasenia",
-              "rol",
-              "activo"
-            ],
-            "items": {
-              "type": "string"
             }
           }
         },
@@ -1054,6 +1090,18 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "descripcion",
+              "id_reportador",
+              "id_type",
+              "type"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -1096,28 +1144,12 @@
                         "const": {
                           "type": "string",
                           "example": "usuario"
-                        },
-                        "type": {
-                          "type": "string",
-                          "example": "string"
                         }
                       }
                     }
                   }
                 }
               }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "descripcion",
-              "id_reportador",
-              "id_type",
-              "type"
-            ],
-            "items": {
-              "type": "string"
             }
           }
         },
@@ -1131,6 +1163,21 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "nombre",
+              "titulo",
+              "id_creador",
+              "contenido",
+              "id_carrera",
+              "fijado",
+              "cerrado"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -1199,21 +1246,6 @@
                 }
               }
             }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "nombre",
-              "titulo",
-              "id_creador",
-              "contenido",
-              "id_carrera",
-              "fijado",
-              "cerrado"
-            ],
-            "items": {
-              "type": "string"
-            }
           }
         },
         "xml": {
@@ -1226,6 +1258,19 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "titulo",
+              "contenido",
+              "published",
+              "id_autor",
+              "id_tema"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -1276,19 +1321,6 @@
                 }
               }
             }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "titulo",
-              "contenido",
-              "published",
-              "id_autor",
-              "id_tema"
-            ],
-            "items": {
-              "type": "string"
-            }
           }
         },
         "xml": {
@@ -1301,6 +1333,17 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "contenido",
+              "id_autor",
+              "id_post"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -1341,17 +1384,6 @@
                   }
                 }
               }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "contenido",
-              "id_autor",
-              "id_post"
-            ],
-            "items": {
-              "type": "string"
             }
           }
         },

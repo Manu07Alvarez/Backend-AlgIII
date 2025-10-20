@@ -5,10 +5,10 @@ import { getPrivateKey } from '../utils/auth/KeyGen.js';
 import { compare } from 'bcrypt-ts';
 import { IUserService } from './interfaces/IUserService.js';
 import Service from './Service.js';
-import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
-import { type GetUserForRolDTO, user_mapper } from 'types/DTOs/UsuariosDTO.js';
-import IUserRepository from 'repositories/interfaces/IUserRepository.js';
-import { toUser } from 'utils/mapper/ForUserRol.js';
+import { PaginationParams, PaginationResults } from '../types/pagination.types.js';
+import { type GetUserForRolDTO, user_mapper } from '../types/DTOs/UsuariosDTO.js';
+import IUserRepository from '../repositories/interfaces/IUserRepository.js';
+import { toUser } from '../utils/mapper/ForUserRol.js';
 
 const private_key = await getPrivateKey();
 

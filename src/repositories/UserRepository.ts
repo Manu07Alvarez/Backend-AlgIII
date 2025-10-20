@@ -1,8 +1,8 @@
 import { PrismaClient,Prisma, Usuario, Rol } from 'db';
 import { validateRepo } from '../decorators/errors/errors.js';
 import Repository from './Repository.js';
-import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
-import { GetUserForRolDTO } from 'types/DTOs/UsuariosDTO.js';
+import { PaginationParams, PaginationResults } from '../types/pagination.types.js';
+import { GetUserForRolDTO } from '../types/DTOs/UsuariosDTO.js';
 import { DB } from 'db/types.js'
 import { Kysely } from 'kysely'
 import IUserRepository from './interfaces/IUserRepository.js';

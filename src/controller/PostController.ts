@@ -1,8 +1,8 @@
 import IPostService from "../services/interfaces/IPostService.js";
 import { Request, Response } from "express";
 import { trace } from '@opentelemetry/api';
-import { Post } from "schemas/Post.schemas.js";
-import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
+import { Post } from "../schemas/Post.schemas.js";
+import { PaginationParams, PaginationResults } from '../types/pagination.types.js';
 
 const tracer = trace.getTracer('controller');
 

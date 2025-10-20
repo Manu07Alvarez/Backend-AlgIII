@@ -3,7 +3,7 @@ import type { Post, PrismaClient } from 'db';
 import Repository from './Repository.js';
 import IPostRepository from './interfaces/IPostRepository.js';
 import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
-import { getAuth } from 'utils/context/AuthUserContext.js';
+import { getAuth } from '../utils/context/AuthUserContext.js';
 
 export class PostRepository extends Repository<Post, "post"> implements IPostRepository {
 

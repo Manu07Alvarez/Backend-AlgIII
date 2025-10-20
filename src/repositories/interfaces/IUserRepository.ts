@@ -1,5 +1,5 @@
 import { Usuario } from "db";
-import { POSTUsuario } from "schemas/Usuarios.schema.js";
+import { POSTUsuario } from "../../schemas/Usuarios.schema.js";
 import { PaginationResults } from "../../types/pagination.types.js";
 
 export default interface IUserRepository {

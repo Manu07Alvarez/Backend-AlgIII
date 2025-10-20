@@ -1,6 +1,6 @@
-import { GetPostForRolDTO } from 'types/DTOs/PostDTO.js';
-import {Post} from '../../generated/prisma/client.js';
-import {PaginationParams, PaginationResults} from 'types/pagination.types.js';
+import { GetPostForRolDTO } from '../../types/DTOs/PostDTO.js';
+import {Post} from 'db';
+import {PaginationParams, PaginationResults} from '../../types/pagination.types.js';
 
 export default interface IpostService{
     findAll(): Promise<GetPostForRolDTO[]>;

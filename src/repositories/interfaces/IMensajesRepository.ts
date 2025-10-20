@@ -1,5 +1,5 @@
 import { Mensaje } from 'db';
-import { GetMensajeForRolDTO, NestedMessage } from 'types/DTOs/MensajesDTO.js';
+import { GetMensajeForRolDTO, NestedMessage } from '../../types/DTOs/MensajesDTO.js';
 export default interface IMensajesRepository {
   create(data: Mensaje): Promise<void>;
   findById(id: number): Promise<NestedMessage>;

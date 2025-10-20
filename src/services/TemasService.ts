@@ -3,8 +3,8 @@ import { Tema, PrismaClient } from "db";
 import ITemasService from "./interfaces/ITemaService.js";
 import service from "./Service.js";
 import { validateService } from "../decorators/errors/errors.js";
-import { GetTemaForRolDTO, tema_mapper } from "types/DTOs/TemasDTO.js";
-import { toUser } from "utils/mapper/ForUserRol.js";
+import { GetTemaForRolDTO, tema_mapper } from "../types/DTOs/TemasDTO.js";
+import { toUser } from "../utils/mapper/ForUserRol.js";
 
 export class TemasService extends service<Tema> implements ITemasService {
   constructor(

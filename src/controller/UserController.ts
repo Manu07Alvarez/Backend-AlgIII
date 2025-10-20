@@ -1,7 +1,7 @@
 import { Usuario } from '../generated/prisma/client.js';
 import { Request, Response } from 'express';
 import { IUserService } from '../services/interfaces/IUserService.js';
-import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
+import { PaginationParams, PaginationResults } from '../types/pagination.types.js';
 
 export class UserController {
     constructor(private readonly userService: IUserService) {}

@@ -5,7 +5,7 @@ import { CarreraRepository } from "../repositories/CarreraRepository.js";
 import { ICarreraService } from "./interfaces/ICarreraService.js";
 import Service from "./Service.js";
 import { carrera_mapper, GetCarreraForRolDTO } from "../types/DTOs/CarrerasDTO.js";
-import { toUser } from "utils/mapper/ForUserRol.js";
+import { toUser } from "../utils/mapper/ForUserRol.js";
 
 export class CarreraService extends Service<Carrera> implements ICarreraService {
     constructor(

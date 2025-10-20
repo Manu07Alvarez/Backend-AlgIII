@@ -1,5 +1,5 @@
 import { GetCarreraForRolDTO } from "types/DTOs/CarrerasDTO.js";
-import { Carrera } from "../../generated/prisma/client.js";
+import { Carrera } from "db";
 
 export interface ICarreraService {
   create(data: Partial<Carrera>): Promise<void>;

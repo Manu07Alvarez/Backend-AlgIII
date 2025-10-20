@@ -2,7 +2,7 @@ import Repository from "./Repository.js";
 import { PrismaClient, Mensaje, Usuario } from 'db';
 import { validateRepo } from "../decorators/errors/errors.js";
 import IMensajesRepository from "./interfaces/IMensajesRepository.js";
-import { GetMensajeForRolDTO, NestedMessage } from "types/DTOs/MensajesDTO.js";
+import { GetMensajeForRolDTO, NestedMessage } from "../types/DTOs/MensajesDTO.js";
 import { Kysely } from "kysely";
 import { DB } from "db/types.js";
 import { jsonObjectFrom } from 'kysely/helpers/postgres'

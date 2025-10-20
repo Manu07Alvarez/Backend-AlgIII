@@ -1,5 +1,5 @@
 import { GetTemaForRolDTO } from 'types/DTOs/TemasDTO.js';
-import { Tema } from '../../generated/prisma/client.js';
+import { Tema } from 'db';
 
 export default interface ItemasService{
       findAll(): Promise<GetTemaForRolDTO[]>;

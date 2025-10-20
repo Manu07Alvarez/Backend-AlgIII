@@ -1,6 +1,6 @@
-import { GetUserForRolDTO } from "types/DTOs/UsuariosDTO.js";
-import { Usuario } from "../../generated/prisma/client.js";
-import { PaginationParams, PaginationResults } from "types/pagination.types.js";
+import { GetUserForRolDTO } from "../../types/DTOs/UsuariosDTO.js";
+import { Usuario } from "db";
+import { PaginationParams, PaginationResults } from "../../types/pagination.types.js";
 
 export  interface IUserService {
     findAllUsers(): Promise<GetUserForRolDTO[]>;

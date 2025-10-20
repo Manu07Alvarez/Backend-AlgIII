@@ -3,7 +3,7 @@ import { validateService } from "../decorators/errors/errors.js";
 import IPostRepository from "../repositories/interfaces/IPostRepository.js";
 import IPostService from "./interfaces/IPostService.js";
 import Service from "./Service.js";
-import { PaginationParams, PaginationResults } from "types/pagination.types.js";
+import { PaginationParams, PaginationResults } from "../types/pagination.types.js";
 import { GetPostForRolDTO, post_mapper } from "../types/DTOs/PostDTO.js";
 import { toUser } from "../utils/mapper/ForUserRol.js";
 

@@ -1,5 +1,5 @@
 import { GetMensajeForRolDTO, NestedMessage } from "../../types/DTOs/MensajesDTO.js";
-import { Mensaje } from "../../generated/prisma/client.js";
+import { Mensaje } from "db";
 
 export default interface IMensajesService {
     create(data: Partial<Mensaje>): Promise<void>;

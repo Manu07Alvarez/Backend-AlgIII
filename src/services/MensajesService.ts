@@ -5,7 +5,7 @@ import IMensajesRepository from "../repositories/interfaces/IMensajesRepository.
 import IMensajesService from "./interfaces/IMensajesService.js";
 import Service from "./Service.js";
 import { GetMensajeForRolDTO, mensaje_mapper, NestedMessage } from "../types/DTOs/MensajesDTO.js";
-import { toUser } from "utils/mapper/ForUserRol.js";
+import { toUser } from "../utils/mapper/ForUserRol.js";
 
 export class MensajesService extends Service<Mensaje> implements IMensajesService {
     constructor(

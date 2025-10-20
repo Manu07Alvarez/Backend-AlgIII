@@ -20,6 +20,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -48,27 +53,12 @@
           "default": {
             "description": ""
           }
-        }
-      }
-    },
-    "/api/Tema/findById/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
+        },
+        "security": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "cookieAuth": []
           }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
+        ]
       }
     },
     "/api/Tema/findByName/{name}": {
@@ -88,7 +78,37 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/Tema/findById/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/Tema/update/{id}": {
@@ -109,6 +129,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -145,7 +170,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/Tema/delete/{id}": {
@@ -165,7 +195,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/user/getPagination": {
@@ -196,7 +231,7 @@
           {
             "name": "search",
             "in": "query",
-            "description": "Texto para buscar usuarios por nombre, email u otros campos",
+            "description": "Texto para buscar usuarios por nombre y apellido, u email",
             "required": false,
             "schema": {
               "type": "string"
@@ -205,7 +240,7 @@
           {
             "name": "sortBy",
             "in": "query",
-            "description": "Campo por el cual se ordenarán los resultados (por ejemplo: name, email, createdAt)",
+            "description": "Campo por el cual se ordenarán los resultados",
             "required": false,
             "schema": {
               "type": "string"
@@ -323,7 +358,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/user/": {
@@ -333,7 +373,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/user/{id}": {
@@ -353,7 +398,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       },
       "put": {
         "description": "",
@@ -372,6 +422,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -405,7 +460,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/create": {
@@ -416,6 +476,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -442,7 +507,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/findAll": {
@@ -452,7 +522,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/findById/{id}": {
@@ -472,7 +547,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/findByTitle/{title}": {
@@ -492,7 +572,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/update/{id}": {
@@ -513,6 +598,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -547,7 +637,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/delete/{id}": {
@@ -567,7 +662,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/guest/login": {
@@ -590,6 +690,11 @@
             }
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -615,6 +720,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -624,8 +734,8 @@
               },
               "example": {
                 "nombre_apellido": "Juan Pérez",
-                "email": "juan@example.com",
-                "contrasenia": "123456@examPle"
+                "email": "fulanchoΩ@example.com",
+                "contrasenia": "4123@examplE"
               }
             }
           }
@@ -640,6 +750,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -664,7 +779,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/carrera/{name}": {
@@ -684,7 +804,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/carrera/{id}": {
@@ -704,7 +829,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       },
       "put": {
         "description": "",
@@ -723,6 +853,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "autoBody": true,
         "requestBody": {
           "required": true,
@@ -757,6 +892,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "autoBody": true
       }
     },
@@ -768,6 +908,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -803,7 +948,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/mensajes/findById/{id}": {
@@ -823,7 +973,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/mensajes/update/{id}": {
@@ -844,6 +999,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -877,7 +1037,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/mensajes/delete/{id}": {
@@ -897,7 +1062,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/": {
@@ -907,7 +1077,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/create": {
@@ -918,6 +1093,11 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -943,7 +1123,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/posts": {
@@ -953,7 +1138,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/topics": {
@@ -963,7 +1153,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/messages": {
@@ -973,7 +1168,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/resolve/{id}": {
@@ -993,7 +1193,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/deresolve/{id}": {
@@ -1013,7 +1218,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/{id}": {
@@ -1033,11 +1243,23 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     }
   },
   "components": {
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "auth_token"
+      }
+    },
     "schemas": {
       "carreraSchema": {
         "type": "object",
@@ -1549,31 +1771,6 @@
           "name": "mensajeSchema"
         }
       },
-      "securitySchema": {
-        "type": "object",
-        "properties": {
-          "cookieAuth": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "apiKey"
-              },
-              "in": {
-                "type": "string",
-                "example": "cookie"
-              },
-              "name": {
-                "type": "string",
-                "example": "token"
-              }
-            }
-          }
-        },
-        "xml": {
-          "name": "securitySchema"
-        }
-      },
       "registerSchema": {
         "type": "object",
         "properties": {
@@ -1587,7 +1784,7 @@
           },
           "contrasenia": {
             "type": "string",
-            "example": "4123"
+            "example": "4123@examplE"
           }
         },
         "required": [
@@ -1608,7 +1805,7 @@
           },
           "contrasenia": {
             "type": "string",
-            "example": "4123"
+            "example": "4123@examplE"
           }
         },
         "required": [
@@ -1620,5 +1817,10 @@
         }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "cookieAuth": []
+    }
+  ]
 }

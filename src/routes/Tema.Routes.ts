@@ -34,13 +34,14 @@ router.get('/findAll', (req: Request, res: Response) => {
     temaController.findAll(req, res);
 })
 
+router.get('/findByName/:name', (req: Request, res: Response) => {
+    temaController.findByName(req, res);
+})
+
 router.get('/findById/:id', (req: Request, res: Response) => {
     temaController.findById(req, res);
 })
 
-router.get('/findByName/:name', (req: Request, res: Response) => {
-    temaController.findByName(req, res);
-})
 
 router.put('/update/:id', (req: Request, res: Response) => {
     /*  #swagger.requestBody = {

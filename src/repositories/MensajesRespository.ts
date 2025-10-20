@@ -5,8 +5,7 @@ import IMensajesRepository from "./interfaces/IMensajesRepository.js";
 import { GetMensajeForRolDTO, NestedMessage } from "types/DTOs/MensajesDTO.js";
 import { Kysely } from "kysely";
 import { DB } from "db/types.js";
-import { jsonArrayFrom, jsonObjectFrom } from 'kysely/helpers/postgres'
-import { sql } from "kysely";
+import { jsonObjectFrom } from 'kysely/helpers/postgres'
 
 export default class MensajesRepository extends Repository<Mensaje, "mensaje"> implements IMensajesRepository {
   constructor(
@@ -72,14 +71,47 @@ export default class MensajesRepository extends Repository<Mensaje, "mensaje"> i
 		return roots;
 	}
 
-  @validateRepo
-  public async messagesResponded(messageId: number): Promise<Partial<Mensaje[]>> {
-	return super["db"].findMany({
-		where: {
-			id_mensaje: messageId,
-		},
-	});
-}
+	@validateRepo
+	public async findById(id: number): Promise<NestedMessage> {
+		const mensaje = await this.dbK
+			.selectFrom('Mensaje as m')
+			.select((eb) =>[
+				'm.id',
+				'm.id_mensaje',
+				'm.updatedAt',
+				'm.id_post',
+				'm.id_autor',
+				'm.contenido',
+				'm.createdAt',
+				jsonObjectFrom(
+					eb.selectFrom("Usuario as u")
+					.select([
+						'u.activo',
+						'u.email',
+						'u.id',
+						'u.nombre_apellido',
+						'u.rol',
+						'u.updatedAt',
+						'u.createdAt',
+					])
+					.whereRef('u.id', '=', 'm.id_autor')
+				).$notNull().as('autor'),
+			])
+			.where('m.id', '=', id)
+			.executeTakeFirst();
+		
+		if (!mensaje) throw new Error(`Mensaje with id ${id} not found`);
+
+		return {
+			...mensaje,
+			autor: {
+				...mensaje.autor,
+				createdAt: mensaje.autor.createdAt ? new Date(mensaje.autor.createdAt) : null,
+				updatedAt: mensaje.autor.updatedAt ? new Date(mensaje.autor.updatedAt) : null,
+			},
+			respuestas: [],
+		};
+	}
 
   @validateRepo
   public async findAllInUserId(userId: number): Promise<Mensaje[]> {

@@ -1,7 +1,7 @@
 import { Usuario } from 'db';
 import { SignJWT } from 'jose';
 import { validateService } from '../decorators/errors/errors.js';
-import { getPublicKey } from '../utils/auth/KeyGen.js';
+import { getPrivateKey } from '../utils/auth/KeyGen.js';
 import { compare } from 'bcrypt-ts';
 import { IUserService } from './interfaces/IUserService.js';
 import Service from './Service.js';
@@ -10,7 +10,7 @@ import { type GetUserForRolDTO, user_mapper } from 'types/DTOs/UsuariosDTO.js';
 import IUserRepository from 'repositories/interfaces/IUserRepository.js';
 import { toUser } from 'utils/mapper/ForUserRol.js';
 
-const publicKey = await getPublicKey();
+const private_key = await getPrivateKey();
 
 export class UserService extends Service<Usuario> implements IUserService {
     constructor(private readonly userRepository: IUserRepository) {
@@ -23,14 +23,14 @@ export class UserService extends Service<Usuario> implements IUserService {
         await this.userRepository.update(id, data);
     }
         
-    async findById(id: number): Promise<Partial<Usuario>> {
+    async findById(id: number): Promise<GetUserForRolDTO> {
         const user = await this.userRepository.findById(id) as Usuario;
         return await toUser<GetUserForRolDTO, Usuario, typeof user_mapper>(user, user_mapper).then(users => users[0]);
     }
 
-    async findByName(name: string): Promise<GetUserForRolDTO> {
-        const user = await this.userRepository.findByName(name) as Usuario
-        return await toUser<GetUserForRolDTO, Usuario, typeof user_mapper>(user, user_mapper).then(users => users[0]);
+    async findByName(name: string): Promise<GetUserForRolDTO[]> {
+        const users = await this.userRepository.findByName(name) as Usuario[];
+        return await toUser<GetUserForRolDTO, Usuario, typeof user_mapper>(users, user_mapper);
     }
 
     @validateService('not found: ')
@@ -42,18 +42,18 @@ export class UserService extends Service<Usuario> implements IUserService {
     }
 
     @validateService('not Logged: ')
-    async login(email: string, contraseña: string): Promise<string> {
-        const user = await this.userRepository.findByEmail(email);
-        const contraseñaMatch = await compare(contraseña, user.contrasenia as string);
+    async login(email: string, contrasenia: string): Promise<string> {
+        const user = await this.userRepository.getPasswordByEmail(email);
+        const contraseñaMatch = await compare(contrasenia, user.contrasenia as string);
         if (!contraseñaMatch) {
             throw new Error('Invalid password');
         }
 
         return await new SignJWT({ id: user.id, rol: user.rol })
-            .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
+            .setProtectedHeader({ alg: 'RS256', typ: 'JWT' })
             .setIssuedAt()
             .setExpirationTime('4h')
-            .sign(publicKey!);
+            .sign(private_key!);
     }
 
     @validateService('not created: ')

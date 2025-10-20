@@ -22,6 +22,13 @@ const doc = {
 			},
 	],
 	components: {
+		securitySchemes: {
+			cookieAuth: { 
+				type: 'apiKey',
+				in: 'cookie',
+				name: 'auth_token',
+			}
+		},
 		schemas: {
 				carreraSchema: CarreraSchema,
 				usuarioSchema: UsuarioSchema,
@@ -29,24 +36,22 @@ const doc = {
 				temaSchema: TemaSchema,
 				postSchema: PostSchema,
 				mensajeSchema: MensajeSchema,
-				securitySchema: {
-					cookieAuth: { 
-						type: 'apiKey',
-						in: 'cookie',
-						name: 'token',
-					}
-				},
 				registerSchema: {
 						$email: 'fulanchoΩ@example.com',
 						$nombre_apellido: 'fula',
-						$contrasenia: '4123'
+						$contrasenia: '4123@examplE'
 				},
 				loginSchema: {
 						$email: 'fulanchoΩ@example.com',
-						$contrasenia: '4123'
+						$contrasenia: '4123@examplE'
 				}
 		},
-	}
+	},
+	security: [
+		{
+			cookieAuth: [],
+		},
+	],
 }
 
 

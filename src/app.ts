@@ -11,14 +11,19 @@ const swaggerUi = (await import('swagger-ui-express')).default;
 const tracer = trace.getTracer('app');
 generateAndSaveKeyPair();
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { createProxyMiddleware } from "http-proxy-middleware";
 const app = express();
 
 app.use(cors());
-
+app.use(cookieParser());
 app.use(express.json());
 
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput))
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput, {
+    swaggerOptions: {
+        persistAuthorization: true,
+    },
+}))
 
 app.use('/', routes);
 

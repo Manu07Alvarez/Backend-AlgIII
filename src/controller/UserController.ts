@@ -26,9 +26,9 @@ export class UserController {
 
     public async login(req: Request, res: Response): Promise<void> {
         try {
-            const { email, contraseña } = req.body;
-            const jwt = await this.userService.login(email, contraseña);
-            res.cookie('token', jwt);
+            const { email, contrasenia } = req.body;
+            const jwt = await this.userService.login(email, contrasenia);
+            res.cookie('auth_token', jwt);
             res.status(200).json({ message: 'Login successful' });
         } catch (error: unknown) {
             if (error instanceof Error) res.status(500).json({ message: error.message });

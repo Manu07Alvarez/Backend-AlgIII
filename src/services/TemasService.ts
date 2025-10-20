@@ -27,9 +27,9 @@ export class TemasService extends service<Tema> implements ITemasService {
     }
 
     @validateService('Tema not found: ')
-    async findByName(name: string): Promise<GetTemaForRolDTO> {
-        const tema = await this.TemasRepositories.findByName(name) as Tema;
-        return await toUser<GetTemaForRolDTO, Tema, typeof tema_mapper>(tema, tema_mapper).then(temas => temas[0]);
+    async findByName(name: string): Promise<GetTemaForRolDTO[]> {
+        const temas = await this.TemasRepositories.findByName(name) as Tema[];
+        return await toUser<GetTemaForRolDTO, Tema, typeof tema_mapper>(temas, tema_mapper);
     }
 
     @validateService('Temas not found: ')

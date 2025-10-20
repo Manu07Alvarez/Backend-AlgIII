@@ -2,8 +2,7 @@ import { Mensaje } from 'db';
 import { GetMensajeForRolDTO, NestedMessage } from 'types/DTOs/MensajesDTO.js';
 export default interface IMensajesRepository {
   create(data: Mensaje): Promise<void>;
-  findById(id: number): Promise<Partial<Mensaje>>;
-  messagesResponded(messageId: number): Promise<Partial<Mensaje[]>>;
+  findById(id: number): Promise<NestedMessage>;
   findAllInPost(postId: number): Promise<NestedMessage[]>;
   findAllInUserId(userId: number): Promise<Mensaje[]>;
   activateOrDeactivate(id: number): Promise<void>;

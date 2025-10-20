@@ -5,6 +5,6 @@ export default interface ICarreraRepository {
   findAll(): Promise<Partial<Carrera[]>>;
   update(id: number, data: Carrera): Promise<void>;
   delete(id: number): Promise<void>;
-  findByName(name: string): Promise<Partial<Carrera>>;
+  findByName(name: string): Promise<Partial<Carrera[]>>;
   activateOrDeactivate(id: number): Promise<void>;
 }

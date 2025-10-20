@@ -4,30 +4,30 @@ import { validateService } from "../decorators/errors/errors.js";
 import IMensajesRepository from "../repositories/interfaces/IMensajesRepository.js";
 import IMensajesService from "./interfaces/IMensajesService.js";
 import Service from "./Service.js";
-import { GetMensajeForRolDTO, NestedMessage } from "../types/DTOs/MensajesDTO.js";
+import { GetMensajeForRolDTO, mensaje_mapper, NestedMessage } from "../types/DTOs/MensajesDTO.js";
+import { toUser } from "utils/mapper/ForUserRol.js";
 
 export class MensajesService extends Service<Mensaje> implements IMensajesService {
     constructor(
         private readonly mensajeRepository: IMensajesRepository,
     ) {super(mensajeRepository, 'Mensajes');}
 
-    @validateService('not found: ')
-    public async messagesResponded(messageId: number): Promise<GetMensajeForRolDTO[]> {
-        return this.entity.messagesResponded(messageId);
-    }
 
     @validateService('not found: ')
     public async findAllInUserId(userId: number): Promise<GetMensajeForRolDTO[]> {
-        return await this.mensajeRepository.findAllInUserId(userId);
+        const mensajes = await this.mensajeRepository.findAllInUserId(userId);
+        return await toUser<GetMensajeForRolDTO, Mensaje, typeof mensaje_mapper>(mensajes, mensaje_mapper);
     }
 
     @validateService('not found: ')
     public async findById(id: number): Promise<GetMensajeForRolDTO> {
-        return this.entity.findById(id);
+        const mensaje = this.entity.findById(id);
+        return await toUser<GetMensajeForRolDTO, NestedMessage, typeof mensaje_mapper>(mensaje, mensaje_mapper).then(mensajes => mensajes[0]);
     }
 
     @validateService('not found: ')
-    public async findAllInPost(postId: number): Promise<NestedMessage[]> {
-        return this.entity.findAllInPost(postId);
+    public async findAllInPost(postId: number): Promise<GetMensajeForRolDTO[]> {
+        const mensajes = await this.entity.findAllInPost(postId);
+        return await toUser<GetMensajeForRolDTO, NestedMessage, typeof mensaje_mapper>(mensajes, mensaje_mapper);
     }
 }

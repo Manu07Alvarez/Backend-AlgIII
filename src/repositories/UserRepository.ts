@@ -1,4 +1,4 @@
-import { PrismaClient, Usuario, Rol } from 'db';
+import { PrismaClient,Prisma, Usuario, Rol } from 'db';
 import { validateRepo } from '../decorators/errors/errors.js';
 import Repository from './Repository.js';
 import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
@@ -24,6 +24,14 @@ export class UserRepository extends Repository<Usuario, "usuario"> implements IU
 			where: { email }
 		})
 	}
+
+	@validateRepo
+	async getPasswordByEmail(email: string): Promise<Usuario> {
+		return await this.dbK.selectFrom('Usuario')
+			.selectAll()
+			.where('email', '=', email)
+			.executeTakeFirstOrThrow();
+	}	
 
   	@validateRepo
 	public override async findAll(): Promise<Partial<Usuario[]>> {

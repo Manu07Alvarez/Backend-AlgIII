@@ -4,8 +4,8 @@ import { PaginationParams, PaginationResults } from "types/pagination.types.js";
 
 export  interface IUserService {
     findAllUsers(): Promise<GetUserForRolDTO[]>;
-    findById(id: number): Promise<Partial<Usuario>>;
-    findByName(name: string): Promise<Partial<Usuario>>; // agregado para homogeneidad con Post
+    findById(id: number): Promise<GetUserForRolDTO>;
+    findByName(name: string): Promise<GetUserForRolDTO[]>; // agregado para homogeneidad con Post
     create(data: Usuario): Promise<void>;
     activateOrDeactivate(id: number): Promise<void>;
     delete(id: number): Promise<void>;

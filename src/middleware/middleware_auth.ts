@@ -13,7 +13,7 @@ export let auth_user: AuthUserDTO;
 
 export async function authToken(req: Request, res: Response, next: NextFunction) {
     try {
-        const tsCookie = req.cookies["token"];
+        const tsCookie = req.cookies.auth_token;
         console.log("Cookie encontrada.");
         const publicKey = await getPublicKey();
         const {payload}  = await jwtVerify(tsCookie, publicKey!);

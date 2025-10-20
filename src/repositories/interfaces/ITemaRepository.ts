@@ -5,7 +5,7 @@ export default interface ITemaRepository {
       findAll(): Promise<Partial<Tema[]>>;
       update(id: number, data: Tema): Promise<void>;
       delete(id: number): Promise<void>;
-      findByName(name: string): Promise<Partial<Tema>>;
+      findByName(name: string): Promise<Partial<Tema[]>>;
       activateOrDeactivate(id: number): Promise<void>;
       obtenerTemasAbiertos(): Promise<Tema[]>;
 }

@@ -64,7 +64,6 @@ export class UserRepository extends Repository<Usuario, "usuario"> implements IU
 				]
 			}: {},
 		})
-	
 		console.log(users);
 		return {
 			data: users,

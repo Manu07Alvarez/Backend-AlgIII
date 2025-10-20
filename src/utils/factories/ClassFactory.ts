@@ -34,7 +34,7 @@ const dialect = new PostgresDialect({
 });
 
 export const dbK = new Kysely<DB>({
-  dialect
+  dialect,
 });
 
 
@@ -63,7 +63,7 @@ export function createPostController(): PostController{
 };
 
 export function createMensajeController(): MensajesController{
-  const repo = new MensajesRepository();
+  const repo = new MensajesRepository(dbK);
   const service = new MensajesService(repo);
   return new MensajesController(service);
 };

@@ -9,6 +9,7 @@ import { PaginationParams, PaginationResults } from '../types/pagination.types.j
 import { type GetUserForRolDTO, user_mapper } from '../types/DTOs/UsuariosDTO.js';
 import IUserRepository from '../repositories/interfaces/IUserRepository.js';
 import { toUser } from '../utils/mapper/ForUserRol.js';
+import { POSTUsuario } from 'schemas/Usuarios.schema.js';
 
 
 export class UserService extends Service<Usuario> implements IUserService {
@@ -58,7 +59,7 @@ export class UserService extends Service<Usuario> implements IUserService {
     }
 
     @validateService('not created: ')
-    async register(data: Usuario): Promise<void> {
+    async register(data: POSTUsuario): Promise<void> {
         await this.userRepository.create(data);
     }
 

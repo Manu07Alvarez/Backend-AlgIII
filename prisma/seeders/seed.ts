@@ -155,6 +155,37 @@ async function main() {
 
     })
   );
+  // NOTIFICACIONES
+const notificaciones = await Promise.all(
+  Array.from({ length }).map(async (_, i) => {
+    const randomUser = users[Math.floor(Math.random() * users.length)];
+    const opciones = ['tema', 'post', 'mensaje'];
+    const seleccionado = opciones[Math.floor(Math.random() * opciones.length)];
+
+    const data: any = {
+      contenido: faker.lorem.sentence(),
+      id_usuario: randomUser.id,
+      leido: faker.datatype.boolean(),
+    };
+
+    switch (seleccionado) {
+      case 'tema':
+        data.id_tema = temas[Math.floor(Math.random() * temas.length)].id;
+        break;
+      case 'post':
+        data.id_post = posts[Math.floor(Math.random() * posts.length)].id;
+        break;
+      case 'mensaje':
+        data.id_mensaje = mensajes[Math.floor(Math.random() * mensajes.length)].id;
+        break;
+    }
+
+    return prisma.notificacion.create({
+      data,
+      include: { usuario: true, tema: true, post: true, Mensaje: true },
+    });
+  })
+);
 
   await prisma.reporte.createMany({ data: reportesData });
   console.log('✅ Seeder ejecutado correctamente con datos falsos.');

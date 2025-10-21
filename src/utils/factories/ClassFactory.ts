@@ -16,6 +16,9 @@ import { ReportsService } from "../../services/ReportsService.js";
 import MensajesRepository from "../../repositories/MensajesRespository.js";
 import { ReportesController } from "../../controller/ReportesController.js";
 import { CarreraRepository } from "../../repositories/CarreraRepository.js";
+import { NotificacionController } from "../../controller/NotificacionController.js";
+import { NotificacionRepository } from "../../repositories/NotificacionRepository.js";
+import { NotificacionService } from "../../services/NotificacionService.js";
 import { PrismaClient } from 'db';
 import { PrismaPg } from '@prisma/adapter-pg'
 import { DB } from "db/types.js";
@@ -65,6 +68,12 @@ export function createMensajeController(): MensajesController{
   const repo = new MensajesRepository();
   const service = new MensajesService(repo);
   return new MensajesController(service);
+};
+
+export function createNotificacionController(): NotificacionController{
+  const repo = new NotificacionRepository();
+  const service = new NotificacionService(repo);
+  return new NotificacionController(service);
 };
 
 /**

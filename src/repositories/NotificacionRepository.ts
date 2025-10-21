@@ -1,46 +1,42 @@
-import { PrismaClient } from '@prisma/client';
-import { INotificacionRepository } from './interfaces/INotificacionRepository.js';
+import { PrismaClient } from "@prisma/client";
+import { INotificacionRepository } from "./interfaces/INotificacionRepository.js";
+import { GetNotificacionDTO } from "../types/DTOs/NotificacionesDTO.js";
 
 const prisma = new PrismaClient();
 
-/**
- * NotificacionRepository
- * ---------------------
- * Implementa la interfaz INotificacionRepository.
- * Encapsula todas las operaciones directas a la base de datos relacionadas
- * con notificaciones, incluyendo filtrado por rol.
- */
-export const NotificacionRepository: INotificacionRepository = {
-  crear: (data) => {
+export class NotificacionRepository implements INotificacionRepository {
+  async crear(data: {
+    contenido: string;
+    id_usuario: number;
+    id_tema?: number;
+    id_post?: number;
+    id_mensaje?: number;
+  }): Promise<GetNotificacionDTO> {
     return prisma.notificacion.create({
       data,
-      include: {
-        usuario: true,
-        tema: true,
-        post: true,
-        Mensaje: true,
-      },
+      include: { usuario: true, tema: true, post: true, Mensaje: true },
     });
-  },
+  }
 
-  listarPorUsuarioYRol: async (id_usuario, rol, temasModerador) => {
-    if (rol === 'ADMIN') {
+  async listarPorUsuarioYRol(
+    id_usuario: number,
+    rol: "ADMIN" | "MODERADOR" | "USUARIO",
+    temasModerador?: number[]
+  ): Promise<GetNotificacionDTO[]> {
+    if (rol === "ADMIN") {
       return prisma.notificacion.findMany({
         include: { usuario: true, tema: true, post: true, Mensaje: true },
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: "desc" },
       });
     }
 
-    if (rol === 'MODERADOR') {
+    if (rol === "MODERADOR") {
       return prisma.notificacion.findMany({
         where: {
-          OR: [
-            { id_usuario }, // propias
-            { id_tema: { in: temasModerador ?? [] } }, // temas asignados
-          ],
+          OR: [{ id_usuario }, { id_tema: { in: temasModerador ?? [] } }],
         },
         include: { usuario: true, tema: true, post: true, Mensaje: true },
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: "desc" },
       });
     }
 
@@ -48,21 +44,22 @@ export const NotificacionRepository: INotificacionRepository = {
     return prisma.notificacion.findMany({
       where: { id_usuario },
       include: { usuario: true, tema: true, post: true, Mensaje: true },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     });
-  },
+  }
 
-  marcarLeido: (id) => {
+  async marcarLeido(id: number): Promise<GetNotificacionDTO> {
     return prisma.notificacion.update({
       where: { id },
       data: { leido: true },
       include: { usuario: true, tema: true, post: true, Mensaje: true },
     });
-  },
+  }
 
-  eliminar: (id) => {
+  async eliminar(id: number): Promise<GetNotificacionDTO> {
     return prisma.notificacion.delete({
       where: { id },
+      include: { usuario: true, tema: true, post: true, Mensaje: true },
     });
-  },
-};
+  }
+}

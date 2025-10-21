@@ -16,7 +16,7 @@ export type GetPostForAdminDTO = {
 export type GetPostForRolDTO = GetPostForAdminDTO | GetPostForUserDTO
 
 export const post_mapper = {
-    USER: (post: Post): GetPostForUserDTO => ({
+    USUARIO: (post: Post): GetPostForUserDTO => ({
         id: post.id,
         titulo: post.titulo,
         id_autor: post.id_autor,

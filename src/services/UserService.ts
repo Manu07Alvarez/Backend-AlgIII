@@ -10,7 +10,6 @@ import { type GetUserForRolDTO, user_mapper } from '../types/DTOs/UsuariosDTO.js
 import IUserRepository from '../repositories/interfaces/IUserRepository.js';
 import { toUser } from '../utils/mapper/ForUserRol.js';
 
-const private_key = await getPrivateKey();
 
 export class UserService extends Service<Usuario> implements IUserService {
     constructor(private readonly userRepository: IUserRepository) {
@@ -43,17 +42,19 @@ export class UserService extends Service<Usuario> implements IUserService {
 
     @validateService('not Logged: ')
     async login(email: string, contrasenia: string): Promise<string> {
+        const private_key = await getPrivateKey();
         const user = await this.userRepository.getPasswordByEmail(email);
         const contraseñaMatch = await compare(contrasenia, user.contrasenia as string);
         if (!contraseñaMatch) {
             throw new Error('Invalid password');
         }
-
         return await new SignJWT({ id: user.id, rol: user.rol })
             .setProtectedHeader({ alg: 'RS256', typ: 'JWT' })
             .setIssuedAt()
             .setExpirationTime('4h')
             .sign(private_key!);
+        
+        
     }
 
     @validateService('not created: ')

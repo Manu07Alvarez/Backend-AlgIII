@@ -1,10 +1,14 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from 'db';
 import { INotificacionRepository } from "./interfaces/INotificacionRepository.js";
 import { GetNotificacionDTO } from "../types/DTOs/NotificacionesDTO.js";
 
-const prisma = new PrismaClient();
+export default class NotificacionRepository implements INotificacionRepository {
+  private prisma: PrismaClient;
 
-export class NotificacionRepository implements INotificacionRepository {
+  constructor() {
+    this.prisma = new PrismaClient();
+  }
+
   async crear(data: {
     contenido: string;
     id_usuario: number;
@@ -12,7 +16,7 @@ export class NotificacionRepository implements INotificacionRepository {
     id_post?: number;
     id_mensaje?: number;
   }): Promise<GetNotificacionDTO> {
-    return prisma.notificacion.create({
+    return this.prisma.notificacion.create({
       data,
       include: { usuario: true, tema: true, post: true, Mensaje: true },
     });
@@ -24,14 +28,14 @@ export class NotificacionRepository implements INotificacionRepository {
     temasModerador?: number[]
   ): Promise<GetNotificacionDTO[]> {
     if (rol === "ADMIN") {
-      return prisma.notificacion.findMany({
+      return this.prisma.notificacion.findMany({
         include: { usuario: true, tema: true, post: true, Mensaje: true },
         orderBy: { createdAt: "desc" },
       });
     }
 
     if (rol === "MODERADOR") {
-      return prisma.notificacion.findMany({
+      return this.prisma.notificacion.findMany({
         where: {
           OR: [{ id_usuario }, { id_tema: { in: temasModerador ?? [] } }],
         },
@@ -41,7 +45,7 @@ export class NotificacionRepository implements INotificacionRepository {
     }
 
     // USUARIO
-    return prisma.notificacion.findMany({
+    return this.prisma.notificacion.findMany({
       where: { id_usuario },
       include: { usuario: true, tema: true, post: true, Mensaje: true },
       orderBy: { createdAt: "desc" },
@@ -49,7 +53,7 @@ export class NotificacionRepository implements INotificacionRepository {
   }
 
   async marcarLeido(id: number): Promise<GetNotificacionDTO> {
-    return prisma.notificacion.update({
+    return this.prisma.notificacion.update({
       where: { id },
       data: { leido: true },
       include: { usuario: true, tema: true, post: true, Mensaje: true },
@@ -57,9 +61,14 @@ export class NotificacionRepository implements INotificacionRepository {
   }
 
   async eliminar(id: number): Promise<GetNotificacionDTO> {
-    return prisma.notificacion.delete({
+    return this.prisma.notificacion.delete({
       where: { id },
       include: { usuario: true, tema: true, post: true, Mensaje: true },
     });
+  }
+
+  // Opcional: método para cerrar la conexión si lo necesitas
+  async disconnect() {
+    await this.prisma.$disconnect();
   }
 }

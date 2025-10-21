@@ -1,5 +1,7 @@
 // Tipos de utilidad
 export type DateTime = string | Date | null;
+import { GetUserForUserDTO as UsuarioDTO } from "../DTOs/UsuariosDTO.js"
+
 
 // -------------------------------
 // DTOs relacionados
@@ -48,29 +50,32 @@ export type UsuariosNotificacionDTO = {
 // DTO principal de creación
 // -------------------------------
 
+// NotificacionesDTO.ts (ejemplo)
 export type PostNotificacionDTO = {
+  id: number;
   contenido: string;
-  id_usuario: number;
-  type: "tema" | "post" | "mensaje";
+  id_tema: number | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  titulo: string;
+  published: boolean;
+  id_autor: number;
 };
+
 
 // -------------------------------
 // DTO de salida (GET)
 // -------------------------------
 
-export type GetNotificacionDTO = {
+export interface GetNotificacionDTO {
   id: number;
   contenido: string;
-  leido: boolean;
-  id_usuario: number;
-  id_tema?: number | null;
-  id_post?: number | null;
-  id_mensaje?: number | null;
-  createdAt?: DateTime;
-  updatedAt?: DateTime;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  usuario: UsuarioDTO;
+  tema?: TemasNotificacionDTO | null;
+  post?: PostNotificacionDTO | null;
+  mensaje?: MensajesNotificacionsDTO | null;
+}
 
-  usuario?: UsuariosNotificacionDTO;
-  tema?: TemasNotificacionDTO;
-  post?: PostsNotificacionDTO;
-  Mensaje?: MensajesNotificacionsDTO;
-};
+

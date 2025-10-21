@@ -18,7 +18,7 @@ import MensajesRepository from "../../repositories/MensajesRespository.js";
 import { ReportesController } from "../../controller/ReportesController.js";
 import { CarreraRepository } from "../../repositories/CarreraRepository.js";
 import { NotificacionController } from "../../controller/NotificacionController.js";
-import { NotificacionRepository } from "../../repositories/NotificacionRepository.js";
+import NotificacionRepository from "../../repositories/NotificacionRepository.js";
 import { NotificacionService } from "../../services/NotificacionService.js";
 import { PrismaClient } from 'db';
 import { PrismaPg } from '@prisma/adapter-pg'

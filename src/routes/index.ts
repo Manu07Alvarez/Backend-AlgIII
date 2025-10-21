@@ -7,6 +7,7 @@ import guestRoutes from './Guest.routes.js';
 import carreraRoutes from './Carrera.routes.js';
 import mensajesRoutes from './Mensajes.routes.js';
 import reportRoutes from './Reportes.routes.js';
+import NotificacionRoutes from './Notificaciones.routes.js'
 import { authToken } from '../middleware/middleware_auth.js';
 
 
@@ -19,3 +20,4 @@ routes.use('/api/guest', guestRoutes);
 routes.use('/api/carrera', carreraRoutes);
 routes.use('/api/mensajes', mensajesRoutes); // Assuming mensajes are handled by postRoutes
 routes.use('/api/reporte', reportRoutes);
+routes.use('/api/notificacion', NotificacionRoutes)

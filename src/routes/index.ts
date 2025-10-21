@@ -56,3 +56,9 @@ routes.use('/api/reporte', reportRoutes
         "cookieAuth": []
     }] */
 );
+
+routes.use('/api/notificacion', NotificacionRoutes
+       /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+)

@@ -1,10 +1,11 @@
-import { Usuario } from "../../generated/prisma/client.js";
-import { PaginationParams, PaginationResults } from "types/pagination.types.js";
+import { GetUserForRolDTO } from "../../types/DTOs/UsuariosDTO.js";
+import { Usuario } from "db";
+import { PaginationParams, PaginationResults } from "../../types/pagination.types.js";
 
 export  interface IUserService {
-    findAll(): Promise<Usuario[]>;
-    findById(id: number): Promise<Partial<Usuario>>;
-    findByName(name: string): Promise<Partial<Usuario>>; // agregado para homogeneidad con Post
+    findAllUsers(): Promise<GetUserForRolDTO[]>;
+    findById(id: number): Promise<GetUserForRolDTO>;
+    findByName(name: string): Promise<GetUserForRolDTO[]>; // agregado para homogeneidad con Post
     create(data: Usuario): Promise<void>;
     activateOrDeactivate(id: number): Promise<void>;
     delete(id: number): Promise<void>;
@@ -12,5 +13,5 @@ export  interface IUserService {
     login(email: string, contraseña: string): Promise<string>;
     register(data: Usuario): Promise<void>;
     bajaUsuario(id: number, data: Usuario): Promise<void>;
-    getPagination(params: PaginationParams): Promise<PaginationResults<Partial<Usuario>>>;
+    getPagination(params: PaginationParams): Promise<PaginationResults<GetUserForRolDTO>>;
 }

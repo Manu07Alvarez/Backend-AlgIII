@@ -1,17 +1,19 @@
-import { Usuario } from '../generated/prisma/client.js';
-import { UserRepository } from '../repositories/UserRepository.js';
+import { Usuario } from 'db';
 import { SignJWT } from 'jose';
 import { validateService } from '../decorators/errors/errors.js';
-import { getPublicKey } from '../utils/auth/KeyGen.js';
+import { getPrivateKey } from '../utils/auth/KeyGen.js';
 import { compare } from 'bcrypt-ts';
 import { IUserService } from './interfaces/IUserService.js';
 import Service from './Service.js';
-import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
+import { PaginationParams, PaginationResults } from '../types/pagination.types.js';
+import { type GetUserForRolDTO, user_mapper } from '../types/DTOs/UsuariosDTO.js';
+import IUserRepository from '../repositories/interfaces/IUserRepository.js';
+import { toUser } from '../utils/mapper/ForUserRol.js';
 
-const publicKey = await getPublicKey();
+const private_key = await getPrivateKey();
 
 export class UserService extends Service<Usuario> implements IUserService {
-    constructor(private readonly userRepository: UserRepository) {
+    constructor(private readonly userRepository: IUserRepository) {
         super(userRepository, 'Usuario');
     }
 
@@ -20,20 +22,38 @@ export class UserService extends Service<Usuario> implements IUserService {
         data.activo = false;
         await this.userRepository.update(id, data);
     }
+        
+    async findById(id: number): Promise<GetUserForRolDTO> {
+        const user = await this.userRepository.findById(id) as Usuario;
+        return await toUser<GetUserForRolDTO, Usuario, typeof user_mapper>(user, user_mapper).then(users => users[0]);
+    }
+
+    async findByName(name: string): Promise<GetUserForRolDTO[]> {
+        const users = await this.userRepository.findByName(name) as Usuario[];
+        return await toUser<GetUserForRolDTO, Usuario, typeof user_mapper>(users, user_mapper);
+    }
+
+    @validateService('not found: ')
+    async findAllUsers(): Promise<GetUserForRolDTO[]> {
+        
+        const users: Usuario[] = await this.userRepository.findAll() as Usuario[];
+        
+        return await toUser<GetUserForRolDTO, Usuario, typeof user_mapper>(users, user_mapper);
+    }
 
     @validateService('not Logged: ')
-    async login(email: string, contraseña: string): Promise<string> {
-        const user = await this.userRepository.findByEmail(email);
-        const contraseñaMatch = await compare(contraseña, user.contrasenia as string);
+    async login(email: string, contrasenia: string): Promise<string> {
+        const user = await this.userRepository.getPasswordByEmail(email);
+        const contraseñaMatch = await compare(contrasenia, user.contrasenia as string);
         if (!contraseñaMatch) {
             throw new Error('Invalid password');
         }
 
         return await new SignJWT({ id: user.id, rol: user.rol })
-            .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
+            .setProtectedHeader({ alg: 'RS256', typ: 'JWT' })
             .setIssuedAt()
             .setExpirationTime('4h')
-            .sign(publicKey!);
+            .sign(private_key!);
     }
 
     @validateService('not created: ')
@@ -41,13 +61,13 @@ export class UserService extends Service<Usuario> implements IUserService {
         await this.userRepository.create(data);
     }
 
-    async getPagination(params: PaginationParams): Promise<PaginationResults<Partial<Usuario>>> {
+    @validateService('not found: ')
+    async getPagination(params: PaginationParams): Promise<PaginationResults<GetUserForRolDTO>> {
         const result = await this.userRepository.getPagination(params);
 
-        if (!result || !Array.isArray(result.data)) {
-            throw new Error('Formato de resultado inválido');
+        return {
+            ...result,
+            data: await toUser<GetUserForRolDTO, Usuario, typeof user_mapper>(result.data, user_mapper)
         }
-
-        return result;
     }
 }

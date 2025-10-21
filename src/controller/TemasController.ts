@@ -1,7 +1,7 @@
-import ITemasService from "services/interfaces/ITemaService.js";
+import ITemasService from "../services/interfaces/ITemaService.js";
 import { Request, Response, NextFunction } from "express";
 import {trace, Span} from '@opentelemetry/api';
-import { Tema } from "schemas/Tema.schema.js";
+import { Tema } from "../schemas/Tema.schema.js";
 //import { Tema } from "../generated/prisma/client.js"
 const tracer = trace.getTracer('controller');
 

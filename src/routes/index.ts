@@ -21,3 +21,38 @@ routes.use('/api/carrera', carreraRoutes);
 routes.use('/api/mensajes', mensajesRoutes); // Assuming mensajes are handled by postRoutes
 routes.use('/api/reporte', reportRoutes);
 routes.use('/api/notificacion', NotificacionRoutes)
+routes.use('/api/Tema', temaRoutes
+    /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+);
+routes.use('/api/user', userRoutes
+    /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+);
+routes.use('/api/post', postRoutes
+    /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+);
+routes.use('/api/guest', guestRoutes
+    /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+);
+routes.use('/api/carrera', carreraRoutes
+    /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+);
+routes.use('/api/mensajes', mensajesRoutes
+    /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+); // Assuming mensajes are handled by postRoutes
+routes.use('/api/reporte', reportRoutes
+    /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+);

@@ -16,10 +16,15 @@
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -45,30 +50,15 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
-      }
-    },
-    "/api/Tema/findById/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
+        },
+        "security": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "cookieAuth": []
           }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
+        ]
       }
     },
     "/api/Tema/findByName/{name}": {
@@ -85,10 +75,40 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/Tema/findById/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/Tema/update/{id}": {
@@ -105,10 +125,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -142,10 +167,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/Tema/delete/{id}": {
@@ -162,20 +192,193 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/user/getPagination": {
+      "get": {
+        "summary": "Obtiene usuarios paginados",
+        "description": "Devuelve una lista de usuarios con paginación, búsqueda, ordenamiento y filtrado opcional.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página",
+            "required": false,
+            "default": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Cantidad de usuarios por página",
+            "required": false,
+            "default": 10,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Texto para buscar usuarios por nombre y apellido, u email",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Campo por el cual se ordenarán los resultados",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "Dirección del ordenamiento: ascendente o descendente",
+            "required": false,
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista paginada de usuarios",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "total": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "page": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "limit": {
+                      "type": "number",
+                      "example": 10
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 2
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Ana López"
+                          },
+                          "email": {
+                            "type": "string",
+                            "example": "ana@example.com"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "total": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "page": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "limit": {
+                      "type": "number",
+                      "example": 10
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 2
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Ana López"
+                          },
+                          "email": {
+                            "type": "string",
+                            "example": "ana@example.com"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/user/": {
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/user/{id}": {
@@ -192,10 +395,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       },
       "put": {
         "description": "",
@@ -210,10 +418,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -244,20 +457,30 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/create": {
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -277,49 +500,34 @@
         }
       }
     },
-      "/api/user/getPagination": {
-  "get": {
-    "summary": "Obtiene usuarios paginados",
-    "parameters": [
-      { "in": "query", "name": "page", "schema": { "type": "integer", "default": 1 } },
-      { "in": "query", "name": "limit", "schema": { "type": "integer", "default": 10 } },
-      { "in": "query", "name": "search", "schema": { "type": "string" } },
-      { "in": "query", "name": "sortBy", "schema": { "type": "string" } },
-      { "in": "query", "name": "sortOrder", "schema": { "type": "string", "enum": ["asc", "desc"] } }
-    ],
-    "responses": {
-      "200": {
-        "description": "Lista paginada de usuarios",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/usuarioSchema" }
-                },
-                "total": { "type": "integer" },
-                "totalPages": { "type": "integer" },
-                "currentPage": { "type": "integer" }
-              }
-            }
+    "/api/post/getPagination": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
-        }
-      },
-      "500": { "description": "Error del servidor" }
-    }
-  }
-}
-,
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
     "/api/post/findAll": {
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/findById/{id}": {
@@ -336,10 +544,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/findByTitle/{title}": {
@@ -356,10 +569,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/update/{id}": {
@@ -376,10 +594,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -411,10 +634,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/post/delete/{id}": {
@@ -431,20 +659,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
-      }
-    },
-    "/api/post/getPagination": {
-      "get": {
-        "description": "",
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
+        },
+        "security": [
+          {
+            "cookieAuth": []
           }
-        }
+        ]
       }
     },
     "/api/guest/login": {
@@ -465,17 +688,13 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -497,10 +716,15 @@
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -510,9 +734,8 @@
               },
               "example": {
                 "nombre_apellido": "Juan Pérez",
-                "email": "juan@example.com",
-                "rol": "USUARIO",
-                "activo": true
+                "email": "fulanchoΩ@example.com",
+                "contrasenia": "4123@examplE"
               }
             }
           }
@@ -523,10 +746,15 @@
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -548,10 +776,15 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/carrera/{name}": {
@@ -568,10 +801,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/carrera/{id}": {
@@ -588,10 +826,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       },
       "put": {
         "description": "",
@@ -606,10 +849,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "autoBody": true,
         "requestBody": {
           "required": true,
@@ -640,10 +888,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "autoBody": true
       }
     },
@@ -651,10 +904,15 @@
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -687,10 +945,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/mensajes/findById/{id}": {
@@ -707,10 +970,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/mensajes/update/{id}": {
@@ -727,10 +995,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -761,10 +1034,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/mensajes/delete/{id}": {
@@ -781,30 +1059,45 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/": {
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/create": {
       "post": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -827,40 +1120,60 @@
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/posts": {
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/topics": {
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/messages": {
       "get": {
         "description": "",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/resolve/{id}": {
@@ -877,10 +1190,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/deresolve/{id}": {
@@ -897,10 +1215,15 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/api/reporte/{id}": {
@@ -917,14 +1240,26 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     }
   },
   "components": {
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "auth_token"
+      }
+    },
     "schemas": {
       "carreraSchema": {
         "type": "object",
@@ -932,6 +1267,16 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "nombre",
+              "activa"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -957,26 +1302,16 @@
               "activa": {
                 "type": "object",
                 "properties": {
-                  "default": {
-                    "type": "boolean",
-                    "example": true
-                  },
                   "type": {
                     "type": "string",
                     "example": "boolean"
+                  },
+                  "default": {
+                    "type": "boolean",
+                    "example": true
                   }
                 }
               }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "nombre",
-              "activa"
-            ],
-            "items": {
-              "type": "string"
             }
           }
         },
@@ -990,6 +1325,19 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "nombre_apellido",
+              "email",
+              "contrasenia",
+              "rol",
+              "activo"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -1006,46 +1354,92 @@
               "email": {
                 "type": "object",
                 "properties": {
-                  "format": {
-                    "type": "string",
-                    "example": "email"
-                  },
                   "type": {
                     "type": "string",
                     "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "email"
                   }
                 }
               },
               "contrasenia": {
                 "type": "object",
                 "properties": {
-                  "minLength": {
-                    "type": "number",
-                    "example": 8
+                  "~guard": {
+                    "type": "object",
+                    "properties": {
+                      "check": {
+                        "type": "function"
+                      },
+                      "errors": {
+                        "type": "function"
+                      }
+                    }
                   },
-                  "type": {
-                    "type": "string",
-                    "example": "string"
+                  "passwordRules": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "pattern": {
+                          "type": "object",
+                          "properties": {}
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "La contraseña debe incluir al menos un símbolo especial (@$!%*?&)."
+                        }
+                      }
+                    }
+                  },
+                  "TLocalizedValidationError": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "example": "object"
+                      },
+                      "required": {
+                        "type": "array",
+                        "example": [
+                          "message"
+                        ],
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "properties": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
               "rol": {
                 "type": "object",
                 "properties": {
-                  "anyOf": {
+                  "enum": {
                     "type": "array",
+                    "example": [
+                      "ADMIN",
+                      "MODERADOR",
+                      "USUARIO"
+                    ],
                     "items": {
-                      "type": "object",
-                      "properties": {
-                        "const": {
-                          "type": "string",
-                          "example": "USUARIO"
-                        },
-                        "type": {
-                          "type": "string",
-                          "example": "string"
-                        }
-                      }
+                      "type": "string"
                     }
                   }
                 }
@@ -1053,29 +1447,16 @@
               "activo": {
                 "type": "object",
                 "properties": {
-                  "default": {
-                    "type": "boolean",
-                    "example": true
-                  },
                   "type": {
                     "type": "string",
                     "example": "boolean"
+                  },
+                  "default": {
+                    "type": "boolean",
+                    "example": true
                   }
                 }
               }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "nombre_apellido",
-              "email",
-              "contrasenia",
-              "rol",
-              "activo"
-            ],
-            "items": {
-              "type": "string"
             }
           }
         },
@@ -1089,6 +1470,18 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "descripcion",
+              "id_reportador",
+              "id_type",
+              "type"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -1131,28 +1524,12 @@
                         "const": {
                           "type": "string",
                           "example": "usuario"
-                        },
-                        "type": {
-                          "type": "string",
-                          "example": "string"
                         }
                       }
                     }
                   }
                 }
               }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "descripcion",
-              "id_reportador",
-              "id_type",
-              "type"
-            ],
-            "items": {
-              "type": "string"
             }
           }
         },
@@ -1166,6 +1543,21 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "nombre",
+              "titulo",
+              "id_creador",
+              "contenido",
+              "id_carrera",
+              "fijado",
+              "cerrado"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -1234,21 +1626,6 @@
                 }
               }
             }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "nombre",
-              "titulo",
-              "id_creador",
-              "contenido",
-              "id_carrera",
-              "fijado",
-              "cerrado"
-            ],
-            "items": {
-              "type": "string"
-            }
           }
         },
         "xml": {
@@ -1261,6 +1638,19 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "titulo",
+              "contenido",
+              "published",
+              "id_autor",
+              "id_tema"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -1311,19 +1701,6 @@
                 }
               }
             }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "titulo",
-              "contenido",
-              "published",
-              "id_autor",
-              "id_tema"
-            ],
-            "items": {
-              "type": "string"
-            }
           }
         },
         "xml": {
@@ -1336,6 +1713,17 @@
           "type": {
             "type": "string",
             "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "contenido",
+              "id_autor",
+              "id_post"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "properties": {
             "type": "object",
@@ -1377,46 +1765,10 @@
                 }
               }
             }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "contenido",
-              "id_autor",
-              "id_post"
-            ],
-            "items": {
-              "type": "string"
-            }
           }
         },
         "xml": {
           "name": "mensajeSchema"
-        }
-      },
-      "securitySchema": {
-        "type": "object",
-        "properties": {
-          "cookieAuth": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "apiKey"
-              },
-              "in": {
-                "type": "string",
-                "example": "cookie"
-              },
-              "name": {
-                "type": "string",
-                "example": "token"
-              }
-            }
-          }
-        },
-        "xml": {
-          "name": "securitySchema"
         }
       },
       "registerSchema": {
@@ -1426,19 +1778,19 @@
             "type": "string",
             "example": "fulanchoΩ@example.com"
           },
-          "nombre": {
+          "nombre_apellido": {
             "type": "string",
             "example": "fula"
           },
-          "contraseña": {
+          "contrasenia": {
             "type": "string",
-            "example": "4123"
+            "example": "4123@examplE"
           }
         },
         "required": [
           "email",
-          "nombre",
-          "contraseña"
+          "nombre_apellido",
+          "contrasenia"
         ],
         "xml": {
           "name": "registerSchema"
@@ -1451,19 +1803,24 @@
             "type": "string",
             "example": "fulanchoΩ@example.com"
           },
-          "contraseña": {
+          "contrasenia": {
             "type": "string",
-            "example": "4123"
+            "example": "4123@examplE"
           }
         },
         "required": [
           "email",
-          "contraseña"
+          "contrasenia"
         ],
         "xml": {
           "name": "loginSchema"
         }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "cookieAuth": []
+    }
+  ]
 }

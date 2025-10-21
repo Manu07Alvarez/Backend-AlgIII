@@ -51,14 +51,14 @@ export default abstract class Repository<T, K extends ModelKeys> {
 	 * Create a new record in the database
 	 * @param data The data to be inserted
 	 */
-	public async create(data: T): Promise<void> {
-		const arrData: T[] = [data];
+	public async create<U>(data: U): Promise<void> {
+		const arrData: U[] = [data];
 		console.log(arrData);
 		await (this.db as any).createMany({data: arrData});
 	}
 
 	@validateRepo
-	public async findAll(): Promise<T[]> {
+	public async findAll(): Promise<Partial<T[]>> {
 		return await (this.db as any).findMany()
 	}
 
@@ -83,13 +83,13 @@ export default abstract class Repository<T, K extends ModelKeys> {
 	 * @throws An error if no record is found.
 	 */
 
-	public async findByName(searchNombre: string): Promise<Partial<T>> {
-		return (this.db as any).findUniqueOrThrow({
+	public async findByName(searchNombre: string): Promise<Partial<T[]>> {
+		return (this.db as any).findMany({
 			omit: { 
 				createdAt: true, 
 				updatedAt: true 
 			},
-			where: { nombre: searchNombre }
+			where: { nombre: { contains: searchNombre} }
 		});
 	}
 

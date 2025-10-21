@@ -1250,7 +1250,92 @@
           }
         ]
       }
-    }
+    },
+    "/api/notificaciones/create": {
+  "post": {
+    "summary": "Crear una nueva notificación",
+    "description": "Crea una notificación para un usuario específico.",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": { "$ref": "#/components/schemas/notificacionCreateSchema" }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Notificación creada",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/notificacionSchema" }
+          }
+        }
+      }
+    },
+    "security": [{ "cookieAuth": [] }]
+  }
+},
+"/api/notificaciones/user/{id}": {
+  "get": {
+    "summary": "Obtener notificaciones de un usuario",
+    "description": "Devuelve todas las notificaciones de un usuario, opcionalmente filtradas por leídas/no leídas.",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "integer" }
+      },
+      {
+        "name": "leido",
+        "in": "query",
+        "required": false,
+        "schema": { "type": "boolean" },
+        "description": "Filtra por notificaciones leídas o no leídas"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Lista de notificaciones",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/components/schemas/notificacionSchema" }
+            }
+          }
+        }
+      }
+    },
+    "security": [{ "cookieAuth": [] }]
+  }
+},
+"/api/notificaciones/markRead/{id}": {
+  "patch": {
+    "summary": "Marcar una notificación como leída",
+    "description": "Actualiza el estado de la notificación a leída.",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "integer" }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Notificación marcada como leída",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/notificacionSchema" }
+          }
+        }
+      }
+    },
+    "security": [{ "cookieAuth": [] }]
+  }
+}
   },
   "components": {
     "securitySchemes": {
@@ -1632,6 +1717,34 @@
           "name": "temaSchema"
         }
       },
+      "notificacionCreateSchema": {
+  "type": "object",
+  "properties": {
+    "contenido": { "type": "string", "example": "Tienes una nueva notificación" },
+    "id_usuario": { "type": "integer", "example": 1 },
+    "type": { "type": "string", "enum": ["tema", "post", "mensaje"], "example": "tema" },
+    "id_tema": { "type": "integer", "nullable": true, "example": null },
+    "id_post": { "type": "integer", "nullable": true, "example": null },
+    "id_mensaje": { "type": "integer", "nullable": true, "example": null }
+  },
+  "required": ["contenido", "id_usuario", "type"]
+},
+"notificacionSchema": {
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "example": 1 },
+    "contenido": { "type": "string", "example": "Tienes una nueva notificación" },
+    "leido": { "type": "boolean", "example": false },
+    "id_usuario": { "type": "integer", "example": 1 },
+    "id_tema": { "type": "integer", "nullable": true, "example": null },
+    "id_post": { "type": "integer", "nullable": true, "example": null },
+    "id_mensaje": { "type": "integer", "nullable": true, "example": null },
+    "createdAt": { "type": "string", "format": "date-time", "example": "2025-10-21T15:00:00Z" },
+    "updatedAt": { "type": "string", "format": "date-time", "example": "2025-10-21T15:00:00Z" }
+  },
+  "required": ["id", "contenido", "leido", "id_usuario"]
+},
+
       "postSchema": {
         "type": "object",
         "properties": {

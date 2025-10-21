@@ -1,7 +1,6 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import errlogger  from './utils/logging/Logger.js';
 const { trace } = await import('@opentelemetry/api');
 const express = (await import('express')).default;
 const { routes } = await import('./routes/index.js');
@@ -12,7 +11,6 @@ const tracer = trace.getTracer('app');
 generateAndSaveKeyPair();
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { createProxyMiddleware } from "http-proxy-middleware";
 const app = express();
 
 app.use(cors());
@@ -29,8 +27,6 @@ app.use('/', routes);
 
 app.listen(5000, '0.0.0.0');
 
-app.use("/errsole", createProxyMiddleware({ target: "http://localhost:8001", changeOrigin: true }));
 
-errlogger.info('🚀 Server started');
 
 // ✅ Usar la instancia del logger (esto será interceptado por OpenTelemetry)

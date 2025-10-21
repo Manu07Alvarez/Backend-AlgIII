@@ -28,7 +28,7 @@ const pool = new Pool({
   max: 5
 })
 const adapter = new PrismaPg(pool);
-export const prismaApp = new PrismaClient({log: ['query', 'info', 'warn', 'error'],adapter});
+export const prismaApp = new PrismaClient({adapter});
 const dialect = new PostgresDialect({
   pool: pool
 });

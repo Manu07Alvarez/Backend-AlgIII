@@ -2,6 +2,7 @@ import { Usuario } from '../generated/prisma/client.js';
 import { Request, Response } from 'express';
 import { IUserService } from '../services/interfaces/IUserService.js';
 import { PaginationParams, PaginationResults } from '../types/pagination.types.js';
+import { GetUserForRolDTO } from 'types/DTOs/UsuariosDTO.js';
 
 export class UserController {
     constructor(private readonly userService: IUserService) {}
@@ -78,7 +79,7 @@ export class UserController {
                 sortBy: sortBy as string | undefined,
                 sortOrder: sortOrder as 'asc' | 'desc' | undefined
             };
-            const result: PaginationResults<Partial<Usuario>> = await this.userService.getPagination(params);
+            const result: PaginationResults<GetUserForRolDTO> = await this.userService.getPagination(params);
             res.status(200).json(result);
         } catch (error: unknown) {
             if (error instanceof Error) res.status(500).json({ message: error.message });

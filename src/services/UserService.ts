@@ -65,7 +65,6 @@ export class UserService extends Service<Usuario> implements IUserService {
     @validateService('not found: ')
     async getPagination(params: PaginationParams): Promise<PaginationResults<GetUserForRolDTO>> {
         const result = await this.userRepository.getPagination(params);
-
         return {
             ...result,
             data: await toUser<GetUserForRolDTO, Usuario, typeof user_mapper>(result.data, user_mapper)

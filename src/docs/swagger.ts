@@ -5,7 +5,6 @@ import swaggerAutogen from 'swagger-autogen';
 import { TemaSchema } from '../schemas/Tema.schema.js';
 import { PostSchema } from '../schemas/Post.schemas.js';
 import { MensajeSchema } from '../schemas/Mensajes.schemas.js';
-import { env, report } from 'process';
 import { ReporteSchema } from '../schemas/Reportes.schemas.js';
 
 const host = process.env.HOST
@@ -23,6 +22,13 @@ const doc = {
 			},
 	],
 	components: {
+		securitySchemes: {
+			cookieAuth: { 
+				type: 'apiKey',
+				in: 'cookie',
+				name: 'auth_token',
+			}
+		},
 		schemas: {
 				carreraSchema: CarreraSchema,
 				usuarioSchema: UsuarioSchema,
@@ -30,24 +36,22 @@ const doc = {
 				temaSchema: TemaSchema,
 				postSchema: PostSchema,
 				mensajeSchema: MensajeSchema,
-				securitySchema: {
-					cookieAuth: { 
-						type: 'apiKey',
-						in: 'cookie',
-						name: 'token',
-					}
-				},
 				registerSchema: {
 						$email: 'fulanchoΩ@example.com',
-						$nombre: 'fula',
-						$contraseña: '4123'
+						$nombre_apellido: 'fula',
+						$contrasenia: '4123@examplE'
 				},
 				loginSchema: {
 						$email: 'fulanchoΩ@example.com',
-						$contraseña: '4123'
+						$contrasenia: '4123@examplE'
 				}
 		},
-	}
+	},
+	security: [
+		{
+			cookieAuth: [],
+		},
+	],
 }
 
 

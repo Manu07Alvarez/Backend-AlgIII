@@ -23,7 +23,7 @@
     "build": "node --loader ts-node/esm ./src/docs/swagger.ts && npx tsc && cp ./src/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node ./dist/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node || copy ./src/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node ./dist/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node",
     "swagger": "nodemon src/docs/swagger.ts",
     "start": "node dist/initializer.js",
-    "dev": "nodemon ./src/initializer.ts 5000"
+    "dev": "nodemon --exec tsx ./src/initializer.ts"
   },
   "engines": {
     "npm": "10.9.2",
@@ -33,6 +33,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@chevrotain/gast": "^11.0.3",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/api-logs": "^0.202.0",
     "@opentelemetry/auto-instrumentations-node": "^0.60.0",
@@ -58,13 +59,14 @@
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "bcrypt-ts": "7.0.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "db": "file:src/generated/prisma",
     "dotenv": "16.4.7",
     "express": "5.1.0",
     "jose": "6.0.11",
     "kysely": "^0.28.7",
-    "mysql2": "^3.15.1",
+    "lodash": "^4.17.21",
     "pg": "^8.16.3",
     "prisma-kysely": "^2.2.1",
     "ts-pattern": "5.7.0",
@@ -77,6 +79,7 @@
     "@faker-js/faker": "^9.9.0",
     "@types/aws-lambda": "^8.10.149",
     "@types/bunyan": "^1.8.11",
+    "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/http-proxy": "^1.17.16",
@@ -93,8 +96,6 @@
     "@typescript-eslint/eslint-plugin": "8.27.0",
     "@typescript-eslint/parser": "8.27.0",
     "dotenv-cli": "^8.0.0",
-    "errsole": "^2.18.1",
-    "errsole-sqlite": "^3.0.3",
     "eslint": "9.36.0",
     "eslint-config-prettier": "10.1.1",
     "eslint-plugin-prettier": "5.2.3",
@@ -111,7 +112,6 @@
     "tsx": "^4.20.6",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.27.0",
-    "winston-errsole": "^1.0.0",
-    "zenstack": "2.19.2"
+    "zenstack": "^2.19.2"
   }
 }

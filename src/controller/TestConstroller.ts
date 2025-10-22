@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
 import IReportsService from "../services/interfaces/IReportsService.js";
 import { PostReportesDTO } from "../schemas/Reportes.schemas.js";
-import { DB } from "generated/prisma/types.js";
+import { DB } from "db/types.js";
 import { Kysely } from "kysely";
 const tracer = trace.getTracer('controlleer');
 

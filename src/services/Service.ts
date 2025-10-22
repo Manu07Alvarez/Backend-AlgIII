@@ -27,20 +27,6 @@ export default abstract class Service<T> {
     public async create(data: T): Promise<void> {
         await this.entity.create(data);
     }
-
-    @validateService('not found: ')
-    public async findByName(searchNombre: string): Promise<Partial<T>> {
-        return this.entity.findByName(searchNombre);
-    }
-
-    @validateService('not found: ')
-    public async findAll(): Promise<T[]> {
-        return await this.entity.findAll();
-    }
-
-    @validateService('state not found: ')
-    public async findById(searchId: number): Promise<Partial<T>> {
-        return this.entity.findById(searchId);
-    }
+    //TODO: change this gets functions to uniques in every service.
 }
 

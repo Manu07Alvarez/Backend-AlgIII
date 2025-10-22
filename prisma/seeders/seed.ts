@@ -11,7 +11,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({adapter, log: ['query', 'info', 'warn', 'error']});
 async function main() {
   faker.seed(1);
-  const length = 10;
+  const length = process.env.SEED_LENGTH ? parseInt(process.env.SEED_LENGTH) : 10;
   // Crear usuarios por email (clave única)
   const users = await Promise.all(
     Array.from({ length: length }).map(() => {
@@ -106,16 +106,15 @@ async function main() {
 
   const mensajes2 = await Promise.all(
     Array.from({ length: length }).map((_, i) => {
-      const randomPost = posts[Math.floor(Math.random() * length)];
       const randomMensaje = mensajes[Math.floor(Math.random() * length)];
       const randomUser = users[Math.floor(Math.random() * length)];
       return prisma.mensaje.upsert({
-        where: { id: i+1 },
+        where: { id: i+length },
         update: {},
         create: {
           contenido: faker.hacker.phrase(),
           id_autor: randomUser.id,
-          id_post: randomPost.id,
+          id_post: randomMensaje.id_post,
           id_mensaje: randomMensaje.id
         }
       })

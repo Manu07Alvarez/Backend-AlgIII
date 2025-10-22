@@ -2,7 +2,7 @@
 import {  ICarreraService } from "../services/interfaces/ICarreraService.js";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
-import { Carrera } from "schemas/Carreras.schemas.js";
+import { Carrera } from "../schemas/Carreras.schemas.js";
 const tracer = trace.getTracer('controlleer');
 
 export class CarreraController {

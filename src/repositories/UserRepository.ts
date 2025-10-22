@@ -1,27 +1,42 @@
-
-import { PrismaClient, Usuario } from 'db';
-import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
+import { PrismaClient,Prisma, Usuario, Rol } from 'db';
 import { validateRepo } from '../decorators/errors/errors.js';
-import IRepository from './interfaces/IUserRepository.js';
 import Repository from './Repository.js';
-//import { skip } from 'node:test'; TODO: Lo comente porque daba error en la compilacion
+import { PaginationParams, PaginationResults } from '../types/pagination.types.js';
+import { GetUserForRolDTO } from '../types/DTOs/UsuariosDTO.js';
+import { DB } from 'db/types.js'
+import { Kysely } from 'kysely'
+import IUserRepository from './interfaces/IUserRepository.js';
+export class UserRepository extends Repository<Usuario, "usuario"> implements IUserRepository {
 
-export class UserRepository extends Repository<Usuario, "usuario"> implements IRepository<Usuario> {
+  constructor(
+	private readonly dbK: Kysely<DB>,
+  ) {super("usuario");}
 
-  constructor() {super("usuario");}
 
+	@validateRepo
+	async findByEmail(email: string): Promise<Partial<Usuario>> {
+	return await super["db"].findUniqueOrThrow({
+			select: { 
+			id: true,
+			nombre_apellido: true,
+			rol: true
+			},
+			where: { email }
+		})
+	}
 
-  @validateRepo
-  async findByEmail(email: string): Promise<Partial<Usuario>> {
-    return await super["db"].findUniqueOrThrow({
-      select: { 
-        id: true,
-        nombre_apellido: true,
-        rol: true
-      },
-      where: { email }
-    })
-  }
+	@validateRepo
+	async getPasswordByEmail(email: string): Promise<Usuario> {
+		return await this.dbK.selectFrom('Usuario')
+			.selectAll()
+			.where('email', '=', email)
+			.executeTakeFirstOrThrow();
+	}	
+
+  	@validateRepo
+	public override async findAll(): Promise<Partial<Usuario[]>> {
+		return this.dbK.selectFrom('Usuario').selectAll().execute();
+	}
   
   
   @validateRepo
@@ -32,49 +47,37 @@ export class UserRepository extends Repository<Usuario, "usuario"> implements IR
     });
   }
 
-  /* public async getPagination({ page, limit, search, sortBy, sortOrder }: { page: number; limit: number; search?: string; sortBy?: string; sortOrder?: "asc" | "desc"; }): Promise<Usuar[]; total: number; page: number; limit: number; }> {
-    const offset = (page - 1) * limit;
-
-    const where: any = {};
-    if (search) {
-      where.OR = [
-        { email: { contains: search, mode: 'insensitive' } },
-        { nombre_apellido: { contains: search, mode: 'insensitive' } }
-      ];
-    }
-
-    const orderBy = sortBy ? { [sortBy]: sortOrder || 'asc' } : undefined;
-
-    const [users, total] = await Promise.all([
-      this.user.findMany({
-        skip: offset,
-        take: limit,
-        where,
-        orderBy,
-        select: {
-          email: true,
-          nombre_apellido: true,
-          rol: true,
-          activo: true
-        }
-      }),
-      this.user.count({ where })
-    ]);
-
-    const data = users.map(u => ({
-      email: u.email,
-      nombre_apellido: u.nombre_apellido ?? '',
-      rol: u.rol as "USUARIO" | "ADMIN" | "MODERADOR",
-      activo: u.activo
-    }));
-
-    return {
-      data,
-      total,
-      page,
-      limit
-    };
-  } */
-
+	public async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
+		const { page, limit, search, sortBy, sortOrder } = params;
+		const offset = (page - 1) * limit;
+		const orderBy = sortBy ? { [sortBy]: sortOrder ?? 'asc' } : undefined;
+		let users: Usuario[];
+		let total: number;
+		users = await super["db"].findMany({
+			skip: offset,
+			take: limit,
+			orderBy,
+			where:  search ? {
+				OR: [
+					{ email: { contains: search, mode: 'insensitive' } },
+					{ nombre_apellido: { contains: search, mode: 'insensitive' } }
+				]
+			}: {},
+		});
+		total =  await super["db"].count({ 
+			where: search ? {
+				OR: [
+					{ email: { contains: search, mode: 'insensitive' } },
+					{ nombre_apellido: { contains: search, mode: 'insensitive' } }
+				]
+			}: {},
+		})
+		return {
+			data: users,
+			total,
+			totalPages: Math.ceil(total / limit),
+			currentPage: page
+		};
+	}
 }
 

@@ -3,7 +3,7 @@
 import IMensajesService from "../services/interfaces/IMensajesService.js";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
-import { Mensaje } from "schemas/Mensajes.schemas.js";
+import { Mensaje } from "../schemas/Mensajes.schemas.js";
 
 const tracer = trace.getTracer('controlleer');
 

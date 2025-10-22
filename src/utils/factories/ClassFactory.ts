@@ -1,4 +1,5 @@
 import { UserRepository } from "../../repositories/UserRepository.js";
+import IUserRepository from "../../repositories/interfaces/IUserRepository.js";
 import { UserService } from "../../services/UserService.js";
 import { UserController } from "../../controller/UserController.js";
 import { CarreraController } from "../../controller/CarreraController.js";
@@ -33,13 +34,13 @@ const dialect = new PostgresDialect({
 });
 
 export const dbK = new Kysely<DB>({
-  dialect
+  dialect,
 });
 
 
 
 export function createUserController(): UserController {
-  const repo = new UserRepository();
+  const repo = new UserRepository(dbK);
   const service = new UserService(repo);
   return new UserController(service);
 };
@@ -62,7 +63,7 @@ export function createPostController(): PostController{
 };
 
 export function createMensajeController(): MensajesController{
-  const repo = new MensajesRepository();
+  const repo = new MensajesRepository(dbK);
   const service = new MensajesService(repo);
   return new MensajesController(service);
 };

@@ -1,12 +1,13 @@
 import { PrismaClient } from "db";
-import  {Type }  from "typebox";
+import { Type }  from "typebox";
 export const modelProperties = {
     usuario: PrismaClient.prototype.usuario,
     carrera: PrismaClient.prototype.carrera,
     tema: PrismaClient.prototype.tema,
     post: PrismaClient.prototype.post,
     mensaje: PrismaClient.prototype.mensaje,
-    reporte: PrismaClient.prototype.reporte
+    reporte: PrismaClient.prototype.reporte,
+    curriculum: PrismaClient.prototype.curriculum
 } as const;
 import {} from 'typebox/'
 

@@ -170,6 +170,12 @@ model Curriculum {
   perfil_in               String?   @db.VarChar(100)
   autor                   Usuario   @relation(fields: [id_autor], references: [id])
   id_autor                Int       @unique @default(auth().id)
+
+  @@allow('all', auth().rol == 'ADMIN')
+  @@allow('read', true)
+  @@allow('delete', autor == auth())
+  @@allow('create', autor == auth())
+  @@allow('update', autor == auth()) 
 }
 
 enum Rol {

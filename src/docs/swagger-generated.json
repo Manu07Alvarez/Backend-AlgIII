@@ -12,6 +12,78 @@
     }
   ],
   "paths": {
+    "/api/guest/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Cookie response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/securitySchema"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/securitySchema"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginSchema"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/loginSchema"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/guest/register": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/registerSchema"
+              },
+              "example": {
+                "nombre_apellido": "Juan Pérez",
+                "email": "fulanchoΩ@example.com",
+                "contrasenia": "4123@examplE"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Tema/create": {
       "post": {
         "description": "",
@@ -381,6 +453,21 @@
         ]
       }
     },
+    "/api/user/actualAuthUser": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
     "/api/user/{id}": {
       "get": {
         "description": "",
@@ -668,78 +755,6 @@
             "cookieAuth": []
           }
         ]
-      }
-    },
-    "/api/guest/login": {
-      "post": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "Cookie response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/securitySchema"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/securitySchema"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "cookieAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/loginSchema"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/loginSchema"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/guest/register": {
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "cookieAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/registerSchema"
-              },
-              "example": {
-                "nombre_apellido": "Juan Pérez",
-                "email": "fulanchoΩ@example.com",
-                "contrasenia": "4123@examplE"
-              }
-            }
-          }
-        }
       }
     },
     "/api/carrera/create": {

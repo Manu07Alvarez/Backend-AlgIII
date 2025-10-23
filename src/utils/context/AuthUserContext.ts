@@ -15,7 +15,6 @@ export const auth_context = new AsyncLocalStorage<AuthContext>
 
 export function getAuth(): AuthContext {
   const store = auth_context.getStore();
-  console.log("Getting auth context:", store);
   if (!store) {
     throw new Error("Contexto no inicializado");
   } 

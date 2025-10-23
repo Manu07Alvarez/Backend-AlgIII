@@ -11,6 +11,8 @@ export type UsuariosDTO = {
 
 export type AuthUserDTO = {
     id: number
+    nombre_apellido: string
+    email: string
     rol: "USUARIO" | "ADMIN" | "MODERADOR"
 }
 

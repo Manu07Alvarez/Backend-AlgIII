@@ -49,13 +49,11 @@ export class UserService extends Service<Usuario> implements IUserService {
         if (!contraseñaMatch) {
             throw new Error('Invalid password');
         }
-        return await new SignJWT({ id: user.id, rol: user.rol })
+        return await new SignJWT({ id: user.id, rol: user.rol, email: user.email, nombre_apellido: user.nombre_apellido })
             .setProtectedHeader({ alg: 'RS256', typ: 'JWT' })
             .setIssuedAt()
             .setExpirationTime('4h')
             .sign(private_key!);
-        
-        
     }
 
     @validateService('not created: ')

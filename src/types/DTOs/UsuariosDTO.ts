@@ -21,10 +21,10 @@ export type GetUserForUserDTO = {
     nombre_apellido: string | null;
     email: string;
     id: number;
+    rol: "ADMIN" | "MODERADOR" | "USUARIO";
 } 
 export type GetUserForAdminDTO = {
     updatedAt: Date | null;
-    rol: "ADMIN" | "MODERADOR" | "USUARIO";
     activo: boolean;
 } & GetUserForUserDTO;
 
@@ -34,7 +34,8 @@ export const user_mapper = {
         id: user.id,
         nombre_apellido: user.nombre_apellido,
         email: user.email,
-        createdAt: user.createdAt
+        createdAt: user.createdAt,
+        rol: user.rol!,
     }),
     ADMIN: (user: Usuario): GetUserForAdminDTO => ({
         id: user.id,

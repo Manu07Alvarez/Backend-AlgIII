@@ -21,7 +21,7 @@ function isNestedMessage(mensaje: Mensaje | NestedMessage): mensaje is NestedMes
 }
 
 export const mensaje_mapper = {
-    USER: (mensaje: Mensaje | NestedMessage): GetMensajeForUserDTO => {
+    USUARIO: (mensaje: Mensaje | NestedMessage): GetMensajeForUserDTO => {
         const dto = {
             id: mensaje.id,
             contenido: mensaje.contenido,
@@ -43,7 +43,7 @@ export const mensaje_mapper = {
             }
             if ((mensaje as NestedMessage).respuestas) {
                 Object.assign(dto, {
-                    respuestas: (mensaje as NestedMessage).respuestas.map(m => mensaje_mapper.USER(m)),
+                    respuestas: (mensaje as NestedMessage).respuestas.map(m => mensaje_mapper.USUARIO(m)),
                 });
             }
         } else {
@@ -73,7 +73,7 @@ export const mensaje_mapper = {
             }
             if ((mensaje as NestedMessage).respuestas) {
                 Object.assign(dto, {
-                    respuestas: (mensaje as NestedMessage).respuestas.map(m => mensaje_mapper.USER(m)),
+                    respuestas: (mensaje as NestedMessage).respuestas.map(m => mensaje_mapper.ADMIN(m)),
                 });
             }
         } else {
@@ -103,7 +103,7 @@ export const mensaje_mapper = {
             }
             if ((mensaje as NestedMessage).respuestas) {
                 Object.assign(dto, {
-                    respuestas: (mensaje as NestedMessage).respuestas.map(m => mensaje_mapper.USER(m)),
+                    respuestas: (mensaje as NestedMessage).respuestas.map(m => mensaje_mapper.MODERADOR(m)),
                 });
             }
         } else {

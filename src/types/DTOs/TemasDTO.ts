@@ -18,7 +18,7 @@ export type GetTemaForAdminDTO = {
 export type GetTemaForRolDTO = GetTemaForAdminDTO | GetTemaForUserDTO
 
 export const tema_mapper = {
-    USER: (tema: Tema): GetTemaForUserDTO => ({
+    USUARIO: (tema: Tema): GetTemaForUserDTO => ({
         id: tema.id,
         nombre: tema.nombre,
         titulo: tema.nombre,

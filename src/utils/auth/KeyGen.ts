@@ -22,7 +22,7 @@ export async function generateAndSaveKeyPair() {
 		await fs.writeFile(PRIVATE_KEY_PATH, pkcs8, 'utf8');
 		await fs.writeFile(PUBLIC_KEY_PATH, spki, 'utf8');
 		const publicJwk = await exportJWK(publicKey);
-		publicJwk.alg = 'RS256';
+		publicJwk.alg = 'RS256';	
 		publicJwk.use = 'sig';
 		publicJwk.kid = 'main-key'; 
 

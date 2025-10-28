@@ -11,7 +11,7 @@ export type GetCarreraForRolDTO = GetCarreraForAdminDTO | GetCarreraForUserDTO
 
 
 export const carrera_mapper = {
-    USER: (carrera: Carrera): GetCarreraForUserDTO => ({
+    USUARIO: (carrera: Carrera): GetCarreraForUserDTO => ({
         id: carrera.id,
         descripcion: carrera.descripcion,
         nombre: carrera.nombre,

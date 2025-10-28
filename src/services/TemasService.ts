@@ -1,5 +1,5 @@
 import ITemaRepository from "../repositories/interfaces/ITemaRepository.js";
-import { Tema, PrismaClient } from "db";
+import { Tema } from "db";
 import ITemasService from "./interfaces/ITemaService.js";
 import service from "./Service.js";
 import { validateService } from "../decorators/errors/errors.js";

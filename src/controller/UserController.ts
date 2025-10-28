@@ -2,9 +2,13 @@ import { Usuario } from '../generated/prisma/client.js';
 import { Request, Response } from 'express';
 import { IUserService } from '../services/interfaces/IUserService.js';
 import { PaginationParams, PaginationResults } from '../types/pagination.types.js';
+import { GetUserForRolDTO } from 'types/DTOs/UsuariosDTO.js';
+import { get } from 'http';
+import { getAuth } from '../utils/context/AuthUserContext.js';
 
 export class UserController {
     constructor(private readonly userService: IUserService) {}
+
 
     public async findAll(req: Request, res: Response): Promise<void> {
         try {
@@ -30,6 +34,24 @@ export class UserController {
             const jwt = await this.userService.login(email, contrasenia);
             res.cookie('auth_token', jwt);
             res.status(200).json({ message: 'Login successful' });
+        } catch (error: unknown) {
+            if (error instanceof Error) res.status(500).json({ message: error.message });
+        }
+    }
+
+    public async actualAuthUser(req: Request, res: Response): Promise<void> {
+        try {
+            const user = {
+                id: getAuth().user?.id,
+                nombre_apellido: getAuth().user?.nombre_apellido,
+                email: getAuth().user?.email,
+                rol: getAuth().user?.rol,
+            } 
+            if (!user.id) {
+                res.status(401).json({ message: 'No authenticated' });
+                return;
+            }
+            res.status(200).json(user);
         } catch (error: unknown) {
             if (error instanceof Error) res.status(500).json({ message: error.message });
         }
@@ -78,7 +100,7 @@ export class UserController {
                 sortBy: sortBy as string | undefined,
                 sortOrder: sortOrder as 'asc' | 'desc' | undefined
             };
-            const result: PaginationResults<Partial<Usuario>> = await this.userService.getPagination(params);
+            const result: PaginationResults<GetUserForRolDTO> = await this.userService.getPagination(params);
             res.status(200).json(result);
         } catch (error: unknown) {
             if (error instanceof Error) res.status(500).json({ message: error.message });

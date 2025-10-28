@@ -9,8 +9,8 @@ import { PaginationParams, PaginationResults } from '../types/pagination.types.j
 import { type GetUserForRolDTO, user_mapper } from '../types/DTOs/UsuariosDTO.js';
 import IUserRepository from '../repositories/interfaces/IUserRepository.js';
 import { toUser } from '../utils/mapper/ForUserRol.js';
+import { POSTUsuario } from 'schemas/Usuarios.schema.js';
 
-const private_key = await getPrivateKey();
 
 export class UserService extends Service<Usuario> implements IUserService {
     constructor(private readonly userRepository: IUserRepository) {
@@ -43,13 +43,13 @@ export class UserService extends Service<Usuario> implements IUserService {
 
     @validateService('not Logged: ')
     async login(email: string, contrasenia: string): Promise<string> {
+        const private_key = await getPrivateKey();
         const user = await this.userRepository.getPasswordByEmail(email);
         const contraseñaMatch = await compare(contrasenia, user.contrasenia as string);
         if (!contraseñaMatch) {
             throw new Error('Invalid password');
         }
-
-        return await new SignJWT({ id: user.id, rol: user.rol })
+        return await new SignJWT({ id: user.id, rol: user.rol, email: user.email, nombre_apellido: user.nombre_apellido })
             .setProtectedHeader({ alg: 'RS256', typ: 'JWT' })
             .setIssuedAt()
             .setExpirationTime('4h')
@@ -57,14 +57,13 @@ export class UserService extends Service<Usuario> implements IUserService {
     }
 
     @validateService('not created: ')
-    async register(data: Usuario): Promise<void> {
+    async register(data: POSTUsuario): Promise<void> {
         await this.userRepository.create(data);
     }
 
     @validateService('not found: ')
     async getPagination(params: PaginationParams): Promise<PaginationResults<GetUserForRolDTO>> {
         const result = await this.userRepository.getPagination(params);
-
         return {
             ...result,
             data: await toUser<GetUserForRolDTO, Usuario, typeof user_mapper>(result.data, user_mapper)

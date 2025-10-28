@@ -76,6 +76,11 @@ router.get('/getPagination', (req: Request, res: Response) => {
 router.get('/', (req: Request, res: Response) => {
   userController.findAll(req, res);
 });
+
+router.get('/actualAuthUser', (req: Request, res: Response) => {
+  userController.actualAuthUser(req, res);
+});
+
 router.route('/:id')
 .get((req: Request, res: Response) => {
   userController.getUser(req, res);

@@ -13,14 +13,11 @@ import { authToken } from '../middleware/middleware_auth.js';
 
 export const routes = express.Router();
 routes.use(authToken);
-routes.use('/api/Tema', temaRoutes);
-routes.use('/api/user', userRoutes);
-routes.use('/api/post', postRoutes);
-routes.use('/api/guest', guestRoutes);
-routes.use('/api/carrera', carreraRoutes);
-routes.use('/api/mensajes', mensajesRoutes); // Assuming mensajes are handled by postRoutes
-routes.use('/api/reporte', reportRoutes);
-routes.use('/api/notificacion', NotificacionRoutes)
+routes.use('/api/guest', guestRoutes
+    /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+); 
 routes.use('/api/Tema', temaRoutes
     /* #swagger.security = [{
         "cookieAuth": []
@@ -36,11 +33,7 @@ routes.use('/api/post', postRoutes
         "cookieAuth": []
     }] */
 );
-routes.use('/api/guest', guestRoutes
-    /* #swagger.security = [{
-        "cookieAuth": []
-    }] */
-);
+
 routes.use('/api/carrera', carreraRoutes
     /* #swagger.security = [{
         "cookieAuth": []

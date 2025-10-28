@@ -11,6 +11,8 @@ export type UsuariosDTO = {
 
 export type AuthUserDTO = {
     id: number
+    nombre_apellido: string
+    email: string
     rol: "USUARIO" | "ADMIN" | "MODERADOR"
 }
 
@@ -28,7 +30,7 @@ export type GetUserForAdminDTO = {
 
 export type GetUserForRolDTO = GetUserForAdminDTO | GetUserForUserDTO
 export const user_mapper = {
-    USER: (user: Usuario): GetUserForUserDTO => ({
+    USUARIO: (user: Usuario): GetUserForUserDTO => ({
         id: user.id,
         nombre_apellido: user.nombre_apellido,
         email: user.email,

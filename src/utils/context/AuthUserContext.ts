@@ -11,7 +11,7 @@ interface AuthContext{
     }, never, DefaultArgs>;
 }
 
-export const auth_context =  new AsyncLocalStorage<AuthContext>
+export const auth_context = new AsyncLocalStorage<AuthContext>
 
 export function getAuth(): AuthContext {
   const store = auth_context.getStore();

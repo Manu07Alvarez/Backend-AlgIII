@@ -96,8 +96,6 @@
     "@typescript-eslint/eslint-plugin": "8.27.0",
     "@typescript-eslint/parser": "8.27.0",
     "dotenv-cli": "^8.0.0",
-    "errsole": "^2.18.1",
-    "errsole-sqlite": "^3.0.3",
     "eslint": "9.36.0",
     "eslint-config-prettier": "10.1.1",
     "eslint-plugin-prettier": "5.2.3",
@@ -114,7 +112,6 @@
     "tsx": "^4.20.6",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.27.0",
-    "winston-errsole": "^1.0.0",
     "zenstack": "^2.19.2"
   }
 }

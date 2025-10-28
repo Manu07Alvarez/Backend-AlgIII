@@ -50,32 +50,47 @@ export type UsuariosNotificacionDTO = {
 // DTO principal de creación
 // -------------------------------
 
-// NotificacionesDTO.ts (ejemplo)
+// src/types/DTOs/NotificacionesDTO.ts
+
 export type PostNotificacionDTO = {
-  id: number;
+  id_usuario: number;
+  type: "tema" | "post" | "mensaje";
   contenido: string;
-  id_tema: number | null;
-  createdAt: Date | null;
-  updatedAt: Date | null;
-  titulo: string;
-  published: boolean;
-  id_autor: number;
+  id_tema?: number;
+  id_post?: number;
+  id_mensaje?: number;
 };
 
-
-// -------------------------------
-// DTO de salida (GET)
-// -------------------------------
-
-export interface GetNotificacionDTO {
+export type GetNotificacionDTO = {
   id: number;
   contenido: string;
+  leido: boolean;
+  id_usuario: number;
+  id_tema?: number;
+  id_post?: number;
+  id_mensaje?: number;
+  usuario: {
+    id: number;
+    nombre_apellido: string | null;
+    email: string;
+    rol: "ADMIN" | "MODERADOR" | "USUARIO" | null;
+    activo: boolean;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+  tema?: {
+    id: number;
+    nombre: string;
+    titulo: string;
+  } | null;
+  post?: {
+    id: number;
+    titulo: string;
+  } | null;
+  Mensaje?: {
+    id: number;
+    contenido: string;
+  } | null;
   createdAt: Date | null;
   updatedAt: Date | null;
-  usuario: UsuarioDTO;
-  tema?: TemasNotificacionDTO | null;
-  post?: PostNotificacionDTO | null;
-  mensaje?: MensajesNotificacionsDTO | null;
-}
-
-
+};

@@ -28,19 +28,21 @@ enum Rol {
 }
 
 model Usuario {
-  id              Int       @id() @default(autoincrement())
+  id              Int            @id() @default(autoincrement())
   nombre_apellido String?
-  email           String    @unique()
+  email           String         @unique()
   contrasenia     String
-  activo          Boolean   @default(true)
-  rol             Rol?      @default(USUARIO)
-  createdAt       DateTime? @default(now())
-  updatedAt       DateTime? @updatedAt()
+  activo          Boolean        @default(true)
+  rol             Rol?           @default(USUARIO)
+  createdAt       DateTime?      @default(now())
+  updatedAt       DateTime?      @updatedAt()
   Reportes        Reporte[]
-  Reportado       Reporte[] @relation("UsuarioReportado")
+  Reportado       Reporte[]      @relation("UsuarioReportado")
   mensajes        Mensaje[]
   Tema            Tema[]
   Post            Post[]
+  notificaciones  notificacion[]
+  Curriculum      Curriculum?
 }
 
 model Carrera {
@@ -95,18 +97,19 @@ model Reporte {
 }
 
 model Post {
-  id        Int       @id() @default(autoincrement())
-  titulo    String    @unique()
-  contenido String    @db.Text()
-  published Boolean   @default(false)
-  autor     Usuario   @relation(fields: [id_autor], references: [id])
-  id_autor  Int
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt()
-  id_tema   Int
-  tema      Tema      @relation(fields: [id_tema], references: [id])
-  Mensaje   Mensaje[]
-  Reportes  Reporte[]
+  id             Int            @id() @default(autoincrement())
+  titulo         String         @unique()
+  contenido      String         @db.Text()
+  published      Boolean        @default(true)
+  autor          Usuario        @relation(fields: [id_autor], references: [id])
+  id_autor       Int
+  createdAt      DateTime?      @default(now())
+  updatedAt      DateTime?      @updatedAt()
+  id_tema        Int
+  tema           Tema           @relation(fields: [id_tema], references: [id])
+  Mensaje        Mensaje[]
+  Reportes       Reporte[]
+  notificaciones notificacion[]
 
   @@index([titulo], name: "idx_post_titulo")
   @@index([id_tema], name: "idx_post_tema")
@@ -129,6 +132,25 @@ model Mensaje {
   updatedAt         DateTime?      @updatedAt()
 }
 
+model Curriculum {
+  id                     Int      @id() @default(autoincrement())
+  nombre                 String
+  apellido               String
+  fecha_nacimiento       DateTime
+  email                  String   @unique()
+  telefono               String?
+  ultimo_titulo          String?
+  experiencia            String?  @db.VarChar(1000)
+  habilidades_duras      String?  @db.VarChar(300)
+  habilidades_blandas    String?  @db.VarChar(300)
+  idiomas                String?  @db.VarChar(300)
+  presentacion           String?  @db.VarChar(1000)
+  disponibilidad_horaria String?  @db.VarChar(20)
+  perfil_in              String?  @db.VarChar(100)
+  autor                  Usuario  @relation(fields: [id_autor], references: [id])
+  id_autor               Int      @unique()
+}
+
 model notificacion {
   id         Int       @id() @default(autoincrement())
   contenido  String    @db.Text()
@@ -144,22 +166,4 @@ model notificacion {
   Reporte    Reporte[]
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt()
-}
-
-model Curriculum {
-  id                     Int      @id() @default(autoincrement())
-  nombre                 String
-  apellido               String
-  fecha_nacimiento       DateTime
-  email                  String   @unique()
-  telefono               String?
-  ultimo_titulo          String?
-  experiencia            String?  @db.VarChar(1000)
-  habilidades_duras      String?  @db.VarChar(300)
-  habilidades_blandas    String?  @db.VarChar(300)
-  presentacion           String?  @db.VarChar(1000)
-  disponibilidad_horaria String?  @db.VarChar(20)
-  perfil_in              String?  @db.VarChar(100)
-  autor                  Usuario  @relation(fields: [id_autor], references: [id])
-  id_autor               Int      @unique()
 }

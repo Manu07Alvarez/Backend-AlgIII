@@ -1,5 +1,3 @@
-// src/services/NotificacionService.ts
-
 import NotificacionRepository from "../repositories/NotificacionRepository.js";
 import { PostNotificacionDTO, GetNotificacionDTO } from "../types/DTOs/NotificacionesDTO.js";
 
@@ -11,13 +9,22 @@ export class NotificacionService {
   }
 
   async crear(data: PostNotificacionDTO): Promise<GetNotificacionDTO> {
-    return this.repo.crear({
+    const notificacion = await this.repo.crear({
       contenido: data.contenido,
       id_usuario: data.id_usuario,
       id_tema: data.type === "tema" ? data.id_tema : undefined,
       id_post: data.type === "post" ? data.id_post : undefined,
       id_mensaje: data.type === "mensaje" ? data.id_mensaje : undefined,
     });
+
+    this.emitirNotificacion(notificacion);
+    return notificacion;
+  }
+
+  emitirNotificacion(noti: GetNotificacionDTO): void {
+    if (globalThis.io) {
+      globalThis.io.to(`usuario-${noti.id_usuario}`).emit('nueva-notificacion', noti);
+    }
   }
 
   async listarPorUsuarioYRol(

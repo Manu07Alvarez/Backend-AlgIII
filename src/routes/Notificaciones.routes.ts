@@ -29,6 +29,33 @@ router.post('/create', (req: Request, res: Response) => {
 });
 
 /**
+ * Emitir una notificación manualmente (sin persistir en base de datos)
+ */
+router.post('/emit', (req: Request, res: Response) => {
+  /*  #swagger.requestBody = {
+        required: true,
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/GetNotificacionDTO' },
+            example: {
+              "id": 999,
+              "contenido": "Notificación directa",
+              "id_usuario": 3,
+              "leido": false,
+              "createdAt": "2025-10-29T19:30:00.000Z",
+              "usuario": null,
+              "tema": null,
+              "post": null,
+              "Mensaje": null
+            }
+          }
+        }
+      }
+  */
+  notificacionController.emit(req, res);
+});
+
+/**
  * Listar todas las notificaciones de un usuario según su rol
  */
 router.get('/user/:id_usuario', (req: Request, res: Response) => {

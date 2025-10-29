@@ -72,7 +72,7 @@
     "socket.io": "^4.8.1",
     "ts-pattern": "5.7.0",
     "tslib": "^2.8.1",
-    "typebox": "^1.0.35",
+    "typebox": "^1.0.44",
     "winston": "^3.17.0"
   },
   "devDependencies": {

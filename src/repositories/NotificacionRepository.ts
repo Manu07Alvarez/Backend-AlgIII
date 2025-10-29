@@ -12,25 +12,26 @@ export default class NotificacionRepository extends Repository<any, "notificacio
   }
 
   @validateRepo
-  async crear(
-    data: {
-      contenido: string;
-      id_usuario: number;
-      id_tema?: number;
-      id_post?: number;
-      id_mensaje?: number;
-    },
-    context: { user: { id: number; rol: string } }
-  ): Promise<GetNotificacionDTO> {
-    const noti = await super["db"].create({
-      data,
-      include: { usuario: true, tema: true, post: true, Mensaje: true }
-    });
-
-    const dto = mapNotificacion(noti);
-    this.emitirNotificacion(dto);
-    return dto;
+  @validateRepo
+async crear(
+  data: {
+    contenido: string;
+    id_usuario: number;
+    id_tema?: number;
+    id_post?: number;
+    id_mensaje?: number;
   }
+): Promise<GetNotificacionDTO> {
+  const noti = await super["db"].create({
+    data,
+    include: { usuario: true, tema: true, post: true, Mensaje: true }
+    // ❌ sin context
+  });
+
+  const dto = mapNotificacion(noti);
+  this.emitirNotificacion(dto);
+  return dto;
+}
 
   private emitirNotificacion(noti: GetNotificacionDTO) {
     if (globalThis.io) {

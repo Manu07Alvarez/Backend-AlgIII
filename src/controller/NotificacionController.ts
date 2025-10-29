@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { trace } from '@opentelemetry/api';
 import { INotificacionService } from 'services/interfaces/INotificacionService.js';
-import { PostNotificacionDTO } from '../types/DTOs/NotificacionesDTO.js';
+import { PostNotificacionDTO, GetNotificacionDTO } from '../types/DTOs/NotificacionesDTO.js';
 
 const tracer = trace.getTracer('controller');
 
@@ -26,6 +26,21 @@ export class NotificacionController {
   }
 
   /**
+   * Emitir una notificación manualmente (sin persistir en base de datos)
+   */
+  public async emit(req: Request, res: Response): Promise<void> {
+    try {
+      const noti: GetNotificacionDTO = req.body;
+      this.notificacionService.emitirNotificacion(noti);
+      res.status(200).json({ message: 'Notificación emitida correctamente' });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      }
+    }
+  }
+
+  /**
    * Listar notificaciones de un usuario según rol
    */
   public async findByUser(req: Request, res: Response): Promise<void> {
@@ -34,7 +49,7 @@ export class NotificacionController {
       const rol = (req as any).user?.rol as 'ADMIN' | 'MODERADOR' | 'USUARIO';
       const temasModerador = (req as any).user?.temasAsignados as number[] | undefined;
 
-      const notificaciones = await this.notificacionService.listarPorUsuario(
+      const notificaciones = await this.notificacionService.listarPorUsuarioYRol(
         id_usuario,
         rol,
         temasModerador

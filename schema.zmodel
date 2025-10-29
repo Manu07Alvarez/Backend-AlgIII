@@ -165,20 +165,34 @@ model notificacion {
   id_usuario Int
   usuario    Usuario  @relation(fields: [id_usuario], references: [id])
   id_tema    Int?
-  tema      Tema?    @relation(fields: [id_tema], references: [id])
+  tema       Tema?    @relation(fields: [id_tema], references: [id])
   id_post    Int?
-  post      Post?    @relation(fields: [id_post], references: [id])
+  post       Post?    @relation(fields: [id_post], references: [id])
   id_mensaje Int?
-  Mensaje Mensaje? @relation(fields: [id_mensaje], references: [id])
-  Reporte Reporte[]
+  Mensaje    Mensaje? @relation(fields: [id_mensaje], references: [id])
+  Reporte    Reporte[]
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
+
   @@allow('all', auth().rol == 'ADMIN')
   @@allow('read', id_usuario == auth().id)
   @@allow('delete', id_usuario == auth().id)
-  @@allow('create', auth() != null)
   @@allow('update', id_usuario == auth().id)
+
+  @@allow('create',
+    id_usuario == auth().id &&
+    (
+      tema == null || tema.id_creador == auth().id || auth().rol == 'ADMIN'
+    ) &&
+    (
+      post == null || post.id_autor == auth().id || auth().rol == 'ADMIN'
+    ) &&
+    (
+      Mensaje == null || Mensaje.id_autor == auth().id || auth().rol == 'ADMIN'
+    )
+  )
 }
+
 
 enum Rol {
   ADMIN

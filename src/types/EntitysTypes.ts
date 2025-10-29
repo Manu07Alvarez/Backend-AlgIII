@@ -6,7 +6,8 @@ export const modelProperties = {
     tema: PrismaClient.prototype.tema,
     post: PrismaClient.prototype.post,
     mensaje: PrismaClient.prototype.mensaje,
-    reporte: PrismaClient.prototype.reporte
+    reporte: PrismaClient.prototype.reporte,
+    notificacion: PrismaClient.prototype.notificacion
 } as const;
 import {} from 'typebox/'
 

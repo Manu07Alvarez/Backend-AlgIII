@@ -5,13 +5,16 @@ export interface INotificacionRepository {
    * Crear una notificación
    * @param data - objeto con los campos necesarios para crear la notificación
    */
-  crear(data: {
+crear(
+  data: {
     contenido: string;
     id_usuario: number;
     id_tema?: number;
     id_post?: number;
     id_mensaje?: number;
-  }): Promise<any>; // Retorna el objeto Prisma con relaciones incluidas
+  },
+  context: { user: { id: number; rol: string } }
+): Promise<GetNotificacionDTO>;
 
   /**
    * Listar notificaciones de un usuario filtradas por rol

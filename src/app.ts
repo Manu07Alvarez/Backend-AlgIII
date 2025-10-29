@@ -1,6 +1,5 @@
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
+import http from 'http';
 const { trace } = await import('@opentelemetry/api');
 const express = (await import('express')).default;
 const { routes } = await import('./routes/index.js');
@@ -11,7 +10,9 @@ const tracer = trace.getTracer('app');
 generateAndSaveKeyPair();
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+
 const app = express();
+const httpServer = http.createServer(app); // ← esto es nuevo
 
 app.use(cors());
 app.use(cookieParser());
@@ -21,12 +22,11 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput, {
     swaggerOptions: {
         persistAuthorization: true,
     },
-}))
+}));
 
 app.use('/', routes);
 
-app.listen(5000, '0.0.0.0');
+// Exportás el server para usarlo en initializer.ts
+export { httpServer };
 
-
-
-// ✅ Usar la instancia del logger (esto será interceptado por OpenTelemetry)
+httpServer.listen(5000, '0.0.0.0');

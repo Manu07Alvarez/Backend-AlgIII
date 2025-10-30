@@ -1,4 +1,4 @@
-import { Type , Static} from 'typebox';
+import { Type, Static } from 'typebox';
 
 /**
  * Schema base para creación de una notificación.
@@ -7,11 +7,10 @@ import { Type , Static} from 'typebox';
 export const NotificacionSchema = Type.Object({
   contenido: Type.String(),
   id_usuario: Type.Number(),
-  type: Type.Union([
-    Type.Literal('tema'),
-    Type.Literal('post'),
-    Type.Literal('mensaje'),
-  ]),
+  tipo: Type.String(), // ← tipo dinámico
+  id_tema: Type.Optional(Type.Number()),
+  id_post: Type.Optional(Type.Number()),
+  id_mensaje: Type.Optional(Type.Number()),
 });
 
 /**
@@ -20,6 +19,7 @@ export const NotificacionSchema = Type.Object({
 const NotificacionBase = {
   id: Type.Number(),
   contenido: Type.String(),
+  tipo: Type.String(), // ← nuevo campo dinámico
   leido: Type.Boolean(),
   id_usuario: Type.Number(),
   createdAt: Type.Optional(Type.String({ format: 'date-time' })),
@@ -62,5 +62,5 @@ export const GetNotificacionesSchema = Type.Union([
 /**
  * Tipos inferidos para usar en controladores o servicios
  */
-export type PostNotificacionDTO = Static < typeof NotificacionSchema>;
-export type GetNotificacionDTO = Static <typeof GetNotificacionesSchema>;
+export type PostNotificacionDTO = Static<typeof NotificacionSchema>;
+export type GetNotificacionDTO = Static<typeof GetNotificacionesSchema>;

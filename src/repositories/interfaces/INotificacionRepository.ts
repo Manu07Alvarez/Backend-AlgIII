@@ -8,6 +8,7 @@ export interface INotificacionRepository {
   crear(
     data: {
       contenido: string;
+      tipo: string; 
       id_usuario: number;
       id_tema?: number;
       id_post?: number;
@@ -39,4 +40,3 @@ export interface INotificacionRepository {
    */
   eliminar(id: number): Promise<GetNotificacionDTO>;
 }
-  

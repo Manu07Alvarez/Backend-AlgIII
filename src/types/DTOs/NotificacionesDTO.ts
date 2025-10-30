@@ -1,11 +1,7 @@
-// Tipos de utilidad
+
 export type DateTime = string | Date | null;
-import { GetUserForUserDTO as UsuarioDTO } from "../DTOs/UsuariosDTO.js"
+import { GetUserForUserDTO as UsuarioDTO } from "../DTOs/UsuariosDTO.js";
 
-
-// -------------------------------
-// DTOs relacionados
-// -------------------------------
 
 export type TemasNotificacionDTO = {
   id: number;
@@ -42,42 +38,33 @@ export type UsuariosNotificacionDTO = {
   id: number;
   nombre_apellido: string | null;
   email: string;
-  rol: string | null;
-  activo: boolean | null;
+  rol: "ADMIN" | "MODERADOR" | "USUARIO" | null;
+  activo: boolean;
+  createdAt: DateTime;
+  updatedAt: DateTime;
 };
 
-// -------------------------------
-// DTO principal de creación
-// -------------------------------
-
-// src/types/DTOs/NotificacionesDTO.ts
 
 export type PostNotificacionDTO = {
   id_usuario: number;
-  type: "tema" | "post" | "mensaje";
+  tipo: string;
   contenido: string;
   id_tema?: number;
   id_post?: number;
   id_mensaje?: number;
 };
 
+
 export type GetNotificacionDTO = {
   id: number;
   contenido: string;
+  tipo: string; 
   leido: boolean;
   id_usuario: number;
   id_tema?: number;
   id_post?: number;
   id_mensaje?: number;
-  usuario: {
-    id: number;
-    nombre_apellido: string | null;
-    email: string;
-    rol: "ADMIN" | "MODERADOR" | "USUARIO" | null;
-    activo: boolean;
-    createdAt: Date | null;
-    updatedAt: Date | null;
-  };
+  usuario: UsuariosNotificacionDTO;
   tema?: {
     id: number;
     nombre: string;
@@ -91,6 +78,6 @@ export type GetNotificacionDTO = {
     id: number;
     contenido: string;
   } | null;
-  createdAt: Date | null;
-  updatedAt: Date | null;
+  createdAt: DateTime;
+  updatedAt: DateTime;
 };

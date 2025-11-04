@@ -20,6 +20,9 @@ async function main() {
         where: { email },
         update: {},
         create: {
+          alias: faker.person.firstName(),
+          alumno_iseta: faker.datatype.boolean(),
+          carrera_iseta: faker.book.title(),
           nombre_apellido: faker.person.fullName(),
           email,
           contrasenia: faker.internet.password(),

@@ -3,7 +3,7 @@ import {  ICarreraService } from "../services/interfaces/ICarreraService.js";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
 import { Carrera } from "../schemas/Carreras.schemas.js";
-import { errorResponse } from "decorators/errors/errors.js";
+import { errorResponse } from "../decorators/errors/errors.js";
 
 export class CarreraController {
 	constructor(

@@ -32,7 +32,7 @@ model Usuario {
   nombre_apellido String
   alias           String
   alumno_iseta    Boolean        @default(false)
-  carrera_iseta   String         @db.VarChar(30)
+  carrera_iseta   String?        @db.VarChar(30)
   email           String         @unique()
   contrasenia     String
   activo          Boolean        @default(true)

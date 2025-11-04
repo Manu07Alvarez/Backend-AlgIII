@@ -2,7 +2,7 @@ import { Usuario } from '../generated/prisma/client.js';
 import { Request, Response } from 'express';
 import { IUserService } from '../services/interfaces/IUserService.js';
 import { PaginationParams, PaginationResults } from '../types/pagination.types.js';
-import { GetUserForRolDTO } from 'types/DTOs/UsuariosDTO.js';
+import { GetUserForRolDTO } from '../types/DTOs/UsuariosDTO.js';
 import { get } from 'http';
 import { getAuth } from '../utils/context/AuthUserContext.js';
 import { errorResponse } from '../decorators/errors/errors.js';

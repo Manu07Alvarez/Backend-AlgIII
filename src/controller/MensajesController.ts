@@ -6,8 +6,6 @@ import { trace} from '@opentelemetry/api';
 import { Mensaje } from "../schemas/Mensajes.schemas.js";
 import { errorResponse } from "decorators/errors/errors.js";
 
-const tracer = trace.getTracer('controlleer');
-
 export class MensajesController {
 	constructor(
 			private readonly MensajesService: IMensajesService

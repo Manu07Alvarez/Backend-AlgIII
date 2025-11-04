@@ -1,4 +1,4 @@
-import { PrismaClient,Prisma, Usuario, Rol } from 'db';
+import { PrismaClient, Prisma, Usuario, Rol } from 'db';
 import { validateRepo } from '../decorators/errors/errors.js';
 import Repository from './Repository.js';
 import { PaginationParams, PaginationResults } from '../types/pagination.types.js';
@@ -39,13 +39,13 @@ export class UserRepository extends Repository<Usuario, "usuario"> implements IU
 	}
   
   
-  @validateRepo
-  async findById(searchId: number): Promise<Partial<Usuario>> {
-    return await super["db"].findUniqueOrThrow({
-      omit:  { contrasenia: true },
-      where: { id: searchId}
-    });
-  }
+	@validateRepo
+	async findById(searchId: number): Promise<Partial<Usuario>> {
+		return await super["db"].findUniqueOrThrow({
+			omit:  { contrasenia: true },
+			where: { id: searchId}
+		});
+	}
 
 	public async getPagination(params: PaginationParams): Promise<PaginationResults<Usuario>> {
 		const { page, limit, search, sortBy, sortOrder } = params;

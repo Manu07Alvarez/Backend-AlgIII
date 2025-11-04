@@ -32,6 +32,9 @@ export default class MensajesRepository extends Repository<Mensaje, "mensaje"> i
 					.select([
 						'u.activo',
 						'u.email',
+						'u.alias',
+						'u.alumno_iseta',
+						'u.carrera_iseta',
 						'u.id',
 						'u.nombre_apellido',
 						'u.rol',
@@ -88,6 +91,9 @@ export default class MensajesRepository extends Repository<Mensaje, "mensaje"> i
 					.select([
 						'u.activo',
 						'u.email',
+						'u.alias',
+						'u.alumno_iseta',
+						'u.carrera_iseta',
 						'u.id',
 						'u.nombre_apellido',
 						'u.rol',

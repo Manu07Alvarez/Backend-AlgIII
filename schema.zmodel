@@ -25,7 +25,10 @@ datasource db {
 
 model Usuario {
   id              Int       @id @default(autoincrement())
-  nombre_apellido String?   
+  nombre_apellido String
+  alias           String
+  alumno_iseta    Boolean   @default(false)
+  carrera_iseta   String?   @db.VarChar(30)
   email           String    @unique 
   contrasenia     String    @omit @password
   activo          Boolean   @default(true)

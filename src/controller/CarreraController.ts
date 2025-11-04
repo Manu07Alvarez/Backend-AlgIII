@@ -4,7 +4,6 @@ import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
 import { Carrera } from "../schemas/Carreras.schemas.js";
 import { errorResponse } from "decorators/errors/errors.js";
-const tracer = trace.getTracer('controlleer');
 
 export class CarreraController {
 	constructor(

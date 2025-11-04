@@ -5,7 +5,6 @@ import IReportsService from "../services/interfaces/IReportsService.js";
 import { PostReportesDTO } from "../schemas/Reportes.schemas.js";
 import { DB } from "db/types.js";
 import { Kysely } from "kysely";
-const tracer = trace.getTracer('controlleer');
 
 export class TestController {
     constructor(

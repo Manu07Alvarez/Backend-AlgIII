@@ -5,7 +5,8 @@ import { PaginationParams, PaginationResults } from '../types/pagination.types.j
 import { GetUserForRolDTO } from 'types/DTOs/UsuariosDTO.js';
 import { get } from 'http';
 import { getAuth } from '../utils/context/AuthUserContext.js';
-import { errorResponse } from 'decorators/errors/errors.js';
+import { errorResponse } from '../decorators/errors/errors.js';
+import { POSTUsuario } from '../schemas/Usuarios.schema.js';
 
 export class UserController {
     constructor(private readonly userService: IUserService) {}
@@ -48,7 +49,7 @@ export class UserController {
 		@errorResponse
     public async register(req: Request, res: Response): Promise<void> {
         try {
-            const user: Usuario = req.body;
+            const user: POSTUsuario = req.body;
             await this.userService.register(user);
             res.status(201).json({ message: 'User created successfully' });
         } catch (error: unknown) {

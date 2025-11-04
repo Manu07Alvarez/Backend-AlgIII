@@ -5,6 +5,9 @@ CREATE TYPE "Rol" AS ENUM ('ADMIN', 'MODERADOR', 'USUARIO');
 CREATE TABLE "Usuario" (
     "id" SERIAL NOT NULL,
     "nombre_apellido" TEXT,
+    "alias" TEXT NOT NULL,
+    "alumno_iseta" BOOLEAN NOT NULL DEFAULT false,
+    "carrera_iseta" VARCHAR(30),
     "email" TEXT NOT NULL,
     "contrasenia" TEXT NOT NULL,
     "activo" BOOLEAN NOT NULL DEFAULT true,

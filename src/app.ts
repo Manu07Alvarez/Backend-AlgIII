@@ -14,7 +14,12 @@ import cookieParser from 'cookie-parser';
 const app = express();
 const httpServer = http.createServer(app); // ← esto es nuevo
 
-app.use(cors());
+app.use(cors({
+    origin: function(origin, callback){
+        return callback(null, true);
+    },
+    credentials: true
+}));
 app.use(cookieParser());
 app.use(express.json());
 

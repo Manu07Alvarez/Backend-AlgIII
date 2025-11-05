@@ -3,7 +3,7 @@ import { POSTUsuario } from "../../schemas/Usuarios.schema.js";
 import { PaginationResults } from "../../types/pagination.types.js";
 
 export default interface IUserRepository {
-    create<POSTUsuario>(data: POSTUsuario): Promise<void>;
+    create<T extends POSTUsuario>(data: T): Promise<void>;
     findByName(name: string): Promise<Partial<Usuario[]>>;
     findById(id: number): Promise<Partial<Usuario>>;
     findByEmail(email: string): Promise<Partial<Usuario>>;

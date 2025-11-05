@@ -3,7 +3,6 @@ import { Request, Response, NextFunction } from "express";
 import {trace, Span} from '@opentelemetry/api';
 import { Tema } from "../schemas/Tema.schema.js";
 //import { Tema } from "../generated/prisma/client.js"
-const tracer = trace.getTracer('controller');
 
 export class TemasController {
     constructor(

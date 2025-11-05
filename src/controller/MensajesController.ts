@@ -4,95 +4,56 @@ import IMensajesService from "../services/interfaces/IMensajesService.js";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
 import { Mensaje } from "../schemas/Mensajes.schemas.js";
-
-const tracer = trace.getTracer('controlleer');
+import { errorResponse } from "decorators/errors/errors.js";
 
 export class MensajesController {
-    constructor(
-        private readonly MensajesService: IMensajesService
-    ){}
+	constructor(
+			private readonly MensajesService: IMensajesService
+	){}
 
-    public async update(req: Request, res: Response): Promise<void> {
-        try {
-            const id = Number(req.params.id);
-            const mensajes: Mensaje = req.body;
-            await this.MensajesService.update(id, mensajes);
-            res.status(200).json({ message: 'Mensaje updated successfully' });
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            }
-        }
-    }
+	@errorResponse
+	public async update(req: Request, res: Response): Promise<void> {
+		const id = Number(req.params.id);
+		const mensajes: Mensaje = req.body;
+		await this.MensajesService.update(id, mensajes);
+		res.status(200).json({ message: 'Mensaje updated successfully' });
+	}
 
-    public async activateOrDeactivate(req: Request, res: Response): Promise<void> {
-        try {
-            const id = Number(req.params.id);
-            await this.MensajesService.activateOrDeactivate(id);
-            res.status(200).json({ message: 'Mensaje state updated successfully' });
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            }
-        }
-    }
+	@errorResponse
+	public async activateOrDeactivate(req: Request, res: Response): Promise<void> {
+		const id = Number(req.params.id);
+		await this.MensajesService.activateOrDeactivate(id);
+		res.status(200).json({ message: 'Mensaje state updated successfully' });
+	}
 
-    public async create(req: Request, res: Response): Promise<void> {
-        try {
-            const mensajes: Mensaje = req.body;
-            await this.MensajesService.create(mensajes);
-            res.status(201).json({ message: 'Mensaje created successfully' });
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            }
-        }
-    }
+	@errorResponse
+	public async create(req: Request, res: Response): Promise<void> {
+		const mensajes: Mensaje = req.body;
+		await this.MensajesService.create(mensajes);
+		res.status(201).json({ message: 'Mensaje created successfully' });
+	}
 
-    public async findById(req: Request, res: Response): Promise<void> {
-        
-        try {
-            const mensajes = await this.MensajesService.findById(Number(req.params.id));
-            res.status(200).json(mensajes);
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            }
-        }
-    }
+	@errorResponse
+	public async findById(req: Request, res: Response): Promise<void> {
+		const mensajes = await this.MensajesService.findById(Number(req.params.id));
+		res.status(200).json(mensajes);
+	}
 
-    public async findAllInUserId(req: Request, res: Response): Promise<void> {
-        try {
-            const mensajes = await this.MensajesService.findAllInUserId(Number(req.params.userId));
-            res.status(200).json(mensajes);
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            }
-        }
-    }
+	@errorResponse
+	public async findAllInUserId(req: Request, res: Response): Promise<void> {
+		const mensajes = await this.MensajesService.findAllInUserId(Number(req.params.userId));
+		res.status(200).json(mensajes);
+	}
 
-    public async delete(req: Request, res: Response): Promise<void> {
-        try {
-            const id = Number(req.params.id);
-            await this.MensajesService.delete(id);
-            res.status(200).json({ message: 'Mensaje deleted successfully' });
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            }
-        }
-    }
-    public async findAllInPost(req: Request, res: Response): Promise<void> {
-        try {
-            const postId = Number(req.params.id);
-            const mensajes = await this.MensajesService.findAllInPost(postId);
-            res.status(200).json(mensajes);
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            }
-        }
-    }
+	public async delete(req: Request, res: Response): Promise<void> {
+		const id = Number(req.params.id);
+		await this.MensajesService.delete(id);
+		res.status(200).json({ message: 'Mensaje deleted successfully' });
+	}
+	public async findAllInPost(req: Request, res: Response): Promise<void> {
+		const postId = Number(req.params.id);
+		const mensajes = await this.MensajesService.findAllInPost(postId);
+		res.status(200).json(mensajes);
+	}
 
 }

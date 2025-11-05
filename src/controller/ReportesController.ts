@@ -3,8 +3,6 @@ import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
 import IReportsService from "../services/interfaces/IReportsService.js";
 import { PostReportesDTO } from "../schemas/Reportes.schemas.js";
-const tracer = trace.getTracer('controlleer');
-
 export class ReportesController {
     constructor(
         private readonly reportsService: IReportsService

@@ -5,61 +5,51 @@ import { PaginationParams, PaginationResults } from '../types/pagination.types.j
 import { GetUserForRolDTO } from 'types/DTOs/UsuariosDTO.js';
 import { get } from 'http';
 import { getAuth } from '../utils/context/AuthUserContext.js';
+import { errorResponse } from '../decorators/errors/errors.js';
+import { POSTUsuario } from '../schemas/Usuarios.schema.js';
 
 export class UserController {
     constructor(private readonly userService: IUserService) {}
-
-
+		
+		@errorResponse
     public async findAll(req: Request, res: Response): Promise<void> {
-        try {
-            const users = await this.userService.findAllUsers();
-            res.status(200).json(users);
-        } catch (error: unknown) {
-            if (error instanceof Error) res.status(500).json({ message: error.message });
-        }
+			const users = await this.userService.findAllUsers();
+			res.status(200).json(users);
     }
 
+		@errorResponse
     public async getUser(req: Request, res: Response): Promise<void> {
-        try {
-            const user = await this.userService.findById(Number(req.params.id));
-            res.status(200).json(user);
-        } catch (error: unknown) {
-            if (error instanceof Error) res.status(500).json({ message: error.message });
-        }
+			const user = await this.userService.findById(Number(req.params.id));
+			res.status(200).json(user);
     }
 
+		@errorResponse
     public async login(req: Request, res: Response): Promise<void> {
-        try {
-            const { email, contrasenia } = req.body;
-            const jwt = await this.userService.login(email, contrasenia);
-            res.cookie('auth_token', jwt);
-            res.status(200).json({ message: 'Login successful' });
-        } catch (error: unknown) {
-            if (error instanceof Error) res.status(500).json({ message: error.message });
-        }
+			const { email, contrasenia } = req.body;
+			const jwt = await this.userService.login(email, contrasenia);
+			res.cookie('auth_token', jwt, { httpOnly: true, maxAge: 60 * 60 * 1000 });
+			res.status(200).json({ message: 'Login successful' });
     }
 
+		@errorResponse
     public async actualAuthUser(req: Request, res: Response): Promise<void> {
-        try {
-            const user = {
-                id: getAuth().user?.id,
-                nombre_apellido: getAuth().user?.nombre_apellido,
-                email: getAuth().user?.email,
-                rol: getAuth().user?.rol,
-            } 
-            if (!user.id) {
-                res.status(401).json({ message: 'No authenticated' });
-                return;
-            }
-            res.status(200).json(user);
-        } catch (error: unknown) {
-            if (error instanceof Error) res.status(500).json({ message: error.message });
-        }
+			const user = {
+				id: getAuth().user?.id,
+				nombre_apellido: getAuth().user?.nombre_apellido,
+				email: getAuth().user?.email,
+				rol: getAuth().user?.rol,
+			} 
+			if (!user.id) {
+				res.status(401).json({ message: 'No authenticated' });
+				return;
+			}
+			res.status(200).json(user);
     }
 
+		@errorResponse
     public async register(req: Request, res: Response): Promise<void> {
         try {
-            const user: Usuario = req.body;
+            const user: POSTUsuario = req.body;
             await this.userService.register(user);
             res.status(201).json({ message: 'User created successfully' });
         } catch (error: unknown) {
@@ -67,6 +57,7 @@ export class UserController {
         }
     }
 
+		@errorResponse
     public async deactivate(req: Request, res: Response): Promise<void> {
         try {
             const id = Number(req.params.id);
@@ -78,6 +69,7 @@ export class UserController {
         }
     }
 
+		@errorResponse
     public async update(req: Request, res: Response): Promise<void> {
         try {
             const id = Number(req.params.id);
@@ -89,6 +81,7 @@ export class UserController {
         }
     }
 
+		@errorResponse
     public async getPagination(req: Request, res: Response): Promise<void> {
         try {
             const { page = 1, limit = 10, search, sortBy, sortOrder } = req.query;

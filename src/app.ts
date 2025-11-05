@@ -14,7 +14,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 app.use(cors({
-    origin: "https://front-alg-3.vercel.app/",
+    origin: "https://front-alg-3.vercel.app",
     credentials: true
 }));
 app.use(cookieParser());

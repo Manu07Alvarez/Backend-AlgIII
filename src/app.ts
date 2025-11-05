@@ -14,7 +14,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 app.use(cors({
-    origin: "https://isetaforo1.netlify.app",
+    origin: "*",
     credentials: true
 }));
 app.use(cookieParser());

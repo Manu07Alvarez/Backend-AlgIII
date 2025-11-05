@@ -35,6 +35,9 @@ router.post('/register', (req: Request, res: Response) => {
           },
           example: {
             nombre_apellido: "Juan Pérez",
+            alias: "Fulancho",
+            alumno_iseta: true,
+            carrera_iseta: "Informática",
             email: "fulanchoΩ@example.com",
             contrasenia: "4123@examplE",
           }

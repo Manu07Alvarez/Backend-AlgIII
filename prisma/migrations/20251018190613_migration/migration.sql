@@ -6,67 +6,66 @@ CREATE TYPE "Rol" AS ENUM ('ADMIN', 'MODERADOR', 'USUARIO');
 -- ============================================
 -- TABLAS PRINCIPALES
 -- ============================================
+
 CREATE TABLE "Usuario" (
-    "id" SERIAL NOT NULL,
-    "nombre_apellido" TEXT,
-    "email" TEXT NOT NULL,
+    "id" SERIAL PRIMARY KEY,
+    "nombre_apellido" TEXT NOT NULL,
+    "alias" TEXT,
+    "alumno_iseta" BOOLEAN DEFAULT false,
+    "carrera_iseta" VARCHAR(30),
+    "email" TEXT NOT NULL UNIQUE,
     "contrasenia" TEXT NOT NULL,
-    "activo" BOOLEAN NOT NULL DEFAULT true,
+    "activo" BOOLEAN DEFAULT true,
     "rol" "Rol" DEFAULT 'USUARIO',
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3),
-    CONSTRAINT "Usuario_pkey" PRIMARY KEY ("id")
+    "updatedAt" TIMESTAMP(3)
 );
 
 CREATE TABLE "Carrera" (
-    "id" SERIAL NOT NULL,
-    "nombre" TEXT NOT NULL,
+    "id" SERIAL PRIMARY KEY,
+    "nombre" TEXT NOT NULL UNIQUE,
     "descripcion" TEXT,
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
-    "activa" BOOLEAN DEFAULT true,
-    CONSTRAINT "Carrera_pkey" PRIMARY KEY ("id")
+    "activa" BOOLEAN DEFAULT true
 );
 
 CREATE TABLE "Tema" (
-    "id" SERIAL NOT NULL,
-    "nombre" TEXT NOT NULL,
+    "id" SERIAL PRIMARY KEY,
+    "nombre" TEXT NOT NULL UNIQUE,
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
     "titulo" TEXT NOT NULL,
     "id_creador" INTEGER NOT NULL,
     "contenido" TEXT NOT NULL,
     "id_carrera" INTEGER NOT NULL,
-    "fijado" BOOLEAN NOT NULL DEFAULT false,
-    "cerrado" BOOLEAN NOT NULL DEFAULT false,
-    CONSTRAINT "Tema_pkey" PRIMARY KEY ("id")
+    "fijado" BOOLEAN DEFAULT false,
+    "cerrado" BOOLEAN DEFAULT false
 );
 
 CREATE TABLE "Post" (
-    "id" SERIAL NOT NULL,
-    "titulo" TEXT NOT NULL,
+    "id" SERIAL PRIMARY KEY,
+    "titulo" TEXT NOT NULL UNIQUE,
     "contenido" TEXT NOT NULL,
-    "published" BOOLEAN NOT NULL DEFAULT true, -- ya unificado con el cambio de default
+    "published" BOOLEAN DEFAULT true,
     "id_autor" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
-    "id_tema" INTEGER NOT NULL,
-    CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+    "id_tema" INTEGER NOT NULL
 );
 
 CREATE TABLE "Mensaje" (
-    "id" SERIAL NOT NULL,
+    "id" SERIAL PRIMARY KEY,
     "contenido" TEXT NOT NULL,
     "id_autor" INTEGER NOT NULL,
     "id_post" INTEGER NOT NULL,
     "id_mensaje" INTEGER,
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3),
-    CONSTRAINT "Mensaje_pkey" PRIMARY KEY ("id")
+    "updatedAt" TIMESTAMP(3)
 );
 
 CREATE TABLE "Reporte" (
-    "id" TEXT NOT NULL,
+    "id" TEXT PRIMARY KEY,
     "descripcion" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
@@ -75,40 +74,32 @@ CREATE TABLE "Reporte" (
     "usuario_id" INTEGER,
     "mensaje_id" INTEGER,
     "post_id" INTEGER,
-    "tema_id" INTEGER,
-    CONSTRAINT "Reporte_pkey" PRIMARY KEY ("id")
+    "tema_id" INTEGER
 );
 
--- ============================================
--- TABLA NOTIFICACIÓN + RELACIÓN REPORTE-NOTIFICACIÓN
--- ============================================
 CREATE TABLE "notificacion" (
-    "id" SERIAL NOT NULL,
+    "id" SERIAL PRIMARY KEY,
     "contenido" TEXT NOT NULL,
-    "leido" BOOLEAN NOT NULL DEFAULT false,
+    "tipo" TEXT NOT NULL,
+    "leido" BOOLEAN DEFAULT false,
     "id_usuario" INTEGER NOT NULL,
     "id_tema" INTEGER,
     "id_post" INTEGER,
     "id_mensaje" INTEGER,
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3),
-    CONSTRAINT "notificacion_pkey" PRIMARY KEY ("id")
+    "updatedAt" TIMESTAMP(3)
 );
 
+-- Prisma crea automáticamente esta tabla intermedia para la relación muchos-a-muchos
 CREATE TABLE "_ReporteTonotificacion" (
     "A" TEXT NOT NULL,
     "B" INTEGER NOT NULL,
-    CONSTRAINT "_ReporteTonotificacion_AB_pkey" PRIMARY KEY ("A","B")
+    CONSTRAINT "_ReporteTonotificacion_AB_unique" UNIQUE ("A","B")
 );
 
 -- ============================================
 -- ÍNDICES
 -- ============================================
-CREATE UNIQUE INDEX "Usuario_email_key" ON "Usuario"("email");
-CREATE UNIQUE INDEX "Carrera_nombre_key" ON "Carrera"("nombre");
-CREATE UNIQUE INDEX "Tema_nombre_key" ON "Tema"("nombre");
-CREATE UNIQUE INDEX "Post_titulo_key" ON "Post"("titulo");
-
 CREATE INDEX "idx_tema_nombre" ON "Tema"("nombre");
 CREATE INDEX "idx_tema_carrera" ON "Tema"("id_carrera");
 CREATE INDEX "idx_tema_creador" ON "Tema"("id_creador");
@@ -176,7 +167,7 @@ ALTER TABLE "notificacion" ADD CONSTRAINT "notificacion_id_post_fkey"
 ALTER TABLE "notificacion" ADD CONSTRAINT "notificacion_id_mensaje_fkey"
   FOREIGN KEY ("id_mensaje") REFERENCES "Mensaje"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
--- Relación muchos a muchos entre Reporte y Notificación
+-- Relación muchos-a-muchos Reporte <-> Notificación
 ALTER TABLE "_ReporteTonotificacion" ADD CONSTRAINT "_ReporteTonotificacion_A_fkey"
   FOREIGN KEY ("A") REFERENCES "Reporte"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 

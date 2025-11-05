@@ -6,15 +6,19 @@ import { faker } from '@faker-js/faker';
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   max: 5
-})
+});
 const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({adapter, log: ['query', 'info', 'warn', 'error']});
+const prisma = new PrismaClient({ adapter, log: ['query', 'info', 'warn', 'error'] });
+
 async function main() {
   faker.seed(1);
   const length = process.env.SEED_LENGTH ? parseInt(process.env.SEED_LENGTH) : 10;
-  // Crear usuarios por email (clave única)
+
+  // =======================
+  // USUARIOS
+  // =======================
   const users = await Promise.all(
-    Array.from({ length: length }).map(() => {
+    Array.from({ length }).map(() => {
       const email = faker.internet.email();
       return prisma.usuario.upsert({
         where: { email },
@@ -28,59 +32,64 @@ async function main() {
           contrasenia: faker.internet.password(),
           rol: [Rol.ADMIN, Rol.MODERADOR, Rol.USUARIO][Math.floor(Math.random() * 3)],
         }
-      })
+      });
     })
   );
-  
- 
-  // Carreras
+
+  // =======================
+  // CARRERAS
+  // =======================
   const carreras = await Promise.all(
-    Array.from({ length: length }).map(() => {
+    Array.from({ length }).map(() => {
       const nombre = faker.company.name();
-      return  prisma.carrera.upsert({
+      return prisma.carrera.upsert({
         where: { nombre },
         update: {},
         create: {
           nombre,
           descripcion: faker.lorem.sentence()
         }
-      })
-    }) 
+      });
+    })
   );
 
-  // Tema
+  // =======================
+  // TEMAS
+  // =======================
   const temas = await Promise.all(
-    Array.from({ length: length }).map(() => {
+    Array.from({ length }).map(() => {
       const randomCarrera = carreras[Math.floor(Math.random() * length)];
       const randomUser = users[Math.floor(Math.random() * length)];
       const nombre = faker.company.name();
       const titulo = faker.book.title();
-      return  prisma.tema.upsert({
-        where: { nombre }, // Podés cambiar el criterio según tu modelo real
+      return prisma.tema.upsert({
+        where: { nombre },
         update: {},
         create: {
-          nombre: nombre,
-          titulo: titulo,
+          nombre,
+          titulo,
           contenido: faker.lorem.paragraphs(2),
           id_creador: randomUser.id,
           id_carrera: randomCarrera.id,
           fijado: true,
           cerrado: false
         }
-      })
+      });
     })
   );
 
-  // Post
+  // =======================
+  // POSTS
+  // =======================
   const posts = await Promise.all(
-    Array.from({ length: length }).map((_,i) => {
+    Array.from({ length }).map((_, i) => {
       const randomTema = temas[Math.floor(Math.random() * length)];
       const randomUser = users[Math.floor(Math.random() * length)];
       return prisma.post.upsert({
-        where: { id: i + 1 }, // Igual que con Tema, esto puede variar
+        where: { id: i + 1 },
         update: {},
         create: {
-          titulo: `${i}` + faker.book.title() ,
+          titulo: `${i}` + faker.book.title(),
           contenido: faker.lorem.paragraphs(2),
           id_autor: randomUser.id,
           id_tema: randomTema.id,
@@ -90,29 +99,31 @@ async function main() {
     })
   );
 
-  // Mensajes
+  // =======================
+  // MENSAJES
+  // =======================
   const mensajes = await Promise.all(
-    Array.from({ length: length }).map((_, i) => {
+    Array.from({ length }).map((_, i) => {
       const randomPost = posts[Math.floor(Math.random() * length)];
       const randomUser = users[Math.floor(Math.random() * length)];
       return prisma.mensaje.upsert({
-        where: { id: i+1 },
+        where: { id: i + 1 },
         update: {},
         create: {
           contenido: faker.hacker.phrase(),
           id_autor: randomUser.id,
           id_post: randomPost.id
         }
-      })
+      });
     })
   );
 
   const mensajes2 = await Promise.all(
-    Array.from({ length: length }).map((_, i) => {
+    Array.from({ length }).map((_, i) => {
       const randomMensaje = mensajes[Math.floor(Math.random() * length)];
       const randomUser = users[Math.floor(Math.random() * length)];
       return prisma.mensaje.upsert({
-        where: { id: i+length },
+        where: { id: i + length },
         update: {},
         create: {
           contenido: faker.hacker.phrase(),
@@ -120,17 +131,18 @@ async function main() {
           id_post: randomMensaje.id_post,
           id_mensaje: randomMensaje.id
         }
-      })
+      });
     })
   );
 
+  // =======================
+  // REPORTES
+  // =======================
   const reportesData = await Promise.all(
-    Array.from({ length: length }).map((_, i) => {
+    Array.from({ length }).map((_, i) => {
       const randomUser = users[Math.floor(Math.random() * length)];
       const opciones = ['post', 'tema', 'mensaje', 'usuario'];
       const seleccionado = opciones[Math.floor(Math.random() * opciones.length)];
-
-
 
       const data: Prisma.ReporteCreateManyInput = {
         descripcion: faker.hacker.phrase(),
@@ -154,12 +166,19 @@ async function main() {
       }
 
       return data;
-
     })
   );
-  // NOTIFICACIONES
+
+  await prisma.reporte.createMany({ data: reportesData });
+
+  // =======================
+  // NOTIFICACIONES (con "type")
+  // =======================
+ // =======================
+// NOTIFICACIONES (con campo "tipo" obligatorio)
+// =======================
 const notificaciones = await Promise.all(
-  Array.from({ length }).map(async (_, i) => {
+  Array.from({ length }).map(async () => {
     const randomUser = users[Math.floor(Math.random() * users.length)];
     const opciones = ['tema', 'post', 'mensaje'];
     const seleccionado = opciones[Math.floor(Math.random() * opciones.length)];
@@ -168,6 +187,7 @@ const notificaciones = await Promise.all(
       contenido: faker.lorem.sentence(),
       id_usuario: randomUser.id,
       leido: faker.datatype.boolean(),
+      tipo: seleccionado, // ✅ agregado correctamente
     };
 
     switch (seleccionado) {
@@ -189,7 +209,7 @@ const notificaciones = await Promise.all(
   })
 );
 
-  await prisma.reporte.createMany({ data: reportesData });
+
   console.log('✅ Seeder ejecutado correctamente con datos falsos.');
 }
 

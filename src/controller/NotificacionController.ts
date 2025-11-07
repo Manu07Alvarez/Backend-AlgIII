@@ -11,7 +11,7 @@ export class NotificacionController {
   ) {}
 
   /**
-   * Crear una notificación
+   * Crear una notificación persistente
    */
   public async create(req: Request, res: Response): Promise<void> {
     try {
@@ -23,10 +23,10 @@ export class NotificacionController {
         res.status(500).json({ message: error.message });
       }
     }
-  }
+  } 
 
   /**
-   * Emitir una notificación manualmente (sin persistir en base de datos)
+   * Emitir una notificación manualmente (sin guardar en base de datos)
    */
   public async emit(req: Request, res: Response): Promise<void> {
     try {
@@ -41,7 +41,7 @@ export class NotificacionController {
   }
 
   /**
-   * Listar notificaciones de un usuario según rol
+   * Listar notificaciones de un usuario según su rol
    */
   public async findByUser(req: Request, res: Response): Promise<void> {
     try {

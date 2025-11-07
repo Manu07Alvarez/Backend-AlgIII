@@ -15,9 +15,7 @@ const app = express();
 const httpServer = http.createServer(app); // ← esto es nuevo
 
 app.use(cors({
-    origin: function(origin, callback){
-        return callback(null, true);
-    },
+    origin: "*",
     credentials: true
 }));
 app.use(cookieParser());

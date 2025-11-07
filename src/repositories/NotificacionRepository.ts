@@ -22,6 +22,7 @@ export default class NotificacionRepository extends Repository<any, "notificacio
       id_mensaje?: number;
     }
   ): Promise<GetNotificacionDTO> {
+    console.log(`values ${data.tipo}`);
     const noti = await super["db"].create({
       data,
       include: { usuario: true, tema: true, post: true, Mensaje: true },

@@ -11,7 +11,7 @@
       "description": ""
     }
   ],
-  "paths": {
+   "paths": {
     "/api/guest/login": {
       "post": {
         "description": "",
@@ -1737,12 +1737,12 @@
   "properties": {
     "contenido": { "type": "string", "example": "Tienes una nueva notificación" },
     "id_usuario": { "type": "integer", "example": 1 },
-    "type": { "type": "string", "enum": ["tema", "post", "mensaje"], "example": "tema" },
+    "tipo": { "type": "string", "enum": ["tema", "post", "mensaje"], "example": "tema" },
     "id_tema": { "type": "integer", "example": 5 },
     "id_post": { "type": "integer", "nullable": true, "example": null },
     "id_mensaje": { "type": "integer", "nullable": true, "example": null }
   },
-  "required": ["contenido", "id_usuario", "type"]
+  "required": ["contenido", "id_usuario", "tipo"]
 },
 "notificacionSchema": {
   "type": "object",

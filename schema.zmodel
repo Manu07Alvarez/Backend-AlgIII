@@ -179,21 +179,12 @@ model notificacion {
   updatedAt  DateTime? @updatedAt
 
   @@allow('all', auth().rol == 'ADMIN')
-  @@allow('read', id_usuario == auth().id)
-  @@allow('delete', id_usuario == auth().id)
-  @@allow('update', id_usuario == auth().id)
+  @@allow('read', usuario == auth())
+  @@allow('delete', usuario == auth())
+  @@allow('update', usuario == auth())
 
   @@allow('create',
-    id_usuario == auth().id &&
-    (
-      tema == null || tema.id_creador == auth().id || auth().rol == 'ADMIN'
-    ) &&
-    (
-      post == null || post.id_autor == auth().id || auth().rol == 'ADMIN'
-    ) &&
-    (
-      Mensaje == null || Mensaje.id_autor == auth().id || auth().rol == 'ADMIN'
-    )
+    auth().id != null
   )
 }
 

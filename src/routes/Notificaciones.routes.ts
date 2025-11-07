@@ -7,7 +7,7 @@ const notificacionController = createNotificacionController();
 const tracer = trace.getTracer('route-lib');
 
 /**
- * Crear una notificación
+ * Crear una notificación persistente
  */
 router.post('/create', (req: Request, res: Response) => {
   /*  #swagger.requestBody = {
@@ -18,7 +18,7 @@ router.post('/create', (req: Request, res: Response) => {
             example: {
               "contenido": "Nueva notificación para un usuario",
               "id_usuario": 3,
-              "type": "post",
+              "tipo": "post", // ← actualizado
               "id_post": 2
             }
           }
@@ -29,7 +29,7 @@ router.post('/create', (req: Request, res: Response) => {
 });
 
 /**
- * Emitir una notificación manualmente (sin persistir en base de datos)
+ * Emitir una notificación manualmente (sin guardar en base de datos)
  */
 router.post('/emit', (req: Request, res: Response) => {
   /*  #swagger.requestBody = {
@@ -40,6 +40,7 @@ router.post('/emit', (req: Request, res: Response) => {
             example: {
               "id": 999,
               "contenido": "Notificación directa",
+              "tipo": "sistema", // ← agregado
               "id_usuario": 3,
               "leido": false,
               "createdAt": "2025-10-29T19:30:00.000Z",
@@ -77,3 +78,4 @@ router.delete('/delete/:id', (req: Request, res: Response) => {
 });
 
 export default router;
+3

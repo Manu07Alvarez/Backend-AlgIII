@@ -1350,8 +1350,51 @@
     },
     "security": [{ "cookieAuth": [] }]
   }
-}
-  },
+},
+"/api/notificaciones/emit/{id}": {
+  "post": {
+    "summary": "Emitir una notificación en tiempo real",
+    "description": "Envía una notificación en tiempo real al usuario especificado.",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "integer" }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Notificación emitida",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/notificacionSchema" }
+          }
+        }
+      }
+    },
+    "security": [{ "cookieAuth": [] }]
+  }
+},
+"/api/notificaciones/delete/{id}": {
+  "delete": {
+    "summary": "Eliminar una notificación",
+    "description": "Elimina la notificación especificada.",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "integer" }
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "Notificación eliminada exitosamente"
+      }
+    },
+    "security": [{ "cookieAuth": [] }]
+  }}},
   "components": {
     "securitySchemes": {
       "cookieAuth": {
@@ -1732,18 +1775,6 @@
           "name": "temaSchema"
         }
       },
-      "notificacionCreateSchema": {
-  "type": "object",
-  "properties": {
-    "contenido": { "type": "string", "example": "Tienes una nueva notificación" },
-    "id_usuario": { "type": "integer", "example": 1 },
-    "tipo": { "type": "string", "enum": ["tema", "post", "mensaje"], "example": "tema" },
-    "id_tema": { "type": "integer", "example": 5 },
-    "id_post": { "type": "integer", "nullable": true, "example": null },
-    "id_mensaje": { "type": "integer", "nullable": true, "example": null }
-  },
-  "required": ["contenido", "id_usuario", "tipo"]
-},
 "notificacionSchema": {
   "type": "object",
   "properties": {
@@ -1759,7 +1790,6 @@
   },
   "required": ["id", "contenido", "leido", "id_usuario"]
 },
-
       "postSchema": {
         "type": "object",
         "properties": {

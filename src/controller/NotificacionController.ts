@@ -28,17 +28,30 @@ export class NotificacionController {
   /**
    * Emitir una notificación manualmente (sin guardar en base de datos)
    */
-  public async emit(req: Request, res: Response): Promise<void> {
-    try {
-      const noti: GetNotificacionDTO = req.body;
-      this.notificacionService.emitirNotificacion(noti);
-      res.status(200).json({ message: 'Notificación emitida correctamente' });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        res.status(500).json({ message: error.message });
-      }
+ public async emit(req: Request, res: Response): Promise<void> {
+  try {
+    const id_usuario = parseInt(req.params.id);
+    const { contenido, id_tema, id_post, id_mensaje } = req.body;
+
+    const noti: GetNotificacionDTO = {
+      id_usuario,
+      contenido: contenido ?? 'Tienes una nueva notificación',
+      leido: false,
+      ...(id_tema && { id_tema }),
+      ...(id_post && { id_post }),
+      ...(id_mensaje && { id_mensaje }),
+    };
+
+    this.notificacionService.emitirNotificacion(noti);
+
+    res.status(200).json({ message: 'Notificación emitida correctamente' });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
     }
   }
+}
+
 
   /**
    * Listar notificaciones de un usuario según su rol

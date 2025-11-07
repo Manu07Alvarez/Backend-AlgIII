@@ -31,28 +31,8 @@ router.post('/create', (req: Request, res: Response) => {
 /**
  * Emitir una notificación manualmente (sin guardar en base de datos)
  */
-router.post('/emit', (req: Request, res: Response) => {
-  /*  #swagger.requestBody = {
-        required: true,
-        content: {
-          'application/json': {
-            schema: { $ref: '#/components/schemas/GetNotificacionDTO' },
-            example: {
-              "id": 999,
-              "contenido": "Notificación directa",
-              "tipo": "sistema", // ← agregado
-              "id_usuario": 3,
-              "leido": false,
-              "createdAt": "2025-10-29T19:30:00.000Z",
-              "usuario": null,
-              "tema": null,
-              "post": null,
-              "Mensaje": null
-            }
-          }
-        }
-      }
-  */
+router.post('/emit/:id', (req: Request, res: Response) => {
+
   notificacionController.emit(req, res);
 });
 
@@ -66,10 +46,9 @@ router.get('/user/:id_usuario', (req: Request, res: Response) => {
 /**
  * Marcar una notificación como leída
  */
-router.put('/read/:id', (req: Request, res: Response) => {
+router.patch('/markRead/:id', (req: Request, res: Response) => {
   notificacionController.markAsRead(req, res);
 });
-
 /**
  * Eliminar una notificación
  */

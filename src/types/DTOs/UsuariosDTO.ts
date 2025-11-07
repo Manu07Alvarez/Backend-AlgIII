@@ -28,7 +28,7 @@ export type GetUserForUserDTO = {
     email: string;
     alias: string
     alumno_iseta: boolean
-    carrera_iseta: string
+    carrera_iseta: string | null
     id: number;
     rol: "ADMIN" | "MODERADOR" | "USUARIO";
 } 

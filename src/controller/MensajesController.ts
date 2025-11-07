@@ -4,7 +4,7 @@ import IMensajesService from "../services/interfaces/IMensajesService.js";
 import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
 import { Mensaje } from "../schemas/Mensajes.schemas.js";
-import { errorResponse } from "decorators/errors/errors.js";
+import { errorResponse } from "../decorators/errors/errors.js";
 
 export class MensajesController {
 	constructor(

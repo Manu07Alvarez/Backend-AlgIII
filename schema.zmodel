@@ -151,7 +151,7 @@ model Mensaje {
   contestado Mensaje? @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
   id_mensaje Int?
   Reportes   Reporte[]
-  notifnotificacion notificacion[]
+  notificacion notificacion[]
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   @@allow('all', auth().rol == 'ADMIN')
@@ -179,7 +179,7 @@ model notificacion {
   updatedAt  DateTime? @updatedAt
 
   @@allow('all', auth().rol == 'ADMIN')
-  @@allow('read', usuario == auth())
+  @@allow('read', auth().id != null)
   @@allow('delete', usuario == auth())
   @@allow('update', usuario == auth())
 

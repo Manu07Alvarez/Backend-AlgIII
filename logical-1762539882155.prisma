@@ -11,7 +11,7 @@ datasource db {
 generator client {
     provider = "prisma-client-js"
     binaryTargets = ["native", "windows"]
-    output = "../src/generated/prisma"
+    output = "node_modules\\.zenstack\\logical-prisma-client"
     engineType = "client"
     runtime = "nodejs"
 }
@@ -27,6 +27,11 @@ enum Rol {
     USUARIO
 }
 
+/// @@auth
+/// @@allow('read', activo)
+/// @@allow('all', auth().rol == 'ADMIN')
+/// @@allow('create', auth() == null)
+/// @@allow('all', auth() == this)
 model Usuario {
     id Int @id() @default(autoincrement())
     nombre_apellido String
@@ -34,6 +39,8 @@ model Usuario {
     alumno_iseta Boolean @default(false)
     carrera_iseta String? @db.VarChar(30)
     email String @unique()
+    /// @omit
+    /// @password
     contrasenia String
     activo Boolean @default(true)
     rol Rol? @default(USUARIO)
@@ -47,6 +54,8 @@ model Usuario {
     notificaciones notificacion[]
 }
 
+/// @@allow('all', auth().rol == 'ADMIN')
+/// @@allow('read', activa)
 model Carrera {
     id Int @id() @default(autoincrement())
     nombre String @unique()
@@ -57,13 +66,18 @@ model Carrera {
     Tema Tema[]
 }
 
+/// @@allow('all', auth().rol == 'ADMIN')
+/// @@allow('read', !cerrado)
+/// @@allow('delete', creador == auth())
+/// @@allow('create', creador == auth())
+/// @@allow('update', creador == auth())
 model Tema {
     id Int @id() @default(autoincrement())
     nombre String @unique()
     createdAt DateTime? @default(now())
     updatedAt DateTime? @updatedAt()
     titulo String
-    id_creador Int
+    id_creador Int @default(0)
     creador Usuario @relation(fields: [id_creador], references: [id])
     contenido String @db.Text()
     id_carrera Int
@@ -79,6 +93,9 @@ model Tema {
     @@index([id_creador], name: "idx_tema_creador")
 }
 
+/// @@allow('all', auth().rol == 'ADMIN')
+/// @@allow('read', auth().rol == 'MODERADOR' && !resuelto)
+/// @@allow('create', auth() != null)
 model Reporte {
     id String @id() @default(ulid())
     descripcion String
@@ -86,7 +103,7 @@ model Reporte {
     updatedAt DateTime? @updatedAt()
     resuelto Boolean? @default(false)
     reportador Usuario @relation(fields: [id_reportador], references: [id])
-    id_reportador Int
+    id_reportador Int @default(0)
     usuario_id Int?
     usuario_reportado Usuario? @relation("UsuarioReportado", fields: [usuario_id], references: [id])
     mensaje_id Int?
@@ -98,13 +115,18 @@ model Reporte {
     notificacion notificacion[]
 }
 
+/// @@allow('all', auth().rol == 'ADMIN')
+/// @@allow('read', published)
+/// @@allow('delete', autor == auth())
+/// @@allow('create', autor == auth())
+/// @@allow('update', autor == auth())
 model Post {
     id Int @id() @default(autoincrement())
     titulo String @unique()
     contenido String @db.Text()
     published Boolean @default(true)
     autor Usuario @relation(fields: [id_autor], references: [id])
-    id_autor Int
+    id_autor Int @default(0)
     createdAt DateTime? @default(now())
     updatedAt DateTime? @updatedAt()
     id_tema Int
@@ -118,10 +140,15 @@ model Post {
     @@index([id_autor], name: "idx_post_autor")
 }
 
+/// @@allow('all', auth().rol == 'ADMIN')
+/// @@allow('read', true)
+/// @@allow('delete', autor == auth())
+/// @@allow('create', autor == auth())
+/// @@allow('update', autor == auth())
 model Mensaje {
     id Int @id() @default(autoincrement())
     contenido String @db.Text()
-    id_autor Int
+    id_autor Int @default(0)
     autor Usuario @relation(fields: [id_autor], references: [id])
     id_post Int
     post Post @relation(fields: [id_post], references: [id])
@@ -134,6 +161,11 @@ model Mensaje {
     updatedAt DateTime? @updatedAt()
 }
 
+/// @@allow('all', auth().rol == 'ADMIN')
+/// @@allow('read', auth().id == null)
+/// @@allow('delete', usuario == auth())
+/// @@allow('update', usuario == auth())
+/// @@allow('create', auth().id != null)
 model notificacion {
     id Int @id() @default(autoincrement())
     contenido String @db.Text()

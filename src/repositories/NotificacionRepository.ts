@@ -1,7 +1,7 @@
 import { validateRepo } from '../decorators/errors/errors.js';
 import Repository from './Repository.js';
 import { INotificacionRepository } from './interfaces/INotificacionRepository.js';
-import { GetNotificacionDTO } from '../types/DTOs/NotificacionesDTO.js';
+import { GetNotificacionDTO, PostsNotificacionDTO } from '../types/DTOs/NotificacionesDTO.js';
 import { mapNotificacion } from '../utils/mapper/Notificacion.mapper.js';
 
 export default class NotificacionRepository extends Repository<any, "notificacion">
@@ -11,18 +11,9 @@ export default class NotificacionRepository extends Repository<any, "notificacio
     super("notificacion");
   }
 
+ // ya anda
   @validateRepo
-  async crear(
-    data: {
-      contenido: string;
-      tipo: string;
-      id_usuario: number;
-      id_tema?: number;
-      id_post?: number;
-      id_mensaje?: number;
-    }
-  ): Promise<GetNotificacionDTO> {
-    console.log(`values ${data.tipo}`);
+  async crear(data: PostsNotificacionDTO): Promise<GetNotificacionDTO> {
     const noti = await super["db"].create({
       data,
       include: { usuario: true, tema: true, post: true, Mensaje: true },
@@ -32,13 +23,13 @@ export default class NotificacionRepository extends Repository<any, "notificacio
     this.emitirNotificacion(dto);
     return dto;
   }
-
+ //TODO: falta probar esto en el swagger
   private emitirNotificacion(noti: GetNotificacionDTO) {
     if (globalThis.io) {
       globalThis.io.to(`usuario-${noti.id_usuario}`).emit('nueva-notificacion', noti);
     }
   }
-
+// ya anda
   @validateRepo
   async listarPorUsuarioYRol(
     id_usuario: number,
@@ -70,7 +61,7 @@ export default class NotificacionRepository extends Repository<any, "notificacio
 
     return notificaciones.map(mapNotificacion);
   }
-
+ //TODO: no anda
   @validateRepo
   async marcarLeido(id: number): Promise<GetNotificacionDTO> {
     const noti = await super["db"].update({
@@ -80,7 +71,7 @@ export default class NotificacionRepository extends Repository<any, "notificacio
     });
     return mapNotificacion(noti);
   }
-
+//TODO probar esto en swagger
   @validateRepo
   async eliminar(id: number): Promise<GetNotificacionDTO> {
     const noti = await super["db"].delete({

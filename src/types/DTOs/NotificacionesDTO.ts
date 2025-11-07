@@ -17,12 +17,12 @@ export type TemasNotificacionDTO = {
 };
 
 export type PostsNotificacionDTO = {
-  id: number;
-  titulo: string;
   contenido: string;
-  published: boolean;
-  id_autor: number;
-  id_tema: number;
+  tipo: string;
+  id_usuario: number;
+  id_tema?: number;
+  id_post?: number;
+  id_mensaje?: number;
 };
 
 export type MensajesNotificacionsDTO = {

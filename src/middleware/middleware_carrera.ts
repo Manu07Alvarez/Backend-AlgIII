@@ -2,12 +2,12 @@ import { Response, Request, NextFunction } from 'express';
 import { CarreraSchema } from '../schemas/Carreras.schemas.js';
 import { validateSchema } from '../utils/validate.js';
 import ValidateError from '../Errors/ValidateError.js';
-import { TypeCompiler } from '@sinclair/typebox/compiler';
+import { carrera_validator } from '../utils/Validation.js';
+
 
 export async function validateCarrera(req: Request, res: Response, next: NextFunction) {
     try {
-        const CarreraCompiled = TypeCompiler.Compile(CarreraSchema as any);
-        await validateSchema(CarreraCompiled as any, CarreraSchema as unknown as any, req.body);
+        await validateSchema(carrera_validator as any, CarreraSchema as any, req.body);
         next();
     } catch (err) {
         if (err instanceof ValidateError) {

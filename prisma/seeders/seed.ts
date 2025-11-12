@@ -134,6 +134,33 @@ async function main() {
       });
     })
   );
+// Curriculum
+  const curriculums = await Promise.all(
+    Array.from({ length: length }).map(() => {
+      const randomUser = users[Math.floor(Math.random() * length)];   
+      return prisma.curriculum.upsert({
+        where: { id_autor: randomUser.id },
+        update: {}, 
+        create: {
+          id: undefined,
+          id_autor: randomUser.id,
+          nombre: faker.person.fullName(),
+          apellido: faker.person.lastName(),
+          fecha_nacimiento: faker.date.past({ years: 30 }),
+          telefono: faker.phone.number(),
+          email: randomUser.email,
+          presentacion: faker.lorem.paragraph(),
+          experiencia: faker.lorem.paragraphs(2),
+          ultimo_titulo: faker.lorem.paragraph(),
+          habilidades_blandas: faker.lorem.words(5),
+          habilidades_duras: faker.lorem.words(5),
+          idiomas: 'Inglés, Español',
+          disponibilidad_horaria: 'Full-time',
+          perfil_in: faker.internet.url(),
+        }
+      })
+    })
+  );
 
   // =======================
   // REPORTES

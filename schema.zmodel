@@ -42,6 +42,7 @@ model Usuario {
   Tema Tema[]
   Post Post[]
   notificaciones notificacion[]
+  Curriculum Curriculum?
   @@auth
   @@allow('read', activo)
   @@allow('all', auth().rol == 'ADMIN')
@@ -159,6 +160,31 @@ model Mensaje {
   @@allow('delete', autor == auth())
   @@allow('create', autor == auth())
   @@allow('update', autor == auth())
+}
+
+model Curriculum {
+  id                      Int      @id @default(autoincrement())
+  nombre                  String   
+  apellido                String   
+  fecha_nacimiento        DateTime
+  email                   String    @unique
+  telefono                String? 
+  ultimo_titulo           String?  
+  experiencia             String?   @db.VarChar(1000)
+  habilidades_duras       String?   @db.VarChar(300)
+  habilidades_blandas     String?   @db.VarChar(300)
+  idiomas                 String?   @db.VarChar(300)
+  presentacion            String?   @db.VarChar(1000)
+  disponibilidad_horaria  String?   @db.VarChar(20) 
+  perfil_in               String?   @db.VarChar(100)
+  autor                   Usuario   @relation(fields: [id_autor], references: [id])
+  id_autor                Int       @unique @default(auth().id)
+
+  @@allow('all', auth().rol == 'ADMIN')
+  @@allow('read', true)
+  @@allow('delete', autor == auth())
+  @@allow('create', autor == auth())
+  @@allow('update', autor == auth()) 
 }
 
 model notificacion {

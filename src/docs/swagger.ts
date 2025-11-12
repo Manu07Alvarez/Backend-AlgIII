@@ -6,6 +6,7 @@ import { TemaSchema } from '../schemas/Tema.schema.js';
 import { PostSchema } from '../schemas/Post.schemas.js';
 import { MensajeSchema } from '../schemas/Mensajes.schemas.js';
 import { ReporteSchema } from '../schemas/Reportes.schemas.js';
+import { CurriculumSchema } from 'schemas/Curriculum.schemas.js';	
 
 const host = process.env.HOST
 
@@ -35,6 +36,7 @@ const doc = {
 				reportSchema: ReporteSchema,
 				temaSchema: TemaSchema,
 				postSchema: PostSchema,
+				curriculumSchema: CurriculumSchema,
 				mensajeSchema: MensajeSchema,
 				registerSchema: {
 						$email: 'fulanchoΩ@example.com',

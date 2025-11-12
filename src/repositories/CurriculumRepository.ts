@@ -9,10 +9,4 @@ export default class CurriculumRepository extends Repository<Curriculum, "curric
     } 
     findAllInUserId(userId: number): Promise<Curriculum[]> {
         throw new Error("Method not implemented.");
-    }
-    @validateRepo
-    public async create(data: Curriculum): Promise<void> {
-        await super["db"].create({
-            data,
-        });
-    } }
+    }}

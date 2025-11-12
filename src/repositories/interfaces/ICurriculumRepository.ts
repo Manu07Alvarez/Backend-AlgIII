@@ -1,7 +1,7 @@
 import { Curriculum } from "db";
 export default interface ICurriculumRepository {
     create(data: Curriculum): Promise<void>;
-    findById(id: number): Promise<Partial<Curriculum>>;
+    findAll(): Promise<Partial<Curriculum[]>>;
     findAllInUserId(userId: number): Promise<Curriculum[]>;
     activateOrDeactivate(id: number): Promise<void>;
     update(id: number, data: Curriculum): Promise<void>;

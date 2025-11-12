@@ -15,9 +15,9 @@ import { MensajesService } from "../../services/MensajesService.js";
 import { ReportsRepository } from "../../repositories/ReportsRepository.js";
 import { ReportsService } from "../../services/ReportsService.js";
 //Acá agrego los de curriculum
-import { CurriculumController } from "controller/CurriculumController.js";
-import { CurriculumService } from "services/CurriculumService.js";
-import { CurriculumRepository } from "repositories/CurriculumRepository.js";
+import { CurriculumController } from "../../controller/CurriculumController.js";
+import { CurriculumService } from "../../services/CurriculumService.js";
+import CurriculumRepository from "../../repositories/CurriculumRepository.js";
 
 import MensajesRepository from "../../repositories/MensajesRespository.js";
 import { ReportesController } from "../../controller/ReportesController.js";
@@ -72,6 +72,14 @@ export function createMensajeController(): MensajesController{
   const service = new MensajesService(repo);
   return new MensajesController(service);
 };
+
+//Curriculum 
+export function createCurriculumController(): CurriculumController{
+  const repo = new CurriculumRepository();
+  const service = new CurriculumService(repo);
+  return new CurriculumController(service);
+}
+
 
 /**
  * Creates a new instance of ReportesController with the given Prisma client.

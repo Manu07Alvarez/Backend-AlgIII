@@ -1,13 +1,15 @@
-import {Response, Request, Router} from "express";
+import { Response, Request, Router } from "express";
 import { createPostController } from "../utils/factories/ClassFactory.js";
-import { trace } from '@opentelemetry/api';
+import { trace } from "@opentelemetry/api";
+import { validatePost } from "../middleware/middleware_post.js"; 
 
 const router = Router();
 const postController = createPostController();
-const tracer = trace.getTracer('route-lib');
+const tracer = trace.getTracer("route-lib");
 
-router.post('/create', (req: Request, res: Response) => {
-    /*  #swagger.requestBody = {
+// 🔹 Crear post (con validación)
+router.post("/create", validatePost, (req: Request, res: Response) => {
+  /*  #swagger.requestBody = {
         required: true,
         content: {
             'application/json': {
@@ -19,32 +21,38 @@ router.post('/create', (req: Request, res: Response) => {
                 contenido: "Hola mundo en el foro",
                 published: true,
                 id_autor: 1,
-                id_tema: 2,
+                id_tema: 2
             }
             }
         }
-        }
-    */
-    postController.create(req, res);
-});
-router.get('/getPagination', (req: Request, res: Response) => {
-    postController.getPagination(req, res);
+    }
+  */
+  postController.create(req, res);
 });
 
-router.get('/findAll', (req: Request, res: Response) => {
-    postController.findAll(req, res);
+// 🔹 Obtener posts paginados
+router.get("/getPagination", (req: Request, res: Response) => {
+  postController.getPagination(req, res);
 });
 
-router.get('/findById/:id', (req: Request, res: Response) => {
-    postController.findById(req, res);
+// 🔹 Obtener todos los posts
+router.get("/findAll", (req: Request, res: Response) => {
+  postController.findAll(req, res);
 });
 
-router.get('/findByTitle/:title', (req: Request, res: Response) => {
-    postController.findByTitle(req, res);
+// 🔹 Buscar por ID
+router.get("/findById/:id", (req: Request, res: Response) => {
+  postController.findById(req, res);
 });
 
-router.put('/update/:id', (req: Request, res: Response) => {
-        /*  #swagger.requestBody = {
+// 🔹 Buscar por título
+router.get("/findByTitle/:title", (req: Request, res: Response) => {
+  postController.findByTitle(req, res);
+});
+
+// 🔹 Actualizar post (con validación)
+router.put("/update/:id", validatePost, (req: Request, res: Response) => {
+  /*  #swagger.requestBody = {
         required: true,
         content: {
             'application/json': {
@@ -53,23 +61,24 @@ router.put('/update/:id', (req: Request, res: Response) => {
             },
             example: {
                 titulo: "Primer post",
-                contenido: "Hola mundo en el foro",
-                published: true,
+                contenido: "Hola mundo en el foro actualizado",
+                published: false
             }
             }
         }
-        }
-    */
-    postController.update(req, res);
+    }
+  */
+  postController.update(req, res);
 });
 
-router.patch('/activateOrDeactivate/:id', (req: Request, res: Response) => {
-    postController.activateOrDeactivate(req, res);
+// 🔹 Activar o desactivar
+router.patch("/activateOrDeactivate/:id", (req: Request, res: Response) => {
+  postController.activateOrDeactivate(req, res);
 });
 
-router.delete('/delete/:id', (req: Request, res: Response) => {
-    postController.delete(req, res);
+// 🔹 Eliminar post
+router.delete("/delete/:id", (req: Request, res: Response) => {
+  postController.delete(req, res);
 });
 
-
-export default router;  
+export default router;

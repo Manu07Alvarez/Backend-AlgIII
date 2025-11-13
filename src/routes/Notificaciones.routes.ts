@@ -1,15 +1,16 @@
-import { Request, Response, Router } from 'express';
-import { createNotificacionController } from '../utils/factories/ClassFactory.js';
-import { trace } from '@opentelemetry/api';
+import { Request, Response, Router } from "express";
+import { createNotificacionController } from "../utils/factories/ClassFactory.js";
+import { trace } from "@opentelemetry/api";
+import { validateNotificacion } from "../middleware/middleware_notificacion.js"; // ✅ Import del middleware
 
 const router = Router();
 const notificacionController = createNotificacionController();
-const tracer = trace.getTracer('route-lib');
+const tracer = trace.getTracer("route-lib");
 
 /**
  * Crear una notificación persistente
  */
-router.post('/create', (req: Request, res: Response) => {
+router.post("/create", validateNotificacion, (req: Request, res: Response) => {
   /*  #swagger.requestBody = {
         required: true,
         content: {
@@ -18,7 +19,7 @@ router.post('/create', (req: Request, res: Response) => {
             example: {
               "contenido": "Nueva notificación para un usuario",
               "id_usuario": 3,
-              "tipo": "post", // ← actualizado
+              "tipo": "post",
               "id_post": 2
             }
           }
@@ -31,30 +32,29 @@ router.post('/create', (req: Request, res: Response) => {
 /**
  * Emitir una notificación manualmente (sin guardar en base de datos)
  */
-router.post('/emit/:id', (req: Request, res: Response) => {
-
+router.post("/emit/:id", (req: Request, res: Response) => {
   notificacionController.emit(req, res);
 });
 
 /**
  * Listar todas las notificaciones de un usuario según su rol
  */
-router.get('/user/:id_usuario', (req: Request, res: Response) => {
+router.get("/user/:id_usuario", (req: Request, res: Response) => {
   notificacionController.findByUser(req, res);
 });
 
 /**
  * Marcar una notificación como leída
  */
-router.patch('/markRead/:id', (req: Request, res: Response) => {
+router.patch("/markRead/:id", (req: Request, res: Response) => {
   notificacionController.markAsRead(req, res);
 });
+
 /**
  * Eliminar una notificación
  */
-router.delete('/delete/:id', (req: Request, res: Response) => {
+router.delete("/delete/:id", (req: Request, res: Response) => {
   notificacionController.delete(req, res);
 });
 
 export default router;
-3

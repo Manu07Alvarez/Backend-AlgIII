@@ -1,23 +1,23 @@
 import { Request, Response, NextFunction } from "express";
-import { TemaSchema } from "../schemas/Tema.schema.js";
-import { tema_validator } from "../utils/Validation.js";
+import { ReporteSchema } from "../schemas/Reportes.schemas.js";
+import { reporte_validator} from "../utils/Validation.js";
 import { validateSchema } from "../utils/validate.js";
 import ValidateError from "../Errors/ValidateError.js";
 
-export async function validateTema(
+export async function validateReporte(
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> {
   try {
     
-    await validateSchema(tema_validator as any, TemaSchema as any, req.body);
+    await validateSchema(reporte_validator as any, ReporteSchema as any, req.body);
     next();
   } catch (err) {
     if (err instanceof ValidateError) {
       console.error("❌ Errores de validación:", err.details);
       res.status(400).json({
-        mensaje: "Datos de temas no válidos",
+        mensaje: "Datos de reporte no válidos",
         errores: err.details,
       });
       return; 

@@ -15,13 +15,13 @@ export class CurriculumService extends service<Curriculum> implements ICurriculu
     } 
     @validateService('Curriculum not found: ')
     public async findById(id: number): Promise<GetCurriculumForRolDTO> {
-        const curriculum = await this.CurriculumRepository.findById(id) as Curriculum[]
-        return await toUser<GetCurriculumForRolDTO, Curriculum, typeof curriculum_mapper>(curriculum, curriculum_mapper).then(curriculums => curriculums[0]);
+        const curriculum = await this.CurriculumRepository.findById(id) as Curriculum
+        return await toUser<GetCurriculumForRolDTO, Curriculum, typeof curriculum_mapper>(curriculum, curriculum_mapper);
     }
     @validateService('Curriculum not found: ')
-    public async findAllInUserId(userId: number): Promise<GetCurriculumForRolDTO> {
+    public async findAllInUserId(userId: number): Promise<GetCurriculumForRolDTO[]> {
         const curriculum = await this.CurriculumRepository.findAllInUserId(userId) as Curriculum[];
-        return await toUser<GetCurriculumForRolDTO, Curriculum, typeof curriculum_mapper>(curriculum, curriculum_mapper).then(curriculums => curriculums[0]);
+        return await toUser<GetCurriculumForRolDTO[], Curriculum, typeof curriculum_mapper>(curriculum, curriculum_mapper).then(curriculums => curriculums[0]);
     }
 
 }

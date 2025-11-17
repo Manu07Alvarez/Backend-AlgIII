@@ -15,7 +15,7 @@ const app = express();
 const httpServer = http.createServer(app); // ← esto es nuevo
 
 app.use(cors({
-    origin: "*",
+    origin: "https://front-alg-3.vercel.app",
     credentials: true
 }));
 app.use(cookieParser());

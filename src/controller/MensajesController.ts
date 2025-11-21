@@ -45,11 +45,14 @@ export class MensajesController {
 		res.status(200).json(mensajes);
 	}
 
+	@errorResponse
 	public async delete(req: Request, res: Response): Promise<void> {
 		const id = Number(req.params.id);
 		await this.MensajesService.delete(id);
 		res.status(200).json({ message: 'Mensaje deleted successfully' });
 	}
+	
+	@errorResponse
 	public async findAllInPost(req: Request, res: Response): Promise<void> {
 		const postId = Number(req.params.id);
 		const mensajes = await this.MensajesService.findAllInPost(postId);

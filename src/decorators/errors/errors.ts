@@ -59,53 +59,65 @@ function getLastLine(text: string): string {
   return lines[lines.length - 1].trim();
 }
 
-export function errorResponse<This, Args extends [Request, Response], Return>(
-  target: (this: This, ...args: Args) => Promise<Return>, 
+export function errorResponse<This, Args extends [Request, Response]>(
+  target: (this: This, ...args: Args) => Promise<void>, 
 ) {
-   return async function (this: This, ...args: Args): Promise<Return> {
+   return async function (this: This, ...args: Args): Promise<void> {
      try {
        return await target.call(this, ...args);
      } catch (error: unknown) {
         if (error instanceof Prisma.Prisma.PrismaClientKnownRequestError) {
           if (error.code === 'P2025') {
             args[1].status(404).send({ message: error.message});
+            return;
           };
           if (error.code === 'P2002') {
             args[1].status(400).send({ message: "faltan campos obligatorios"});
+            return;
           }
 					if (error.code === 'P2003') {
 						args[1].status(406).send({ message: "Campo no válido"});
+            return;
 					}
 					if (error.code === 'P2004') {
 						args[1].status(406).send({ message: "El campo debe ser único"});
+            return;
 					}
 					if (error.code === 'P2005') {
 						args[1].status(400).send({ message: "Tipo de dato no válido"});
+            return;
 					}
 					if (error.code === 'P2006') {
 						args[1].status(400).send({ message: "Tipo de dato no válido"});
+            return;
 					};
           if (error.code === 'P2001') {
             args[1].status(404).send({ message: "El registro buscado no existe"});
+            return;
           }
 
           errLogger.error("ERROR 💥 " + error.code + "" + error.message  + (error.meta ? " " + JSON.stringify(error.meta) : ""));
           args[1].status(400).send({ message: error.message});
+          return;
         };
         if (error instanceof Prisma.Prisma.PrismaClientValidationError) {
           errLogger.error("ERROR 💥 " + error.name + " " + error.message);
-          throw new Error(getLastLine(error.message));
+          args[1].status(400).send(getLastLine(error.message));
+          return;
         };
         if (error instanceof NoResultError) {
           errLogger.error("ERROR 💥 " + error.name + " " + error.message);
-          throw new Error("Registro no encontrado");
+          args[1].status(404).send("Registro no encontrado");
+          return;
         };
         if (error instanceof Error) { 
           errLogger.error("ERROR 💥 " + error.name + " " + error.message + " " + error.stack + " " + error.cause);
-          throw new Error(getLastLine(error.message));
+          args[1].status(400).send(getLastLine(error.message));
+          return;
         };
         errLogger.error("ERROR 💥 " + error);
-        throw error
+        args[1].status(500).send({ message: 'Internal Server Error' });
+        return;
      }
    };
 }

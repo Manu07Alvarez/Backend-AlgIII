@@ -19,8 +19,15 @@ export async function generateAndSaveKeyPair() {
 
 		const pkcs8 = await exportPKCS8(privateKey);
 		const spki = await exportSPKI(publicKey);
-		await fs.writeFile(PRIVATE_KEY_PATH, pkcs8, 'utf8');
-		await fs.writeFile(PUBLIC_KEY_PATH, spki, 'utf8');
+		try { 
+			fs.stat(PRIVATE_KEY_PATH);
+			console.log("Keys already exist");
+		}
+		catch {
+			await fs.writeFile(PRIVATE_KEY_PATH, pkcs8, 'utf8');
+			await fs.writeFile(PUBLIC_KEY_PATH, spki, 'utf8');
+			console.log("Keys Created");
+		}
 		const publicJwk = await exportJWK(publicKey);
 		publicJwk.alg = 'RS256';	
 		publicJwk.use = 'sig';

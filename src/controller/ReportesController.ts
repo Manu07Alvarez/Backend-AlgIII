@@ -3,24 +3,20 @@ import { Request, Response } from "express";
 import { trace} from '@opentelemetry/api';
 import IReportsService from "../services/interfaces/IReportsService.js";
 import { PostReportesDTO } from "../schemas/Reportes.schemas.js";
+import { errorResponse } from "../decorators/errors/errors.js";
 export class ReportesController {
     constructor(
         private readonly reportsService: IReportsService
     ){}
 
-
+    @errorResponse
     public async create(req: Request, res: Response): Promise<void> {
-        try {
-            const reporte: PostReportesDTO = req.body;
-            await this.reportsService.create(reporte);
-            res.status(201).json({ message: 'Reporte created successfully' });
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            }
-        }
+        const reporte: PostReportesDTO = req.body;
+        await this.reportsService.create(reporte);
+        res.status(201).json({ message: 'Reporte created successfully' });
     }
 
+    @errorResponse
     public async findAll(req: Request, res: Response): Promise<void> {
         try {
             res.status(200).json(await this.reportsService.findAll());
@@ -31,6 +27,7 @@ export class ReportesController {
         }
     }
 
+    @errorResponse
     public async findById(req: Request, res: Response): Promise<void> {
         try {
             const reporte = await this.reportsService.findById(String(req.params.id));

@@ -15,9 +15,10 @@ const app = express();
 const httpServer = http.createServer(app); // ← esto es nuevo
 
 app.use(cors({
-    origin: "https://front-alg-3.vercel.app",
+    origin: process.env.CORS_URL_FRONTEND || 'http://localhost:3000',
     credentials: true
 }));
+
 app.use(cookieParser());
 app.use(express.json());
 
@@ -32,4 +33,8 @@ app.use('/', routes);
 // Exportás el server para usarlo en initializer.ts
 export { httpServer };
 
-httpServer.listen(5000, '0.0.0.0');
+httpServer.listen({
+    host: process.env.HOST || 'localhost',
+    port: process.env.PORT ? parseInt(process.env.PORT) : 5000,
+});
+console.log(`\x1b[1;32mServidor iniciado en la URL: http://${process.env.HOST}:${process.env.PORT} \x1b[0m`);

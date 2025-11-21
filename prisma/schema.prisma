@@ -4,32 +4,35 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 datasource db {
-    provider = "postgresql"
-    url = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
-    provider = "prisma-client-js"
-    binaryTargets = ["native", "windows"]
-    output = "../src/generated/prisma"
-    engineType = "client"
-    runtime = "nodejs"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "windows"]
+  output        = "../src/generated/prisma"
+  engineType    = "client"
+  runtime       = "nodejs"
 }
 
 generator kysely {
-    provider = "prisma-kysely"
-    output = "../src/generated/prisma"
+  provider = "prisma-kysely"
+  output   = "../src/generated/prisma"
 }
 
 enum Rol {
-    ADMIN
-    MODERADOR
-    USUARIO
+  ADMIN
+  MODERADOR
+  USUARIO
 }
 
 model Usuario {
   id              Int            @id() @default(autoincrement())
-  nombre_apellido String?
+  nombre_apellido String
+  alias           String
+  alumno_iseta    Boolean        @default(false)
+  carrera_iseta   String?        @db.VarChar(30)
   email           String         @unique()
   contrasenia     String
   activo          Boolean        @default(true)
@@ -46,90 +49,90 @@ model Usuario {
 }
 
 model Carrera {
-    id Int @id() @default(autoincrement())
-    nombre String @unique()
-    descripcion String?
-    createdAt DateTime? @default(now())
-    updatedAt DateTime? @updatedAt()
-    activa Boolean? @default(true)
-    Tema Tema[]
+  id          Int       @id() @default(autoincrement())
+  nombre      String    @unique()
+  descripcion String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt()
+  activa      Boolean?  @default(true)
+  Tema        Tema[]
 }
 
 model Tema {
-    id Int @id() @default(autoincrement())
-    nombre String @unique()
-    createdAt DateTime? @default(now())
-    updatedAt DateTime? @updatedAt()
-    titulo String
-    id_creador Int
-    creador Usuario @relation(fields: [id_creador], references: [id])
-    contenido String @db.Text()
-    id_carrera Int
-    carrera Carrera @relation(fields: [id_carrera], references: [id])
-    fijado Boolean @default(false)
-    cerrado Boolean @default(false)
-    Post Post[]
-    Reportes Reporte[]
-    notificaciones notificacion[]
+  id             Int            @id() @default(autoincrement())
+  nombre         String         @unique()
+  createdAt      DateTime?      @default(now())
+  updatedAt      DateTime?      @updatedAt()
+  titulo         String
+  id_creador     Int
+  creador        Usuario        @relation(fields: [id_creador], references: [id])
+  contenido      String         @db.Text()
+  id_carrera     Int
+  carrera        Carrera        @relation(fields: [id_carrera], references: [id])
+  fijado         Boolean        @default(false)
+  cerrado        Boolean        @default(false)
+  Post           Post[]
+  Reportes       Reporte[]
+  notificaciones notificacion[]
 
-    @@index([nombre], name: "idx_tema_nombre")
-    @@index([id_carrera], name: "idx_tema_carrera")
-    @@index([id_creador], name: "idx_tema_creador")
+  @@index([nombre], name: "idx_tema_nombre")
+  @@index([id_carrera], name: "idx_tema_carrera")
+  @@index([id_creador], name: "idx_tema_creador")
 }
 
 model Reporte {
-    id String @id() @default(ulid())
-    descripcion String
-    createdAt DateTime? @default(now())
-    updatedAt DateTime? @updatedAt()
-    resuelto Boolean? @default(false)
-    reportador Usuario @relation(fields: [id_reportador], references: [id])
-    id_reportador Int
-    usuario_id Int?
-    usuario_reportado Usuario? @relation("UsuarioReportado", fields: [usuario_id], references: [id])
-    mensaje_id Int?
-    mensaje Mensaje? @relation(fields: [mensaje_id], references: [id])
-    post_id Int?
-    post Post? @relation(fields: [post_id], references: [id])
-    tema_id Int?
-    tema Tema? @relation(fields: [tema_id], references: [id])
-    notificacion notificacion[]
+  id                String         @id() @default(ulid())
+  descripcion       String
+  createdAt         DateTime?      @default(now())
+  updatedAt         DateTime?      @updatedAt()
+  resuelto          Boolean?       @default(false)
+  reportador        Usuario        @relation(fields: [id_reportador], references: [id])
+  id_reportador     Int
+  usuario_id        Int?
+  usuario_reportado Usuario?       @relation("UsuarioReportado", fields: [usuario_id], references: [id])
+  mensaje_id        Int?
+  mensaje           Mensaje?       @relation(fields: [mensaje_id], references: [id])
+  post_id           Int?
+  post              Post?          @relation(fields: [post_id], references: [id])
+  tema_id           Int?
+  tema              Tema?          @relation(fields: [tema_id], references: [id])
+  notificacion      notificacion[]
 }
 
 model Post {
-    id Int @id() @default(autoincrement())
-    titulo String @unique()
-    contenido String @db.Text()
-    published Boolean @default(true)
-    autor Usuario @relation(fields: [id_autor], references: [id])
-    id_autor Int
-    createdAt DateTime? @default(now())
-    updatedAt DateTime? @updatedAt()
-    id_tema Int
-    tema Tema @relation(fields: [id_tema], references: [id])
-    Mensaje Mensaje[]
-    Reportes Reporte[]
-    notificaciones notificacion[]
+  id             Int            @id() @default(autoincrement())
+  titulo         String         @unique()
+  contenido      String         @db.Text()
+  published      Boolean        @default(true)
+  autor          Usuario        @relation(fields: [id_autor], references: [id])
+  id_autor       Int
+  createdAt      DateTime?      @default(now())
+  updatedAt      DateTime?      @updatedAt()
+  id_tema        Int
+  tema           Tema           @relation(fields: [id_tema], references: [id])
+  Mensaje        Mensaje[]
+  Reportes       Reporte[]
+  notificaciones notificacion[]
 
-    @@index([titulo], name: "idx_post_titulo")
-    @@index([id_tema], name: "idx_post_tema")
-    @@index([id_autor], name: "idx_post_autor")
+  @@index([titulo], name: "idx_post_titulo")
+  @@index([id_tema], name: "idx_post_tema")
+  @@index([id_autor], name: "idx_post_autor")
 }
 
 model Mensaje {
-  id                Int            @id() @default(autoincrement())
-  contenido         String         @db.Text()
-  id_autor          Int
-  autor             Usuario        @relation(fields: [id_autor], references: [id])
-  id_post           Int
-  post              Post           @relation(fields: [id_post], references: [id])
-  respuestas        Mensaje[]      @relation("MensajeRespuesta")
-  contestado        Mensaje?       @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
-  id_mensaje        Int?
-  Reportes          Reporte[]
-  notifnotificacion notificacion[]
-  createdAt         DateTime?      @default(now())
-  updatedAt         DateTime?      @updatedAt()
+  id           Int            @id() @default(autoincrement())
+  contenido    String         @db.Text()
+  id_autor     Int
+  autor        Usuario        @relation(fields: [id_autor], references: [id])
+  id_post      Int
+  post         Post           @relation(fields: [id_post], references: [id])
+  respuestas   Mensaje[]      @relation("MensajeRespuesta")
+  contestado   Mensaje?       @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
+  id_mensaje   Int?
+  Reportes     Reporte[]
+  notificacion notificacion[]
+  createdAt    DateTime?      @default(now())
+  updatedAt    DateTime?      @updatedAt()
 }
 
 model Curriculum {
@@ -152,19 +155,19 @@ model Curriculum {
 }
 
 model notificacion {
-    id Int @id() @default(autoincrement())
-    contenido String @db.Text()
-    tipo String
-    leido Boolean @default(false)
-    id_usuario Int
-    usuario Usuario @relation(fields: [id_usuario], references: [id])
-    id_tema Int?
-    tema Tema? @relation(fields: [id_tema], references: [id])
-    id_post Int?
-    post Post? @relation(fields: [id_post], references: [id])
-    id_mensaje Int?
-    Mensaje Mensaje? @relation(fields: [id_mensaje], references: [id])
-    Reporte Reporte[]
-    createdAt DateTime? @default(now())
-    updatedAt DateTime? @updatedAt()
+  id         Int       @id() @default(autoincrement())
+  contenido  String    @db.Text()
+  tipo       String
+  leido      Boolean   @default(false)
+  id_usuario Int
+  usuario    Usuario   @relation(fields: [id_usuario], references: [id])
+  id_tema    Int?
+  tema       Tema?     @relation(fields: [id_tema], references: [id])
+  id_post    Int?
+  post       Post?     @relation(fields: [id_post], references: [id])
+  id_mensaje Int?
+  Mensaje    Mensaje?  @relation(fields: [id_mensaje], references: [id])
+  Reporte    Reporte[]
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt()
 }

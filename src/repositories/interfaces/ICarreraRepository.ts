@@ -1,8 +1,7 @@
 import { Carrera } from 'db';
 export default interface ICarreraRepository {
   create(data: Carrera): Promise<void>;
-  findById(id: number): Promise<Partial<Carrera>>;
-  findAll(): Promise<Partial<Carrera[]>>;
+  findByUserId(id: number): Promise<Partial<Carrera>>;
   update(id: number, data: Carrera): Promise<void>;
   delete(id: number): Promise<void>;
   findByName(name: string): Promise<Partial<Carrera[]>>;

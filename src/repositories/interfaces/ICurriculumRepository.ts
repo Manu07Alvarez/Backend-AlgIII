@@ -1,9 +1,8 @@
 import { Curriculum } from "db";
 export default interface ICurriculumRepository {
-    create(data: Curriculum): Promise<void>;
-    findById(id: number): Promise<Partial<Curriculum>>;
-    findAllInUserId(userId: number): Promise<Curriculum[]>;
-    activateOrDeactivate(id: number): Promise<void>;
-    update(id: number, data: Curriculum): Promise<void>;
-    delete(id: number): Promise<void>;
+  create(data: Curriculum): Promise<void>;
+  findAllInUserId(userId: number): Promise<Partial<Curriculum>[]>;
+  findByName(name: string): Promise<(Curriculum | undefined)[]>;
+  update(id: number, data: Curriculum): Promise<void>;
+  delete(id: number): Promise<void>;
 }

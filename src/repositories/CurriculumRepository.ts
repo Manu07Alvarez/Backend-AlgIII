@@ -3,8 +3,6 @@ import { PrismaClient, Curriculum } from "db";
 import { validateRepo } from "../decorators/errors/errors.js";
 import iCurriculumRepository from "./interfaces/ICurriculumRepository.js";
 
-const prisma = new PrismaClient();
-
 export default class CurriculumRepository
   extends Repository<Curriculum, "curriculum">
   implements iCurriculumRepository
@@ -15,14 +13,14 @@ export default class CurriculumRepository
 
   @validateRepo
   async findAllInUserId(userId: number): Promise<Curriculum[]> {
-    return prisma.curriculum.findMany({
+    return super["db"].findMany({
       where: { id_autor: userId },
     });
   }
 
   @validateRepo
   async findByName(name: string): Promise<(Curriculum | undefined)[]> {
-    const result = await prisma.curriculum.findMany({
+    const result = await super["db"].findMany({
       where: {
         nombre: {
           contains: name,
@@ -37,7 +35,7 @@ export default class CurriculumRepository
 
   @validateRepo
   async update(id: number, data: Curriculum): Promise<void> {
-    await prisma.curriculum.update({
+    await super["db"].update({
       where: { id },
       data,
     });
@@ -45,7 +43,7 @@ export default class CurriculumRepository
 
   @validateRepo
   async delete(id: number): Promise<void> {
-    await prisma.curriculum.delete({
+    await super["db"].delete({
       where: { id },
     });
   }

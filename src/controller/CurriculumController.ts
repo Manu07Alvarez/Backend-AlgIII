@@ -34,14 +34,15 @@ export class CurriculumController {
         }
     }
 
-    public async findAll(req: Request, res: Response): Promise<void> {
+    public async findByName(req: Request, res: Response): Promise<void> {
         try {
-            const curriculums = await this.CurriculumRepository.findAll();
+            const name = req.params.name;   
+            const curriculums = await this.CurriculumRepository.findByName(name);
             res.status(200).json(curriculums);
         } catch (error: unknown) {
             if (error instanceof Error) {
                 res.status(500).json({ message: error.message });
-            }   
+            }
         }
     }
 

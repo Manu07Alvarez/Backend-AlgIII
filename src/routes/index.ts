@@ -7,6 +7,7 @@ import guestRoutes from './Guest.routes.js';
 import carreraRoutes from './Carrera.routes.js';
 import mensajesRoutes from './Mensajes.routes.js';
 import reportRoutes from './Reportes.routes.js';
+import curriculumRoutes from './Curriculum.routes.js';
 import { authToken } from '../middleware/middleware_auth.js';
 
 
@@ -45,6 +46,12 @@ routes.use('/api/mensajes', mensajesRoutes
 ); // Assuming mensajes are handled by postRoutes
 routes.use('/api/reporte', reportRoutes
     /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+);
+routes.use(
+  "/api/curriculum", curriculumRoutes
+  /* #swagger.security = [{
         "cookieAuth": []
     }] */
 );

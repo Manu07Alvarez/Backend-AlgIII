@@ -7,11 +7,83 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5000",
+      "url": "localhost",
       "description": ""
     }
   ],
   "paths": {
+    "/api/guest/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Cookie response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/securitySchema"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/securitySchema"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginSchema"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/loginSchema"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/guest/register": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/registerSchema"
+              },
+              "example": {
+                "nombre_apellido": "Juan Pérez",
+                "email": "fulanchoΩ@example.com",
+                "contrasenia": "4123@examplE"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Tema/create": {
       "post": {
         "description": "",
@@ -670,78 +742,6 @@
         ]
       }
     },
-    "/api/guest/login": {
-      "post": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "Cookie response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/securitySchema"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/securitySchema"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "cookieAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/loginSchema"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/loginSchema"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/guest/register": {
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "cookieAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/registerSchema"
-              },
-              "example": {
-                "nombre_apellido": "Juan Pérez",
-                "email": "fulanchoΩ@example.com",
-                "contrasenia": "4123@examplE"
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/carrera/create": {
       "post": {
         "description": "",
@@ -1250,6 +1250,121 @@
           }
         ]
       }
+    },
+    "/api/curriculum/create": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/curriculum/findByName/{name}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/curriculum/user/{userId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/curriculum/update/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/curriculum/delete/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1367,17 +1482,6 @@
               "contrasenia": {
                 "type": "object",
                 "properties": {
-                  "~guard": {
-                    "type": "object",
-                    "properties": {
-                      "check": {
-                        "type": "function"
-                      },
-                      "errors": {
-                        "type": "function"
-                      }
-                    }
-                  },
                   "passwordRules": {
                     "type": "array",
                     "items": {
@@ -1521,6 +1625,10 @@
                     "items": {
                       "type": "object",
                       "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        },
                         "const": {
                           "type": "string",
                           "example": "usuario"
@@ -1705,6 +1813,203 @@
         },
         "xml": {
           "name": "postSchema"
+        }
+      },
+      "curriculumSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "nombre",
+              "apellido",
+              "fecha_nacimiento"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "nombre": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "apellido": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "fecha_nacimiento": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "date"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de la fecha es inválido"
+                  }
+                }
+              },
+              "telefono": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato del teléfono es inválido"
+                  }
+                }
+              },
+              "email": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "email"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato del email es inválido"
+                  }
+                }
+              },
+              "ultimo_titulo": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato del título es inválido"
+                  }
+                }
+              },
+              "experiencia": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de la experiencia es inválido"
+                  }
+                }
+              },
+              "habilidades_blandas": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de las habilidades blandas es inválido"
+                  }
+                }
+              },
+              "habilidades_duras": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de las habilidades duras es inválido"
+                  }
+                }
+              },
+              "idiomas": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de los idiomas es inválido"
+                  }
+                }
+              },
+              "presentacion": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de la presentación es inválido"
+                  }
+                }
+              },
+              "disponibilidad_horaria": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de la disponibilidad horaria es inválido"
+                  }
+                }
+              },
+              "perfil_in": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato del perfil de LinkedIn es inválido"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "curriculumSchema"
         }
       },
       "mensajeSchema": {

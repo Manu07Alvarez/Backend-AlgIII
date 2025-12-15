@@ -7,11 +7,11 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5000",
+      "url": "localhost",
       "description": ""
     }
   ],
-   "paths": {
+  "paths": {
     "/api/guest/login": {
       "post": {
         "description": "",
@@ -76,6 +76,9 @@
               },
               "example": {
                 "nombre_apellido": "Juan Pérez",
+                "alias": "Fulancho",
+                "alumno_iseta": true,
+                "carrera_iseta": "Informática",
                 "email": "fulanchoΩ@example.com",
                 "contrasenia": "4123@examplE"
               }
@@ -88,8 +91,8 @@
       "post": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -197,8 +200,8 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -215,7 +218,7 @@
               },
               "example": {
                 "nombre": "Reglamento",
-                "titulo": "Normas del foro",
+                "titulo": "Normas del foro actualizadas",
                 "contenido": "Por favor leer antes de participar.",
                 "fijado": false,
                 "cerrado": false
@@ -277,158 +280,10 @@
     },
     "/api/user/getPagination": {
       "get": {
-        "summary": "Obtiene usuarios paginados",
-        "description": "Devuelve una lista de usuarios con paginación, búsqueda, ordenamiento y filtrado opcional.",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Número de página",
-            "required": false,
-            "default": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Cantidad de usuarios por página",
-            "required": false,
-            "default": 10,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "description": "Texto para buscar usuarios por nombre y apellido, u email",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "sortBy",
-            "in": "query",
-            "description": "Campo por el cual se ordenarán los resultados",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "sortOrder",
-            "in": "query",
-            "description": "Dirección del ordenamiento: ascendente o descendente",
-            "required": false,
-            "enum": [
-              "asc",
-              "desc"
-            ],
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "description": "",
         "responses": {
-          "200": {
-            "description": "Lista paginada de usuarios",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "total": {
-                      "type": "number",
-                      "example": 100
-                    },
-                    "page": {
-                      "type": "number",
-                      "example": 1
-                    },
-                    "limit": {
-                      "type": "number",
-                      "example": 10
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number",
-                            "example": 2
-                          },
-                          "name": {
-                            "type": "string",
-                            "example": "Ana López"
-                          },
-                          "email": {
-                            "type": "string",
-                            "example": "ana@example.com"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "total": {
-                      "type": "number",
-                      "example": 100
-                    },
-                    "page": {
-                      "type": "number",
-                      "example": 1
-                    },
-                    "limit": {
-                      "type": "number",
-                      "example": 10
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number",
-                            "example": 2
-                          },
-                          "name": {
-                            "type": "string",
-                            "example": "Ana López"
-                          },
-                          "email": {
-                            "type": "string",
-                            "example": "ana@example.com"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -505,8 +360,8 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -559,8 +414,8 @@
       "post": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -681,8 +536,8 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -699,8 +554,8 @@
               },
               "example": {
                 "titulo": "Primer post",
-                "contenido": "Hola mundo en el foro",
-                "published": true
+                "contenido": "Hola mundo en el foro actualizado",
+                "published": false
               }
             }
           }
@@ -761,30 +616,15 @@
       "post": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
           {
             "cookieAuth": []
           }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/carreraSchema"
-              },
-              "example": {
-                "nombre": "Ingeniería en Sistemas",
-                "descripcion": "Carrera orientada al desarrollo de software",
-                "activa": true
-              }
-            }
-          }
-        }
+        ]
       }
     },
     "/api/carrera/": {
@@ -864,31 +704,15 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
           {
             "cookieAuth": []
           }
-        ],
-        "autoBody": true,
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/carreraSchema"
-              },
-              "example": {
-                "nombre": "Ingeniería en Sistemas",
-                "descripcion": "Carrera orientada al desarrollo de software",
-                "activa": true
-              }
-            }
-          }
-        }
+        ]
       },
       "patch": {
         "description": "",
@@ -911,16 +735,15 @@
           {
             "cookieAuth": []
           }
-        ],
-        "autoBody": true
+        ]
       }
     },
     "/api/mensajes/create": {
       "post": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -1010,8 +833,8 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -1104,8 +927,8 @@
       "post": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -1267,134 +1090,252 @@
       }
     },
     "/api/notificaciones/create": {
-  "post": {
-    "summary": "Crear una nueva notificación",
-    "description": "Crea una notificación para un usuario específico.",
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": { "$ref": "#/components/schemas/notificacionCreateSchema" }
-        }
-      }
-    },
-    "responses": {
-      "201": {
-        "description": "Notificación creada",
-        "content": {
-          "application/json": {
-            "schema": { "$ref": "#/components/schemas/notificacionSchema" }
+      "post": {
+        "description": "",
+        "responses": {
+          "400": {
+            "description": "Bad Request"
           }
-        }
-      }
-    },
-    "security": [{ "cookieAuth": [] }]
-  }
-},
-"/api/notificaciones/user/{id}": {
-  "get": {
-    "summary": "Obtener notificaciones de un usuario",
-    "description": "Devuelve todas las notificaciones de un usuario, opcionalmente filtradas por leídas/no leídas.",
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "schema": { "type": "integer" }
-      },
-      {
-        "name": "leido",
-        "in": "query",
-        "required": false,
-        "schema": { "type": "boolean" },
-        "description": "Filtra por notificaciones leídas o no leídas"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Lista de notificaciones",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "array",
-              "items": { "$ref": "#/components/schemas/notificacionSchema" }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostNotificacionDTO"
+              },
+              "example": {
+                "contenido": "Nueva notificación para un usuario",
+                "id_usuario": 3,
+                "tipo": "post",
+                "id_post": 2
+              }
             }
           }
         }
       }
     },
-    "security": [{ "cookieAuth": [] }]
-  }
-},
-"/api/notificaciones/markRead/{id}": {
-  "patch": {
-    "summary": "Marcar una notificación como leída",
-    "description": "Actualiza el estado de la notificación a leída.",
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "schema": { "type": "integer" }
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Notificación marcada como leída",
-        "content": {
-          "application/json": {
-            "schema": { "$ref": "#/components/schemas/notificacionSchema" }
+    "/api/notificaciones/emit/{id}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        }
-      }
-    },
-    "security": [{ "cookieAuth": [] }]
-  }
-},
-"/api/notificaciones/emit/{id}": {
-  "post": {
-    "summary": "Emitir una notificación en tiempo real",
-    "description": "Envía una notificación en tiempo real al usuario especificado.",
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "schema": { "type": "integer" }
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Notificación emitida",
-        "content": {
-          "application/json": {
-            "schema": { "$ref": "#/components/schemas/notificacionSchema" }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
-    "security": [{ "cookieAuth": [] }]
-  }
-},
-"/api/notificaciones/delete/{id}": {
-  "delete": {
-    "summary": "Eliminar una notificación",
-    "description": "Elimina la notificación especificada.",
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "schema": { "type": "integer" }
-      }
-    ],
-    "responses": {
-      "204": {
-        "description": "Notificación eliminada exitosamente"
+    "/api/notificaciones/user/{id_usuario}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id_usuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
-    "security": [{ "cookieAuth": [] }]
-  }}},
+    "/api/notificaciones/markRead/{id}": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/notificaciones/delete/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/curriculum/create": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/curriculum/findByName/{name}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/curriculum/user/{userId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/curriculum/update/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/curriculum/delete/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    }
+  },
   "components": {
     "securitySchemes": {
       "cookieAuth": {
@@ -1473,6 +1414,8 @@
             "type": "array",
             "example": [
               "nombre_apellido",
+              "alias",
+              "alumno_iseta",
               "email",
               "contrasenia",
               "rol",
@@ -1486,6 +1429,33 @@
             "type": "object",
             "properties": {
               "nombre_apellido": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "alias": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "alumno_iseta": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "boolean"
+                  }
+                }
+              },
+              "carrera_iseta": {
                 "type": "object",
                 "properties": {
                   "type": {
@@ -1510,17 +1480,6 @@
               "contrasenia": {
                 "type": "object",
                 "properties": {
-                  "~guard": {
-                    "type": "object",
-                    "properties": {
-                      "check": {
-                        "type": "function"
-                      },
-                      "errors": {
-                        "type": "function"
-                      }
-                    }
-                  },
                   "passwordRules": {
                     "type": "array",
                     "items": {
@@ -1664,6 +1623,10 @@
                     "items": {
                       "type": "object",
                       "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        },
                         "const": {
                           "type": "string",
                           "example": "usuario"
@@ -1775,21 +1738,6 @@
           "name": "temaSchema"
         }
       },
-"notificacionSchema": {
-  "type": "object",
-  "properties": {
-    "id": { "type": "integer", "example": 1 },
-    "contenido": { "type": "string", "example": "Tienes una nueva notificación" },
-    "leido": { "type": "boolean", "example": false },
-    "id_usuario": { "type": "integer", "example": 1 },
-    "id_tema": { "type": "integer", "nullable": true, "example": null },
-    "id_post": { "type": "integer", "nullable": true, "example": null },
-    "id_mensaje": { "type": "integer", "nullable": true, "example": null },
-    "createdAt": { "type": "string", "format": "date-time", "example": "2025-10-21T15:00:00Z" },
-    "updatedAt": { "type": "string", "format": "date-time", "example": "2025-10-21T15:00:00Z" }
-  },
-  "required": ["id", "contenido", "leido", "id_usuario"]
-},
       "postSchema": {
         "type": "object",
         "properties": {
@@ -1863,6 +1811,203 @@
         },
         "xml": {
           "name": "postSchema"
+        }
+      },
+      "curriculumSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "nombre",
+              "apellido",
+              "fecha_nacimiento"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "nombre": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "apellido": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "fecha_nacimiento": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "date"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de la fecha es inválido"
+                  }
+                }
+              },
+              "telefono": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato del teléfono es inválido"
+                  }
+                }
+              },
+              "email": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "email"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato del email es inválido"
+                  }
+                }
+              },
+              "ultimo_titulo": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato del título es inválido"
+                  }
+                }
+              },
+              "experiencia": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de la experiencia es inválido"
+                  }
+                }
+              },
+              "habilidades_blandas": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de las habilidades blandas es inválido"
+                  }
+                }
+              },
+              "habilidades_duras": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de las habilidades duras es inválido"
+                  }
+                }
+              },
+              "idiomas": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de los idiomas es inválido"
+                  }
+                }
+              },
+              "presentacion": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de la presentación es inválido"
+                  }
+                }
+              },
+              "disponibilidad_horaria": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato de la disponibilidad horaria es inválido"
+                  }
+                }
+              },
+              "perfil_in": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "errorMessage": {
+                    "type": "string",
+                    "example": "El formato del perfil de LinkedIn es inválido"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "curriculumSchema"
         }
       },
       "mensajeSchema": {

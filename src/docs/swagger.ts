@@ -12,50 +12,61 @@ import { CurriculumSchema } from "../schemas/Curriculum.schemas.js";
 const host = process.env.HOST
 
 const doc = {
-	info: {
-			version: 'v1.0.0',
-			title: 'Swagger Demo Project',
-			description: 'Implementation of Swagger with TypeScript'
-	},
-	servers: [
-			{
-					url: host,
-					description: ''
-			},
-	],
-	components: {
-		securitySchemes: {
-			cookieAuth: { 
-				type: 'apiKey',
-				in: 'cookie',
-				name: 'auth_token',
-			}
-		},
-		schemas: {
-				carreraSchema: CarreraSchema,
-				usuarioSchema: UsuarioSchema,
-				reportSchema: ReporteSchema,
-				temaSchema: TemaSchema,
-				postSchema: PostSchema,
-				curriculumSchema: CurriculumSchema,
-				mensajeSchema: MensajeSchema,
-				registerSchema: {
-						$email: 'fulanchoΩ@example.com',
-						$nombre_apellido: 'fula',
-						$contrasenia: '4123@examplE'
-				},
-				loginSchema: {
-						$email: 'fulanchoΩ@example.com',
-						$contrasenia: '4123@examplE'
-				}
-		},
-	},
-	security: [
-		{
-			cookieAuth: [],
-		},
-	],
-}
+  info: {
+    version: "v1.0.0",
+    title: "Swagger Demo Project",
+    description: "Implementation of Swagger with TypeScript",
+  },
+  servers: [
+    {
+      url: host,
+      description: "",
+    },
+  ],
+  components: {
+    securitySchemes: {
+      cookieAuth: {
+        type: "apiKey",
+        in: "cookie",
+        name: "auth_token",
+      },
+    },
+    schemas: {
+      carreraSchema: CarreraSchema,
+      usuarioSchema: UsuarioSchema,
+      reportSchema: ReporteSchema,
+      temaSchema: TemaSchema,
+      postSchema: PostSchema,
+      curriculumSchema: CurriculumSchema,
+      curriculumExample: {
+        $nombre: "Juan",
+        $apellido: "Pérez",
+        $fecha_nacimiento: "1990-05-15",
+        $telefono: "123-456-7890",
+        $email: "juan.perez@example.com",
+        $ultimo_titulo: "Licenciado en Sistemas",
+        $experiencia: "3 años como desarrollador backend",
+        $habilidades_duras: "Node.js, PostgreSQL",
+        $habilidades_blandas: "Comunicación",
+      },
+      mensajeSchema: MensajeSchema,
+      registerSchema: {
+        $email: "fulanchoΩ@example.com",
+        $nombre_apellido: "fula",
+        $contrasenia: "4123@examplE",
+      },
+      loginSchema: {
+        $email: "fulanchoΩ@example.com",
+        $contrasenia: "4123@examplE",
+      },
+    },
+  },
+  security: [
+    {
+      cookieAuth: [],
+    },
+  ],
+};
 
 
 

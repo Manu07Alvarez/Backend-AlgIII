@@ -9,6 +9,7 @@ import mensajesRoutes from './Mensajes.routes.js';
 import reportRoutes from './Reportes.routes.js';
 import NotificacionesRoutes from './Notificaciones.routes.js'
 import { authToken } from '../middleware/middleware_auth.js';
+import CurriculumRoutes from './Curriculum.routes.js';
 
 
 export const routes = express.Router();
@@ -54,4 +55,10 @@ routes.use('/api/notificaciones', NotificacionesRoutes
    /* #swagger.security = [{
     "cookieAuth": []
 }] */
-)
+);
+
+routes.use('/api/curriculum', CurriculumRoutes
+    /* #swagger.security = [{
+        "cookieAuth": []
+    }] */
+);

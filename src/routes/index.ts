@@ -7,7 +7,7 @@ import guestRoutes from './Guest.routes.js';
 import carreraRoutes from './Carrera.routes.js';
 import mensajesRoutes from './Mensajes.routes.js';
 import reportRoutes from './Reportes.routes.js';
-import NotificacionesRoutes from './Notificaciones.routes.js'
+import curriculumRoutes from './Curriculum.routes.js';
 import { authToken } from '../middleware/middleware_auth.js';
 import CurriculumRoutes from './Curriculum.routes.js';
 
@@ -50,15 +50,9 @@ routes.use('/api/reporte', reportRoutes
         "cookieAuth": []
     }] */
 );
-
-routes.use('/api/notificaciones', NotificacionesRoutes
-   /* #swagger.security = [{
-    "cookieAuth": []
-}] */
-);
-
-routes.use('/api/curriculum', CurriculumRoutes
-    /* #swagger.security = [{
+routes.use(
+  "/api/curriculum", curriculumRoutes
+  /* #swagger.security = [{
         "cookieAuth": []
     }] */
 );

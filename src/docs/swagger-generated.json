@@ -1169,31 +1169,60 @@
         }
       }
     },
-    "/api/notificaciones/emit/{id}": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
+ "/api/notificaciones/emit/{id}": {
+  "post": {
+    "description": "Emitir una notificación manualmente",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "contenido": {
+                "type": "string",
+                "example": "Tienes una nueva notificación"
+              },
+              "id_tema": {
+                "type": "integer",
+                "example": 1
+              },
+              "id_post": {
+                "type": "integer",
+                "example": 10
+              },
+              "id_mensaje": {
+                "type": "integer",
+                "example": 5
+              }
             }
           }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "cookieAuth": []
-          }
-        ]
+        }
       }
     },
+    "responses": {
+      "200": {
+        "description": "Notificación emitida correctamente"
+      }
+    },
+    "security": [
+      {
+        "cookieAuth": []
+      }
+    ]
+  }
+},
+
     "/api/notificaciones/user/{id_usuario}": {
       "get": {
         "description": "",
@@ -1269,21 +1298,34 @@
         ]
       }
     },
-    "/api/curriculum/create": {
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
+  "/api/curriculum/create": {
+  "post": {
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "number" },
+              "nombre": { "type": "string" },
+              "apellido": { "type": "string" },
+              "fecha_nacimiento": { "type": "string", "format": "date", "example": "1995-06-20T00:00:00.000Z" },
+              "email": { "type": "string", "format": "email" },
+              "telefono": { "type": "string" }
+            }
           }
-        },
-        "security": [
-          {
-            "cookieAuth": []
-          }
-        ]
+        }
       }
     },
+    "responses": {
+      "201": {
+        "description": "Curriculum creado"
+      }
+    }
+  }
+},
+
     "/api/curriculum/findByName/{name}": {
       "get": {
         "description": "",

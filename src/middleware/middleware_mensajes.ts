@@ -10,12 +10,11 @@ export async function validateMensajes(
   next: NextFunction
 ): Promise<void> {
   try {
-    // ✅ Ya no se compila, se usa el validador global precompilado
     await validateSchema(mensaje_validator as any, MensajeSchema as any, req.body);
     next();
   } catch (err) {
     if (err instanceof ValidateError) {
-      console.error("❌ Errores de validación:", err.details);
+      console.error("Errores de validación:", err.details);
       res.status(400).json({
         mensaje: "Datos de mensaje no válidos",
         errores: err.details,

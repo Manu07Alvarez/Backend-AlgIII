@@ -15,7 +15,7 @@ export async function validateReporte(
     next();
   } catch (err) {
     if (err instanceof ValidateError) {
-      console.error("❌ Errores de validación:", err.details);
+      console.error("Errores de validación:", err.details);
       res.status(400).json({
         mensaje: "Datos de reporte no válidos",
         errores: err.details,

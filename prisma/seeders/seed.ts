@@ -222,6 +222,27 @@ const notificaciones = await Promise.all(
     });
   });
 
+ await prisma.$queryRaw`SELECT setval(
+  pg_get_serial_sequence('"Tema"', 'id'),
+  (SELECT MAX(id) FROM "Tema")
+);`;
+ await prisma.$queryRaw`SELECT setval(
+  pg_get_serial_sequence('"Post"', 'id'),
+  (SELECT MAX(id) FROM "Post")
+);`;
+  await prisma.$queryRaw`SELECT setval(
+  pg_get_serial_sequence('"Usuario"', 'id'),
+  (SELECT MAX(id) FROM "Usuario")
+);`;
+  await prisma.$queryRaw`SELECT setval(
+  pg_get_serial_sequence('"Mensaje"', 'id'),
+  (SELECT MAX(id) FROM "Mensaje")
+);`;
+ await prisma.$queryRaw`SELECT setval(
+  pg_get_serial_sequence('"notificacion"', 'id'),
+  (SELECT MAX(id) FROM "notificacion")
+);`;
+
   console.log('✅ Seeder ejecutado correctamente con datos falsos.');
 }
 

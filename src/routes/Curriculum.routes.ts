@@ -4,7 +4,7 @@ import { createCurriculumController } from "../utils/factories/ClassFactory.js";
 const router = Router();
 const curriculumController = createCurriculumController();
 
-/* router.post("/create", async (req: Request, res: Response) => {
+router.post("/create", async (req: Request, res: Response) => {
   await curriculumController.create(req, res);
 });
 
@@ -22,6 +22,6 @@ router.put("/update/:id", async (req: Request, res: Response) => {
 
 router.delete("/delete/:id", async (req: Request, res: Response) => {
   await curriculumController.delete(req, res);
-}); */
+});
 
 export default router;

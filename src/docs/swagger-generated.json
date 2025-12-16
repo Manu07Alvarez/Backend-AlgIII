@@ -7,7 +7,6 @@
   },
   "servers": [
     {
-      "url": "localhost",
       "description": ""
     }
   ],
@@ -55,36 +54,6 @@
       }
     },
     "/api/guest/register": {
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "cookieAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/registerSchema"
-              },
-              "example": {
-                "nombre_apellido": "Juan Pérez",
-                "email": "fulanchoΩ@example.com",
-                "contrasenia": "4123@examplE"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Tema/create": {
       "post": {
         "description": "",
         "responses": {
@@ -642,6 +611,31 @@
         ]
       }
     },
+    "/api/post/like/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
     "/api/carrera/create": {
       "post": {
         "description": "",
@@ -1144,19 +1138,12 @@
         ]
       }
     },
-    "/api/curriculum/create": {
+    "/api/notificaciones/create": {
       "post": {
-        "tags": [
-          "Curriculum"
-        ],
-        "summary": "Crear curriculum",
-        "description": "Crea un nuevo curriculum",
+        "description": "",
         "responses": {
-          "201": {
-            "description": "Curriculum creado correctamente"
-          },
           "400": {
-            "description": "Datos inválidos"
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -1169,19 +1156,136 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/curriculumSchema"
+                "$ref": "#/components/schemas/PostNotificacionDTO"
+              },
+              "example": {
+                "contenido": "Nueva notificación para un usuario",
+                "id_usuario": 3,
+                "tipo": "post",
+                "id_post": 2
               }
             }
           }
         }
       }
     },
+    "/api/notificaciones/emit/{id}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/notificaciones/user/{id_usuario}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id_usuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/notificaciones/markRead/{id}": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/notificaciones/delete/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/curriculum/create": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
     "/api/curriculum/findByName/{name}": {
       "get": {
-        "tags": [
-          "Curriculum"
-        ],
-        "summary": "Buscar curriculum por nombre",
         "description": "",
         "parameters": [
           {
@@ -1194,18 +1298,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Listado de curriculums",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/curriculumSchema"
-                  }
-                }
-              }
-            }
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -1217,10 +1311,6 @@
     },
     "/api/curriculum/user/{userId}": {
       "get": {
-        "tags": [
-          "Curriculum"
-        ],
-        "summary": "Obtener curriculums por usuario",
         "description": "",
         "parameters": [
           {
@@ -1233,18 +1323,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Curriculums del usuario",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/curriculumSchema"
-                  }
-                }
-              }
-            }
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -1256,10 +1336,6 @@
     },
     "/api/curriculum/update/{id}": {
       "put": {
-        "tags": [
-          "Curriculum"
-        ],
-        "summary": "Actualizar curriculum",
         "description": "",
         "parameters": [
           {
@@ -1272,33 +1348,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Curriculum actualizado"
+          "default": {
+            "description": ""
           }
         },
         "security": [
           {
             "cookieAuth": []
           }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/curriculumSchema"
-              }
-            }
-          }
-        }
+        ]
       }
     },
     "/api/curriculum/delete/{id}": {
       "delete": {
-        "tags": [
-          "Curriculum"
-        ],
-        "summary": "Eliminar curriculum",
         "description": "",
         "parameters": [
           {
@@ -1311,8 +1373,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Curriculum eliminado"
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -1443,6 +1505,28 @@
                 }
               },
               "carrera_iseta": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "email": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "format": {
+                    "type": "string",
+                    "example": "email"
+                  }
+                }
+              },
+              "contrasenia": {
                 "type": "object",
                 "properties": {
                   "passwordRules": {
@@ -1973,61 +2057,6 @@
         },
         "xml": {
           "name": "curriculumSchema"
-        }
-      },
-      "curriculumExample": {
-        "type": "object",
-        "properties": {
-          "nombre": {
-            "type": "string",
-            "example": "Juan"
-          },
-          "apellido": {
-            "type": "string",
-            "example": "Pérez"
-          },
-          "fecha_nacimiento": {
-            "type": "string",
-            "example": "1990-05-15"
-          },
-          "telefono": {
-            "type": "string",
-            "example": "123-456-7890"
-          },
-          "email": {
-            "type": "string",
-            "example": "juan.perez@example.com"
-          },
-          "ultimo_titulo": {
-            "type": "string",
-            "example": "Licenciado en Sistemas"
-          },
-          "experiencia": {
-            "type": "string",
-            "example": "3 años como desarrollador backend"
-          },
-          "habilidades_duras": {
-            "type": "string",
-            "example": "Node.js, PostgreSQL"
-          },
-          "habilidades_blandas": {
-            "type": "string",
-            "example": "Comunicación"
-          }
-        },
-        "required": [
-          "nombre",
-          "apellido",
-          "fecha_nacimiento",
-          "telefono",
-          "email",
-          "ultimo_titulo",
-          "experiencia",
-          "habilidades_duras",
-          "habilidades_blandas"
-        ],
-        "xml": {
-          "name": "curriculumExample"
         }
       },
       "mensajeSchema": {

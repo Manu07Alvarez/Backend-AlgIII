@@ -19,7 +19,7 @@ const doc = {
   },
   servers: [
     {
-      url: host,
+      url: `http://${host}:${process.env.PORT || 5000}`,
       description: "",
     },
   ],

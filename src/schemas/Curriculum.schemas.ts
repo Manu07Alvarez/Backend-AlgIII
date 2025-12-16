@@ -4,7 +4,7 @@ export const CurriculumSchema = Type.Object({
     apellido: Type.String(),
     fecha_nacimiento: Type.String({format: 'date', errorMessage: 'El formato de la fecha es inválido'}),
     telefono: Type.Optional(Type.String({errorMessage: 'El formato del teléfono es inválido'})),
-    email: Type.Optional(Type.String ({format: 'email', errorMessage: 'El formato del email es inválido'})),
+    email: Type.String ({format: 'email', errorMessage: 'El formato del email es inválido'}),
     ultimo_titulo: Type.Optional(Type.String({errorMessage: 'El formato del título es inválido'})),
     experiencia: Type.Optional(Type.String({errorMessage: 'El formato de la experiencia es inválido'})),
     habilidades_blandas: Type.Optional(Type.String({errorMessage: 'El formato de las habilidades blandas es inválido'})),

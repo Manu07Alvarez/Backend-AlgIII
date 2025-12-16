@@ -8,7 +8,6 @@ import { MensajeSchema } from '../schemas/Mensajes.schemas.js';
 import { ReporteSchema } from '../schemas/Reportes.schemas.js';
 import { CurriculumSchema } from '../schemas/Curriculum.schemas.js';	
 
-const host = process.env.HOST
 
 const doc = {
 	info: {
@@ -18,8 +17,7 @@ const doc = {
 	},
 	servers: [
 			{
-					url: host,
-					description: ''
+				description: ''
 			},
 	],
 	components: {

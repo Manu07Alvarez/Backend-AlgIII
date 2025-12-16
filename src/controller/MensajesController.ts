@@ -20,6 +20,13 @@ export class MensajesController {
 	}
 
 	@errorResponse
+	public async like(req: Request, res: Response): Promise<void> {
+		const id = Number(req.params.id);
+		await this.MensajesService.like(id);
+		res.status(200).json({ message: 'Mensaje liked successfully' });
+	}
+
+	@errorResponse
 	public async activateOrDeactivate(req: Request, res: Response): Promise<void> {
 		const id = Number(req.params.id);
 		await this.MensajesService.activateOrDeactivate(id);

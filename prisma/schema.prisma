@@ -103,11 +103,13 @@ model Post {
   id             Int            @id() @default(autoincrement())
   titulo         String         @unique()
   contenido      String         @db.Text()
+  fijado         Boolean        @default(false)
   published      Boolean        @default(true)
   autor          Usuario        @relation(fields: [id_autor], references: [id])
   id_autor       Int
   createdAt      DateTime?      @default(now())
   updatedAt      DateTime?      @updatedAt()
+  likes          Int?
   id_tema        Int
   tema           Tema           @relation(fields: [id_tema], references: [id])
   Mensaje        Mensaje[]
@@ -129,6 +131,7 @@ model Mensaje {
   respuestas   Mensaje[]      @relation("MensajeRespuesta")
   contestado   Mensaje?       @relation("MensajeRespuesta", fields: [id_mensaje], references: [id])
   id_mensaje   Int?
+  likes        Int?
   Reportes     Reporte[]
   notificacion notificacion[]
   createdAt    DateTime?      @default(now())

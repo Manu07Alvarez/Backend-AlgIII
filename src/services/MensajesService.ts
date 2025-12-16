@@ -13,6 +13,11 @@ export class MensajesService extends Service<Mensaje> implements IMensajesServic
     ) {super(mensajeRepository, 'Mensajes');}
 
 
+    @validateService('not worked: ')
+    public async like(id: number): Promise<void> {
+        await this.mensajeRepository.like(id);
+    }
+
     @validateService('not found: ')
     public async findAllInUserId(userId: number): Promise<GetMensajeForRolDTO[]> {
         const mensajes = await this.mensajeRepository.findAllInUserId(userId);

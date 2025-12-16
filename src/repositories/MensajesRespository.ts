@@ -13,8 +13,16 @@ export default class MensajesRepository extends Repository<Mensaje, "mensaje"> i
   ) {
     super("mensaje");
   }
+  	
+  @validateRepo
+	public async like(id: number): Promise<void> {
+		await super["db"].update({
+			where: { id },
+			data: { likes: { increment: 1 } },
+		});
+	}
 
-  	@validateRepo
+  @validateRepo
 	public async findAllInPost(postId: number): Promise<NestedMessage[]> {
 		console.log(postId);
 		const messages = await this.dbK
@@ -27,6 +35,7 @@ export default class MensajesRepository extends Repository<Mensaje, "mensaje"> i
 				'm.id_autor',
 				'm.contenido',
 				'm.createdAt',
+				'm.likes',
 				jsonObjectFrom(
 					eb.selectFrom("Usuario as u")
 					.select([
@@ -86,6 +95,7 @@ export default class MensajesRepository extends Repository<Mensaje, "mensaje"> i
 				'm.id_autor',
 				'm.contenido',
 				'm.createdAt',
+				'm.likes',
 				jsonObjectFrom(
 					eb.selectFrom("Usuario as u")
 					.select([

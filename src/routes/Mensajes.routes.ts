@@ -65,4 +65,7 @@ router.delete("/delete/:id", (req: Request, res: Response) => {
   mensajesController.delete(req, res);
 });
 
+router.put("/like/:id", (req: Request, res: Response) => {
+  mensajesController.like(req, res);
+});
 export default router;

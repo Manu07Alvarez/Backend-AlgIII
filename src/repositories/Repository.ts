@@ -65,10 +65,6 @@ export default abstract class Repository<T, K extends ModelKeys> {
 	@validateRepo
 	public async findById(searchId: number): Promise<Partial<T>> {
 		return (this.db as any).findUniqueOrThrow({
-			omit: { 
-				createdAt: true, 
-				updatedAt: true 
-			},
 			where: { id: searchId }
 		});
 	}

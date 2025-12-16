@@ -37,6 +37,13 @@ export class PostController {
     }
 
     @errorResponse
+    public async like(req: Request, res: Response): Promise<void> {
+        const id = Number(req.params.id);
+        await this.PostService.like(id);
+        res.status(200).json({ message: 'Post liked successfully' });
+    }
+
+    @errorResponse
     public async findById(req: Request, res: Response): Promise<void> {
         const post = await this.PostService.findById(Number(req.params.id));
         res.status(200).json(post);

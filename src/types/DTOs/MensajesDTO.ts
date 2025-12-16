@@ -29,6 +29,7 @@ export const mensaje_mapper = {
             id_post: mensaje.id_post,
             id_mensaje: mensaje.id_mensaje,
             createdAt: mensaje.createdAt,
+            likes: mensaje.likes
         };
         // Solo agregamos autor si existe
         if (isNestedMessage(mensaje)) {
@@ -38,6 +39,7 @@ export const mensaje_mapper = {
                         id: (mensaje as NestedMessage).autor.id,
                         nombre_apellido: (mensaje as NestedMessage).autor.nombre_apellido,
                         email: (mensaje as NestedMessage).autor.email,
+                        rol: (mensaje as NestedMessage).autor.rol
                     },
                 });
             }
@@ -59,7 +61,8 @@ export const mensaje_mapper = {
             id_post: mensaje.id_post,
             createdAt: mensaje.createdAt,
             id_mensaje: mensaje.id_mensaje,
-            updatedAt: mensaje.updatedAt
+            updatedAt: mensaje.updatedAt,
+            likes: mensaje.likes
         };
                 if (isNestedMessage(mensaje)) {
             if ((mensaje as NestedMessage).autor) {
@@ -89,7 +92,8 @@ export const mensaje_mapper = {
             id_post: mensaje.id_post,
             createdAt: mensaje.createdAt,
             id_mensaje: mensaje.id_mensaje,
-            updatedAt: mensaje.updatedAt
+            updatedAt: mensaje.updatedAt,
+            likes: mensaje.likes
         };
                 if (isNestedMessage(mensaje)) {
             if ((mensaje as NestedMessage).autor) {

@@ -8,4 +8,6 @@ export default interface IMensajesRepository {
   activateOrDeactivate(id: number): Promise<void>;
   update(id: number, data: Mensaje): Promise<void>;
   delete(id: number): Promise<void>;
+  like(id: number): Promise<void>;
+  
 }

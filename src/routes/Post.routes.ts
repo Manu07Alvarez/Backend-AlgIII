@@ -81,4 +81,8 @@ router.delete("/delete/:id", (req: Request, res: Response) => {
   postController.delete(req, res);
 });
 
+router.put("/like/:id", (req: Request, res: Response) => {
+  postController.like(req, res);
+});
+
 export default router;

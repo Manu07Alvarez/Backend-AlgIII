@@ -9,4 +9,5 @@ export default interface IMensajesService {
     activateOrDeactivate(id: number): Promise<void>;
     delete(id: number): Promise<void>;
     update(id: number, data: Partial<Mensaje>): Promise<void>;
+    like(id: number): Promise<void>;
 }

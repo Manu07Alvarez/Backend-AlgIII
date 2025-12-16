@@ -11,4 +11,5 @@ export default interface IpostService{
     delete(id: number): Promise<void>;
     update(id: number, data: Partial<Post>): Promise<void>;
     getPagination(params: PaginationParams): Promise<PaginationResults<GetPostForRolDTO>>;
+    like(id: number): Promise<void>;
 }

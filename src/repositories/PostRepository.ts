@@ -1,5 +1,5 @@
 import { validateRepo } from '../decorators/errors/errors.js';
-import type { Post, PrismaClient } from 'db';
+import { Post, Prisma, PrismaClient } from 'db';
 import Repository from './Repository.js';
 import IPostRepository from './interfaces/IPostRepository.js';
 import { PaginationParams, PaginationResults } from 'types/pagination.types.js';
@@ -14,11 +14,24 @@ export class PostRepository extends Repository<Post, "post"> implements IPostRep
 
     @validateRepo
     async findByTitle(title: string): Promise<Partial<Post[]>> {
-        return await super["db"].findMany({
-            where: { titulo: { contains: title } },
-        });
+      return await super["db"].findMany({
+				where: { 
+					titulo: { 
+						contains: title,
+						mode: Prisma.QueryMode.insensitive
+				}},
+      });
     }
 
+    @validateRepo
+    public async like(id: number): Promise<void> {
+      await super["db"].update({
+        where: { id },
+        data: { likes: { increment: 1 } },
+      });
+	  }
+
+    @validateRepo
     public async getPagination(
         params: PaginationParams & { search?: string; sortBy?: string; sortOrder?: 'asc' | 'desc' }
     ): Promise<PaginationResults<Post>> {

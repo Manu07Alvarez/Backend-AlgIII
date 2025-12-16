@@ -12,6 +12,11 @@ export class PostService extends Service<Post> implements IPostService {
         super(postRepository, 'post');
     }
 
+    @validateService('not worked: ')
+    async like(id: number): Promise<void> {
+        await this.postRepository.like(id);
+    }
+
     @validateService('not found: ')
     async findByTitle(name: string): Promise<GetPostForRolDTO[]> {
         const posts = await this.postRepository.findByTitle(name) as Post[];
